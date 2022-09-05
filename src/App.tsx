@@ -5,7 +5,12 @@ import { Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from './GlobalStyle';
 import Footer from './Components/Footer';
-
+import './App.css'
+import About from './Components/About';
+import Career from './Components/Career';
+import Contact from './Components/Contact';
+import Gallery from './Components/Gallery';
+import Login from './Components/Login';
 const App = () => {
   const theme = {
     colors: {
@@ -32,6 +37,11 @@ const App = () => {
         <Header />
         <Routes>
           <Route path='/' element={<Home />}></Route>
+          <Route path='/about' element={<About />}></Route>
+          <Route path='/career' element={<Career />}></Route>
+          <Route path='/contact' element={<Contact />}></Route>
+          <Route path='/gallery' element={<Gallery />}></Route>
+          <Route path='/login' element={<Login />}></Route>
         </Routes>
         <Footer />
       </ThemeProvider>

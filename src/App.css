@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,700;1,400&family=Roboto:wght@700&family=Rubik&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+}
+
+.navbar {
+    background: #2d3436;
+}
+
+.listItems {
+    color: #fff;
+}
+
+.listItems:hover {
+    color: #fff;
+}
+
+.box {
+    display: flex;
+    /* justify-content: flex-start; */
+    align-items: center;
+    height: 200px;
+    background: #ced6e0;
+    flex-direction: column;
+    width: 70%;
+    margin: 2rem 0;
+    box-shadow: 0px 2px 8px rgba(26, 24, 30, 0.06);
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+.head {
+    background: #1dd1a1;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+.text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+}
+
+.textPara {
+    font-size: 1.5rem;
+    margin-top: 3rem;
+}
+
+.navItem {
+    gap: 4rem;
+}
+
+.aboutSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1000px;
+    background-color: #a29bfe;
+}
+
+.parentForm {
+    border: 1px solid #000;
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.formSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1700px;
+
+}
+
+.aboutHead {
+    text-align: center;
+    color: #fff;
+    font-size: 4rem;
+    font-weight: 600;
+}
+
+.aboutPara {
+    width: 70%;
+    margin: auto;
+    font-size: 1.2rem;
+    padding: 1.5rem 0;
+}
+
+.aboutUl {
+    width: 70%;
+    margin: auto;
+    padding-left: 0rem;
+}
+
+.aboutUl li {
+    font-size: 1.2rem;
+    padding: 1rem 0;
+}
+
+.formBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
