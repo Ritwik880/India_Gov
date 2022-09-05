@@ -1,46 +1,17 @@
-import React, { useState } from 'react';
-import Carousel from 'react-bootstrap/Carousel';
-import styled from 'styled-components';
+import React from 'react';
 import ButtonMap from './elements/ButtonMap';
 import Notification from './elements/Notification';
 
 const Home = () => {
-    const [index, setIndex] = useState(0);
-
-    const handleSelect = (selectedIndex: any) => {
-        setIndex(selectedIndex);
-    };
-
 
     return (
         <>
-
-            <Carousel activeIndex={index} onSelect={handleSelect} indicators={false}>
-                <Carousel.Item >
-                    <img
-                        className="d-block w-100 landingBanner"
-                        src="https://source.unsplash.com/720x600/?politics"
-                        alt="First slide"
-                    />
-
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100 landingBanner"
-                        src="https://source.unsplash.com/720x600/?law"
-                        alt="Second slide"
-                    />
-
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100 landingBanner"
-                        src="https://source.unsplash.com/720x600/?government"
-                        alt="Third slide"
-                    />
-
-                </Carousel.Item>
-            </Carousel>
+            <div className="pb-6 d-flex align-items-center home-page">
+                <div className="container d-flex align-items-center">
+                    <div className="text-white mx-auto mt-5 upper">
+                    </div>
+                </div>
+            </div>
             <ButtonMap />
             <Notification />
 

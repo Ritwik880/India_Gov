@@ -11,6 +11,37 @@
     background: #2d3436;
 }
 
+.home-page {
+    min-height: 500px !important;
+    /* width: 100%; */
+    background-image: linear-gradient(rgba(9, 5, 54, 0.3), rgba(5, 4, 46, 0.7)), url('./images/happy.jpg');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+.about-page {
+    min-height: 500px !important;
+    /* width: 100%; */
+    background-image: linear-gradient(rgba(9, 5, 54, 0.3), rgba(5, 4, 46, 0.7)), url('./images/aboutLanding.png');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.contact-page {
+    min-height: 500px !important;
+    /* width: 100%; */
+    background-image: linear-gradient(rgba(9, 5, 54, 0.3), rgba(5, 4, 46, 0.7)), url('./images/contact.jpg');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 .upperNav {
     display: flex;
     justify-content: space-evenly;
@@ -256,3 +287,5 @@
     }
 
 }
+
+@media (min-width: 768px) and (max-width: 1023px) {}
