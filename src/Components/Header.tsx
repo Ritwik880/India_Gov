@@ -3,21 +3,16 @@ import styled from 'styled-components';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 const Header = () => {
-    const Div = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 2rem;
-    background: ${({ theme }) => theme.colors.bg};
-    `
+
     const Header = styled.header``
     return (
         <Header>
-            <Div>
-                <div> <img src="./images/logo.jpg" alt="logo" width={50} />
-                    <img src="./images/logoContent.jpg" alt="logo" width={300} /></div>
-                <img src="./images/tiger.jpg" alt="logo" width={100} />
-            </Div>
+            <div className='upperNav'>
+                <div> <img className='headerImage1' src="./images/logo.jpg" alt="logo" />
+                    <img className='headerImage2' src="./images/logoContent.jpg" alt="logo" />
+                </div>
+                <img className='headerImage3' src="./images/tiger.jpg" alt="logo" />
+            </div>
             <Navbar collapseOnSelect expand="lg" className='navbar'>
                 <Container>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />

@@ -4,7 +4,7 @@ const Career = () => {
     return (
         <section className='formSection'>
             <div className="row container">
-                <h1>Application Form for Store Supervisor</h1>
+                <h1 className='formHead'>Application Form for Store Supervisor</h1>
                 <form>
                     <div className="parentForm">
                         <h2>Personal Details</h2>
@@ -191,7 +191,7 @@ const Career = () => {
                         </div>
 
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="formSubmit">Submit</button>
 
                 </form>
 
