@@ -1,7 +1,7 @@
 import React from 'react';
 import ButtonMap from './elements/ButtonMap';
 import Notification from './elements/Notification';
-
+import Table from './Table'
 const Home = () => {
 
     return (
@@ -14,6 +14,7 @@ const Home = () => {
             </div>
             <ButtonMap />
             <Notification />
+            <Table />
 
 
         </>

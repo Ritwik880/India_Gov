@@ -11,6 +11,8 @@ import Career from './Components/Career';
 import Contact from './Components/Contact';
 import Gallery from './Components/Gallery';
 import Login from './Components/Login';
+import ApplyNow from './Components/ApplyNow';
+import Refund from './Components/Refund';
 const App = () => {
   const theme = {
     colors: {
@@ -42,6 +44,8 @@ const App = () => {
           <Route path='/contact' element={<Contact />}></Route>
           <Route path='/gallery' element={<Gallery />}></Route>
           <Route path='/login' element={<Login />}></Route>
+          <Route path='/applyNow' element={<ApplyNow />}></Route>
+          <Route path='/refund-policy' element={<Refund />}></Route>
         </Routes>
         <Footer />
       </ThemeProvider>

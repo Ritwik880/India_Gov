@@ -1,13 +1,9 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 const Footer = () => {
-    const Footer = styled.footer`
-        
 
-    `
-    const Div = styled.div`
-       
-    `
+
     const Anchor = styled.a`
         color: ${({ theme }) => theme.colors.color};
     `
@@ -24,7 +20,11 @@ const Footer = () => {
                         <Anchor href="#">Copyright</Anchor>
                         <Anchor href="#">Privacy</Anchor>
                         <Anchor href="#">Terms & Conditions</Anchor>
-                        <Anchor href="#">Refund</Anchor>
+                        <Anchor href="#">
+                            <Link to='/refund-policy'>
+                                Refund
+                            </Link>
+                        </Anchor>
                     </div>
 
                 </div>

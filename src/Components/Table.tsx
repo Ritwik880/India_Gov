@@ -1,7 +1,7 @@
 import React from 'react'
 import { ROW as rowData } from '../utils/constants';
 import { Link } from 'react-router-dom';
-const Career = () => {
+const Table = () => {
     return (
         <section className="jobSection">
             <div className="row container">
@@ -35,7 +35,7 @@ const Career = () => {
                                     <td>{item.age}</td>
                                     <td>{item.sal}</td>
                                     <td>
-                                        <Link to='/career'>
+                                        <Link to='/applyNow'>
                                             <button className='applyNow' >
                                                 {item.btn}
                                             </button></Link>
@@ -54,4 +54,4 @@ const Career = () => {
     )
 }
 
-export default Career
+export default Table
