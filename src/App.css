@@ -338,7 +338,7 @@ th {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-image: url('./images/back.jpg');
+    background-image: url('../public/images/back.jpg');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
