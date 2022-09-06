@@ -20,7 +20,7 @@
 .home-page {
     min-height: 200px !important;
     /* width: 100%; */
-    background-image: linear-gradient(rgba(9, 5, 54, 0.3), rgba(5, 4, 46, 0.7)), url('./images/banner.jpg');
+    background-image: linear-gradient(rgba(9, 5, 54, 0.3), rgba(5, 4, 46, 0.7)), url('../public/images/banner.jpg');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -32,7 +32,7 @@
 .about-page {
     min-height: 200px !important;
     /* width: 100%; */
-    background-image: linear-gradient(rgba(9, 5, 54, 0.3), rgba(5, 4, 46, 0.7)), url('./images/banner.jpg');
+    background-image: linear-gradient(rgba(9, 5, 54, 0.3), rgba(5, 4, 46, 0.7)), url('../public/images/banner.jpg');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -43,7 +43,7 @@
 .contact-page {
     min-height: 200px !important;
     /* width: 100%; */
-    background-image: linear-gradient(rgba(9, 5, 54, 0.3), rgba(5, 4, 46, 0.7)), url('./images/banner.jpg');
+    background-image: linear-gradient(rgba(9, 5, 54, 0.3), rgba(5, 4, 46, 0.7)), url('../public/images/banner.jpg');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -54,7 +54,7 @@
 .refund-page {
     min-height: 200px !important;
     /* width: 100%; */
-    background-image: linear-gradient(rgba(9, 5, 54, 0.3), rgba(5, 4, 46, 0.7)), url('./images/banner.jpg');
+    background-image: linear-gradient(rgba(9, 5, 54, 0.3), rgba(5, 4, 46, 0.7)), url('../public/images/banner.jpg');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -68,7 +68,7 @@
     color: #fff;
     height: 400px;
     opacity: 0.9;
-    background-image: url('./images/table.jpg');
+    background-image: url('../public/images/table.jpg');
     background-size: cover;
     background-position: center top;
     display: flex;
