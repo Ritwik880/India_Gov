@@ -12,41 +12,45 @@ const Table = () => {
                     <p>[All Notification / Advertisement Details English </p>
                 </div>
 
-                <table>
-                    <tr>
-                        <th>S.No.</th>
-                        <th>Post Name</th>
-                        <th>No. of Vacancy</th>
-                        <th>Experience</th>
-                        <th>Qualification</th>
-                        <th>Age</th>
-                        <th>Salary</th>
-                        <th>Apply Now</th>
-                    </tr>
-                    {
-                        rowData.map((item, id) => {
-                            return (
-                                <tr key={id}>
-                                    <td>{item.id}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.vacancy}</td>
-                                    <td>{item.exp}</td>
-                                    <td>{item.qual}</td>
-                                    <td>{item.age}</td>
-                                    <td>{item.sal}</td>
-                                    <td>
-                                        <Link to='/applyNow'>
-                                            <button className='applyNow' >
-                                                {item.btn}
-                                            </button></Link>
-                                    </td>
+                <div className='tableFlow'>
+                    <table>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Post Name</th>
+                            <th>No. of Vacancy</th>
+                            <th>Experience</th>
+                            <th>Qualification</th>
+                            <th>Age</th>
+                            <th>Salary</th>
+                            <th>Apply Now</th>
+                        </tr>
+                        {
+                            rowData.map((item, id) => {
+                                return (
+                                    <tr key={id}>
+                                        <td>{item.id}</td>
+                                        <td>{item.name}</td>
+                                        <td>{item.vacancy}</td>
+                                        <td>{item.exp}</td>
+                                        <td>{item.qual}</td>
+                                        <td>{item.age}</td>
+                                        <td>{item.sal}</td>
+                                        <td>
+                                            <Link to='/applyNow'>
+                                                <button className='applyNow' >
+                                                    {item.btn}
+                                                </button></Link>
+                                        </td>
 
-                                </tr>
-                            )
-                        })
-                    }
+                                    </tr>
+                                )
+                            })
+                        }
 
-                </table>
+                    </table>
+
+                </div>
+
 
 
             </div>
