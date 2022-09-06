@@ -4,6 +4,7 @@ import { Form, Row, Col, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 // import { db } from "../firebase.js";
 import "react-toastify/dist/ReactToastify.css";
+import Cta from './Cta';
 
 const Contact = () => {
     const [first, setFirst] = useState("");
@@ -26,9 +27,6 @@ const Contact = () => {
             <div className="pb-6 d-flex align-items-center contact-page">
                 <div className="container d-flex align-items-center">
                     <div className="text-white mx-auto mt-5 upper">
-                        <div className="display-2 text-center">
-                            Contact Us
-                        </div>
                     </div>
                 </div>
             </div>
@@ -95,6 +93,7 @@ const Contact = () => {
                     </div>
                 </div>
             </section>
+            <Cta />
         </>
     )
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import ButtonMap from './elements/ButtonMap';
+import Cta from './Cta';
 import Notification from './elements/Notification';
 import Table from './Table'
 const Home = () => {
@@ -12,9 +12,9 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <ButtonMap />
             <Notification />
             <Table />
+            <Cta />
 
 
         </>

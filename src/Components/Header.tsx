@@ -8,10 +8,13 @@ const Header = () => {
     return (
         <Header>
             <div className='upperNav'>
-                <div> <img className='headerImage1' src="./images/logo.jpg" alt="logo" />
-                    <img className='headerImage2' src="./images/logoContent.jpg" alt="logo" />
+                <div> <img className='headerImage1' src="./images/logo.png" alt="logo" />
+                    <img className='headerImage2' src="./images/logoContent.png" alt="logo" />
                 </div>
-                <img className='headerImage3' src="./images/tiger.jpg" alt="logo" />
+                <div>
+                    <img className='headerImage3' src="./images/tiger.png" alt="logo" />
+                    <img className='headerImage3' src="./images/chasma.png" alt="logo" />
+                </div>
             </div>
             <Navbar collapseOnSelect expand="lg" className='navbar'>
                 <Container>
@@ -38,8 +41,6 @@ const Header = () => {
                             </LinkContainer>
 
                         </Nav>
-
-
                     </Navbar.Collapse>
                 </Container>
             </Navbar >

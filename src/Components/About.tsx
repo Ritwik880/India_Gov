@@ -1,4 +1,5 @@
 import React from 'react'
+import Cta from './Cta'
 
 const About = () => {
     return (
@@ -8,11 +9,6 @@ const About = () => {
 
                 <div className="container d-flex align-items-center">
                     <div className="text-white mx-auto mt-5 upper">
-                        <div className="display-2 text-center">
-                            About Us
-                        </div>
-
-
                     </div>
                 </div>
             </div>
@@ -32,6 +28,7 @@ const About = () => {
                     </ul>
                 </div>
             </section>
+            <Cta />
 
         </>
     )

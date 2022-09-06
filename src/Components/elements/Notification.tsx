@@ -1,12 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { BUTTONDATA as data } from '../../utils/constants';
 const Notification = () => {
-    const Section = styled.section`
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #c7ecee;
-    `
     const H1 = styled.h1`
     font-size: 2rem;
         
@@ -14,7 +9,21 @@ const Notification = () => {
 
     return (
         <>
-            <Section>
+
+            <section className='noti'>
+                {/* <ButtonMap /> */}
+                <div className='mapButtons'>
+                    {
+                        data.map((item, i) => {
+                            return (
+                                <button key={i} className='mapData'>
+                                    {item.title}
+                                </button>
+                            )
+                        })
+                    }
+
+                </div>
 
                 <div className="box">
                     <div className="head">
@@ -25,7 +34,7 @@ const Notification = () => {
                     </div>
                 </div>
 
-            </Section>
+            </section>
         </>
     )
 }

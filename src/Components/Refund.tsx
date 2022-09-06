@@ -1,4 +1,5 @@
 import React from 'react'
+import Cta from './Cta'
 
 const Refund = () => {
     return (
@@ -8,11 +9,6 @@ const Refund = () => {
 
                 <div className="container d-flex align-items-center">
                     <div className="text-white mx-auto mt-5 upper">
-                        <div className="display-2 text-center">
-                            Refund Policy
-                        </div>
-
-
                     </div>
                 </div>
             </div>
@@ -23,6 +19,7 @@ const Refund = () => {
 
                 </div>
             </section>
+            <Cta />
         </>
     )
 }
