@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import {
+  Box, CircularProgress
+} from "@mui/material";
 import './App.css'
 import Header from './Components/Header'
 import Home from './Components/Home';
@@ -16,7 +19,6 @@ import Copyright from './Components/Copyright';
 import Privacy from './Components/Privacy';
 import Terms from './Components/Terms';
 import ScrollToTop from './Components/ScrollToTop';
-import { XlviLoader } from "react-awesome-loaders";
 const App = () => {
   const [loading, setLoading] = useState(false);
 
@@ -30,15 +32,18 @@ const App = () => {
   return (
     <>
       {
-        loading ? <div className="preLoader">
-          <XlviLoader
-            boxColors={["#EF4444", "#F59E0B", "#6366F1"]}
-            desktopSize={"50px"}
-            mobileSize={"50px"}
+        loading ?
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: '100vh',
+            }}
+          >
+            <CircularProgress />
+          </Box>
 
-
-          />
-        </div>
           : <div>
             <Header />
             <ScrollToTop />
