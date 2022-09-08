@@ -284,7 +284,7 @@ const ApplyNow = () => {
 
                         <div className="formBox">
 
-                            <div className="form-group col-md-12 col-lg-12">
+                            <div className="form-group col-md-12 col-lg-12 tableFlow">
                                 <table className="table table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -316,7 +316,7 @@ const ApplyNow = () => {
 
                         <div className="formBox">
 
-                            <div className="form-group col-md-12 col-lg-12">
+                            <div className="form-group col-md-12 col-lg-12 tableFlow">
                                 <table className="table table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -362,7 +362,7 @@ const ApplyNow = () => {
                         </div>
                         <div className="formBox">
 
-                            <div className="form-group col-md-12 col-lg-12">
+                            <div className="form-group col-md-12 col-lg-12 tableFlow">
                                 <table className="table table-bordered table-hover">
                                     <thead>
                                         <tr>

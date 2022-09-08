@@ -29,6 +29,10 @@
 
 }
 
+input {
+    width: 100%;
+}
+
 .about-page {
     min-height: 200px !important;
     /* width: 100%; */

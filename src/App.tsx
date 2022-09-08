@@ -41,7 +41,7 @@ const App = () => {
               height: '100vh',
             }}
           >
-            <CircularProgress />
+            <CircularProgress size='5rem' />
           </Box>
 
           : <div>
