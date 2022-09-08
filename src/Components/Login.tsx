@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Form } from 'react-bootstrap';
 import { BiLock } from 'react-icons/bi'
 import { MdOutlineEmail } from 'react-icons/md'
+import { IoCallOutline } from 'react-icons/io5'
 import '../login.css'
 import Cta from './Cta';
 const Login = () => {
@@ -21,7 +22,7 @@ const Login = () => {
                         <Form onSubmit={handleSubmit}>
 
                             <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label className='formLabel'> <MdOutlineEmail className='signupIcon' />
+                                <Form.Label className='formLabel'> <IoCallOutline className='signupIcon' />
                                     Email Mobile Number</Form.Label>
                                 <Form.Control type="email" placeholder="Enter your number" value={email} required autoComplete="offf" onChange={(e) => setEmail(e.target.value)} />
 
