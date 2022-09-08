@@ -75,7 +75,7 @@ progress {
 
 @media (max-width: 767px) {
     .formLayout {
-        width: 94%;
+        width: 100%;
         margin: 0;
 
     }
