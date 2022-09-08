@@ -253,7 +253,8 @@ th {
 }
 
 .parentForm {
-    border: 1px solid #000;
+    border: 1px solid #d6e9c6;
+    border-radius: 3px;
     padding: 2rem;
     margin: 2rem 0;
 }
@@ -262,8 +263,15 @@ th {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 1700px;
+    height: auto;
+    padding: 2rem 0;
 
+}
+
+.submitFormData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .aboutHead {
@@ -330,10 +338,22 @@ th {
 }
 
 .formSubmit {
-    border: 1px solid #000;
-    padding: 0.5rem 1.5rem;
-    margin-bottom: 1rem;
-    background: #a29bfe;
+    background-color: #f59620;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #FFFFFF;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+}
+
+.footerFormHead {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333333;
+    padding: 1rem 0;
 }
 
 .noti {

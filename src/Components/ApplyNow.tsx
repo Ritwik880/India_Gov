@@ -7,7 +7,7 @@ const ApplyNow = () => {
                 <h1 className='formHead'>Application Form for Store Supervisor</h1>
                 <form>
                     <div className="parentForm">
-                        <h2>Personal Details</h2>
+                        <h2 className='footerFormHead'>Personal Details</h2>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputEmail1" className="form-label">Name *</label>
@@ -69,7 +69,7 @@ const ApplyNow = () => {
                         </div>
                     </div>
                     <div className="parentForm">
-                        <h2>Permanent Address</h2>
+                        <h2 className='footerFormHead'>Permanent Address</h2>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputEmail1" className="form-label">House No/Apartment Name/Block No *</label>
@@ -110,7 +110,7 @@ const ApplyNow = () => {
                             </div>
                         </div>
                         <hr />
-                        <h2>Present/Correspondence Address</h2>
+                        <h2 className='footerFormHead'>Present/Correspondence Address</h2>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputEmail1" className="form-label">House No/Apartment Name/Block No *</label>
@@ -155,7 +155,7 @@ const ApplyNow = () => {
 
 
                     <div className="parentForm">
-                        <h2>Contact Details</h2>
+                        <h2 className='footerFormHead'>Contact Details</h2>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputEmail1" className="form-label">Email ID *</label>
@@ -191,7 +191,10 @@ const ApplyNow = () => {
                         </div>
 
                     </div>
-                    <button type="submit" className="formSubmit">Submit</button>
+                    <div className="submitFormData">
+                        <button type="submit" className="formSubmit">Submit</button>
+                        <button type="submit" className="formSubmit">save</button>
+                    </div>
 
                 </form>
 
