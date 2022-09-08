@@ -14,6 +14,7 @@ const About = () => {
             </div>
             <section className='aboutSection'>
                 <div className="row container">
+                    <h1>About Us</h1>
                     <p className='aboutPara'>A strong and dynamic food processing sector plays a vital role in reduction in the wastage of perishable agricultural produce, enhancing shelf life of food products, ensuring value addition to agricultural produce, diversification & commercialization of agriculture, generation of employment, enhancing income of farmers and creating surplus for the export of agro & processed foods. In the era of economic liberalization, all segments including; private, public and co-operative sectors have defined roles to play and the Food Processing Corporation of India (FPCI) promotes their active participation.</p>
 
                     <p className='aboutPara'>The Food Processing Corporation of India (FPCI) has a clear goal of attaining these objectives by facilitating and acting as a catalyst to attract quality investments from within India and abroad into this sector with the aim of making food processing a national initiative. With this overall objective, the FPCI aims to:</p>

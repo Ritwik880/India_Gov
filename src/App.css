@@ -243,8 +243,13 @@ th {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 400px;
+    height: auto;
+    padding: 2rem;
 
+}
+
+.refundHead {
+    padding: 0rem;
 }
 
 .parentForm {
@@ -269,8 +274,6 @@ th {
 }
 
 .aboutPara {
-    width: 70%;
-    margin: auto;
     font-size: 1.2rem;
     padding: 1.5rem 0;
 }
@@ -359,6 +362,7 @@ th {
 .linkFooterItem {
     color: #fff;
     transition: 0.3s;
+    text-decoration: none;
 }
 
 .linkFooterItem:hover {
@@ -414,7 +418,7 @@ th {
     }
 
     .headerImage3 {
-        width: 100px;
+        width: 78px;
     }
 
     .upperNav {
@@ -462,8 +466,13 @@ th {
     }
 
     .landing-about-section {
-        height: 300px;
+        height: auto;
     }
+
+    .upperNav {
+        padding: 1rem;
+    }
+
 
 }
 
