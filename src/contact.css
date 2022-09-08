@@ -1,6 +1,6 @@
 .section {
     color: #6F8BA4;
-    padding: 100px 0;
+    padding: 3rem 0;
     position: relative;
 }
 
@@ -78,11 +78,7 @@
     border: none !important;
 }
 
-@media (max-width: 767px) {
-    .contact-form .send {
-        margin-bottom: 20px;
-    }
-}
+
 
 .section-title h2 {
     font-weight: 700;
@@ -120,13 +116,17 @@
 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .section .mobileView {
         padding-top: 4%;
     }
 
-    .contact-form .inPhone {
-        padding-top: 8px;
+    .contact-form .send {
+        margin-bottom: 20px;
+    }
+
+    .section {
+        padding: 2rem 0;
     }
 
 }
