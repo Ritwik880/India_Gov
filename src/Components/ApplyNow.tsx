@@ -279,6 +279,114 @@ const ApplyNow = () => {
                     </div>
 
                     <div className="parentForm">
+                        <h2 className='footerFormHead' id="add-modal-label">Academic Qualification
+                        </h2>
+
+                        <div className="formBox">
+
+                            <div className="form-group col-md-12 col-lg-12">
+                                <table className="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Class	</th>
+                                            <th>School Name	</th>
+                                            <th>Board		</th>
+                                            <th>% Mark		</th>
+                                            <th>Passing Year
+
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="add_row_div_experience">
+
+                                    </tbody>
+                                </table>
+                                <button type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                    <div className="parentForm">
+                        <h2 className='footerFormHead' id="add-modal-label">Higher Qualification
+                        </h2>
+
+                        <div className="formBox">
+
+                            <div className="form-group col-md-12 col-lg-12">
+                                <table className="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Course Name</th>
+                                            <th>Specialization</th>
+                                            <th>% Mark	</th>
+                                            <th>Passing Year	</th>
+                                            <th>Course Type
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="add_row_div_experience">
+
+                                    </tbody>
+                                </table>
+                                <button type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                    <div className="parentForm">
+                        <h2 className='footerFormHead' id="add-modal-label">Experience Details</h2>
+                        <div className="formBox">
+                            <div className="mb-3 col-lg-3 col-md-12">
+                                <label htmlFor="exampleInputEmail1" className="form-label">Experience</label>
+                                <select className="form-control select-experience" name="experience">
+                                    <option value="">--select--</option>
+                                    <option value="yes"  >Yes</option>
+                                    <option value="no"  >No</option>
+                                </select>
+
+                            </div>
+                            <div className="mb-3 col-lg-3 col-md-12">
+                                <label htmlFor="exampleInputPassword1" className="form-label">Total Experience(IN YEAR)</label>
+                                <input type="text" name="no_experience" value="" className='form-control' placeholder="Total Experience(IN YEAR)" />
+                            </div>
+
+
+                        </div>
+                        <div className="formBox">
+
+                            <div className="form-group col-md-12 col-lg-12">
+                                <table className="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Company Name</th>
+                                            <th>Designation</th>
+                                            <th>Location</th>
+                                            <th>Duration From</th>
+                                            <th>Duration To</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="add_row_div_experience">
+
+                                    </tbody>
+                                </table>
+                                <button type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                    <div className="parentForm">
                         <h2 className='footerFormHead' id="add-modal-label">Uplaod Documents <span className="must-filed"><span className="must-filed">*</span></span></h2>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">

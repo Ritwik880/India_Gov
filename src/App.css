@@ -272,6 +272,11 @@ th {
     color: red;
 }
 
+.add-more-row-experience {
+    border: none;
+    padding: 0.5rem 1rem;
+}
+
 .submitFormData {
     display: flex;
     justify-content: center;
