@@ -11,18 +11,38 @@ const Footer = () => {
             <footer className='footer'>
                 <div className="row container">
                     <div className='footerItems'>
-                        <a className='footerLinkTag' href="#">Web Policies</a>
+
+                        <Link to='/web-policy' className='linkFooterItem'>
+                            Web Policies
+                        </Link>
+
                         <a className='footerLinkTag' href="#">visitior analytics</a>
-                        <a className='footerLinkTag' href="#">Contact Us</a>
+
+                        <Link to='/contact' className='linkFooterItem'>
+                            Contact Us
+                        </Link>
+
                         <a className='footerLinkTag' href="#">Follow Us</a>
-                        <a className='footerLinkTag' href="#">Copyright</a>
-                        <a className='footerLinkTag' href="#">Privacy</a>
-                        <a className='footerLinkTag' href="#">Terms & Conditions</a>
-                        <a className='footerLinkTag' href="#">
-                            <Link to='/refund-policy'>
-                                Refund
-                            </Link>
-                        </a>
+
+                        <Link to='/copyright' className='linkFooterItem'>
+                            Copyright
+                        </Link>
+
+
+                        <Link to='/privacy-policy' className='linkFooterItem'>
+                            Privacy
+                        </Link>
+
+
+                        <Link to='/terms-condition' className='linkFooterItem'>
+                            Terms & Conditions
+                        </Link>
+
+
+                        <Link to='/refund-policy' className='linkFooterItem'>
+                            Refund
+                        </Link>
+
                     </div>
 
                 </div>

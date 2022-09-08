@@ -1,11 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import './App.css'
 import Header from './Components/Header'
 import Home from './Components/Home';
-import { Route, Routes } from 'react-router-dom'
-import { ThemeProvider } from "styled-components";
-import { GlobalStyle } from './GlobalStyle';
 import Footer from './Components/Footer';
-import './App.css'
 import About from './Components/About';
 import Career from './Components/Career';
 import Contact from './Components/Contact';
@@ -13,43 +11,55 @@ import Gallery from './Components/Gallery';
 import Login from './Components/Login';
 import ApplyNow from './Components/ApplyNow';
 import Refund from './Components/Refund';
+import Policies from './Components/Policies';
+import Copyright from './Components/Copyright';
+import Privacy from './Components/Privacy';
+import Terms from './Components/Terms';
+import ScrollToTop from './Components/ScrollToTop';
+import { XlviLoader } from "react-awesome-loaders";
 const App = () => {
-  const theme = {
-    colors: {
-      color: "#FFFFFF",
-      grey: "#576574",
-      bg: "#F4FCFF",
-      btn: "#1dd1a1",
-      background: "#2e86de",
-      footer: "#2d3436",
-      btnGradient: "linear-gradient(89.6deg, #5077FF 0.31%, #9981FB 42.01%, #F797FF 99.64%)",
-      cardBox: "linear-gradient(89.6deg, #5077FF 0.31%, #9981FB 42.01%, #999DFB 99.64%)",
-      gradient:
-        "linear-gradient(89.6deg, #2CBDFB 0.31%, #9175FF 47.7%, #4764FF 99.64%)",
-      shadow:
-        "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;",
-      shadowSupport: " rgba(0, 0, 0, 0.16) 0px 1px 4px",
-    },
-    media: { mobile: "768px", tab: "998px" },
-  };
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000) //3 secs
+  }, [])
+
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Header />
-        <Routes>
-          <Route path='/' element={<Home />}></Route>
-          <Route path='/about' element={<About />}></Route>
-          <Route path='/career' element={<Career />}></Route>
-          <Route path='/contact' element={<Contact />}></Route>
-          <Route path='/gallery' element={<Gallery />}></Route>
-          <Route path='/login' element={<Login />}></Route>
-          <Route path='/applyNow' element={<ApplyNow />}></Route>
-          <Route path='/refund-policy' element={<Refund />}></Route>
-        </Routes>
-        <Footer />
-      </ThemeProvider>
+      {
+        loading ? <div className="preLoader">
+          <XlviLoader
+            boxColors={["#EF4444", "#F59E0B", "#6366F1"]}
+            desktopSize={"50px"}
+            mobileSize={"50px"}
 
+
+          />
+        </div>
+          : <div>
+            <Header />
+            <ScrollToTop />
+            <Routes>
+              <Route path='/' element={<Home />}></Route>
+              <Route path='/about' element={<About />}></Route>
+              <Route path='/career' element={<Career />}></Route>
+              <Route path='/contact' element={<Contact />}></Route>
+              <Route path='/gallery' element={<Gallery />}></Route>
+              <Route path='/login' element={<Login />}></Route>
+              <Route path='/apply-now' element={<ApplyNow />}></Route>
+              <Route path='/refund-policy' element={<Refund />}></Route>
+              <Route path='/web-policy' element={<Policies />}></Route>
+              <Route path='/copyright' element={<Copyright />}></Route>
+              <Route path='/privacy-policy' element={<Privacy />}></Route>
+              <Route path='/terms-condition' element={<Terms />}></Route>
+            </Routes>
+            <Footer />
+
+          </div>
+      }
     </>
   )
 }

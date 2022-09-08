@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { AiOutlineHome } from 'react-icons/ai'
 const Header = () => {
 
     const Header = styled.header``
@@ -22,7 +23,9 @@ const Header = () => {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mx-auto navItem">
                             <LinkContainer to="/">
-                                <Nav.Link className='listItems'>HOME</Nav.Link>
+                                <Nav.Link className='listItems'>
+                                    <AiOutlineHome />
+                                </Nav.Link>
                             </LinkContainer>
                             <LinkContainer to="/about">
                                 <Nav.Link className='listItems'>ABOUT US</Nav.Link>

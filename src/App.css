@@ -344,6 +344,34 @@ th {
     background-repeat: no-repeat;
 }
 
+.policySection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 2rem;
+}
+
+.policy {
+    padding: 1rem 0;
+}
+
+.linkFooterItem {
+    color: #fff;
+    transition: 0.3s;
+}
+
+.linkFooterItem:hover {
+    color: #cc2425;
+}
+
+.preLoader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 @media (max-width: 767px) {
     .landingBanner {
         height: 30vh;
