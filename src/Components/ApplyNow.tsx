@@ -1,155 +1,379 @@
-import React from 'react'
+import React, { useEffect, useState, useRef } from 'react';
+// @ts-ignore
+// import Files from 'react-files';
 
+import * as Yup from 'yup';
+
+import axios from '../utils/axios';
+import { ToastContainer, toast } from "react-toastify";
+import { Select, MenuItem, styled, Typography, InputLabel } from '@mui/material';
+import FormProvider from './hook-form/FormProvider';
+import RHFTextField from './hook-form/RHFTextField';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useSnackbar } from 'notistack';
+import { LoadingButton } from '@mui/lab';
+
+
+
+const SaveButton = styled(LoadingButton)(({ theme }) => ({
+    backgroundColor: '#f559620',
+    borderRadius: '6px',
+    fontWeight: '600',
+    fontSize: '16px',
+    color: 'FFFFFF',
+    padding: '0.5rem 1rem',
+    marginRight: '1rem'
+
+}));
+
+type ProfileValuesProps = {
+    applicationId: number;
+    applicantName: string;
+    fatherName: string;
+    motherName: string;
+    dateOfBirth: string;
+    category: string;
+    gender: string;
+    religion: string;
+    houseNumber: string;
+    area: string;
+    city: string;
+    counry: string;
+    pincode: string;
+    road: string;
+    state: string;
+    emailId: string;
+    mobileNumber: string;
+    aadharNumber: string;
+    alternateEmailId: string;
+    alternateMobileNumber: string;
+    pancard: string;
+    academicQualificationId: string;
+    board: string;
+    className: string;
+    passingYear: string;
+    percentage: string;
+    schoolName: string;
+    courseName: string;
+    courseType: string;
+    higherQualificationId: string;
+    passingYearHQ: string;
+    percentageHQ: string;
+    specialization: string;
+    exp: string;
+    total_experience: string;
+    companyName: string;
+    designation: string;
+    location: string;
+    durationFrom: string;
+    durationTo: string;
+    afterSubmit?: string;
+
+};
 const ApplyNow = () => {
+    const [file, setFile] = useState<string | Blob>('');
+    const [frontFile, setFrontFile] = useState<string | Blob>("");
+    const [backFile, setBackFile] = useState<string | Blob>("");
+    const [fileName, setFileName] = React.useState<string>('');
+    const [item, setItem] = useState("");
+    const [gender, setGender] = useState("");
+    const [state, setState] = useState("");
+    const [exp, setExp] = useState("");
+    const [addRow, setAddRow] = useState(false);
+    const [addHQ, setAddHQ] = useState(false);
+    const [addTE, setAddTE] = useState(false);
+    const [row, setRow] = useState(0);
+    const { enqueueSnackbar } = useSnackbar();
+    const [loading, setLoading] = useState(false);
+
+    const ProfileSchema = Yup.object().shape({
+        applicantName: Yup.string().required('Applicant name is required'),
+        fatherName: Yup.string().required('Applicant father name is required'),
+        motherName: Yup.string().required('Applicant mother name is required'),
+        dateOfBirth: Yup.string().required('Applicant date of birth name is required'),
+        houseNumber: Yup.string().required('Applicant House Number is required'),
+        road: Yup.string().required('Applicant road name is required'),
+        area: Yup.string().required('Applicant area name is required'),
+        pincode: Yup.string().required('Applicant pincode is required'),
+        emailId: Yup.string().required('Applicant email Id is required'),
+        mobileNumber: Yup.string().required('Applicant mobile number is required'),
+        aadharNumber: Yup.string().required('Applicant aadhar number is required'),
+        alternateEmailId: Yup.string().required('Applicant alternate email Id is required'),
+        alternateMobileNumber: Yup.string().required('Applicant alternate mobile number is required'),
+        pancard: Yup.string().required('Applicant pancard number is required'),
+        board: Yup.string().required('Applicant board name is required'),
+        className: Yup.string().required('Applicant className is required'),
+        passingYear: Yup.string().required('Applicant passingYear is required'),
+        percentage: Yup.string().required('Applicant percentage is required'),
+        schoolName: Yup.string().required('Applicant schoolName is required'),
+        courseName: Yup.string().required('Applicant courseName is required'),
+        courseType: Yup.string().required('Applicant courseType is required'),
+        passingYearHQ: Yup.string().required('Applicant passingYear is required'),
+        total_experience: Yup.string().required('Applicant Total Experience is required'),
+        companyName: Yup.string().required('Applicant companyName is required'),
+        designation: Yup.string().required('Applicant designation is required'),
+        location: Yup.string().required('Applicant location is required'),
+        durationFrom: Yup.string().required('Applicant durationFrom is required'),
+        durationTo: Yup.string().required('Applicant durationTo is required'),
+    });
+
+    const defaultValues = {
+        applicantName: '',
+        fatherName: '',
+        motherName: '',
+        dateOfBirth: '',
+        houseNumber: '',
+        pincode: '',
+        road: '',
+        area: '',
+        category: '',
+        gender: '',
+        religion: '',
+        emailId: '',
+        aadharNumber: '',
+        mobileNumber: '',
+        alternateEmailId: '',
+        alternateMobileNumber: '',
+        pancard: '',
+        board: '',
+        className: '',
+        passingYear: '',
+        percentage: '',
+        schoolName: '',
+        courseName: '',
+        courseType: '',
+        passingYearHQ: '',
+        total_experience: '',
+        companyName: '',
+        designation: '',
+        location: '',
+        durationFrom: '',
+        durationTo: '',
+
+    };
+    const methods = useForm<ProfileValuesProps>({
+        resolver: yupResolver(ProfileSchema),
+        defaultValues,
+    });
+
+    const { handleSubmit, setValue } = methods;
+
+
+    const onSubmit = async (data: ProfileValuesProps) => {
+        const profileForm = new FormData();
+
+        profileForm.append('applicantName', data.applicantName);
+        profileForm.append('fatherName', data.fatherName);
+        profileForm.append('motherName', data.motherName);
+        profileForm.append('dateOfBirth', data.dateOfBirth);
+        profileForm.append('religion', data.religion);
+        profileForm.append('houseNumber', data.houseNumber);
+        profileForm.append('road', data.road);
+        profileForm.append('area', data.area);
+        profileForm.append('state', data.state);
+        profileForm.append('pincode', data.pincode);
+        profileForm.append('emailId', data.emailId);
+        profileForm.append('mobileNumber', data.mobileNumber);
+        profileForm.append('aadharNumber', data.aadharNumber);
+        profileForm.append('alternateEmailId', data.alternateEmailId);
+        profileForm.append('alternateMobileNumber', data.alternateMobileNumber);
+        profileForm.append('pancard', data.pancard);
+        profileForm.append('percentage', data.percentage);
+        profileForm.append('schoolName', data.schoolName);
+        profileForm.append('courseName', data.courseName);
+        profileForm.append('courseType', data.courseType);
+        profileForm.append('passingYear', data.passingYear);
+        profileForm.append('passingYearHQ', data.passingYearHQ);
+        profileForm.append('total_experience', data.total_experience);
+        profileForm.append('companyName', data.companyName);
+        profileForm.append('designation', data.designation);
+        profileForm.append('location', data.location);
+        profileForm.append('durationFrom', data.durationFrom);
+        profileForm.append('durationTo', data.durationTo);
+        exp && profileForm.append('experience', exp);
+        gender && profileForm.append('gender', gender);
+        item && profileForm.append('category', item);
+        state && profileForm.append('category', state);
+        frontFile && profileForm.append("photo", frontFile);
+        backFile && profileForm.append("signature", backFile);
+        try {
+            setLoading(true);
+            const response = await axios.post('/api/application/save-application-details', profileForm);
+            const { message, data } = response.data;
+            toast.success("Success");
+            setLoading(false);
+
+        } catch (error: any) {
+            setLoading(false);
+            toast.error("Something went wrong!");
+        }
+    };
+
+    const onFilesChange = (files: any) => {
+        setFileName(files.map((filename: any) => filename.preview.url));
+        setFile(files[0]);
+    };
+
+    const onFilesError = (error: any, file: any) => {
+        console.log('error code ' + error.code + ': ' + error.message);
+    };
+
+    const handleAddRow = () => {
+        setAddRow(true);
+        setRow(row + 1);
+    }
+
+    const handleAddHQ = () => {
+        setAddHQ(true);
+
+    }
+    const handleAddTE = () => {
+        setAddTE(true);
+
+    }
     return (
         <section className='formSection'>
             <div className="row container">
+                <ToastContainer position="top-center" />
                 <h1 className='formHead'>Application Form for Store Supervisor</h1>
-                <form>
+                <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
                     <div className="parentForm">
                         <h2 className='footerFormHead'>Personal Details</h2>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputEmail1" className="form-label">Name <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='Enter Name' id="exampleInputEmail1" aria-describedby="emailHelp" />
+
+                                <RHFTextField name="applicantName" label="" placeholder='Enter Name' />
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Father Name <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='Enter FatherName' id="exampleInputPassword1" />
+
+                                <RHFTextField name="fatherName" label="" placeholder='Enter FatherName' />
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Mother Name <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='Enter MotherName' id="exampleInputPassword1" />
+
+                                <RHFTextField name="motherName" label="" placeholder='Enter MotherName' />
                             </div>
 
                         </div>
+
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputEmail1" className="form-label">Date Of Birth <span className="must-filed">*</span></label>
-                                <input type="date" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                <RHFTextField name="dateOfBirth" label="" placeholder='dd/mm/yyyy' />
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
-                                <label htmlFor="exampleInputPassword1" className="form-label">Gender <span className="must-filed">*</span></label>
-                                <select className="form-select" id="state" required>
-                                    <option value="">Male</option>
-                                    <option>Female</option>
-                                </select>
+                                <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+                                <Select labelId='demo-simple-select-label' label="Gender" name='gender' value={gender} onChange={(e) => setGender(e.target.value)} className="form-select" id="state" required>
+                                    <MenuItem value="Male">Male</MenuItem>
+                                    <MenuItem value="Female">Female</MenuItem>
+                                </Select>
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Category <span className="must-filed">*</span></label>
-                                <select className="form-select" id="state" required>
-                                    <option value="">Choose...</option>
-                                    <option>General</option>
-                                    <option>OBC</option>
-                                    <option>ST</option>
-                                    <option>SC</option>
-                                    <option>EWS</option>
-                                    <option>others</option>
-                                </select>
+                                <Select value={item} onChange={(e) => setItem(e.target.value)} name='category' className="form-select" id="state" required>
+                                    <MenuItem value="General">General</MenuItem>
+                                    <MenuItem value="OBC">OBC</MenuItem>
+                                    <MenuItem value="ST">ST</MenuItem>
+                                    <MenuItem value="SC">SC</MenuItem>
+                                    <MenuItem value="EWS">EWS</MenuItem>
+                                    <MenuItem value="others">others</MenuItem>
+                                </Select>
                             </div>
 
 
-                        </div>
-                        <div className="formBox">
-                            <div className="mb-3 col-lg-3 col-md-12">
-                                <label htmlFor="exampleInputPassword1" className="form-label">Religion <span className="must-filed">*</span></label>
-                                <select className="form-select" id="state" required>
-                                    <option value="">Choose...</option>
-                                    <option>Hindu</option>
-                                    <option>Sikh</option>
-                                    <option>Christian</option>
-                                    <option>Muslim</option>
-                                    <option>Jain</option>
-                                    <option>Buddhist</option>
-                                    <option>others</option>
-                                </select>
-                            </div>
                         </div>
                     </div>
+
                     <div className="parentForm">
                         <h2 className='footerFormHead'>Permanent Address</h2>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputEmail1" className="form-label">House No/Apartment Name/Block No <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='House No/Apartment Name/Block No' id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                <RHFTextField name="houseNumber" label="" placeholder='House No/Apartment Name/Block N' />
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Road/Street/Lane <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='Road/Street/Lane' id="exampleInputPassword1" />
+
+                                <RHFTextField name="road" label="" placeholder='Road/Street/Lane' />
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Area/Landmark <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='Area/Landmark' id="exampleInputPassword1" />
+
+                                <RHFTextField name="area" label="" placeholder='Area/Landmark' />
                             </div>
 
                         </div>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputEmail1" className="form-label">Country <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" value='India' id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                <RHFTextField name="road" value='India' label="" disabled />
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">State <span className="must-filed">*</span></label>
-                                <select name="p_state" required className="form-control">
-                                    <option>--select--</option>
-                                    <option value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</option>
-                                    <option value="Andhra Pradesh"  >Andhra Pradesh</option>
-                                    <option value="Arunachal Pradesh"  >Arunachal Pradesh</option>
-                                    <option value="Assam"  >Assam</option>
-                                    <option value="Bihar"  >Bihar</option>
-                                    <option value="Chandigarh"  >Chandigarh</option>
-                                    <option value="Chhattisgarh"  >Chhattisgarh</option>
-                                    <option value="Dadra and Nagar Haveli"  >Dadra and Nagar Haveli</option>
-                                    <option value="Daman and Diu"  >Daman and Diu</option>
-                                    <option value="Delhi"  >Delhi</option>
-                                    <option value="Goa"  >Goa</option>
-                                    <option value="Gujarat"  >Gujarat</option>
-                                    <option value="Haryana"  >Haryana</option>
-                                    <option value="Himachal Pradesh"  >Himachal Pradesh</option>
-                                    <option value="Jammu and Kashmir"  >Jammu and Kashmir</option>
-                                    <option value="Jharkhand"  >Jharkhand</option>
-                                    <option value="Karnataka"  >Karnataka</option>
-                                    <option value="Kenmore"  >Kenmore</option>
-                                    <option value="Kerala"  >Kerala</option>
-                                    <option value="Lakshadweep"  >Lakshadweep</option>
-                                    <option value="Madhya Pradesh"  >Madhya Pradesh</option>
-                                    <option value="Maharashtra"  >Maharashtra</option>
-                                    <option value="Manipur"  >Manipur</option>
-                                    <option value="Meghalaya"  >Meghalaya</option>
-                                    <option value="Mizoram"  >Mizoram</option>
-                                    <option value="Nagaland"  >Nagaland</option>
-                                    <option value="Narora"  >Narora</option>
-                                    <option value="Natwar"  >Natwar</option>
-                                    <option value="Odisha"  >Odisha</option>
-                                    <option value="Paschim Medinipur"  >Paschim Medinipur</option>
-                                    <option value="Pondicherry"  >Pondicherry</option>
-                                    <option value="Punjab"  >Punjab</option>
-                                    <option value="Rajasthan"  >Rajasthan</option>
-                                    <option value="Sikkim"  >Sikkim</option>
-                                    <option value="Tamil Nadu"  >Tamil Nadu</option>
-                                    <option value="Telangana"  >Telangana</option>
-                                    <option value="Tripura"  >Tripura</option>
-                                    <option value="Uttar Pradesh"  >Uttar Pradesh</option>
-                                    <option value="Uttarakhand"  >Uttarakhand</option>
-                                    <option value="Vaishali"  >Vaishali</option>
-                                    <option value="West Bengal"  >West Bengal</option>
-                                </select>
+                                <Select name="state" value={state} onChange={(e) => setState(e.target.value)} required className="form-control">
+                                    <MenuItem>--select--</MenuItem>
+                                    <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
+                                    <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
+                                    <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
+                                    <MenuItem value="Assam"  >Assam</MenuItem>
+                                    <MenuItem value="Bihar"  >Bihar</MenuItem>
+                                    <MenuItem value="Chandigarh"  >Chandigarh</MenuItem>
+                                    <MenuItem value="Chhattisgarh"  >Chhattisgarh</MenuItem>
+                                    <MenuItem value="Dadra and Nagar Haveli"  >Dadra and Nagar Haveli</MenuItem>
+                                    <MenuItem value="Daman and Diu"  >Daman and Diu</MenuItem>
+                                    <MenuItem value="Delhi"  >Delhi</MenuItem>
+                                    <MenuItem value="Goa"  >Goa</MenuItem>
+                                    <MenuItem value="Gujarat"  >Gujarat</MenuItem>
+                                    <MenuItem value="Haryana"  >Haryana</MenuItem>
+                                    <MenuItem value="Himachal Pradesh"  >Himachal Pradesh</MenuItem>
+                                    <MenuItem value="Jammu and Kashmir"  >Jammu and Kashmir</MenuItem>
+                                    <MenuItem value="Jharkhand"  >Jharkhand</MenuItem>
+                                    <MenuItem value="Karnataka"  >Karnataka</MenuItem>
+                                    <MenuItem value="Kenmore"  >Kenmore</MenuItem>
+                                    <MenuItem value="Kerala"  >Kerala</MenuItem>
+                                    <MenuItem value="Lakshadweep"  >Lakshadweep</MenuItem>
+                                    <MenuItem value="Madhya Pradesh"  >Madhya Pradesh</MenuItem>
+                                    <MenuItem value="Maharashtra"  >Maharashtra</MenuItem>
+                                    <MenuItem value="Manipur"  >Manipur</MenuItem>
+                                    <MenuItem value="Meghalaya"  >Meghalaya</MenuItem>
+                                    <MenuItem value="Mizoram"  >Mizoram</MenuItem>
+                                    <MenuItem value="Nagaland"  >Nagaland</MenuItem>
+                                    <MenuItem value="Narora"  >Narora</MenuItem>
+                                    <MenuItem value="Natwar"  >Natwar</MenuItem>
+                                    <MenuItem value="Odisha"  >Odisha</MenuItem>
+                                    <MenuItem value="Paschim Medinipur"  >Paschim Medinipur</MenuItem>
+                                    <MenuItem value="Pondicherry"  >Pondicherry</MenuItem>
+                                    <MenuItem value="Punjab"  >Punjab</MenuItem>
+                                    <MenuItem value="Rajasthan"  >Rajasthan</MenuItem>
+                                    <MenuItem value="Sikkim"  >Sikkim</MenuItem>
+                                    <MenuItem value="Tamil Nadu"  >Tamil Nadu</MenuItem>
+                                    <MenuItem value="Telangana"  >Telangana</MenuItem>
+                                    <MenuItem value="Tripura"  >Tripura</MenuItem>
+                                    <MenuItem value="Uttar Pradesh"  >Uttar Pradesh</MenuItem>
+                                    <MenuItem value="Uttarakhand"  >Uttarakhand</MenuItem>
+                                    <MenuItem value="Vaishali"  >Vaishali</MenuItem>
+                                    <MenuItem value="West Bengal"  >West Bengal</MenuItem>
+                                </Select>
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">City <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='City' id="exampleInputPassword1" />
+                                <RHFTextField name="city" label="" placeholder='City' />
                             </div>
 
 
                         </div>
+
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='PinCode' id="exampleInputPassword1" />
+                                <RHFTextField name="pincode" label="" placeholder='PinCode' />
                             </div>
                         </div>
                         <hr />
@@ -157,16 +381,18 @@ const ApplyNow = () => {
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputEmail1" className="form-label">House No/Apartment Name/Block No <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='House No/Apartment Name/Block No' id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                <RHFTextField name="houseNumber" label="" placeholder='House No/Apartment Name/Block N' />
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Road/Street/Lane <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='Road/Street/Lane' id="exampleInputPassword1" />
+
+                                <RHFTextField name="road" label="" placeholder='Road/Street/Lane' />
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Area/Landmark <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='Area/Landmark' id="exampleInputPassword1" />
+
+                                <RHFTextField name="area" label="" placeholder='Area/Landmark' />
                             </div>
 
 
@@ -174,107 +400,114 @@ const ApplyNow = () => {
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputEmail1" className="form-label">Country <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" value='India' id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                <RHFTextField name="road" value='India' label="" disabled />
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">State <span className="must-filed">*</span></label>
-                                <select name="p_state" required className="form-control">
-                                    <option>--select--</option>
-                                    <option value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</option>
-                                    <option value="Andhra Pradesh"  >Andhra Pradesh</option>
-                                    <option value="Arunachal Pradesh"  >Arunachal Pradesh</option>
-                                    <option value="Assam"  >Assam</option>
-                                    <option value="Bihar"  >Bihar</option>
-                                    <option value="Chandigarh"  >Chandigarh</option>
-                                    <option value="Chhattisgarh"  >Chhattisgarh</option>
-                                    <option value="Dadra and Nagar Haveli"  >Dadra and Nagar Haveli</option>
-                                    <option value="Daman and Diu"  >Daman and Diu</option>
-                                    <option value="Delhi"  >Delhi</option>
-                                    <option value="Goa"  >Goa</option>
-                                    <option value="Gujarat"  >Gujarat</option>
-                                    <option value="Haryana"  >Haryana</option>
-                                    <option value="Himachal Pradesh"  >Himachal Pradesh</option>
-                                    <option value="Jammu and Kashmir"  >Jammu and Kashmir</option>
-                                    <option value="Jharkhand"  >Jharkhand</option>
-                                    <option value="Karnataka"  >Karnataka</option>
-                                    <option value="Kenmore"  >Kenmore</option>
-                                    <option value="Kerala"  >Kerala</option>
-                                    <option value="Lakshadweep"  >Lakshadweep</option>
-                                    <option value="Madhya Pradesh"  >Madhya Pradesh</option>
-                                    <option value="Maharashtra"  >Maharashtra</option>
-                                    <option value="Manipur"  >Manipur</option>
-                                    <option value="Meghalaya"  >Meghalaya</option>
-                                    <option value="Mizoram"  >Mizoram</option>
-                                    <option value="Nagaland"  >Nagaland</option>
-                                    <option value="Narora"  >Narora</option>
-                                    <option value="Natwar"  >Natwar</option>
-                                    <option value="Odisha"  >Odisha</option>
-                                    <option value="Paschim Medinipur"  >Paschim Medinipur</option>
-                                    <option value="Pondicherry"  >Pondicherry</option>
-                                    <option value="Punjab"  >Punjab</option>
-                                    <option value="Rajasthan"  >Rajasthan</option>
-                                    <option value="Sikkim"  >Sikkim</option>
-                                    <option value="Tamil Nadu"  >Tamil Nadu</option>
-                                    <option value="Telangana"  >Telangana</option>
-                                    <option value="Tripura"  >Tripura</option>
-                                    <option value="Uttar Pradesh"  >Uttar Pradesh</option>
-                                    <option value="Uttarakhand"  >Uttarakhand</option>
-                                    <option value="Vaishali"  >Vaishali</option>
-                                    <option value="West Bengal"  >West Bengal</option>
-                                </select>
+                                <Select name="state" value={state} onChange={(e) => setState(e.target.value)} required className="form-control">
+                                    <MenuItem>--select--</MenuItem>
+                                    <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
+                                    <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
+                                    <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
+                                    <MenuItem value="Assam"  >Assam</MenuItem>
+                                    <MenuItem value="Bihar"  >Bihar</MenuItem>
+                                    <MenuItem value="Chandigarh"  >Chandigarh</MenuItem>
+                                    <MenuItem value="Chhattisgarh"  >Chhattisgarh</MenuItem>
+                                    <MenuItem value="Dadra and Nagar Haveli"  >Dadra and Nagar Haveli</MenuItem>
+                                    <MenuItem value="Daman and Diu"  >Daman and Diu</MenuItem>
+                                    <MenuItem value="Delhi"  >Delhi</MenuItem>
+                                    <MenuItem value="Goa"  >Goa</MenuItem>
+                                    <MenuItem value="Gujarat"  >Gujarat</MenuItem>
+                                    <MenuItem value="Haryana"  >Haryana</MenuItem>
+                                    <MenuItem value="Himachal Pradesh"  >Himachal Pradesh</MenuItem>
+                                    <MenuItem value="Jammu and Kashmir"  >Jammu and Kashmir</MenuItem>
+                                    <MenuItem value="Jharkhand"  >Jharkhand</MenuItem>
+                                    <MenuItem value="Karnataka"  >Karnataka</MenuItem>
+                                    <MenuItem value="Kenmore"  >Kenmore</MenuItem>
+                                    <MenuItem value="Kerala"  >Kerala</MenuItem>
+                                    <MenuItem value="Lakshadweep"  >Lakshadweep</MenuItem>
+                                    <MenuItem value="Madhya Pradesh"  >Madhya Pradesh</MenuItem>
+                                    <MenuItem value="Maharashtra"  >Maharashtra</MenuItem>
+                                    <MenuItem value="Manipur"  >Manipur</MenuItem>
+                                    <MenuItem value="Meghalaya"  >Meghalaya</MenuItem>
+                                    <MenuItem value="Mizoram"  >Mizoram</MenuItem>
+                                    <MenuItem value="Nagaland"  >Nagaland</MenuItem>
+                                    <MenuItem value="Narora"  >Narora</MenuItem>
+                                    <MenuItem value="Natwar"  >Natwar</MenuItem>
+                                    <MenuItem value="Odisha"  >Odisha</MenuItem>
+                                    <MenuItem value="Paschim Medinipur"  >Paschim Medinipur</MenuItem>
+                                    <MenuItem value="Pondicherry"  >Pondicherry</MenuItem>
+                                    <MenuItem value="Punjab"  >Punjab</MenuItem>
+                                    <MenuItem value="Rajasthan"  >Rajasthan</MenuItem>
+                                    <MenuItem value="Sikkim"  >Sikkim</MenuItem>
+                                    <MenuItem value="Tamil Nadu"  >Tamil Nadu</MenuItem>
+                                    <MenuItem value="Telangana"  >Telangana</MenuItem>
+                                    <MenuItem value="Tripura"  >Tripura</MenuItem>
+                                    <MenuItem value="Uttar Pradesh"  >Uttar Pradesh</MenuItem>
+                                    <MenuItem value="Uttarakhand"  >Uttarakhand</MenuItem>
+                                    <MenuItem value="Vaishali"  >Vaishali</MenuItem>
+                                    <MenuItem value="West Bengal"  >West Bengal</MenuItem>
+                                </Select>
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">City <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='City' id="exampleInputPassword1" />
+                                <RHFTextField name="city" label="" placeholder='City' />
                             </div>
 
 
                         </div>
+
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='PinCode' id="exampleInputPassword1" />
+                                <RHFTextField name="pincode" label="" placeholder='PinCode' />
                             </div>
                         </div>
+
                     </div>
-
-
                     <div className="parentForm">
                         <h2 className='footerFormHead'>Contact Details</h2>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputEmail1" className="form-label">Email ID <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='Email ID' id="exampleInputEmail1" aria-describedby="emailHelp" />
+
+                                <RHFTextField name="emailId" label="" placeholder='Email ID' />
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Mobile No <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='Mobile No' id="exampleInputPassword1" />
+
+                                <RHFTextField name="mobileNumber" label="" placeholder='Mobile No' />
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Aadhar No <span className="must-filed">*</span></label>
-                                <input type="text" className="form-control" placeholder='Aadhar No' id="exampleInputPassword1" />
+                                <RHFTextField name="aadharNumber" label="" placeholder='Aadhar No' />
                             </div>
 
                         </div>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputEmail1" className="form-label">Alternate Email ID</label>
-                                <input type="text" className="form-control" placeholder='Alternate Email ID' id="exampleInputEmail1" aria-describedby="emailHelp" />
+
+                                <RHFTextField name="alternateEmailId" label="" placeholder='Alternate Email ID' />
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Alternate Mobile No</label>
-                                <input type="text" className="form-control" placeholder='Alternate Mobile No' id="exampleInputPassword1" />
+
+                                <RHFTextField name="alternateMobileNumber" label="" placeholder='Alternate Mobile No' />
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Pancard No.</label>
-                                <input type="text" className="form-control" placeholder='Pancard No' id="exampleInputPassword1" />
+
+                                <RHFTextField name="pancard" label="" placeholder='Pancard No' />
                             </div>
 
 
                         </div>
+
+
 
                     </div>
 
@@ -298,10 +531,21 @@ const ApplyNow = () => {
                                         </tr>
                                     </thead>
                                     <tbody className="add_row_div_experience">
+                                        {
+                                            addRow &&
 
+                                            <tr>
+                                                <td> <RHFTextField name="board" label="" placeholder='Board Name' /></td>
+                                                <td> <RHFTextField name="className" label="" placeholder='Class Name' /></td>
+                                                <td> <RHFTextField name="passingYear" label="" placeholder='Passing Year' /></td>
+                                                <td> <RHFTextField name="percentage" label="" placeholder='Percentage' /></td>
+                                                <td> <RHFTextField name="schoolName" label="" placeholder='School Name' /></td>
+                                            </tr>
+
+                                        }
                                     </tbody>
                                 </table>
-                                <button type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                                <button onClick={handleAddRow} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
                             </div>
 
 
@@ -329,10 +573,22 @@ const ApplyNow = () => {
                                         </tr>
                                     </thead>
                                     <tbody className="add_row_div_experience">
+                                        {
+                                            addHQ &&
+
+                                            <tr>
+                                                <td> <RHFTextField name="board" label="" placeholder='Board Name' /></td>
+                                                <td> <RHFTextField name="className" label="" placeholder='Class Name' /></td>
+                                                <td> <RHFTextField name="percentage" label="" placeholder='Percentage' /></td>
+                                                <td> <RHFTextField name="passingYear" label="" placeholder='Passing Year' /></td>
+                                                <td> <RHFTextField name="schoolName" label="" placeholder='School Name' /></td>
+                                            </tr>
+
+                                        }
 
                                     </tbody>
                                 </table>
-                                <button type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                                <button onClick={handleAddHQ} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
                             </div>
 
 
@@ -346,16 +602,16 @@ const ApplyNow = () => {
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputEmail1" className="form-label">Experience</label>
-                                <select className="form-control select-experience" name="experience">
-                                    <option value="">--select--</option>
-                                    <option value="yes"  >Yes</option>
-                                    <option value="no"  >No</option>
-                                </select>
+                                <Select value={exp} onChange={(e) => setExp(e.target.value)} className="form-control select-experience" name="experience">
+                                    <MenuItem value="">--select--</MenuItem>
+                                    <MenuItem value="yes"  >Yes</MenuItem>
+                                    <MenuItem value="no"  >No</MenuItem>
+                                </Select>
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Total Experience(IN YEAR)</label>
-                                <input type="text" name="no_experience" value="" className='form-control' placeholder="Total Experience(IN YEAR)" />
+                                <RHFTextField type="number" name="total_experience" label="" placeholder='Total Experience(IN YEAR)' />
                             </div>
 
 
@@ -374,10 +630,22 @@ const ApplyNow = () => {
                                         </tr>
                                     </thead>
                                     <tbody className="add_row_div_experience">
+                                        {
+                                            addTE &&
+
+                                            <tr>
+                                                <td> <RHFTextField name="companyName" label="" placeholder='Company Name' /></td>
+                                                <td> <RHFTextField name="designation" label="" placeholder='Designation' /></td>
+                                                <td> <RHFTextField name="location" label="" placeholder='Location' /></td>
+                                                <td> <RHFTextField name="durationFrom" label="" placeholder='Duration From' /></td>
+                                                <td> <RHFTextField name="durationTo" label="" placeholder='Duration To' /></td>
+                                            </tr>
+
+                                        }
 
                                     </tbody>
                                 </table>
-                                <button type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                                <button onClick={handleAddTE} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
                             </div>
 
 
@@ -391,25 +659,40 @@ const ApplyNow = () => {
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputEmail1" className="form-label">Upload Photo <span className="must-filed">*</span></label>
-                                <input type="file" className="form-control file-max-upload" id="add-Photo" accept=".jpeg" name="photo" required />
+                                <input onChange={(e) => setFrontFile(e.target.value)} type="file" className="form-control file-max-upload" id="add-Photo" accept=".jpeg" name="photo" required />
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Upload Signature <span className="must-filed">*</span></label>
                                 <input type="file" className="form-control file-max-upload" id="add-Sign" accept=".jpeg" required name="signature" />
                             </div>
-
-
                         </div>
-
-
                     </div>
+
+
                     <div className="submitFormData">
                         <button type="submit" className="formSubmit">Submit</button>
-                        <button type="submit" className="formSubmit">save</button>
+                        <button type="submit" className="formSubmit" onClick={handleSubmit(onSubmit)}>save</button>
+                        {/* <LoadingButton
+                            sx={{
+                                backgroundColor: '#f559620 !important',
+                                borderRadius: '6px',
+                                fontWeight: '600',
+                                fontSize: '16px',
+                                color: 'FFFFFF',
+                                padding: '0.5rem 1rem',
+                                marginRight: '1rem'
+                            }}
+                            size="small"
+                            loading={loading}
+                            onClick={handleSubmit(onSubmit)}
+                        >
+                            Save
+                        </LoadingButton> */}
                     </div>
 
-                </form>
+
+                </FormProvider>
 
             </div>
         </section>

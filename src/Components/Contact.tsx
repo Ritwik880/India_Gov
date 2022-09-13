@@ -2,25 +2,62 @@ import React, { useState } from 'react';
 import '../contact.css'
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
-// import { db } from "../firebase.js";
+import * as Yup from 'yup';
+
+import axios from '../utils/axios';
+import FormProvider from './hook-form/FormProvider';
+import RHFTextField from './hook-form/RHFTextField';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import "react-toastify/dist/ReactToastify.css";
 import Cta from './Cta';
 
+type ProfileValuesProps = {
+    name: string;
+    email: string;
+    subject: string;
+    phone: string;
+
+};
 const Contact = () => {
-    const [first, setFirst] = useState("");
-    const [last, setLast] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
-    const [item, setItem] = useState("");
     const [message, setMessage] = useState("");
 
-    const [loader, setLoader] = useState(false);
+    const ProfileSchema = Yup.object().shape({
+        name: Yup.string().required('Name is required'),
+        email: Yup.string().required('Email is required'),
+        subject: Yup.string().required('Subject is required'),
+        phone: Yup.string().required('Phone is required'),
+    });
 
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-        setLoader(true);
+    const defaultValues = {
+        name: '',
+        email: '',
+        subject: '',
+        phone: '',
 
+    };
+    const methods = useForm<ProfileValuesProps>({
+        resolver: yupResolver(ProfileSchema),
+        defaultValues,
+    });
 
+    const { handleSubmit, setValue } = methods;
+
+    const onSubmit = async (data: ProfileValuesProps) => {
+        const profileForm = new FormData();
+
+        profileForm.append('name', data.name);
+        profileForm.append('email', data.email);
+        profileForm.append('subject', data.subject);
+        profileForm.append('phone', data.phone);
+        try {
+
+            const response = await axios.post('/api/application/save-application-details', profileForm);
+            const { message } = response.data;
+            toast.success("Success");
+        } catch (error: any) {
+            toast.error("Something went wrong!");
+        }
     };
     return (
         <>
@@ -37,7 +74,7 @@ const Contact = () => {
                         <div className="col-lg-6">
                             <div className="section-title">
                                 <h2>Get In Touch</h2>
-                                {/* <p>I design and develop services for customers of all sizes, specializing in creating stylish, modern websites</p> */}
+
                             </div>
                         </div>
                     </div>
@@ -45,25 +82,27 @@ const Contact = () => {
                         <div className="col-md-7 col-lg-8 m-15px-tb">
                             <div className="contact-form">
                                 <h5>HAVE ANY QUERY?</h5>
-                                <Form onSubmit={handleSubmit}>
+                                <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
                                     <Row>
                                         <Col>
-                                            <Form.Control type="text" placeholder="Enter Name*" required autoComplete="offf" value={first}
-                                                onChange={(e) => setFirst(e.target.value)} />
+
+
+                                            <RHFTextField name="name" label="" placeholder='Enter Name*' />
                                         </Col>
                                         <Col className="inPhone">
-                                            <Form.Control type="text" placeholder="Enter Email*" required autoComplete="offf" value={last}
-                                                onChange={(e) => setLast(e.target.value)} />
+
+
+                                            <RHFTextField name="email" label="" placeholder='Enter Email*' />
                                         </Col>
                                     </Row>
                                     <Row className="my-2">
                                         <Col>
-                                            <Form.Control type="email" placeholder="Enter Subject*" required autoComplete="offf" value={email}
-                                                onChange={(e) => setEmail(e.target.value)} />
+
+                                            <RHFTextField name="subject" label="" placeholder='Enter Subject*' />
                                         </Col>
                                         <Col className="inPhone">
-                                            <Form.Control type="number" placeholder="Enter Phone*" required autoComplete="offf" value={phone}
-                                                onChange={(e) => setPhone(e.target.value)} />
+
+                                            <RHFTextField name="phone" label="" placeholder='Enter Phone*' />
                                         </Col>
                                     </Row>
 
@@ -75,7 +114,7 @@ const Contact = () => {
                                         </Form.Group>
                                     </Row>
                                     <Button type="submit" className="contactPageBtn">SEND YOUR MESSAGE</Button>
-                                </Form>
+                                </FormProvider>
                             </div>
                         </div>
                         <div className="col-md-5 col-lg-4 m-15px-tb mobileView">
