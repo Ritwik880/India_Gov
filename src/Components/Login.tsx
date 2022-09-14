@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import PhoneInput from 'react-phone-number-input';
+import React, { useState, useRef, useEffect } from 'react'
 import { isValidPhoneNumber } from 'react-phone-number-input';
-import { InputAdornment, IconButton, styled } from '@mui/material';
+import { InputAdornment, IconButton } from '@mui/material';
 import { Form } from 'react-bootstrap';
 import { BiLock } from 'react-icons/bi';
 import * as Yup from 'yup';
@@ -15,51 +14,30 @@ import Iconify from './Iconify';
 import { IoCallOutline } from 'react-icons/io5'
 import '../login.css'
 import Cta from './Cta';
-import TPhoneComponent from './TPhoneComponent';
+import PhoneNumberInput from './TPhoneComponent';
 
 type ProfileValuesProps = {
-    userName: string;
     userPassword: string;
+    phone_number: number;
 
 };
-const Phone = styled(PhoneInput)(({ theme }) => ({
-    '& input': {
-        background: 'transparent',
-        color: theme.palette.common.white,
-        borderTop: 0,
-        borderLeft: 0,
-        borderRight: 0,
-        fontSize: 14,
-        borderBottom: `1px solid ${theme.palette.grey[500_56]}`,
-        padding: theme.spacing(1),
-        marginBottom: theme.spacing(1),
-        borderRadius: 0,
-        '&:focus-visible': {
-            outline: 'none',
-        },
-        '&:disabled ': {
-            color: theme.palette.grey[600],
-        },
-        '&::placeholder ': {
-            opacity: 1,
-            color: theme.palette.grey[100],
-            fontStyle: 'italic',
-            fontSize: '13px',
-            fontWeight: 200,
-        },
-    },
-}));
+
 const Login = () => {
+    // const [eventDetails, setEventDetails] = useState<EventDetailType>({
+    //     name: '',
+    //     date_display: '',
+    //   });
+    const isMounted = useRef(false);
     const [phoneNumber, setPhoneNumber] = useState<string>('');
     const [showPassword, setShowPassword] = useState(false);
 
     const ProfileSchema = Yup.object().shape({
-        userName: Yup.string().required('Username is required'),
+        phone_number: Yup.number().required('Phone Number is required'),
         userPassword: Yup.string().required('Password is required'),
     });
 
     const defaultValues = {
-        userName: '',
+        phone_number: 0,
         userPassword: '',
 
     };
@@ -70,6 +48,8 @@ const Login = () => {
 
     const { handleSubmit, setValue } = methods;
 
+
+
     const onSubmit = async (data: ProfileValuesProps) => {
         const profileForm = new FormData();
         profileForm.append('userPassword', data.userPassword);
@@ -78,7 +58,11 @@ const Login = () => {
             if (isValidPhoneNumber(phoneNumber)) {
                 try {
 
-                    const response = await axios.get('/api/application/login', profileForm);
+                    const response = await axios.get('/api/application/login', {
+                        params: {
+                            profileForm
+                        }
+                    });
                     const { message } = response.data;
                     toast.success(message);
                 } catch (error: any) {
@@ -91,7 +75,11 @@ const Login = () => {
         else {
             profileForm.append('phone_number', '');
             try {
-                const response = await axios.get('/api/application/login', profileForm);
+                const response = await axios.get('/api/application/login', {
+                    params: {
+                        profileForm
+                    }
+                });
                 const { message } = response.data;
                 toast.success(message);
             } catch (error) {
@@ -99,6 +87,28 @@ const Login = () => {
             }
         }
     }
+
+    useEffect(() => {
+        const getProfileDetails = async () => {
+            try {
+                const response = await axios.get('/api/application/login');
+                const { data } = response.data;
+                if (!isMounted.current) {
+                    console.log(data);
+
+
+                }
+            } catch (error) {
+                console.error(error);
+                toast.error("Something went wrong!");
+            }
+        };
+        getProfileDetails();
+
+        return () => {
+            isMounted.current = true;
+        };
+    }, []);
 
     return (
         <>
@@ -114,19 +124,8 @@ const Login = () => {
                                 <Form.Label className='formLabel'> <IoCallOutline className='signupIcon' />
                                     Email Mobile Number</Form.Label>
 
-                                <Phone
-                                    name="phone_number"
-                                    value={phoneNumber}
-                                    defaultCountry="IN"
-                                    onChange={(phone: any) => setPhoneNumber(phone)}
-                                    error={
-                                        phoneNumber
-                                            ? isValidPhoneNumber(phoneNumber)
-                                                ? undefined
-                                                : 'Invalid phone number'
-                                            : 'Phone number required'
-                                    }
-                                />
+                                <RHFTextField name="phone_number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} label="" placeholder='Enter your number*' />
+
 
                             </Form.Group>
 

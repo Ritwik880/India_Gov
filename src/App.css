@@ -230,6 +230,24 @@ th {
     background-color: #a29bfe;
 }
 
+.outerGallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 2rem 0;
+}
+
+.innerGallery {
+    background-color: rgb(2 153 71);
+    padding: 1rem;
+
+}
+
+.aboutHeading {
+    padding-left: 0;
+}
+
 .footerLinkTag {
     color: #fff;
 }
@@ -300,14 +318,15 @@ th {
 }
 
 .aboutUl {
-    width: 70%;
-    margin: auto;
+    /* width: 70%;
+    margin: auto; */
     padding-left: 0rem;
 }
 
 .aboutUl li {
     font-size: 1.2rem;
     padding: 1rem 0;
+    list-style: none;
 }
 
 .formBox {

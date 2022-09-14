@@ -671,24 +671,8 @@ const ApplyNow = () => {
 
 
                     <div className="submitFormData">
-                        <button type="submit" className="formSubmit">Submit</button>
-                        <button type="submit" className="formSubmit" onClick={handleSubmit(onSubmit)}>save</button>
-                        {/* <LoadingButton
-                            sx={{
-                                backgroundColor: '#f559620 !important',
-                                borderRadius: '6px',
-                                fontWeight: '600',
-                                fontSize: '16px',
-                                color: 'FFFFFF',
-                                padding: '0.5rem 1rem',
-                                marginRight: '1rem'
-                            }}
-                            size="small"
-                            loading={loading}
-                            onClick={handleSubmit(onSubmit)}
-                        >
-                            Save
-                        </LoadingButton> */}
+                        <button type="submit" onClick={handleSubmit(onSubmit)} className="formSubmit">Submit</button>
+                        <button className="formSubmit" onClick={handleSubmit(onSubmit)}>Save</button>
                     </div>
 
 

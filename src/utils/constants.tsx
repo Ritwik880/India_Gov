@@ -196,3 +196,60 @@ export const ROW = [
     },
 
 ]
+
+export const IMAGES = [
+    {
+        index: 1,
+        image: './images/photo 1.jpg'
+    },
+    {
+        index: 2,
+        image: './images/photo 2.jpg'
+    },
+    {
+        index: 3,
+        image: './images/photo 3.jpg'
+    },
+    {
+        index: 4,
+        image: './images/photo 4.jpg'
+    },
+    {
+        index: 5,
+        image: './images/photo 5.jpg'
+    },
+    {
+        index: 6,
+        image: './images/photo 6.jpg'
+    },
+    {
+        index: 7,
+        image: './images/photo 7.jpg'
+    },
+    {
+        index: 8,
+        image: './images/photo 8.jpg'
+    },
+    {
+        index: 9,
+        image: './images/photo 9.jpg'
+    },
+    {
+        index: 10,
+        image: './images/photo 10.jpg'
+    },
+    {
+        index: 11,
+        image: './images/photo 11.jpg'
+    },
+
+    {
+        index: 13,
+        image: './images/photo 13.jpg'
+    },
+    {
+        index: 14,
+        image: './images/photo 14.jpg'
+    },
+
+]

@@ -1,48 +1,53 @@
-/*
- * Sign Up Plan Card Page
- *
- */
-import React from 'react';
+import React from "react";
 
-import { styled } from '@mui/material';
-import PhoneInput from 'react-phone-number-input';
+import { styled, Box } from "@mui/material";
+import PhoneInput from "react-phone-number-input";
 
-const PhoneNumber = styled(PhoneInput)(({ theme }) => ({
-    '& input': {
-        background: 'transparent',
-        color: theme.palette.common.white,
-        borderTop: 0,
-        borderLeft: 0,
-        borderRight: 0,
-        fontSize: 14,
-        borderBottom: `1px solid ${theme.palette.grey[500_56]}`,
-        padding: theme.spacing(1),
-        marginBottom: theme.spacing(1),
-        borderRadius: 0,
-        '&:focus-visible': {
-            outline: 'none',
-        },
-        '&:disabled ': {
-            color: theme.palette.grey[600],
-        },
-        '&::placeholder ': {
-            opacity: 1,
-            color: theme.palette.grey[100],
-            fontStyle: 'italic',
-            fontSize: '13px',
-            fontWeight: 200,
-        },
-    },
-}));
-export default function TPhoneComponent(props: any): React.ReactElement {
+const Input = (props: any) => {
+    const BoxInline = styled(Box)(({ theme }) => ({
+        flexDirection: "row",
+        display: "flex"
+    }));
+    const BoxText = styled("div")(({ theme }) => ({
+        display: 'flex',
+        // alignItems: 'center !important',
+        marginTop: '8px',
+        "& span": {
+            color: "red",
+            paddingLeft: 5
+        }
+    }));
+
     return (
-        <PhoneNumber
-            value={props.value}
-            defaultCountry={props.defaultCountry}
-            onChange={props.onChange}
-            error={props.error}
-            disabled={props.disabled}
-            placeholder={props.placeholder}
+        <BoxInline pr={1} pl={1} >
+            <BoxText>
+                {props.label || props.labels} : {props.req && <span>*</span>}
+            </BoxText>
+            <Box>
+                <PhoneInput
+                    specialLabel={''}
+                    country={'th'}
+                    inputStyle={{
+                        borderColor: (props.touched && props.error) && "red"
+                    }}
+                    {...props}
+                />
+                {(props.touched && props.error) && <p style={{ color: 'red' }} className="MuiFormHelperText-root MuiFormHelperText-contained Mui-error MuiFormHelperText-filled MuiFormHelperText-marginDense">{props.error}</p>}
+            </Box>
+        </BoxInline>
+    );
+};
+export default function PhoneNumberInput(props: any): React.ReactElement {
+    return (
+        <Input
+            label={"Mobile Phone"}
+            req={true}
+            helperText={""}
+            error={true}
+            isSelect={false}
+            {...props.input}
+            {...props.meta}
+            {...props.custom}
         />
     );
 }

@@ -17,16 +17,17 @@ type ProfileValuesProps = {
     email: string;
     subject: string;
     phone: string;
+    message: string;
 
 };
 const Contact = () => {
-    const [message, setMessage] = useState("");
 
     const ProfileSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
         email: Yup.string().required('Email is required'),
         subject: Yup.string().required('Subject is required'),
         phone: Yup.string().required('Phone is required'),
+        message: Yup.string().required('Message is required'),
     });
 
     const defaultValues = {
@@ -34,6 +35,7 @@ const Contact = () => {
         email: '',
         subject: '',
         phone: '',
+        message: '',
 
     };
     const methods = useForm<ProfileValuesProps>({
@@ -50,6 +52,7 @@ const Contact = () => {
         profileForm.append('email', data.email);
         profileForm.append('subject', data.subject);
         profileForm.append('phone', data.phone);
+        profileForm.append('message', data.message);
         try {
 
             const response = await axios.post('/api/application/save-application-details', profileForm);
@@ -80,8 +83,8 @@ const Contact = () => {
                     </div>
                     <div className="row flex-row-reverse">
                         <div className="col-md-7 col-lg-8 m-15px-tb">
+                            <h5>HAVE ANY QUERY?</h5>
                             <div className="contact-form">
-                                <h5>HAVE ANY QUERY?</h5>
                                 <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
                                     <Row>
                                         <Col>
@@ -109,8 +112,8 @@ const Contact = () => {
                                     <Row>
                                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
 
-                                            <Form.Control placeholder="Enter Message*" as="textarea" required rows={3} value={message}
-                                                onChange={(e) => setMessage(e.target.value)} />
+
+                                            <RHFTextField name="message" label="" placeholder='Enter Message*' />
                                         </Form.Group>
                                     </Row>
                                     <Button type="submit" className="contactPageBtn">SEND YOUR MESSAGE</Button>
