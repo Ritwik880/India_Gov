@@ -1,8 +1,4 @@
 import React from 'react'
-
-//styled components
-import styled from 'styled-components';
-
 //constants
 import { BUTTONDATA as data } from '../../utils/constants';
 

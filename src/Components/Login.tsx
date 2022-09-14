@@ -14,7 +14,6 @@ import Iconify from './Iconify';
 import { IoCallOutline } from 'react-icons/io5'
 import '../login.css'
 import Cta from './Cta';
-import PhoneNumberInput from './TPhoneComponent';
 
 type ProfileValuesProps = {
     userPassword: string;

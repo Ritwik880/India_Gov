@@ -1,13 +1,10 @@
 import React from 'react'
-import styled from 'styled-components';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { AiOutlineHome } from 'react-icons/ai'
 const Header = () => {
-
-    const Header = styled.header``
     return (
-        <Header>
+        <header>
             <div className='upperNav'>
                 <div> <img className='headerImage1' src="./images/logo.png" alt="logo" />
                     <img className='headerImage2' src="./images/logoContent.png" alt="logo" />
@@ -47,7 +44,7 @@ const Header = () => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar >
-        </Header >
+        </header >
     )
 }
 
