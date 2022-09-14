@@ -11,21 +11,8 @@ import FormProvider from './hook-form/FormProvider';
 import RHFTextField from './hook-form/RHFTextField';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useSnackbar } from 'notistack';
 import { LoadingButton } from '@mui/lab';
 
-
-
-const SaveButton = styled(LoadingButton)(({ theme }) => ({
-    backgroundColor: '#f559620',
-    borderRadius: '6px',
-    fontWeight: '600',
-    fontSize: '16px',
-    color: 'FFFFFF',
-    padding: '0.5rem 1rem',
-    marginRight: '1rem'
-
-}));
 
 type ProfileValuesProps = {
     applicationId: number;
@@ -84,8 +71,6 @@ const ApplyNow = () => {
     const [addHQ, setAddHQ] = useState(false);
     const [addTE, setAddTE] = useState(false);
     const [row, setRow] = useState(0);
-    const { enqueueSnackbar } = useSnackbar();
-    const [loading, setLoading] = useState(false);
 
     const ProfileSchema = Yup.object().shape({
         applicantName: Yup.string().required('Applicant name is required'),
@@ -198,14 +183,10 @@ const ApplyNow = () => {
         frontFile && profileForm.append("photo", frontFile);
         backFile && profileForm.append("signature", backFile);
         try {
-            setLoading(true);
             const response = await axios.post('/api/application/save-application-details', profileForm);
-            const { message, data } = response.data;
-            toast.success("Success");
-            setLoading(false);
-
+            const { message } = response.data;
+            toast.success(message);
         } catch (error: any) {
-            setLoading(false);
             toast.error("Something went wrong!");
         }
     };
