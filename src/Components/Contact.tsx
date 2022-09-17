@@ -53,7 +53,6 @@ const Contact = () => {
         profileForm.append('phone', data.phone);
         profileForm.append('message', data.message);
         try {
-
             const response = await axios.post('/api/application/contact-us', profileForm);
             const { message } = response.data;
             toast.success(message);
@@ -100,19 +99,15 @@ const Contact = () => {
                                     </Row>
                                     <Row className="my-2">
                                         <Col>
-
                                             <RHFTextField name="subject" label="" placeholder='Enter Subject*' />
                                         </Col>
                                         <Col className="inPhone">
-
                                             <RHFTextField name="phone" label="" placeholder='Enter Phone*' />
                                         </Col>
                                     </Row>
 
                                     <Row>
                                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-
-
                                             <RHFTextField name="message" label="" placeholder='Enter Message*' />
                                         </Form.Group>
                                     </Row>
@@ -123,7 +118,7 @@ const Contact = () => {
                         <div className="col-md-5 col-lg-4 m-15px-tb mobileView">
                             <div className="contact-name">
                                 <h5>Mail</h5>
-                                <p>helpcenter@isdoindia.org</p>
+                                <p>contact@fpci.org.in</p>
                             </div>
                             <div className="contact-name">
                                 <h5>Visit Our Office</h5>
