@@ -43,11 +43,10 @@ const Contact = () => {
         defaultValues,
     });
 
-    const { handleSubmit, setValue } = methods;
+    const { handleSubmit, reset } = methods;
 
     const onSubmit = async (data: ProfileValuesProps) => {
         const profileForm = new FormData();
-
         profileForm.append('name', data.name);
         profileForm.append('email', data.email);
         profileForm.append('subject', data.subject);
@@ -55,9 +54,10 @@ const Contact = () => {
         profileForm.append('message', data.message);
         try {
 
-            const response = await axios.post('/api/application/save-application-details', profileForm);
+            const response = await axios.post('/api/application/contact-us', profileForm);
             const { message } = response.data;
-            toast.success("Success");
+            toast.success(message);
+            reset();
         } catch (error: any) {
             toast.error("Something went wrong!");
         }

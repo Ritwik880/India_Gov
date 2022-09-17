@@ -19,6 +19,7 @@ import Copyright from './Components/Copyright';
 import Privacy from './Components/Privacy';
 import Terms from './Components/Terms';
 import ScrollToTop from './Components/ScrollToTop';
+import ForgotPass from './Components/ForgotPass';
 const App = () => {
   const [loading, setLoading] = useState(false);
 
@@ -60,6 +61,7 @@ const App = () => {
               <Route path='/copyright' element={<Copyright />}></Route>
               <Route path='/privacy-policy' element={<Privacy />}></Route>
               <Route path='/terms-condition' element={<Terms />}></Route>
+              <Route path='/forgot-password' element={<ForgotPass />}></Route>
             </Routes>
             <Footer />
 
