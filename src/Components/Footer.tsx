@@ -11,13 +11,18 @@ const Footer = () => {
                         Web Policies
                     </Link>
 
-                    <a className='footerLinkTag' href="#">visitior analytics</a>
+                    <Link to='/visitor-analytics' className='linkFooterItem'>
+                        Visitior Analytics
+
+                    </Link>
 
                     <Link to='/contact' className='linkFooterItem'>
                         Contact Us
                     </Link>
 
-                    <a className='footerLinkTag' href="#">Follow Us</a>
+                    <Link to='/follow-us' className='linkFooterItem'>
+                        Follow Us
+                    </Link>
 
                     <Link to='/copyright' className='linkFooterItem'>
                         Copyright
