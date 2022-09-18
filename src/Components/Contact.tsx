@@ -122,7 +122,7 @@ const Contact = () => {
                             </div>
                             <div className="contact-name">
                                 <h5>Visit Our Office</h5>
-                                <p>Nelson Mandela Marg, Vasant Kunj, New Delhi -110067</p>
+                                <p>Deen Dayal Upadhyay Marg New Delhi 110002</p>
                             </div>
 
 

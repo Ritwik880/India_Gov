@@ -6,8 +6,8 @@ const Header = () => {
     return (
         <header>
             <div className='upperNav'>
-                <div> <img className='headerImage1' src="./images/logo.png" alt="logo" />
-                    <img className='headerImage2' src="./images/logoContent.png" alt="logo" />
+                <div> <img className='headerImage1' src="./images/leftLogo.png" alt="logo" />
+
                 </div>
                 <div>
                     <img className='headerImage3' src="./images/tiger.png" alt="logo" />
@@ -21,7 +21,7 @@ const Header = () => {
                         <Nav className="mx-auto navItem">
                             <LinkContainer to="/">
                                 <Nav.Link className='listItems'>
-                                    <AiOutlineHome />
+                                    HOME
                                 </Nav.Link>
                             </LinkContainer>
                             <LinkContainer to="/about">

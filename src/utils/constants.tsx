@@ -1,31 +1,31 @@
 export const BUTTONDATA = [
     {
         id: 1,
-        title: 'NIFTEM KUNDALI'
+        title: ''
     },
     {
         id: 2,
-        title: 'NIFTEM THANAVUR'
+        title: ''
     },
     {
         id: 3,
-        title: 'NIFTEM R&D'
+        title: ''
     },
     {
         id: 4,
-        title: 'PMFME PORTAL'
+        title: ''
     },
     {
         id: 5,
-        title: 'PMKSY PORTAL'
+        title: ''
     },
     {
         id: 6,
-        title: 'PLISFPI PORTAL'
+        title: ''
     },
     {
         id: 7,
-        title: 'INVESTOR PORTAL'
+        title: ''
     },
 ]
 export const ROW = [

@@ -95,7 +95,7 @@ input {
 }
 
 .inner-grid img {
-    margin-top: 8px;
+    margin-top: 25px;
     width: 300px;
     padding: 10px;
     transition: 0.3s;
@@ -170,7 +170,7 @@ th {
 }
 
 .headerImage1 {
-    width: 100px;
+    width: 900px;
 
 }
 
@@ -180,6 +180,7 @@ th {
 
 .headerImage3 {
     width: 200px;
+    margin-right: 1rem;
 }
 
 .landingBanner {
@@ -342,11 +343,15 @@ th {
     align-items: center;
 }
 
+.footerPart {
+    color: #fff;
+}
+
 .footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80px;
+    height: 100px;
     background: #2d3436;
 
 }
@@ -356,6 +361,7 @@ th {
     justify-content: center;
     align-items: center;
     gap: 3rem;
+    /* margin-right: 5rem; */
 }
 
 .mapButtons {
@@ -370,10 +376,12 @@ th {
     border: 1px solid #269b26;
     color: white;
     font-weight: bold;
-    padding: 10px 24px;
+    padding: 10px 35px;
     cursor: pointer;
     float: none;
     margin: 0 1rem;
+    width: 160px;
+    height: 46px;
 }
 
 .formSubmit {
@@ -418,6 +426,35 @@ th {
     padding: 1rem 0;
 }
 
+.footerMain {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.footerPart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footerUper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    padding: 2rem;
+    background-image: url('../public/images/table.jpg');
+    background-size: cover;
+    background-position: center top;
+}
+
+.follow-us {
+    margin-left: 2rem;
+    color: #000;
+}
+
 .linkFooterItem {
     color: #fff;
     transition: 0.3s;
@@ -436,13 +473,13 @@ th {
 }
 
 .follow-icon {
-    font-size: 2rem;
+    font-size: 1.2rem;
     padding: 0 1rem;
     cursor: pointer;
 }
 
 .follow-icon1 {
-    font-size: 1.8rem;
+    font-size: 1rem;
     padding-right: 1rem;
     cursor: pointer;
 

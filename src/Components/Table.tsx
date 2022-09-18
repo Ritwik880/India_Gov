@@ -9,7 +9,7 @@ const Table = () => {
                 <div className="rightText">
                     <p>Application fees/Intimation Charges - For SC/ST/OBC/EWS  Rs 690/-</p>
                     <p>Other than SC/ST/OBC/EWS  Rs 990/-</p>
-                    <p>[All Notification / Advertisement Details English </p>
+                    <p>[All Notification / Advertisement Details English] </p>
                 </div>
 
                 <div className='tableFlow'>
@@ -36,8 +36,8 @@ const Table = () => {
                                         <td>{item.age}</td>
                                         <td>{item.sal}</td>
                                         <td>
-                                            <Link to='/apply-now'>
-                                                <button className='applyNow' >
+                                            <Link to='/apply-now' style={{ marginLeft: '1.7rem' }}>
+                                                <button className='applyNow'>
                                                     {item.btn}
                                                 </button></Link>
                                         </td>

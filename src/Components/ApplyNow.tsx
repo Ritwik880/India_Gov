@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 // import Files from 'react-files';
 
 import * as Yup from 'yup';
-
+import ReactCodeInput from 'react-code-input';
 import axios from '../utils/axios';
 import { ToastContainer, toast } from "react-toastify";
 import { Select, MenuItem, styled, InputLabel } from '@mui/material';
@@ -67,6 +67,7 @@ const ApplyNow = () => {
     const [state, setState] = useState("");
     const [exp, setExp] = useState("");
     const [addRow, setAddRow] = useState(false);
+    const [hideForm, setHideForm] = useState(true);
     const [addHQ, setAddHQ] = useState(false);
     const [addTE, setAddTE] = useState(false);
     const [row, setRow] = useState(0);
@@ -128,6 +129,7 @@ const ApplyNow = () => {
         courseName: '',
         courseType: '',
         passingYearHQ: '',
+        percentageHQ: '',
         total_experience: '',
         companyName: '',
         designation: '',
@@ -212,6 +214,10 @@ const ApplyNow = () => {
         setAddTE(true);
 
     }
+    const hanldeNo = () => {
+        setHideForm(false);
+
+    }
     return (
         <section className='formSection'>
             <div className="row container">
@@ -230,12 +236,12 @@ const ApplyNow = () => {
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Father Name <span className="must-filed">*</span></label>
 
-                                <RHFTextField name="fatherName" label="" placeholder='Enter FatherName' />
+                                <RHFTextField name="fatherName" label="" placeholder='Enter Father Name' />
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Mother Name <span className="must-filed">*</span></label>
 
-                                <RHFTextField name="motherName" label="" placeholder='Enter MotherName' />
+                                <RHFTextField name="motherName" label="" placeholder='Enter Mother Name' />
                             </div>
 
                         </div>
@@ -248,14 +254,24 @@ const ApplyNow = () => {
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <InputLabel id="demo-simple-select-label">Gender</InputLabel>
-                                <Select labelId='demo-simple-select-label' label="Gender" name='gender' value={gender} onChange={(e) => setGender(e.target.value)} className="form-select" id="state" required>
+                                <Select size='small' labelId='demo-simple-select-label' label="Gender" name='gender' value={gender} onChange={(e) => setGender(e.target.value)} className="form-select" id="state" required sx={{
+
+                                    ".MuiOutlinedInput-notchedOutline": {
+                                        border: "none",
+                                    },
+                                }}>
                                     <MenuItem value="Male">Male</MenuItem>
                                     <MenuItem value="Female">Female</MenuItem>
                                 </Select>
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Category <span className="must-filed">*</span></label>
-                                <Select value={item} onChange={(e) => setItem(e.target.value)} name='category' className="form-select" id="state" required>
+                                <Select size='small' value={item} onChange={(e) => setItem(e.target.value)} name='category' className="form-select" id="state" required sx={{
+
+                                    ".MuiOutlinedInput-notchedOutline": {
+                                        border: "none",
+                                    },
+                                }}>
                                     <MenuItem value="General">General</MenuItem>
                                     <MenuItem value="OBC">OBC</MenuItem>
                                     <MenuItem value="ST">ST</MenuItem>
@@ -266,6 +282,27 @@ const ApplyNow = () => {
                             </div>
 
 
+
+
+                        </div>
+                        <div className="formBox">
+                            <div className="mb-3 col-lg-3 col-md-12">
+                                <label htmlFor="exampleInputPassword1" className="form-label">Religion <span className="must-filed">*</span></label>
+                                <Select size='small' value={item} onChange={(e) => setItem(e.target.value)} name='category' className="form-select" id="state" required sx={{
+
+                                    ".MuiOutlinedInput-notchedOutline": {
+                                        border: "none",
+                                    },
+                                }}>
+                                    <MenuItem value="Hindu">Hindu</MenuItem>
+                                    <MenuItem value="Sikh">Sikh</MenuItem>
+                                    <MenuItem value="Christian">Christian</MenuItem>
+                                    <MenuItem value="Muslim">Muslim</MenuItem>
+                                    <MenuItem value="Jain">Jain</MenuItem>
+                                    <MenuItem value="Buddhist">Buddhist</MenuItem>
+                                    <MenuItem value="others">others</MenuItem>
+                                </Select>
+                            </div>
                         </div>
                     </div>
 
@@ -273,8 +310,8 @@ const ApplyNow = () => {
                         <h2 className='footerFormHead'>Permanent Address</h2>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
-                                <label htmlFor="exampleInputEmail1" className="form-label">House No/Apartment Name/Block No <span className="must-filed">*</span></label>
-                                <RHFTextField name="houseNumber" label="" placeholder='House No/Apartment Name/Block N' />
+                                <label htmlFor="exampleInputEmail1" className="form-label">House No/Apartment Name/Block No. <span className="must-filed">*</span></label>
+                                <RHFTextField name="houseNumber" label="" placeholder='House No/Apartment Name/Block No.' />
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
@@ -297,7 +334,12 @@ const ApplyNow = () => {
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">State <span className="must-filed">*</span></label>
-                                <Select name="state" value={state} onChange={(e) => setState(e.target.value)} required className="form-control">
+                                <Select size='small' sx={{
+
+                                    ".MuiOutlinedInput-notchedOutline": {
+                                        border: "none",
+                                    },
+                                }} name="state" value={state} onChange={(e) => setState(e.target.value)} required className="form-control">
                                     <MenuItem>--select--</MenuItem>
                                     <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
                                     <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
@@ -353,15 +395,17 @@ const ApplyNow = () => {
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-                                <RHFTextField name="pincode" label="" placeholder='PinCode' />
+                                <RHFTextField name="pincode" label="" placeholder='PinCode' inputProps={{ maxLength: 6 }} />
+
+
                             </div>
                         </div>
                         <hr />
                         <h2 className='footerFormHead'>Present/Correspondence Address</h2>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
-                                <label htmlFor="exampleInputEmail1" className="form-label">House No/Apartment Name/Block No <span className="must-filed">*</span></label>
-                                <RHFTextField name="houseNumber" label="" placeholder='House No/Apartment Name/Block N' />
+                                <label htmlFor="exampleInputEmail1" className="form-label">House No/Apartment Name/Block No. <span className="must-filed">*</span></label>
+                                <RHFTextField name="houseNumber" label="" placeholder='House No/Apartment Name/Block No.' />
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
@@ -385,8 +429,13 @@ const ApplyNow = () => {
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">State <span className="must-filed">*</span></label>
-                                <Select name="state" value={state} onChange={(e) => setState(e.target.value)} required className="form-control">
-                                    <MenuItem>--select--</MenuItem>
+                                <Select size='small' sx={{
+
+                                    ".MuiOutlinedInput-notchedOutline": {
+                                        border: "none",
+                                    },
+                                }} name="state" value={state} onChange={(e) => setState(e.target.value)} required className="form-control">
+
                                     <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
                                     <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
                                     <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
@@ -441,7 +490,7 @@ const ApplyNow = () => {
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-                                <RHFTextField name="pincode" label="" placeholder='PinCode' />
+                                <RHFTextField name="pincode" label="" placeholder='PinCode' inputProps={{ maxLength: 6 }} />
                             </div>
                         </div>
 
@@ -458,11 +507,11 @@ const ApplyNow = () => {
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Mobile No <span className="must-filed">*</span></label>
 
-                                <RHFTextField name="mobileNumber" label="" placeholder='Mobile No' />
+                                <RHFTextField name="mobileNumber" label="" placeholder='Mobile No' inputProps={{ maxLength: 10 }} />
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Aadhar No <span className="must-filed">*</span></label>
-                                <RHFTextField name="aadharNumber" label="" placeholder='Aadhar No' />
+                                <RHFTextField name="aadharNumber" label="" placeholder='Aadhar No' inputProps={{ maxLength: 12 }} required />
                             </div>
 
                         </div>
@@ -476,7 +525,7 @@ const ApplyNow = () => {
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Alternate Mobile No</label>
 
-                                <RHFTextField name="alternateMobileNumber" label="" placeholder='Alternate Mobile No' />
+                                <RHFTextField name="alternateMobileNumber" label="" placeholder='Alternate Mobile No' inputProps={{ maxLength: 10 }} />
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Pancard No.</label>
@@ -515,11 +564,11 @@ const ApplyNow = () => {
                                             addRow &&
 
                                             <tr>
-                                                <td> <RHFTextField name="board" label="" placeholder='Board Name' /></td>
                                                 <td> <RHFTextField name="className" label="" placeholder='Class Name' /></td>
-                                                <td> <RHFTextField name="passingYear" label="" placeholder='Passing Year' /></td>
-                                                <td> <RHFTextField name="percentage" label="" placeholder='Percentage' /></td>
                                                 <td> <RHFTextField name="schoolName" label="" placeholder='School Name' /></td>
+                                                <td> <RHFTextField name="board" label="" placeholder='Board' /></td>
+                                                <td> <RHFTextField name="percentage" label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                <td> <RHFTextField name="passingYear" label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
                                             </tr>
 
                                         }
@@ -557,11 +606,11 @@ const ApplyNow = () => {
                                             addHQ &&
 
                                             <tr>
-                                                <td> <RHFTextField name="board" label="" placeholder='Board Name' /></td>
-                                                <td> <RHFTextField name="className" label="" placeholder='Class Name' /></td>
-                                                <td> <RHFTextField name="percentage" label="" placeholder='Percentage' /></td>
-                                                <td> <RHFTextField name="passingYear" label="" placeholder='Passing Year' /></td>
-                                                <td> <RHFTextField name="schoolName" label="" placeholder='School Name' /></td>
+                                                <td> <RHFTextField name="courseName" label="" placeholder='Course Name' /></td>
+                                                <td> <RHFTextField name="specialization" label="" placeholder='Specialization' /></td>
+                                                <td> <RHFTextField name="percentageHQ" label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                <td> <RHFTextField name="passingYearHQ" label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
+                                                <td> <RHFTextField name="courseType" label="" placeholder='Course Type' /></td>
                                             </tr>
 
                                         }
@@ -577,62 +626,70 @@ const ApplyNow = () => {
 
                     </div>
 
-                    <div className="parentForm">
-                        <h2 className='footerFormHead' id="add-modal-label">Experience Details</h2>
-                        <div className="formBox">
-                            <div className="mb-3 col-lg-3 col-md-12">
-                                <label htmlFor="exampleInputEmail1" className="form-label">Experience</label>
-                                <Select value={exp} onChange={(e) => setExp(e.target.value)} className="form-control select-experience" name="experience">
-                                    <MenuItem value="">--select--</MenuItem>
-                                    <MenuItem value="yes"  >Yes</MenuItem>
-                                    <MenuItem value="no"  >No</MenuItem>
-                                </Select>
+                    {
+                        hideForm &&
+                        <div className="parentForm">
+                            <h2 className='footerFormHead' id="add-modal-label">Experience Details</h2>
+                            <div className="formBox">
+                                <div className="mb-3 col-lg-3 col-md-12">
+                                    <label htmlFor="exampleInputEmail1" className="form-label">Experience</label>
+                                    <Select size='small' sx={{
+
+                                        ".MuiOutlinedInput-notchedOutline": {
+                                            border: "none",
+                                        },
+                                    }} value={exp} onChange={(e) => setExp(e.target.value)} className="form-control select-experience" name="experience">
+
+                                        <MenuItem value="yes"  >Yes</MenuItem>
+                                        <MenuItem value="no" onClick={hanldeNo}>No</MenuItem>
+                                    </Select>
+
+                                </div>
+                                <div className="mb-3 col-lg-3 col-md-12">
+                                    <label htmlFor="exampleInputPassword1" className="form-label">Total Experience(IN YEAR)</label>
+                                    <RHFTextField type="number" name="total_experience" label="" placeholder='Total Experience (IN YEAR)' />
+                                </div>
+
 
                             </div>
-                            <div className="mb-3 col-lg-3 col-md-12">
-                                <label htmlFor="exampleInputPassword1" className="form-label">Total Experience(IN YEAR)</label>
-                                <RHFTextField type="number" name="total_experience" label="" placeholder='Total Experience(IN YEAR)' />
-                            </div>
+                            <div className="formBox">
 
-
-                        </div>
-                        <div className="formBox">
-
-                            <div className="form-group col-md-12 col-lg-12 tableFlow">
-                                <table className="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Company Name</th>
-                                            <th>Designation</th>
-                                            <th>Location</th>
-                                            <th>Duration From</th>
-                                            <th>Duration To</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="add_row_div_experience">
-                                        {
-                                            addTE &&
-
+                                <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                    <table className="table table-bordered table-hover">
+                                        <thead>
                                             <tr>
-                                                <td> <RHFTextField name="companyName" label="" placeholder='Company Name' /></td>
-                                                <td> <RHFTextField name="designation" label="" placeholder='Designation' /></td>
-                                                <td> <RHFTextField name="location" label="" placeholder='Location' /></td>
-                                                <td> <RHFTextField name="durationFrom" label="" placeholder='Duration From' /></td>
-                                                <td> <RHFTextField name="durationTo" label="" placeholder='Duration To' /></td>
+                                                <th>Company Name</th>
+                                                <th>Designation</th>
+                                                <th>Location</th>
+                                                <th>Duration From</th>
+                                                <th>Duration To</th>
                                             </tr>
+                                        </thead>
+                                        <tbody className="add_row_div_experience">
+                                            {
+                                                addTE &&
 
-                                        }
+                                                <tr>
+                                                    <td> <RHFTextField name="companyName" label="" placeholder='Company Name' /></td>
+                                                    <td> <RHFTextField name="designation" label="" placeholder='Designation' /></td>
+                                                    <td> <RHFTextField name="location" label="" placeholder='Location' /></td>
+                                                    <td> <RHFTextField name="durationFrom" label="" placeholder='Duration From' /></td>
+                                                    <td> <RHFTextField name="durationTo" label="" placeholder='Duration To' /></td>
+                                                </tr>
 
-                                    </tbody>
-                                </table>
-                                <button onClick={handleAddTE} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                    <button onClick={handleAddTE} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                                </div>
+
+
                             </div>
 
 
                         </div>
-
-
-                    </div>
+                    }
 
                     <div className="parentForm">
                         <h2 className='footerFormHead' id="add-modal-label">Uplaod Documents <span className="must-filed"><span className="must-filed">*</span></span></h2>
