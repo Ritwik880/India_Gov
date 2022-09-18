@@ -20,8 +20,6 @@ import Privacy from './Components/Privacy';
 import Terms from './Components/Terms';
 import ScrollToTop from './Components/ScrollToTop';
 import ForgotPass from './Components/ForgotPass';
-import Visitor from './Components/VisitorAnalytics';
-import Follow from './Components/FollowUs';
 const App = () => {
   const [loading, setLoading] = useState(false);
 
@@ -64,8 +62,6 @@ const App = () => {
               <Route path='/privacy-policy' element={<Privacy />}></Route>
               <Route path='/terms-condition' element={<Terms />}></Route>
               <Route path='/forgot-password' element={<ForgotPass />}></Route>
-              <Route path='/visitor-analytics' element={<Visitor />}></Route>
-              <Route path='/follow-us' element={<Follow />}></Route>
             </Routes>
             <Footer />
 

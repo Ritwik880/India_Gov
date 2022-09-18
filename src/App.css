@@ -451,8 +451,14 @@ th {
 }
 
 .follow-us {
+    display: flex;
+    align-items: center;
     margin-left: 2rem;
     color: #000;
+}
+
+.follow-head {
+    margin-right: 2rem;
 }
 
 .linkFooterItem {
@@ -476,6 +482,10 @@ th {
     font-size: 1.5rem;
     padding: 0 1rem;
     cursor: pointer;
+}
+
+.linkNow {
+    margin-left: 1.7rem;
 }
 
 .follow-icon1 {
@@ -518,7 +528,7 @@ th {
     }
 
     .headerImage1 {
-        width: 50px;
+        width: 250px;
 
     }
 
@@ -580,6 +590,14 @@ th {
 
     .upperNav {
         padding: 1rem;
+    }
+
+    .linkNow {
+        margin-left: 0rem;
+    }
+
+    .footerPart {
+        flex-direction: column;
     }
 }
 

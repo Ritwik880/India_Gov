@@ -36,7 +36,7 @@ const Table = () => {
                                         <td>{item.age}</td>
                                         <td>{item.sal}</td>
                                         <td>
-                                            <Link to='/apply-now' style={{ marginLeft: '1.7rem' }}>
+                                            <Link to='/apply-now' className='linkNow'>
                                                 <button className='applyNow'>
                                                     {item.btn}
                                                 </button></Link>

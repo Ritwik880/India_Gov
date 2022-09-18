@@ -36,7 +36,7 @@ const Cta = () => {
                     {/* <Odometer value={1234} format="(.ddd),dd" />; */}
 
                     <div className="follow-us">
-                        <h4>Follow Us</h4>
+                        <h4 className='follow-head'>Follow Us</h4>
 
                         <span className='follow-icon1'>
                             <BsFacebook />
