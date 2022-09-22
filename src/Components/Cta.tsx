@@ -30,10 +30,33 @@ const Cta = () => {
                     </h5>
 
 
-                    <h5 style={{ color: '#000' }}>
-                        {count}
-                    </h5>
-                    {/* <Odometer value={1234} format="(.ddd),dd" />; */}
+                    <div className="odometer">
+                        <h4 className='noOfVisitors'>Total Visitors</h4>
+                        <span className='odomter-span'>
+                            1
+                        </span>
+                        <span className='odomter-span'>
+                            4
+                        </span>
+                        <span className='odomter-span'>
+                            5
+                        </span>
+                        <span className='odomter-span'>
+                            7
+                        </span>
+                        <span className='odomter-span'>
+                            8
+                        </span>
+                        <span className='odomter-span'>
+                            9
+                        </span>
+                        <span className='odomter-span'>
+                            3
+                        </span>
+                        <span className='odomter-span'>
+                            4
+                        </span>
+                    </div>
 
                     <div className="follow-us">
                         <h4 className='follow-head'>Follow Us</h4>

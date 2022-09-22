@@ -20,11 +20,11 @@ const About = () => {
                     <p className='aboutPara'>The Food Processing Corporation of India (FPCI) has a clear goal of attaining these objectives by facilitating and acting as a catalyst to attract quality investments from within India and abroad into this sector with the aim of making food processing a national initiative. With this overall objective, the FPCI aims to:</p>
 
                     <ul className='aboutUl'>
-                        <li>Enhance farmer's income by better utilization and value addition of agricultural produce</li>
-                        <li>Minimize wastage at all stages in the food processing chain by the development of infrastructure for storage, transportation and processing of agro-food produce</li>
-                        <li>Introduce of modern technology into the food processing industries from both domestic and external sources;</li>
-                        <li>Encourage R&D in food processing for product and process development and improved packaging;</li>
-                        <li>Provide policy support, and support for creation of Infrastructure, capacity expansion/ Up gradation and other supportive measures form the growth of this sectors</li>
+                        <li>Enhance farmer's income by better utilization and value addition of agricultural produce.</li>
+                        <li>Minimize wastage at all stages in the food processing chain by the development of infrastructure for storage, transportation and processing of agro-food produce.</li>
+                        <li>Introduce of modern technology into the food processing industries from both domestic and external sources.</li>
+                        <li>Encourage R&D in food processing for product and process development and improved packaging.</li>
+                        <li>Provide policy support, and support for creation of Infrastructure, capacity expansion/ Up gradation and other supportive measures form the growth of this sectors.</li>
                         <li>Promote export of processed food products.</li>
                     </ul>
                 </div>

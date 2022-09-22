@@ -1,76 +1,110 @@
-import React, { useEffect, useState } from 'react';
-// @ts-ignore
-// import Files from 'react-files';
+import React, { useState } from 'react';
+
 
 import * as Yup from 'yup';
-import ReactCodeInput from 'react-code-input';
 import axios from '../utils/axios';
 import { ToastContainer, toast } from "react-toastify";
-import { Select, MenuItem, styled, InputLabel } from '@mui/material';
+import { Select, MenuItem, Button, InputLabel } from '@mui/material';
 import FormProvider from './hook-form/FormProvider';
 import RHFTextField from './hook-form/RHFTextField';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { LoadingButton } from "@mui/lab";
 
 
 type ProfileValuesProps = {
-    applicationId: number;
-    applicantName: string;
-    fatherName: string;
-    motherName: string;
-    dateOfBirth: string;
-    category: string;
-    gender: string;
-    religion: string;
-    houseNumber: string;
-    area: string;
-    city: string;
-    counry: string;
-    pincode: string;
-    road: string;
-    state: string;
-    emailId: string;
-    mobileNumber: string;
     aadharNumber: string;
+    academicQualification: [
+        {
+            academicQualificationId: 0;
+            board: string;
+            className: string;
+            passingYear: string;
+            percentage: string;
+            schoolName: string
+        }
+    ],
     alternateEmailId: string;
     alternateMobileNumber: string;
+    applicantName: string;
+    applicationId: string;
+    category: string;
+    dateOfBirth: string;
+    emailId: string;
+    experienceDetails: [
+        {
+            companyName: string;
+            designation: string;
+            durationFrom: string;
+            durationTo: string;
+            experienceDetailId: string;
+            experienced: string;
+            location: string;
+            totalExperience: string;
+        }
+    ],
+    experienced: string;
+    fatherName: string;
+    gender: string;
+    higherQualification: [
+        {
+            courseName: string;
+            courseType: string;
+            higherQualificationId: number;
+            passingYearHq: string;
+            percentageHq: string;
+            specialization: string;
+        }
+    ],
+    mobileNumber: string;
+    motherName: string;
     pancard: string;
-    academicQualificationId: string;
-    board: string;
-    className: string;
-    passingYear: string;
-    percentage: string;
-    schoolName: string;
-    courseName: string;
-    courseType: string;
-    higherQualificationId: string;
-    passingYearHQ: string;
-    percentageHQ: string;
-    specialization: string;
-    exp: string;
-    total_experience: string;
-    companyName: string;
-    designation: string;
-    location: string;
-    durationFrom: string;
-    durationTo: string;
+    password: string;
+    paymentStatus: boolean;
+    permanentAddress: {
+        area: string,
+        city: string,
+        country: string,
+        houseNumber: string,
+        id: number,
+        pincode: string,
+        road: string,
+        state: string
+    },
+    postName: string;
+    presentAddress: {
+        area: string;
+        city: string;
+        country: string;
+        houseNumber: string;
+        id: number;
+        pincode: string;
+        road: string;
+        state: string;
+    },
+    religion: string;
+    totalExperience: string;
+    userId: number;
     afterSubmit?: string;
+
 
 };
 const ApplyNow = () => {
-    const [file, setFile] = useState<string | Blob>('');
+    const [noOfRows, setNoOfRows] = useState(1);
+    const [noOfRows2, setNoOfRows2] = useState(1);
+    const [noOfRows3, setNoOfRows3] = useState(1);
     const [frontFile, setFrontFile] = useState<string | Blob>("");
     const [backFile, setBackFile] = useState<string | Blob>("");
-    const [fileName, setFileName] = React.useState<string>('');
     const [item, setItem] = useState("");
     const [gender, setGender] = useState("");
     const [state, setState] = useState("");
     const [exp, setExp] = useState("");
-    const [addRow, setAddRow] = useState(false);
+    const [percentage, setPercentage] = useState("");
+    const [passingYear, setPassingYear] = useState("");
+    const [religion, setReligion] = useState("");
     const [hideForm, setHideForm] = useState(true);
-    const [addHQ, setAddHQ] = useState(false);
-    const [addTE, setAddTE] = useState(false);
-    const [row, setRow] = useState(0);
+    const [others, setOthers] = useState(false);
+    const [noExperience, setNoexperience] = useState(false);
 
     const ProfileSchema = Yup.object().shape({
         applicantName: Yup.string().required('Applicant name is required'),
@@ -84,9 +118,6 @@ const ApplyNow = () => {
         emailId: Yup.string().required('Applicant email Id is required'),
         mobileNumber: Yup.string().required('Applicant mobile number is required'),
         aadharNumber: Yup.string().required('Applicant aadhar number is required'),
-        alternateEmailId: Yup.string().required('Applicant alternate email Id is required'),
-        alternateMobileNumber: Yup.string().required('Applicant alternate mobile number is required'),
-        pancard: Yup.string().required('Applicant pancard number is required'),
         board: Yup.string().required('Applicant board name is required'),
         className: Yup.string().required('Applicant className is required'),
         passingYear: Yup.string().required('Applicant passingYear is required'),
@@ -95,7 +126,7 @@ const ApplyNow = () => {
         courseName: Yup.string().required('Applicant courseName is required'),
         courseType: Yup.string().required('Applicant courseType is required'),
         passingYearHQ: Yup.string().required('Applicant passingYear is required'),
-        total_experience: Yup.string().required('Applicant Total Experience is required'),
+        percentageHQ: Yup.string().required('Applicant percentage is required'),
         companyName: Yup.string().required('Applicant companyName is required'),
         designation: Yup.string().required('Applicant designation is required'),
         location: Yup.string().required('Applicant location is required'),
@@ -108,10 +139,6 @@ const ApplyNow = () => {
         fatherName: '',
         motherName: '',
         dateOfBirth: '',
-        houseNumber: '',
-        pincode: '',
-        road: '',
-        area: '',
         category: '',
         gender: '',
         religion: '',
@@ -121,21 +148,33 @@ const ApplyNow = () => {
         alternateEmailId: '',
         alternateMobileNumber: '',
         pancard: '',
+        academicQualificationId: 0,
         board: '',
         className: '',
         passingYear: '',
         percentage: '',
         schoolName: '',
-        courseName: '',
-        courseType: '',
-        passingYearHQ: '',
-        percentageHQ: '',
-        total_experience: '',
         companyName: '',
         designation: '',
-        location: '',
         durationFrom: '',
         durationTo: '',
+        experienceDetailId: '',
+        experienced: '',
+        location: '',
+        totalExperience: '',
+        courseName: '',
+        courseType: '',
+        higherQualificationId: 0,
+        specialization: '',
+        area: '',
+        city: '',
+        country: '',
+        houseNumber: '',
+        id: 0,
+        pincode: '',
+        road: '',
+        state: '',
+
 
     };
     const methods = useForm<ProfileValuesProps>({
@@ -143,86 +182,105 @@ const ApplyNow = () => {
         defaultValues,
     });
 
-    const { handleSubmit, setValue } = methods;
+    const {
+        handleSubmit,
+        formState: { isSubmitting },
+    } = methods;
 
 
     const onSubmit = async (data: ProfileValuesProps) => {
-        const profileForm = new FormData();
-
-        profileForm.append('applicantName', data.applicantName);
-        profileForm.append('fatherName', data.fatherName);
-        profileForm.append('motherName', data.motherName);
-        profileForm.append('dateOfBirth', data.dateOfBirth);
-        profileForm.append('religion', data.religion);
-        profileForm.append('houseNumber', data.houseNumber);
-        profileForm.append('road', data.road);
-        profileForm.append('area', data.area);
-        profileForm.append('state', data.state);
-        profileForm.append('pincode', data.pincode);
-        profileForm.append('emailId', data.emailId);
-        profileForm.append('mobileNumber', data.mobileNumber);
-        profileForm.append('aadharNumber', data.aadharNumber);
-        profileForm.append('alternateEmailId', data.alternateEmailId);
-        profileForm.append('alternateMobileNumber', data.alternateMobileNumber);
-        profileForm.append('pancard', data.pancard);
-        profileForm.append('percentage', data.percentage);
-        profileForm.append('schoolName', data.schoolName);
-        profileForm.append('courseName', data.courseName);
-        profileForm.append('courseType', data.courseType);
-        profileForm.append('passingYear', data.passingYear);
-        profileForm.append('passingYearHQ', data.passingYearHQ);
-        profileForm.append('total_experience', data.total_experience);
-        profileForm.append('companyName', data.companyName);
-        profileForm.append('designation', data.designation);
-        profileForm.append('location', data.location);
-        profileForm.append('durationFrom', data.durationFrom);
-        profileForm.append('durationTo', data.durationTo);
-        exp && profileForm.append('experience', exp);
-        gender && profileForm.append('gender', gender);
-        item && profileForm.append('category', item);
-        state && profileForm.append('category', state);
-        frontFile && profileForm.append("photo", frontFile);
-        backFile && profileForm.append("signature", backFile);
         try {
-            const response = await axios.post('/api/application/save-application-details', profileForm);
-            const { message } = response.data;
-            toast.success(message);
+            await axios.post('/api/application/save-application-details', {
+                applicantName: data.applicantName,
+                fatherName: data.fatherName,
+                motherName: data.motherName,
+                dateOfBirth: data.dateOfBirth,
+                religion: religion,
+                gender: gender,
+                category: item,
+                totalExperience: data.totalExperience,
+                userId: data.userId,
+                password: data.password,
+                permanentAddress: {
+                    houseNumber: data.permanentAddress.houseNumber,
+                    road: data.permanentAddress.road,
+                    area: data.permanentAddress.area,
+                    state: data.permanentAddress.state,
+                    city: data.permanentAddress.city,
+                    pincode: data.permanentAddress.pincode,
+                },
+                presentAddress: {
+                    houseNumberPAD: data.presentAddress.houseNumber,
+                    roadPAD: data.presentAddress.road,
+                    areaPAD: data.presentAddress.area,
+                    statePAD: data.presentAddress.state,
+                    cityPAD: data.presentAddress.city,
+                    pincodePAD: data.presentAddress.pincode,
+
+                },
+                higherQualification: [
+                    {
+                        courseName: data.higherQualification[0].courseName,
+                        courseType: data.higherQualification[0].courseType,
+                        higherQualificationId: data.higherQualification[0].higherQualificationId,
+                        passingYearHq: passingYear,
+                        percentageHq: percentage,
+                        specialization: data.higherQualification[0].specialization,
+                    }
+                ],
+                experienceDetails: [
+                    {
+                        companyName: data.experienceDetails[0].companyName,
+                        designation: data.experienceDetails[0].designation,
+                        durationFrom: data.experienceDetails[0].durationFrom,
+                        durationTo: data.experienceDetails[0].durationTo,
+                        experienceDetailId: data.experienceDetails[0].experienceDetailId,
+                        experienced: data.experienceDetails[0].experienced,
+                        location: data.experienceDetails[0].location,
+                        totalExperience: data.experienceDetails[0].totalExperience,
+                    }
+                ],
+                academicQualification: [
+                    {
+                        academicQualificationId: data.academicQualification[0].academicQualificationId,
+                        board: data.academicQualification[0].board,
+                        className: data.academicQualification[0].className,
+                        passingYear: data.academicQualification[0].passingYear,
+                        percentage: data.academicQualification[0].percentage,
+                        schoolName: data.academicQualification[0].schoolName,
+                    }
+                ],
+
+                emailId: data.emailId,
+                mobileNumber: data.mobileNumber,
+                aadharNumber: data.aadharNumber,
+
+                alternateEmailId: data.alternateEmailId,
+                alternateMobileNumber: data.alternateMobileNumber,
+                pancard: data.pancard,
+                experienced: exp,
+            });
+            toast.success('Success');
         } catch (error: any) {
             toast.error("Something went wrong!");
         }
     };
 
-    const onFilesChange = (files: any) => {
-        setFileName(files.map((filename: any) => filename.preview.url));
-        setFile(files[0]);
-    };
-
-    const onFilesError = (error: any, file: any) => {
-        console.log('error code ' + error.code + ': ' + error.message);
-    };
-
-    const handleAddRow = () => {
-        setAddRow(true);
-        setRow(row + 1);
-    }
-
-    const handleAddHQ = () => {
-        setAddHQ(true);
-
-    }
-    const handleAddTE = () => {
-        setAddTE(true);
-
-    }
     const hanldeNo = () => {
         setHideForm(false);
+        setNoexperience(true);
+
+    }
+
+    const hanldeShowOthers = () => {
+        setOthers(true);
 
     }
     return (
         <section className='formSection'>
             <div className="row container">
                 <ToastContainer position="top-center" />
-                <h1 className='formHead'>Application Form for Store Supervisor</h1>
+                <h1 className='formHead'>Application Form for</h1>
                 <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
                     <div className="parentForm">
                         <h2 className='footerFormHead'>Personal Details</h2>
@@ -254,7 +312,7 @@ const ApplyNow = () => {
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <InputLabel id="demo-simple-select-label">Gender</InputLabel>
-                                <Select size='small' labelId='demo-simple-select-label' label="Gender" name='gender' value={gender} onChange={(e) => setGender(e.target.value)} className="form-select" id="state" required sx={{
+                                <Select fullWidth size='small' labelId='demo-simple-select-label' label="Gender" name='gender' value={gender} onChange={(e) => setGender(e.target.value)} className="form-select" id="state" required sx={{
 
                                     ".MuiOutlinedInput-notchedOutline": {
                                         border: "none",
@@ -277,7 +335,7 @@ const ApplyNow = () => {
                                     <MenuItem value="ST">ST</MenuItem>
                                     <MenuItem value="SC">SC</MenuItem>
                                     <MenuItem value="EWS">EWS</MenuItem>
-                                    <MenuItem value="others">others</MenuItem>
+                                    <MenuItem value="Others">Others</MenuItem>
                                 </Select>
                             </div>
 
@@ -288,7 +346,7 @@ const ApplyNow = () => {
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Religion <span className="must-filed">*</span></label>
-                                <Select size='small' value={item} onChange={(e) => setItem(e.target.value)} name='category' className="form-select" id="state" required sx={{
+                                <Select size='small' value={religion} onChange={(e) => setReligion(e.target.value)} name='religion' className="form-select" id="state" required sx={{
 
                                     ".MuiOutlinedInput-notchedOutline": {
                                         border: "none",
@@ -300,18 +358,34 @@ const ApplyNow = () => {
                                     <MenuItem value="Muslim">Muslim</MenuItem>
                                     <MenuItem value="Jain">Jain</MenuItem>
                                     <MenuItem value="Buddhist">Buddhist</MenuItem>
-                                    <MenuItem value="others">others</MenuItem>
+                                    <MenuItem value="Others" onClick={hanldeShowOthers}>Others</MenuItem>
                                 </Select>
                             </div>
+
+
+                            <div className="mt-4 col-lg-3 col-md-12">
+                                {
+                                    others &&
+                                    <>
+                                        <label htmlFor="exampleInputPassword1" className="form-label">Others <span className="must-filed">*</span></label>
+                                        <RHFTextField name="others" label="" placeholder='Please Specify' />
+                                    </>
+                                }
+
+                            </div>
+                            <div className="mb-3 col-lg-3 col-md-12"></div>
+
+
                         </div>
+
                     </div>
 
                     <div className="parentForm">
                         <h2 className='footerFormHead'>Permanent Address</h2>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
-                                <label htmlFor="exampleInputEmail1" className="form-label">House No/Apartment Name/Block No. <span className="must-filed">*</span></label>
-                                <RHFTextField name="houseNumber" label="" placeholder='House No/Apartment Name/Block No.' />
+                                <label htmlFor="exampleInputEmail1" className="form-label">House No./Apartment Name/Block No. <span className="must-filed">*</span></label>
+                                <RHFTextField name="houseNumber" label="" placeholder='House No./Apartment Name/Block No.' />
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
@@ -395,7 +469,7 @@ const ApplyNow = () => {
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-                                <RHFTextField name="pincode" label="" placeholder='PinCode' inputProps={{ maxLength: 6 }} />
+                                <RHFTextField name="pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
 
 
                             </div>
@@ -404,8 +478,8 @@ const ApplyNow = () => {
                         <h2 className='footerFormHead'>Present/Correspondence Address</h2>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
-                                <label htmlFor="exampleInputEmail1" className="form-label">House No/Apartment Name/Block No. <span className="must-filed">*</span></label>
-                                <RHFTextField name="houseNumber" label="" placeholder='House No/Apartment Name/Block No.' />
+                                <label htmlFor="exampleInputEmail1" className="form-label">House No./Apartment Name/Block No. <span className="must-filed">*</span></label>
+                                <RHFTextField name="houseNumber" label="" placeholder='House No./Apartment Name/Block No.' />
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
@@ -490,7 +564,7 @@ const ApplyNow = () => {
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-                                <RHFTextField name="pincode" label="" placeholder='PinCode' inputProps={{ maxLength: 6 }} />
+                                <RHFTextField name="pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
                             </div>
                         </div>
 
@@ -505,13 +579,13 @@ const ApplyNow = () => {
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
-                                <label htmlFor="exampleInputPassword1" className="form-label">Mobile No <span className="must-filed">*</span></label>
+                                <label htmlFor="exampleInputPassword1" className="form-label">Mobile No. <span className="must-filed">*</span></label>
 
-                                <RHFTextField name="mobileNumber" label="" placeholder='Mobile No' inputProps={{ maxLength: 10 }} />
+                                <RHFTextField name="mobileNumber" label="" placeholder='Mobile No.' inputProps={{ maxLength: 10 }} />
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
-                                <label htmlFor="exampleInputPassword1" className="form-label">Aadhar No <span className="must-filed">*</span></label>
-                                <RHFTextField name="aadharNumber" label="" placeholder='Aadhar No' inputProps={{ maxLength: 12 }} required />
+                                <label htmlFor="exampleInputPassword1" className="form-label">Aadhar No. <span className="must-filed">*</span></label>
+                                <RHFTextField name="aadharNumber" label="" placeholder='Aadhar No.' inputProps={{ maxLength: 12 }} required />
                             </div>
 
                         </div>
@@ -523,14 +597,14 @@ const ApplyNow = () => {
 
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
-                                <label htmlFor="exampleInputPassword1" className="form-label">Alternate Mobile No</label>
+                                <label htmlFor="exampleInputPassword1" className="form-label">Alternate Mobile No.</label>
 
-                                <RHFTextField name="alternateMobileNumber" label="" placeholder='Alternate Mobile No' inputProps={{ maxLength: 10 }} />
+                                <RHFTextField name="alternateMobileNumber" label="" placeholder='Alternate Mobile No.' inputProps={{ maxLength: 10 }} />
                             </div>
                             <div className="mb-3 col-lg-3 col-md-12">
-                                <label htmlFor="exampleInputPassword1" className="form-label">Pancard No.</label>
+                                <label htmlFor="exampleInputPassword1" className="form-label">Pan No.</label>
 
-                                <RHFTextField name="pancard" label="" placeholder='Pancard No' />
+                                <RHFTextField name="pancard" label="" placeholder='Pan No.' inputProps={{ maxLength: 10 }} />
                             </div>
 
 
@@ -561,20 +635,26 @@ const ApplyNow = () => {
                                     </thead>
                                     <tbody className="add_row_div_experience">
                                         {
-                                            addRow &&
+                                            [...Array(noOfRows)].map((elementInArray, index) => {
+                                                return (
+                                                    <tr key={index}>
+                                                        <td> <RHFTextField name="className" label="" placeholder='Class Name' /></td>
+                                                        <td> <RHFTextField name="schoolName" label="" placeholder='School Name' /></td>
+                                                        <td> <RHFTextField name="board" label="" placeholder='Board' /></td>
+                                                        <td> <RHFTextField name="percentage" label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                        <td> <RHFTextField name="passingYear" label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
+                                                    </tr>
 
-                                            <tr>
-                                                <td> <RHFTextField name="className" label="" placeholder='Class Name' /></td>
-                                                <td> <RHFTextField name="schoolName" label="" placeholder='School Name' /></td>
-                                                <td> <RHFTextField name="board" label="" placeholder='Board' /></td>
-                                                <td> <RHFTextField name="percentage" label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
-                                                <td> <RHFTextField name="passingYear" label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
-                                            </tr>
+                                                )
+
+                                            })
+
+
 
                                         }
                                     </tbody>
                                 </table>
-                                <button onClick={handleAddRow} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                                <button onClick={() => setNoOfRows(noOfRows + 1)} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
                             </div>
 
 
@@ -602,22 +682,28 @@ const ApplyNow = () => {
                                         </tr>
                                     </thead>
                                     <tbody className="add_row_div_experience">
-                                        {
-                                            addHQ &&
 
-                                            <tr>
-                                                <td> <RHFTextField name="courseName" label="" placeholder='Course Name' /></td>
-                                                <td> <RHFTextField name="specialization" label="" placeholder='Specialization' /></td>
-                                                <td> <RHFTextField name="percentageHQ" label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
-                                                <td> <RHFTextField name="passingYearHQ" label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
-                                                <td> <RHFTextField name="courseType" label="" placeholder='Course Type' /></td>
-                                            </tr>
+
+                                        {
+                                            [...Array(noOfRows2)].map((elementInArray, index) => {
+                                                return (
+                                                    <tr key={index}>
+                                                        <td> <RHFTextField name="courseName" label="" placeholder='Course Name' /></td>
+                                                        <td> <RHFTextField name="specialization" label="" placeholder='Specialization' /></td>
+                                                        <td> <RHFTextField name="percentageHQ" value={percentage} onChange={(e) => setPercentage(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                        <td> <RHFTextField name="passingYearHQ" value={passingYear} onChange={(e) => setPassingYear(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
+                                                        <td> <RHFTextField name="courseType" label="" placeholder='Course Type' /></td>
+                                                    </tr>
+
+                                                )
+
+                                            })
 
                                         }
 
                                     </tbody>
                                 </table>
-                                <button onClick={handleAddHQ} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                                <button onClick={() => setNoOfRows2(noOfRows2 + 1)} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
                             </div>
 
 
@@ -626,32 +712,39 @@ const ApplyNow = () => {
 
                     </div>
 
-                    {
-                        hideForm &&
-                        <div className="parentForm">
-                            <h2 className='footerFormHead' id="add-modal-label">Experience Details</h2>
-                            <div className="formBox">
-                                <div className="mb-3 col-lg-3 col-md-12">
-                                    <label htmlFor="exampleInputEmail1" className="form-label">Experience</label>
+                    <div className="parentForm">
+                        <h2 className='footerFormHead' id="add-modal-label">Experience Details</h2>
+                        <div className="formBox">
+                            <div className="mb-3 col-lg-3 col-md-12">
+                                <label htmlFor="exampleInputEmail1" className="form-label">Experience</label>
+                                {
+                                    hideForm &&
                                     <Select size='small' sx={{
 
                                         ".MuiOutlinedInput-notchedOutline": {
                                             border: "none",
                                         },
-                                    }} value={exp} onChange={(e) => setExp(e.target.value)} className="form-control select-experience" name="experience">
+                                    }} value={exp} onChange={(e) => setExp(e.target.value)} className="form-control select-experience" name="experienced">
 
                                         <MenuItem value="yes"  >Yes</MenuItem>
                                         <MenuItem value="no" onClick={hanldeNo}>No</MenuItem>
                                     </Select>
+                                }
+                                {
+                                    noExperience &&
+                                    <RHFTextField type="number" name="totalExperience" label="" placeholder='No Experience' disabled />
+                                }
 
-                                </div>
-                                <div className="mb-3 col-lg-3 col-md-12">
-                                    <label htmlFor="exampleInputPassword1" className="form-label">Total Experience(IN YEAR)</label>
-                                    <RHFTextField type="number" name="total_experience" label="" placeholder='Total Experience (IN YEAR)' />
-                                </div>
+                            </div>totalExperience
+                            {hideForm && <div className="mb-3 col-lg-3 col-md-12">
+                                <label htmlFor="exampleInputPassword1" className="form-label">Total Experience (IN YEAR)</label>
+                                <RHFTextField type="number" name="totalExperience" label="" placeholder='Total Experience (IN YEAR)' />
+                            </div>}
 
 
-                            </div>
+                        </div>
+                        {
+                            hideForm &&
                             <div className="formBox">
 
                                 <div className="form-group col-md-12 col-lg-12 tableFlow">
@@ -666,32 +759,40 @@ const ApplyNow = () => {
                                             </tr>
                                         </thead>
                                         <tbody className="add_row_div_experience">
-                                            {
-                                                addTE &&
 
-                                                <tr>
-                                                    <td> <RHFTextField name="companyName" label="" placeholder='Company Name' /></td>
-                                                    <td> <RHFTextField name="designation" label="" placeholder='Designation' /></td>
-                                                    <td> <RHFTextField name="location" label="" placeholder='Location' /></td>
-                                                    <td> <RHFTextField name="durationFrom" label="" placeholder='Duration From' /></td>
-                                                    <td> <RHFTextField name="durationTo" label="" placeholder='Duration To' /></td>
-                                                </tr>
+                                            {
+                                                [...Array(noOfRows3)].map((elementInArray, index) => {
+                                                    return (
+                                                        <tr key={index}>
+                                                            <td> <RHFTextField name="companyName" label="" placeholder='Company Name' /></td>
+                                                            <td> <RHFTextField name="designation" label="" placeholder='Designation' /></td>
+                                                            <td> <RHFTextField name="location" label="" placeholder='Location' /></td>
+                                                            <td> <RHFTextField name="durationFrom" label="" placeholder='Duration From' /></td>
+                                                            <td> <RHFTextField name="durationTo" label="" placeholder='Duration To' /></td>
+                                                        </tr>
+
+                                                    )
+
+                                                })
+
+
 
                                             }
 
                                         </tbody>
                                     </table>
-                                    <button onClick={handleAddTE} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                                    <button onClick={() => setNoOfRows3(noOfRows3 + 1)} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
                                 </div>
 
 
                             </div>
+                        }
 
 
-                        </div>
-                    }
+                    </div>
 
-                    <div className="parentForm">
+
+                    {/* <div className="parentForm">
                         <h2 className='footerFormHead' id="add-modal-label">Uplaod Documents <span className="must-filed"><span className="must-filed">*</span></span></h2>
                         <div className="formBox">
                             <div className="mb-3 col-lg-3 col-md-12">
@@ -704,16 +805,16 @@ const ApplyNow = () => {
                                 <input type="file" className="form-control file-max-upload" id="add-Sign" accept=".jpeg" required name="signature" />
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
 
                     <div className="submitFormData">
+
                         <button type="submit" onClick={handleSubmit(onSubmit)} className="formSubmit">Submit</button>
                         <button className="formSubmit" onClick={handleSubmit(onSubmit)}>Save</button>
                     </div>
-
-
                 </FormProvider>
+
 
             </div>
         </section>

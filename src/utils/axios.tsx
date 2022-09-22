@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 // config
 import { HOST_API } from '../../config'
 

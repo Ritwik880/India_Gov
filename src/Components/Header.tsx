@@ -39,6 +39,9 @@ const Header = () => {
                             <LinkContainer to="/login">
                                 <Nav.Link className='listItems'>LOGIN</Nav.Link>
                             </LinkContainer>
+                            <LinkContainer to="/my-application">
+                                <Nav.Link className='listItems'>My Application</Nav.Link>
+                            </LinkContainer>
 
                         </Nav>
                     </Navbar.Collapse>

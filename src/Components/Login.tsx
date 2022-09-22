@@ -17,24 +17,23 @@ import '../login.css'
 import Cta from './Cta';
 
 type ProfileValuesProps = {
-    userPassword: string;
-    phone_number: number;
+    password: string;
+    userId: string;
+
 
 };
 
 const Login = () => {
-    const isMounted = useRef(false);
     const [phoneNumber, setPhoneNumber] = useState<string>('');
     const [showPassword, setShowPassword] = useState(false);
 
     const ProfileSchema = Yup.object().shape({
-        phone_number: Yup.number().required('Phone Number is required'),
-        userPassword: Yup.string().required('Password is required'),
+        userId: Yup.string().required('Name is required'),
+        password: Yup.string().required('Password is required'),
     });
 
     const defaultValues = {
-        phone_number: 0,
-        userPassword: '',
+        password: '',
 
     };
     const methods = useForm<ProfileValuesProps>({
@@ -47,64 +46,20 @@ const Login = () => {
 
 
     const onSubmit = async (data: ProfileValuesProps) => {
-        const profileForm = new FormData();
-        profileForm.append('userPassword', data.userPassword);
-        if (phoneNumber) {
-            profileForm.append('phone_number', phoneNumber);
-            if (isValidPhoneNumber(phoneNumber)) {
-                try {
+        try {
+            await axios.post('/api/application/login', {
+                userId: parseInt(data.userId),
+                password: data.password
+            }
+            );
+            toast.success('Success');
+        } catch (error: any) {
+            toast.error("Something went wrong!");
+        }
 
-                    const response = await axios.get('/api/application/login', {
-                        params: {
-                            profileForm
-                        }
-                    });
-                    const { message } = response.data;
-                    toast.success(message);
-                } catch (error: any) {
-                    toast.error("Something went wrong!");
-                }
-            } else {
-                toast.error('Please enter a valid phone number!');
-            }
-        }
-        else {
-            profileForm.append('phone_number', '');
-            try {
-                const response = await axios.get('/api/application/login', {
-                    params: {
-                        profileForm
-                    }
-                });
-                const { message } = response.data;
-                toast.success(message);
-            } catch (error) {
-                toast.error('Something went wrong!');
-            }
-        }
+
     }
 
-    useEffect(() => {
-        const getProfileDetails = async () => {
-            try {
-                const response = await axios.get('/api/application/login');
-                const { data } = response.data;
-                if (!isMounted.current) {
-                    console.log(data);
-
-
-                }
-            } catch (error) {
-                console.error(error);
-                toast.error("Something went wrong!");
-            }
-        };
-        getProfileDetails();
-
-        return () => {
-            isMounted.current = true;
-        };
-    }, []);
 
     return (
         <>
@@ -118,18 +73,16 @@ const Login = () => {
 
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label className='formLabel'> <IoCallOutline className='signupIcon' />
-                                    Email Mobile Number</Form.Label>
+                                    Email Your Number</Form.Label>
 
-                                <RHFTextField name="phone_number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} label="" placeholder='Enter your number*' />
-
-
+                                <RHFTextField type='number' name="userId" label="" placeholder='Enter your name*' inputProps={{ maxLength: 10 }} />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicPassword">
                                 <Form.Label className='formLabel'> <BiLock className='signupIcon' />
                                     Password</Form.Label>
                                 <RHFTextField
-                                    name="userPassword"
+                                    name="password"
                                     label=""
                                     type={showPassword ? "text" : "password"}
                                     placeholder='Enter your password'

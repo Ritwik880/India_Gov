@@ -3,7 +3,7 @@ import '../contact.css'
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from "react-toastify";
 import * as Yup from 'yup';
-
+import { LoadingButton } from '@mui/lab';
 import axios from '../utils/axios';
 import FormProvider from './hook-form/FormProvider';
 import RHFTextField from './hook-form/RHFTextField';
@@ -16,26 +16,29 @@ type ProfileValuesProps = {
     name: string;
     email: string;
     subject: string;
-    phone: string;
     message: string;
+    number: string;
+
 
 };
 const Contact = () => {
-
+    const [phoneNumber, setPhoneNumber] = useState<number>();
     const ProfileSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
         email: Yup.string().required('Email is required'),
         subject: Yup.string().required('Subject is required'),
-        phone: Yup.string().required('Phone is required'),
         message: Yup.string().required('Message is required'),
+        number: Yup.string().required('Phone Number is required'),
+
     });
 
     const defaultValues = {
         name: '',
         email: '',
         subject: '',
-        phone: '',
         message: '',
+
+
 
     };
     const methods = useForm<ProfileValuesProps>({
@@ -43,23 +46,33 @@ const Contact = () => {
         defaultValues,
     });
 
-    const { handleSubmit, reset } = methods;
+    const {
+        reset,
+        handleSubmit,
+        formState: { isSubmitting },
+    } = methods;
 
     const onSubmit = async (data: ProfileValuesProps) => {
-        const profileForm = new FormData();
-        profileForm.append('name', data.name);
-        profileForm.append('email', data.email);
-        profileForm.append('subject', data.subject);
-        profileForm.append('phone', data.phone);
-        profileForm.append('message', data.message);
         try {
-            const response = await axios.post('/api/application/contact-us', profileForm);
-            const { message } = response.data;
-            toast.success(message);
+            await axios.post("/api/application/contact-us", {
+                name: data.name,
+                message: data.message,
+                subject: data.subject,
+                email: data.email,
+                number: parseInt(data.number)
+
+            });
+            toast.success('Success');
             reset();
         } catch (error: any) {
             toast.error("Something went wrong!");
         }
+    };
+
+    const handleChange = (e: any) => {
+        let value = e.target.value;
+        setPhoneNumber(e.target.value);
+
     };
     return (
         <>
@@ -102,7 +115,8 @@ const Contact = () => {
                                             <RHFTextField name="subject" label="" placeholder='Enter Subject*' />
                                         </Col>
                                         <Col className="inPhone">
-                                            <RHFTextField name="phone" label="" placeholder='Enter Phone*' />
+                                            <RHFTextField name="number" type='number' label="" placeholder='Enter Phone*' inputProps={{ maxLength: 10 }} />
+
                                         </Col>
                                     </Row>
 
@@ -111,7 +125,26 @@ const Contact = () => {
                                             <RHFTextField name="message" label="" placeholder='Enter Message*' />
                                         </Form.Group>
                                     </Row>
-                                    <Button type="submit" className="contactPageBtn">SEND YOUR MESSAGE</Button>
+                                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                        <LoadingButton
+                                            type="submit"
+                                            loading={isSubmitting}
+                                            sx={{
+                                                background: '#434565',
+                                                color: '#fff',
+                                                border: 'none',
+                                                padding: '8px 15px',
+                                                borderRadius: '4px',
+                                                '&:hover': {
+                                                    background: '#434565',
+                                                },
+
+                                            }}
+                                        >
+                                            SEND YOUR MESSAGE
+
+                                        </LoadingButton>
+                                    </div>
                                 </FormProvider>
                             </div>
                         </div>
@@ -122,7 +155,7 @@ const Contact = () => {
                             </div>
                             <div className="contact-name">
                                 <h5>Visit Our Office</h5>
-                                <p>Deen Dayal Upadhyay Marg New Delhi 110002</p>
+                                <p>Deen Dayal Upadhyay Marg, New Delhi 110002</p>
                             </div>
 
 

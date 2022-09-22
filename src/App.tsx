@@ -20,6 +20,8 @@ import Privacy from './Components/Privacy';
 import Terms from './Components/Terms';
 import ScrollToTop from './Components/ScrollToTop';
 import ForgotPass from './Components/ForgotPass';
+import Disclaimer from './Components/Disclaimer';
+import MyApplication from './Components/MyApplication';
 const App = () => {
   const [loading, setLoading] = useState(false);
 
@@ -62,6 +64,8 @@ const App = () => {
               <Route path='/privacy-policy' element={<Privacy />}></Route>
               <Route path='/terms-condition' element={<Terms />}></Route>
               <Route path='/forgot-password' element={<ForgotPass />}></Route>
+              <Route path='/disclaimer' element={<Disclaimer />}></Route>
+              <Route path='/my-application' element={<MyApplication />}></Route>
             </Routes>
             <Footer />
 

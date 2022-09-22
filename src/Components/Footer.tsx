@@ -3,30 +3,14 @@ import { Link } from 'react-router-dom';
 
 
 const Footer = () => {
-    const [count, setCount] = useState(1400000)
-
     return (
 
         <>
-            {/* <section className='footerUper'>
-                <div className="row container">
-
-                  
-
-
-
-                </div>
-
-            </section> */}
             <footer className='footer'>
                 <div className='row container'>
                     <div className='footerItems'>
-                        <Link to='/' className='linkFooterItem'>
+                        <Link to='/disclaimer' className='linkFooterItem'>
                             Disclaimer
-                        </Link>
-
-                        <Link to='/follow-us' className='linkFooterItem'>
-                            Follow Us
                         </Link>
 
                         <Link to='/copyright' className='linkFooterItem'>
