@@ -22,6 +22,7 @@ type MyApplicationType = {
     createdDate: string;
     applicationId: number;
     postName: string;
+    paymentStatus: boolean;
 
 };
 type PropsType = {
@@ -103,12 +104,7 @@ const MyApplication = (props: PropsType) => {
                                         <div className="myAppTable" key={id}>
                                             <table style={{ background: '#f7f7f7', border: '2px solid #26335d', boxShadow: '3px 4px 4px #26335d', padding: '0.5rem' }}>
                                                 <tr style={{ border: '1px solid #ddd' }}>
-                                                    <th style={{ color: '#26335d' }}>
-                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                                            Date
-                                                        </p>
 
-                                                    </th>
                                                     <th style={{ color: '#26335d' }}>
                                                         <p style={{ textAlign: 'center' }} className='myAppPara'>
                                                             Reg No.
@@ -146,13 +142,7 @@ const MyApplication = (props: PropsType) => {
 
                                                 <tr>
 
-                                                    <td style={{ color: '#26335d' }}>
-                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                                            {
-                                                                item.createdDate
-                                                            }
-                                                        </p>
-                                                    </td>
+
 
                                                     <td style={{ color: '#26335d' }}>
                                                         <p style={{ textAlign: 'center' }} className='myAppPara'>
@@ -171,10 +161,25 @@ const MyApplication = (props: PropsType) => {
                                                     </td>
 
                                                     <td>
-                                                        <Div>
-                                                            <Btn sx={{ marginRight: '1rem' }}>Paid</Btn>
-                                                            <Btn>Download Receipt</Btn>
-                                                        </Div>
+                                                        {
+                                                            users.map((item, id) => {
+                                                                return (
+                                                                    <>
+                                                                        {
+                                                                            item.paymentStatus === false ?
+                                                                                <Div>
+                                                                                    <Btn>Proceed to pay</Btn>
+                                                                                </Div>
+                                                                                :
+                                                                                <Div>
+                                                                                    <Btn sx={{ marginRight: '1rem' }}>Paid</Btn>
+                                                                                    <Btn>Download Receipt</Btn>
+                                                                                </Div>
+                                                                        }
+                                                                    </>
+                                                                )
+                                                            })
+                                                        }
                                                     </td>
                                                     <td>
                                                         <Div>

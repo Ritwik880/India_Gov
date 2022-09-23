@@ -60,14 +60,27 @@ const Login = () => {
     const onSubmit = async (data: ProfileValuesProps) => {
 
         try {
-            await axios.post('/api/application/login', {
-                userId: parseInt(data.userId),
-                password: data.password
+            const res = await axios.post('/api/application/login', {
+                userId: parseInt(userId),
+                password: data.password,
+
             }
             );
-            toast.success('Success');
-            reset();
-            // navigate('/my-application')
+            const { body } = res.data;
+            if (!body.loginSuccess) {
+                toast.error("Bad Credentials");
+
+            }
+            else {
+                toast.success('Success');
+                reset();
+                navigate('/my-application')
+
+            }
+
+
+
+
 
         } catch (error: any) {
 
@@ -136,11 +149,11 @@ const Login = () => {
                                 <Link className='forgotPassword' to='/forgot-password'>
                                     Forgot password ?
                                 </Link>
-                                <div>
+                                {/* <div>
                                     <button onClick={() => handleProfile(parseInt(userId))}>
                                         My Application
                                     </button>
-                                </div>
+                                </div> */}
 
                             </div>
                         </FormProvider>
