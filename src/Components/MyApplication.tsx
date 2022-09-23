@@ -1,6 +1,7 @@
-import React from 'react'
-import { Button, styled } from "@mui/material";
+import React, { useEffect, useState, useRef } from 'react'
+import { Button, styled, Box, CircularProgress } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import axios from '../utils/axios';
 
 
 const Btn = styled(Button)(({ theme }) => ({
@@ -17,8 +18,59 @@ const Div = styled('div')(({ theme }) => ({
     alignItems: 'center'
 
 }));
-const MyApplication = () => {
+type MyApplicationType = {
+    createdDate: string;
+    applicationId: number;
+    postName: string;
+
+};
+type PropsType = {
+
+}
+const MyApplication = (props: PropsType) => {
+    const [loading, setLoading] = useState(false);
+    const [noSuggestion, setNoSuggestion] = useState(false);
+    const [applicationId, setApplicationId] = useState([0]);
+    const [users, setUsers] = useState<MyApplicationType[]>([]);
+
     const navigate = useNavigate();
+    const isMounted = useRef(false);
+
+
+    useEffect(() => {
+        const getUser = async () => {
+            setLoading(true);
+            try {
+                await axios.post("/api/application/fetch-application-details",
+                    {
+
+                        applicationId: [20],
+                        userId: 5905
+
+                    }
+
+                ).then((response) => {
+                    if (!isMounted.current) {
+                        const { body } = response.data;
+                        setUsers(body);
+                        console.log(body);
+
+                    }
+                });
+                setLoading(false);
+            } catch (error) {
+                setLoading(false);
+                console.error(error);
+            }
+        };
+        getUser();
+    }, []);
+
+
+
+
+
+
     return (
         <>
             <div className="pb-6 d-flex align-items-center about-page">
@@ -28,102 +80,130 @@ const MyApplication = () => {
                 </div>
             </div>
 
-            <section className='myApp'>
-                <div className="row container">
-                    <h4 className='myAppHead'>My Application</h4>
-                    <div className="myAppTable">
-                        <table style={{ background: '#f7f7f7', border: '2px solid #26335d', boxShadow: '3px 4px 4px #26335d', padding: '0.5rem' }}>
-                            <tr style={{ border: '1px solid #ddd' }}>
-                                <th style={{ color: '#26335d' }}>
-                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                        Date
-                                    </p>
+            {
+                loading ? (
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            pt: '10%'
+                        }}
+                    >
+                        <CircularProgress />
+                    </Box>
 
-                                </th>
-                                <th style={{ color: '#26335d' }}>
-                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                        Reg No.
-                                    </p>
+                ) : (
+                    <section className='myApp'>
+                        <div className="row container">
+                            <h4 className='myAppHead'>My Application</h4>
+                            {
+                                users && users.map((item, id) => {
+                                    return (
+                                        <div className="myAppTable" key={id}>
+                                            <table style={{ background: '#f7f7f7', border: '2px solid #26335d', boxShadow: '3px 4px 4px #26335d', padding: '0.5rem' }}>
+                                                <tr style={{ border: '1px solid #ddd' }}>
+                                                    <th style={{ color: '#26335d' }}>
+                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                            Date
+                                                        </p>
 
-                                </th>
-                                <th style={{ color: '#26335d' }}>
-                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                        Post Applied For
-                                    </p>
+                                                    </th>
+                                                    <th style={{ color: '#26335d' }}>
+                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                            Reg No.
+                                                        </p>
 
-                                </th>
-                                <th style={{ color: '#26335d' }}>
-                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                        Payment Status
-                                    </p>
+                                                    </th>
+                                                    <th style={{ color: '#26335d' }}>
+                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                            Post Applied For
+                                                        </p>
 
-                                </th>
-                                <th style={{ color: '#26335d' }}>
-                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                        View Application
-                                    </p>
+                                                    </th>
+                                                    <th style={{ color: '#26335d' }}>
+                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                            Payment Status
+                                                        </p>
 
-                                </th>
+                                                    </th>
+                                                    <th style={{ color: '#26335d' }}>
+                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                            View Application
+                                                        </p>
 
-                                <th style={{ color: '#26335d' }}>
-                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                        Edit
-                                    </p>
+                                                    </th>
 
-                                </th>
+                                                    <th style={{ color: '#26335d' }}>
+                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                            Edit
+                                                        </p>
 
-
-                            </tr>
-
-                            <tr>
-
-                                <td style={{ color: '#26335d' }}>
-                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                        2022-09-20 18:39:48
-                                    </p>
-                                </td>
-
-                                <td style={{ color: '#26335d' }}>
-                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                        ISDO2206788
-                                    </p>
-                                </td>
-
-                                <td style={{ color: '#26335d' }}>
-                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                        Project Manager
-                                    </p>
-                                </td>
-
-                                <td>
-                                    <Div>
-                                        <Btn sx={{ marginRight: '1rem' }}>Paid</Btn>
-                                        <Btn>Download Receipt</Btn>
-                                    </Div>
-                                </td>
-                                <td>
-                                    <Div>
-                                        <Btn>
-                                            View/Download
-                                        </Btn>
-                                    </Div>
-                                </td>
-
-                                <td>
-                                    <Div>
-                                        <Btn onClick={() => navigate('/apply-now')}>
-                                            Edit
-                                        </Btn>
-                                    </Div>
-                                </td>
-
-                            </tr>
+                                                    </th>
 
 
-                        </table>
-                    </div>
-                </div>
-            </section>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td style={{ color: '#26335d' }}>
+                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                            {
+                                                                item.createdDate
+                                                            }
+                                                        </p>
+                                                    </td>
+
+                                                    <td style={{ color: '#26335d' }}>
+                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                            {
+                                                                item.applicationId
+                                                            }
+                                                        </p>
+                                                    </td>
+
+                                                    <td style={{ color: '#26335d' }}>
+                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                            {
+                                                                item.postName
+                                                            }
+                                                        </p>
+                                                    </td>
+
+                                                    <td>
+                                                        <Div>
+                                                            <Btn sx={{ marginRight: '1rem' }}>Paid</Btn>
+                                                            <Btn>Download Receipt</Btn>
+                                                        </Div>
+                                                    </td>
+                                                    <td>
+                                                        <Div>
+                                                            <Btn>
+                                                                View/Download
+                                                            </Btn>
+                                                        </Div>
+                                                    </td>
+
+                                                    <td>
+                                                        <Div>
+                                                            <Btn onClick={() => navigate('/apply-now')}>
+                                                                Edit
+                                                            </Btn>
+                                                        </Div>
+                                                    </td>
+
+                                                </tr>
+
+
+                                            </table>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </section>
+                )
+            }
         </>
     )
 }

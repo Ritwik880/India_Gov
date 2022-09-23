@@ -53,9 +53,9 @@ const ForgotPass = () => {
         try {
 
             const response = await axios.get('/api/application/forget-password', {
-                params: {
-                    profileForm
-                }
+                // currentPassword: data.currentPassword,
+                // newP
+
             });
             const { message } = response.data;
             toast.success(message);
@@ -63,30 +63,6 @@ const ForgotPass = () => {
             toast.error("Something went wrong!");
         }
     }
-
-
-
-    useEffect(() => {
-        const getProfileDetails = async () => {
-            try {
-                const response = await axios.post('/api/application/login');
-                const { data } = response.data;
-                if (!isMounted.current) {
-                    console.log(data);
-
-
-                }
-            } catch (error) {
-                console.error(error);
-                toast.error("Something went wrong!");
-            }
-        };
-        getProfileDetails();
-
-        return () => {
-            isMounted.current = true;
-        };
-    }, []);
 
     return (
         <>

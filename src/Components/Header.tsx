@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { AiOutlineHome } from 'react-icons/ai'
 const Header = () => {
+    const [showMyApplication, setshowMyApplication] = useState(false);
     return (
         <header>
             <div className='upperNav'>

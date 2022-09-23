@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { isValidPhoneNumber } from 'react-phone-number-input';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import {
+    CircularProgress,
+    Box,
+} from "@mui/material";
 import { InputAdornment, IconButton } from '@mui/material';
 import { Form } from 'react-bootstrap';
 import { BiLock } from 'react-icons/bi';
@@ -15,6 +18,11 @@ import Iconify from './Iconify';
 import { IoCallOutline } from 'react-icons/io5'
 import '../login.css'
 import Cta from './Cta';
+//object
+import { profileView } from "../redux/slices/profileView";
+
+//redux
+import { useDispatch, useSelector } from "../redux/store";
 
 type ProfileValuesProps = {
     password: string;
@@ -24,11 +32,11 @@ type ProfileValuesProps = {
 };
 
 const Login = () => {
-    const [phoneNumber, setPhoneNumber] = useState<string>('');
+    const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [userId, setUserId] = useState('');
 
     const ProfileSchema = Yup.object().shape({
-        userId: Yup.string().required('Name is required'),
         password: Yup.string().required('Password is required'),
     });
 
@@ -41,11 +49,16 @@ const Login = () => {
         defaultValues,
     });
 
-    const { handleSubmit, setValue } = methods;
+    const { handleSubmit, reset } = methods;
+
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
 
 
     const onSubmit = async (data: ProfileValuesProps) => {
+
         try {
             await axios.post('/api/application/login', {
                 userId: parseInt(data.userId),
@@ -53,16 +66,29 @@ const Login = () => {
             }
             );
             toast.success('Success');
+            reset();
+            // navigate('/my-application')
+
         } catch (error: any) {
+
             toast.error("Something went wrong!");
         }
 
 
     }
+    const handleProfile = (id: number) => {
+        dispatch(
+            profileView({
+                id: id,
+            })
+        );
+        navigate('/my-application');
+    };
 
 
     return (
         <>
+
             <section className='signupForm'>
                 <div className="row container">
                     <ToastContainer position="top-center" />
@@ -73,9 +99,9 @@ const Login = () => {
 
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label className='formLabel'> <IoCallOutline className='signupIcon' />
-                                    Email Your Number</Form.Label>
+                                    Enter Your Number</Form.Label>
 
-                                <RHFTextField type='number' name="userId" label="" placeholder='Enter your name*' inputProps={{ maxLength: 10 }} />
+                                <RHFTextField type='number' value={userId} onChange={(e) => setUserId(e.target.value)} name="userId" label="" placeholder='Enter your number*' inputProps={{ maxLength: 10 }} required />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -110,6 +136,11 @@ const Login = () => {
                                 <Link className='forgotPassword' to='/forgot-password'>
                                     Forgot password ?
                                 </Link>
+                                <div>
+                                    <button onClick={() => handleProfile(parseInt(userId))}>
+                                        My Application
+                                    </button>
+                                </div>
 
                             </div>
                         </FormProvider>
@@ -120,6 +151,7 @@ const Login = () => {
 
                 </div>
             </section>
+
             <Cta />
         </>
     )

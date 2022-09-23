@@ -520,7 +520,17 @@ th {
     padding: 1.5rem;
 }
 
+.submitForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (max-width: 767px) {
+    .myAppHead {
+        width: 100%;
+    }
+
     .landingBanner {
         height: 30vh;
     }
@@ -626,4 +636,9 @@ th {
     }
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {}
+@media (min-width: 768px) and (max-width: 1023px) {
+    .myAppHead {
+        width: 100%;
+    }
+
+}
