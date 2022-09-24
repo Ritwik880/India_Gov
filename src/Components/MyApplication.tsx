@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Button, styled, Box, CircularProgress } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import axios from '../utils/axios';
+import { dispatch, useSelector } from "../redux/store";
 
 
 const Btn = styled(Button)(({ theme }) => ({
@@ -37,6 +38,8 @@ const MyApplication = (props: PropsType) => {
     const navigate = useNavigate();
     const isMounted = useRef(false);
 
+    const profileDetails = useSelector((state: any) => state.profileView.value);
+
 
     useEffect(() => {
         const getUser = async () => {
@@ -45,8 +48,8 @@ const MyApplication = (props: PropsType) => {
                 await axios.post("/api/application/fetch-application-details",
                     {
 
-                        applicationId: [20],
-                        userId: 5905
+                        applicationId: profileDetails.id,
+                        // userId: 5905
 
                     }
 

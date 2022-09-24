@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import * as Yup from 'yup';
 import {
     CircularProgress,
@@ -12,6 +12,7 @@ import RHFTextField from './hook-form/RHFTextField';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import MyApplication from './MyApplication';
+import { useNavigate } from 'react-router-dom';
 
 
 type ProfileValuesProps = {
@@ -130,6 +131,10 @@ const ApplyNow = () => {
     const [noExperience, setNoexperience] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const navigate = useNavigate();
+
+    // const buttonRef = useRef();
+
     const ProfileSchema = Yup.object().shape({
         applicantName: Yup.string().required('Applicant name is required'),
         fatherName: Yup.string().required('Applicant father name is required'),
@@ -178,6 +183,8 @@ const ApplyNow = () => {
         e.preventDefault();
         alert('Are you sure the data entered is correct if YES click submit button.')
         setLoading(true);
+
+
         try {
             await axios.post('/api/application/save-application-details', {
                 applicantName: data.applicantName,
@@ -251,6 +258,96 @@ const ApplyNow = () => {
             toast.success('Success');
             reset();
             setLoading(false);
+        } catch (error: any) {
+            setLoading(false);
+            console.log(error);
+
+            toast.error("Something went wrong!");
+        }
+    };
+
+
+    const onSave = async (data: ProfileValuesProps, e: any) => {
+        e.preventDefault();
+        alert('Are you sure the data entered is correct if YES click submit button.')
+        setLoading(true);
+
+
+        try {
+            await axios.post('/api/application/save-application-details', {
+                applicantName: data.applicantName,
+                fatherName: data.fatherName,
+                motherName: data.motherName,
+                dateOfBirth: data.dateOfBirth,
+                religion: religion,
+                gender: gender,
+                category: category,
+                paymentStatus: false,
+                postName: 'Project Manager',
+                presentAddress: {
+                    houseNumber: presentHouseNo,
+                    road: road,
+                    area: area,
+                    country: countryPresent,
+                    state: statePresent,
+                    city: city,
+                    pincode: parseInt(pinCodePresent),
+                },
+                permanentAddress: {
+                    houseNumber: houseNo,
+                    road: permanentRoad,
+                    area: permanentArea,
+                    country: country,
+                    state: state,
+                    city: permanentCity,
+                    pincode: parseInt(pincode),
+                },
+                mobileNumber: parseInt(mobileNumber),
+                alternateMobileNumber: parseInt(alternateMobileNumber),
+                alternateEmailId: data.alternateEmailId,
+                emailId: data.emailId,
+                aadharNumber: parseInt(adhar),
+                pancard: data.pancard,
+                academicQualification: [
+                    {
+                        schoolName: schoolName,
+                        className: className,
+                        board: boardName,
+                        passingYear: parseInt(passingYear),
+                        percentage: parseInt(percentage),
+
+                    }
+                ],
+                higherQualification: [
+                    {
+                        courseName: courseName,
+                        specialization: specialization,
+                        courseType: courseType,
+                        passingYear: parseInt(passingYearHq),
+                        percentage: parseInt(percentageHq),
+
+                    }
+                ],
+
+
+                experienceDetails: [
+                    {
+                        companyName: companyName,
+                        designation: designation,
+                        location: location,
+                        durationFrom: durationFrom,
+                        durationTo: durationTo,
+                        totalExperience: parseInt(totalExp),
+                        experienced: exp,
+                    },
+                ],
+                password: Math.random().toString(36).substring(2, 9)
+            });
+            toast.success('Success');
+            reset();
+            setLoading(false);
+            navigate('/my-application')
+
         } catch (error: any) {
             setLoading(false);
             console.log(error);
@@ -764,7 +861,7 @@ const ApplyNow = () => {
 
                                 <div className="submitForm">
                                     <button className="formSubmit" type='submit'>Submit</button>
-                                    <button className="formSubmit" onClick={handleSubmit(onSubmit)}>Save</button>
+                                    <button className="formSubmit" onClick={handleSubmit(onSave)}>Save</button>
                                 </div>
                             </FormProvider>
 

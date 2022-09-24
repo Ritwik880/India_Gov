@@ -16,19 +16,7 @@ const rootPersistConfig = {
     whitelist: [],
 };
 
-const authConfig = {
-    key: "auth",
-    storage,
-    keyPrefix: "redux-",
-    whitelist: ["value"],
-};
 
-const layoutConfig = {
-    key: "layout",
-    storage,
-    keyPrefix: "redux-",
-    whitelist: ["value"],
-};
 const profileViewConfig = {
     key: "profileView",
     storage,
@@ -36,12 +24,6 @@ const profileViewConfig = {
     whitelist: ["value"],
 };
 
-const updateConfig = {
-    key: "update",
-    storage,
-    keyPrefix: "redux-",
-    whitelist: ["value"],
-};
 const profileConfig = {
     key: "profile",
     storage,

@@ -1,9 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import {
-    CircularProgress,
-    Box,
-} from "@mui/material";
+import { Link, useNavigate } from 'react-router-dom';
 import { InputAdornment, IconButton } from '@mui/material';
 import { Form } from 'react-bootstrap';
 import { BiLock } from 'react-icons/bi';
@@ -19,10 +15,11 @@ import { IoCallOutline } from 'react-icons/io5'
 import '../login.css'
 import Cta from './Cta';
 //object
+import { dispatch, useSelector } from "../redux/store";
 import { profileView } from "../redux/slices/profileView";
 
 //redux
-import { useDispatch, useSelector } from "../redux/store";
+import { useDispatch } from "../redux/store";
 
 type ProfileValuesProps = {
     password: string;
@@ -30,11 +27,21 @@ type ProfileValuesProps = {
 
 
 };
+type MyApplicationType = {
+    password: string;
+    userId: string;
+
+}
 
 const Login = () => {
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [userId, setUserId] = useState('');
+    const [userProfileId, setUserProfileId] = useState<MyApplicationType>({
+        password: '',
+        userId: '',
+
+    });
 
     const ProfileSchema = Yup.object().shape({
         password: Yup.string().required('Password is required'),
@@ -55,6 +62,8 @@ const Login = () => {
 
     const dispatch = useDispatch();
 
+    const profileDetails = useSelector((state: any) => state.profileView.value);
+
 
 
     const onSubmit = async (data: ProfileValuesProps) => {
@@ -63,25 +72,25 @@ const Login = () => {
             const res = await axios.post('/api/application/login', {
                 userId: parseInt(userId),
                 password: data.password,
+                id: profileDetails.id
 
             }
             );
             const { body } = res.data;
+            console.log(data);
+
+
             if (!body.loginSuccess) {
                 toast.error("Bad Credentials");
 
             }
             else {
+                setUserProfileId(body);
                 toast.success('Success');
                 reset();
                 navigate('/my-application')
 
             }
-
-
-
-
-
         } catch (error: any) {
 
             toast.error("Something went wrong!");
@@ -150,7 +159,7 @@ const Login = () => {
                                     Forgot password ?
                                 </Link>
                                 {/* <div>
-                                    <button onClick={() => handleProfile(parseInt(userId))}>
+                                    <button onClick={() => handleProfile(parseInt(userProfileId.userId))}>
                                         My Application
                                     </button>
                                 </div> */}
