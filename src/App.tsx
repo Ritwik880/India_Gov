@@ -22,6 +22,8 @@ import ScrollToTop from './Components/ScrollToTop';
 import ForgotPass from './Components/ForgotPass';
 import Disclaimer from './Components/Disclaimer';
 import MyApplication from './Components/MyApplication';
+import View from './Components/View';
+import Edit from './Components/Edit';
 const App = () => {
   const [loading, setLoading] = useState(false);
 
@@ -66,6 +68,8 @@ const App = () => {
               <Route path='/forgot-password' element={<ForgotPass />}></Route>
               <Route path='/disclaimer' element={<Disclaimer />}></Route>
               <Route path='/my-application' element={<MyApplication />}></Route>
+              <Route path='/view-application' element={<View />}></Route>
+              <Route path='/edit-application' element={<Edit />}></Route>
             </Routes>
             <Footer />
 

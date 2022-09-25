@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { InputAdornment, IconButton } from '@mui/material';
 import { Form } from 'react-bootstrap';
@@ -15,31 +15,49 @@ import { IoCallOutline } from 'react-icons/io5'
 import '../login.css'
 import Cta from './Cta';
 //object
-import { dispatch, useSelector } from "../redux/store";
-import { profileView } from "../redux/slices/profileView";
+import { useSelector } from "../redux/store";
+// import { profileView } from "../redux/slices/profileView";
 
 //redux
 import { useDispatch } from "../redux/store";
+import MyApplication from './MyApplication';
+import Header from './Header';
 
 type ProfileValuesProps = {
     password: string;
     userId: string;
+    id: number;
 
 
 };
 type MyApplicationType = {
     password: string;
     userId: string;
+    loginSuccess: boolean;
+    applicationDetails: [
+        {
+            applicationId: number
+        }
+    ]
+
 
 }
 
 const Login = () => {
-    // const [loading, setLoading] = useState(false);
+    const [myApp, setMyApp] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [userId, setUserId] = useState('');
     const [userProfileId, setUserProfileId] = useState<MyApplicationType>({
         password: '',
         userId: '',
+        loginSuccess: false,
+        applicationDetails: [
+            {
+                applicationId: 0,
+
+            }
+        ]
+
 
     });
 
@@ -62,7 +80,7 @@ const Login = () => {
 
     const dispatch = useDispatch();
 
-    const profileDetails = useSelector((state: any) => state.profileView.value);
+    const profileId = useSelector((state) => state.profileView.value);
 
 
 
@@ -72,12 +90,11 @@ const Login = () => {
             const res = await axios.post('/api/application/login', {
                 userId: parseInt(userId),
                 password: data.password,
-                id: profileDetails.id
-
+                id: profileId.userId
             }
             );
             const { body } = res.data;
-            console.log(data);
+            console.log(body.applicationDetails[0].applicationId);
 
 
             if (!body.loginSuccess) {
@@ -88,7 +105,7 @@ const Login = () => {
                 setUserProfileId(body);
                 toast.success('Success');
                 reset();
-                navigate('/my-application')
+                navigate('/my-application');
 
             }
         } catch (error: any) {
@@ -98,14 +115,14 @@ const Login = () => {
 
 
     }
-    const handleProfile = (id: number) => {
-        dispatch(
-            profileView({
-                id: id,
-            })
-        );
-        navigate('/my-application');
-    };
+    // const handleProfile = (id: number) => {
+    //     dispatch(
+    //         profileView({
+    //             id: id,
+    //         })
+    //     );
+    //     navigate('/my-application');
+    // };
 
 
     return (
@@ -173,6 +190,13 @@ const Login = () => {
 
                 </div>
             </section>
+            {
+                myApp &&
+                <>
+                    <MyApplication userId={userProfileId.userId} id={profileId.userId} applicationId={userProfileId.applicationDetails[0].applicationId} />
+                    <Header loginSuccess={userProfileId.loginSuccess} />
+                </>
+            }
 
             <Cta />
         </>

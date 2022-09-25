@@ -27,9 +27,17 @@ type MyApplicationType = {
 
 };
 type PropsType = {
+    userId: string;
+    applicationId: number;
+    id: number
 
 }
 const MyApplication = (props: PropsType) => {
+
+    // console.log(props.userId);
+    // console.log(props.applicationId);
+    // console.log(props.id);
+
     const [loading, setLoading] = useState(false);
     const [noSuggestion, setNoSuggestion] = useState(false);
     const [applicationId, setApplicationId] = useState([0]);
@@ -45,11 +53,10 @@ const MyApplication = (props: PropsType) => {
         const getUser = async () => {
             setLoading(true);
             try {
-                await axios.post("/api/application/fetch-application-details",
+                await axios.post(`/api/application/fetch-application-details`,
                     {
-
-                        applicationId: profileDetails.id,
-                        // userId: 5905
+                        applicationId: [20],
+                        userId: 5905,
 
                     }
 
@@ -186,7 +193,7 @@ const MyApplication = (props: PropsType) => {
                                                     </td>
                                                     <td>
                                                         <Div>
-                                                            <Btn>
+                                                            <Btn onClick={() => navigate('/view-application')}>
                                                                 View/Download
                                                             </Btn>
                                                         </Div>
@@ -194,7 +201,7 @@ const MyApplication = (props: PropsType) => {
 
                                                     <td>
                                                         <Div>
-                                                            <Btn onClick={() => navigate('/apply-now')}>
+                                                            <Btn onClick={() => navigate('/edit-application')}>
                                                                 Edit
                                                             </Btn>
                                                         </Div>

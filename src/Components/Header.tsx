@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { AiOutlineHome } from 'react-icons/ai'
-const Header = () => {
-    const [showMyApplication, setshowMyApplication] = useState(false);
+type Props = {
+    loginSuccess: boolean;
+}
+const Header = (props: Props) => {
     return (
         <header>
             <div className='upperNav'>
@@ -37,12 +38,18 @@ const Header = () => {
                             <LinkContainer to="/contact">
                                 <Nav.Link className='listItems'>CONTACT US</Nav.Link>
                             </LinkContainer>
+
                             <LinkContainer to="/login">
                                 <Nav.Link className='listItems'>LOGIN</Nav.Link>
                             </LinkContainer>
-                            <LinkContainer to="/my-application">
-                                <Nav.Link className='listItems'>My Application</Nav.Link>
-                            </LinkContainer>
+
+                            {
+
+                                props.loginSuccess === true &&
+                                <LinkContainer to="/my-application">
+                                    <Nav.Link className='listItems'>My Application</Nav.Link>
+                                </LinkContainer>
+                            }
 
                         </Nav>
                     </Navbar.Collapse>
