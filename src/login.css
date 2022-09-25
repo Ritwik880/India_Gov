@@ -75,6 +75,11 @@ progress {
     /* color: #000 !important; */
 }
 
+.forgotPassword {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
 @media (max-width: 767px) {
     .formLayout {
         width: 100%;

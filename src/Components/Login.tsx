@@ -124,6 +124,21 @@ const Login = () => {
     //     navigate('/my-application');
     // };
 
+    const handleMobileNumber = (e: any) => {
+        if (userId.length >= 10) {
+            toast.error('Mobile Number should be of 10 digit!');
+
+        }
+        else if (userId.length < 0) {
+            toast.error('Invalid Mobile Number!');
+
+        }
+        else {
+            setUserId(e.target.value)
+        }
+
+    }
+
 
     return (
         <>
@@ -140,7 +155,7 @@ const Login = () => {
                                 <Form.Label className='formLabel'> <IoCallOutline className='signupIcon' />
                                     Enter Your Number</Form.Label>
 
-                                <RHFTextField type='number' value={userId} onChange={(e) => setUserId(e.target.value)} name="userId" label="" placeholder='Enter your number*' inputProps={{ maxLength: 10 }} required />
+                                <RHFTextField type='number' value={userId} onChange={handleMobileNumber} name="userId" label="" placeholder='Enter your number*' inputProps={{ maxLength: 10 }} required />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -170,18 +185,14 @@ const Login = () => {
                                 />
                             </Form.Group>
                             <button className='signupBtn' type='submit'>Login</button>
-                            <div className="twoText">
 
-                                <Link className='forgotPassword' to='/forgot-password'>
-                                    Forgot password ?
-                                </Link>
-                                {/* <div>
-                                    <button onClick={() => handleProfile(parseInt(userProfileId.userId))}>
-                                        My Application
-                                    </button>
-                                </div> */}
 
-                            </div>
+                            <a className='forgotPassword' onClick={() => navigate('/forgot-password')}>
+                                Forgot password ?
+                            </a>
+
+
+
                         </FormProvider>
 
 

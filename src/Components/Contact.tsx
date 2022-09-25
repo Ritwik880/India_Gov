@@ -22,13 +22,12 @@ type ProfileValuesProps = {
 
 };
 const Contact = () => {
-    const [phoneNumber, setPhoneNumber] = useState<number>();
+    const [phoneNumber, setPhoneNumber] = useState('');
     const ProfileSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
-        email: Yup.string().required('Email is required'),
+        email: Yup.string().email('Email must be a valid email address').required('Email is required'),
         subject: Yup.string().required('Subject is required'),
         message: Yup.string().required('Message is required'),
-        number: Yup.string().required('Phone Number is required'),
 
     });
 
@@ -59,7 +58,7 @@ const Contact = () => {
                 message: data.message,
                 subject: data.subject,
                 email: data.email,
-                number: parseInt(data.number)
+                number: parseInt(phoneNumber)
 
             });
             toast.success('Success');
@@ -70,8 +69,17 @@ const Contact = () => {
     };
 
     const handleChange = (e: any) => {
-        let value = e.target.value;
-        setPhoneNumber(e.target.value);
+        if (phoneNumber.length >= 10) {
+            toast.error('Mobile Number should be of 10 digit!');
+
+        }
+        else if (phoneNumber.length < 0) {
+            toast.error('Invalid Mobile Number!');
+
+        }
+        else {
+            setPhoneNumber(e.target.value)
+        }
 
     };
     return (
@@ -115,7 +123,7 @@ const Contact = () => {
                                             <RHFTextField name="subject" label="" placeholder='Enter Subject*' />
                                         </Col>
                                         <Col className="inPhone">
-                                            <RHFTextField name="number" type='number' label="" placeholder='Enter Phone*' inputProps={{ maxLength: 10 }} />
+                                            <RHFTextField name="number" type='number' value={phoneNumber} onChange={handleChange} label="" placeholder='Enter Phone*' inputProps={{ maxLength: 10 }} required />
 
                                         </Col>
                                     </Row>
