@@ -16,6 +16,7 @@ import '../login.css'
 import Cta from './Cta';
 //object
 import { useSelector } from "../redux/store";
+import { authType } from '../redux/slices/auth';
 // import { profileView } from "../redux/slices/profileView";
 
 //redux
@@ -88,7 +89,7 @@ const Login = () => {
 
         try {
             const res = await axios.post('/api/application/login', {
-                userId: parseInt(userId),
+                userId: userId,
                 password: data.password,
                 id: profileId.userId
             }
@@ -102,6 +103,7 @@ const Login = () => {
 
             }
             else {
+                // dispatch(authType({ type: LOGIN }));
                 setUserProfileId(body);
                 toast.success('Success');
                 reset();

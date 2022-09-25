@@ -5,6 +5,7 @@ type Props = {
     loginSuccess: boolean;
 }
 const Header = (props: Props) => {
+    // dispatch(authType({ type: LOGIN, authFlow: PHONENO }));
     return (
         <header>
             <div className='upperNav'>

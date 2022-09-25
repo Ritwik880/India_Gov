@@ -289,8 +289,8 @@ const Edit = () => {
             try {
                 const response = await axios.post(`/api/application/fetch-application-details`,
                     {
-                        applicationId: [20],
-                        userId: 5905,
+                        applicationId: [1],
+                        userId: 8809711912,
 
                     }
 

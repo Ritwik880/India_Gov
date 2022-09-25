@@ -58,7 +58,7 @@ const Contact = () => {
                 message: data.message,
                 subject: data.subject,
                 email: data.email,
-                number: parseInt(phoneNumber)
+                number: phoneNumber
 
             });
             toast.success('Success');

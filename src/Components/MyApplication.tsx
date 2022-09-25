@@ -5,6 +5,7 @@ import axios from '../utils/axios';
 import { dispatch, useSelector } from "../redux/store";
 
 
+
 const Btn = styled(Button)(({ theme }) => ({
     borderRadius: "3px",
     backgroundColor: '#26335d',
@@ -58,8 +59,8 @@ const MyApplication = (props: PropsType) => {
             try {
                 await axios.post(`/api/application/fetch-application-details`,
                     {
-                        applicationId: [20],
-                        userId: 5905,
+                        applicationId: [1],
+                        userId: 8809711912,
 
                     }
 
@@ -89,7 +90,7 @@ const MyApplication = (props: PropsType) => {
     //handlePayment
     // let order_Id = Math.random().toString(36).substring(2, 9);
     const handlePayment = async (name: string, email: string, phoneNumber: string) => {
-        const url = 'https://www.cashfree.com/';
+        const url = 'http://localhost:5173/thankyou';
         const amount = 100;
         // const order_Id = Math.random().to(36).substring(2, 9);
 
@@ -99,7 +100,7 @@ const MyApplication = (props: PropsType) => {
 
                     customerEmail: email,
                     customerName: name,
-                    customerPhone: 1234567890,
+                    customerPhone: phoneNumber,
                     orderAmount: amount,
                     orderId: Math.floor(Math.random() * 90000) + 10000,
                     orderNote: "payment",

@@ -33,6 +33,7 @@
     "react-bootstrap": "^2.5.0",
     "react-code-input": "^3.10.1",
     "react-dom": "^18.2.0",
+    "react-files": "^3.0.0-alpha.3",
     "react-hook-form": "^7.35.0",
     "react-icons": "^4.4.0",
     "react-odometerjs": "^2.1.2",

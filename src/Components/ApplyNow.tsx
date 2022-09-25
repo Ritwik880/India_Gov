@@ -3,19 +3,26 @@ import * as Yup from 'yup';
 import {
     CircularProgress,
     Box,
+    styled,
+    Typography
 } from "@mui/material";
 import axios from '../utils/axios';
 import { ToastContainer, toast } from "react-toastify";
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { Select, MenuItem, InputLabel } from '@mui/material';
 import FormProvider from './hook-form/FormProvider';
 import RHFTextField from './hook-form/RHFTextField';
+import { ROW as rowData } from '../utils/constants';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import MyApplication from './MyApplication';
 import { useNavigate } from 'react-router-dom';
+// @ts-ignore
+import Files from 'react-files';
 
 
 type ProfileValuesProps = {
+    // upload_signature:
     aadharNumber: string;
     academicQualification: [
         {
@@ -85,6 +92,33 @@ type ProfileValuesProps = {
 
 
 };
+const AttachmentThumbnail = styled('div')(({ theme }) => ({
+    background: theme.palette.grey[200],
+    borderRadius: '15px',
+    height: '96px',
+    width: '147px',
+    marginBottom: theme.spacing(1),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+        height: '90px',
+        width: '120px',
+    },
+}));
+const ImgStyle = styled('img')(({ theme }) => ({
+    borderRadius: '15px',
+    height: '80px',
+    width: '130px',
+    objectFit: 'cover',
+}));
+
+const AttachmentWrapper = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    marginBottom: theme.spacing(2),
+}));
 const ApplyNow = () => {
     const [noOfRows, setNoOfRows] = useState(1);
     const [noOfRows2, setNoOfRows2] = useState(1);
@@ -131,6 +165,10 @@ const ApplyNow = () => {
     const [others, setOthers] = useState(false);
     const [noExperience, setNoexperience] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [uploadFile, setUploadFile] = useState<string | Blob>('');
+    const [uploadFileSignature, setUploadFileSignature] = useState<string | Blob>('');
+    const [uploadFileSrc, setUploadFileSrc] = useState<string>('');
+    const [uploadFileSignatureSrc, setUploadSignatureSrc] = useState<string>('');
 
     const navigate = useNavigate();
 
@@ -142,7 +180,6 @@ const ApplyNow = () => {
         motherName: Yup.string().required('Applicant mother name is required'),
         dateOfBirth: Yup.string().required('DateOfBirth is required'),
         emailId: Yup.string().email('Email must be a valid email address').required('Email is required'),
-        pancard: Yup.string().required('Pan is required'),
         // className: Yup.string().required('className is required'),
         // schoolName: Yup.string().required('School is required'),
         // board: Yup.string().required('Board is required'),
@@ -180,13 +217,16 @@ const ApplyNow = () => {
     const { reset, handleSubmit } = methods;
 
     const onSubmit = async (data: ProfileValuesProps, e: any) => {
+        // const profileForm = new FormData();
+        // uploadFileSignature && profileForm.append('upload_signature', uploadFileSignature);
+        // uploadFile && profileForm.append('upload_photo', uploadFile);
         e.preventDefault();
         alert('Are you sure the data entered is correct if YES click submit button.')
         setLoading(true);
-
-
         try {
             await axios.post('/api/application/save-application-details', {
+                upload_photo: uploadFile,
+                upload_signature: uploadFileSignature,
                 applicantName: data.applicantName,
                 fatherName: data.fatherName,
                 motherName: data.motherName,
@@ -214,11 +254,11 @@ const ApplyNow = () => {
                     city: permanentCity,
                     pincode: parseInt(pincode),
                 },
-                mobileNumber: parseInt(mobileNumber),
-                alternateMobileNumber: parseInt(alternateMobileNumber),
+                mobileNumber: mobileNumber,
+                alternateMobileNumber: alternateMobileNumber,
                 alternateEmailId: data.alternateEmailId,
                 emailId: data.emailId,
-                aadharNumber: parseInt(adhar),
+                aadharNumber: adhar,
                 pancard: data.pancard,
                 academicQualification: [
                     {
@@ -256,6 +296,7 @@ const ApplyNow = () => {
                 password: Math.random().toString(36).substring(2, 9)
             });
             toast.success('Success');
+            navigate('/my-application')
             reset();
             setLoading(false);
         } catch (error: any) {
@@ -346,7 +387,7 @@ const ApplyNow = () => {
             toast.success('Success');
             reset();
             setLoading(false);
-            navigate('/my-application')
+
 
         } catch (error: any) {
             setLoading(false);
@@ -371,9 +412,10 @@ const ApplyNow = () => {
             toast.error('Mobile Number should be of 10 digit!');
 
         }
-        else if (mobileNumber.length < 0) {
-            toast.error('Invalid Mobile Number!');
 
+        else if (mobileNumber.length === 8) {
+            setMobileNumber(e.target.value)
+            toast.error('Mobile Number should be of 10 digit!');
         }
         else {
             setMobileNumber(e.target.value)
@@ -381,44 +423,71 @@ const ApplyNow = () => {
 
     }
     const handleAdharNumber = (e: any) => {
-        if (adhar.length >= 12) {
-            toast.error('Adhar Number should be of 12 digit!');
+        if (adhar.length !== 0) {
+            if (adhar.length === 12) {
+                toast.error('Invalid adhar number');
+
+            }
+            else if (adhar.length === 10) {
+                setAdhar(e.target.value)
+                toast.error('Invalid adhar number');
+            }
+            else {
+                setAdhar(e.target.value)
+            }
 
         }
         else {
             setAdhar(e.target.value)
         }
 
+
+
+
     }
+
+
+
 
     const handleAlternateMobileNumber = (e: any) => {
         if (alternateMobileNumber.length >= 10) {
             toast.error('Alternate Mobile Number should be of 10 digit!');
 
         }
+        else if (alternateMobileNumber.length === 8) {
+            setAlternateMobileNumber(e.target.value)
+            toast.error('Mobile Number should be of 10 digit!');
+        }
         else {
             setAlternateMobileNumber(e.target.value)
         }
 
-    }
-
-    const handlePanNoChange = (e: any) => {
-        if (panNo.length >= 10) {
-            toast.error('Pan should be of 10 digit!');
-
-        }
-        else {
-            setPanNo(e.target.value)
-        }
 
     }
+
+    // const handlePanNoChange = (e: any) => {
+    //     if (panNo.length >= 10) {
+    //         toast.error('Pan should be of 10 digit!');
+
+    //     }
+    //     else {
+    //         setPanNo(e.target.value)
+    //     }
+
+    // }
     const handleChangePresentPinCode = (e: any) => {
         if (pinCodePresent.length >= 6) {
             toast.error('Pincode should be of 6 digit!');
 
         }
+        else if (pinCodePresent.length === 4) {
+            setPinCodePresent(e.target.value);
+            toast.error('Pincode should be of 6 digit!');
+
+
+        }
         else {
-            setPinCodePresent(e.target.value)
+            setPinCodePresent(e.target.value);
         }
 
     }
@@ -428,10 +497,32 @@ const ApplyNow = () => {
 
         }
         else {
-            setPinCode(e.target.value)
+            setPinCode(e.target.value);
         }
 
     }
+
+    const onUploadPhotoChange = (files: any) => {
+        setUploadFileSrc(files.map((filename: any) => filename.preview.url));
+        setUploadFile(files[0]);
+    };
+
+    const onUploadPhotoError = (error: any, file: any) => {
+        console.log('error code ' + error.code + ': ' + error.message);
+        toast.error('Something went wromg');
+    };
+
+    const onUploadSignatureChange = (files: any) => {
+        setUploadSignatureSrc(files.map((filename: any) => filename.preview.url));
+        setUploadFileSignature(files[0]);
+    };
+
+    const onUploadSignatureError = (error: any, file: any) => {
+        console.log('error code ' + error.code + ': ' + error.message);
+        toast.error('Something went wromg');
+    };
+
+    const MAX_FILE_SIZE = 10000000;
 
 
 
@@ -454,7 +545,7 @@ const ApplyNow = () => {
                     <section className='formSection'>
                         <div className="row container">
                             <ToastContainer position="top-center" />
-                            <h1 className='formHead'>Application Form for</h1>
+                            <h1 className='formHead'>Application Form for <span className='dynamic_data'>{rowData[0].name}</span></h1>
                             <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
                                 <div className="parentForm">
                                     <h2 className='footerFormHead'>Personal Details</h2>
@@ -754,7 +845,7 @@ const ApplyNow = () => {
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Pan No.</label>
 
-                                            <RHFTextField name="pancard" label="" placeholder='Pan No.' value={panNo} onChange={handlePanNoChange} inputProps={{ maxLength: 10 }} required />
+                                            <RHFTextField name="pancard" label="" placeholder='Pan No.' value={panNo} onChange={(e) => setPanNo(e.target.value)} inputProps={{ maxLength: 10 }} required />
                                         </div>
 
 
@@ -924,6 +1015,62 @@ const ApplyNow = () => {
 
                                         </div>
                                     }
+
+                                    <div className="file">
+                                        <div>
+                                            <Files
+                                                className="files-dropzone"
+                                                onChange={onUploadPhotoChange}
+                                                onError={onUploadPhotoError}
+                                                accepts={['image/*', '.jpeg']}
+                                                multiple={false}
+                                                maxFileSize={MAX_FILE_SIZE}
+                                                minFileSize={0}
+                                                clickable
+                                            >
+                                                <AttachmentThumbnail color="primary">
+                                                    {uploadFileSrc ? (
+                                                        <ImgStyle src={String(uploadFileSrc)} alt="img" />
+                                                    ) : (
+                                                        <AttachFileIcon color="primary" />
+                                                    )}
+                                                </AttachmentThumbnail>
+                                                <AttachmentWrapper>
+                                                    <AddBoxOutlinedIcon color="primary" />
+                                                    <Typography px={1} variant="body2">
+                                                        Upload Photo
+                                                    </Typography>
+                                                </AttachmentWrapper>
+                                            </Files>
+                                        </div>
+
+                                        <div style={{ marginLeft: '2rem' }}>
+                                            <Files
+                                                className="files-dropzone"
+                                                onChange={onUploadSignatureChange}
+                                                onError={onUploadSignatureError}
+                                                accepts={['image/*', '.jpeg']}
+                                                multiple={false}
+                                                maxFileSize={MAX_FILE_SIZE}
+                                                minFileSize={0}
+                                                clickable
+                                            >
+                                                <AttachmentThumbnail color="primary">
+                                                    {uploadFileSignatureSrc ? (
+                                                        <ImgStyle src={String(uploadFileSignatureSrc)} alt="img" />
+                                                    ) : (
+                                                        <AttachFileIcon color="primary" />
+                                                    )}
+                                                </AttachmentThumbnail>
+                                                <AttachmentWrapper>
+                                                    <AddBoxOutlinedIcon color="primary" />
+                                                    <Typography px={1} variant="body2">
+                                                        Upload Signature
+                                                    </Typography>
+                                                </AttachmentWrapper>
+                                            </Files>
+                                        </div>
+                                    </div>
 
                                 </div>
 

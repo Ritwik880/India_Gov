@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ROW as rowData } from '../utils/constants';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+// import ApplyNow from './ApplyNow';
 const Table = () => {
+    // const [hide, setHide] = useState(false);
+
+    const navigate = useNavigate();
+
+    const handleClick = (id: number) => {
+        navigate('/apply-now')
+    }
     return (
         <section className="jobSection">
             <div className="row container">
@@ -36,10 +44,10 @@ const Table = () => {
                                         <td>{item.age}</td>
                                         <td>{item.sal}</td>
                                         <td>
-                                            <Link to='/apply-now' className='linkNow'>
-                                                <button className='applyNow'>
-                                                    {item.btn}
-                                                </button></Link>
+
+                                            <button className='applyNow' onClick={() => handleClick(item.id)}>
+                                                {item.btn}
+                                            </button>
                                         </td>
 
                                     </tr>
@@ -54,6 +62,9 @@ const Table = () => {
 
 
             </div>
+            {/* {
+                hide && (<ApplyNow id={rowData[0].id}/>)
+            } */}
         </section>
     )
 }
