@@ -106,6 +106,7 @@ const ApplyNow = () => {
     const [religion, setReligion] = useState("");
     const [state, setState] = useState("");
     const [adhar, setAdhar] = useState("");
+    const [panNo, setPanNo] = useState("");
     const [percentage, setPercentage] = useState("");
     const [percentageHq, setPercentageHq] = useState("");
     const [passingYear, setPassingYear] = useState("");
@@ -140,7 +141,7 @@ const ApplyNow = () => {
         fatherName: Yup.string().required('Applicant father name is required'),
         motherName: Yup.string().required('Applicant mother name is required'),
         dateOfBirth: Yup.string().required('DateOfBirth is required'),
-        emailId: Yup.string().required('Email is required'),
+        emailId: Yup.string().email('Email must be a valid email address').required('Email is required'),
         pancard: Yup.string().required('Pan is required'),
         // className: Yup.string().required('className is required'),
         // schoolName: Yup.string().required('School is required'),
@@ -164,7 +165,6 @@ const ApplyNow = () => {
         motherName: '',
         others: '',
         dateOfBirth: '',
-        emailId: '',
         alternateEmailId: '',
         pancard: '',
 
@@ -366,6 +366,75 @@ const ApplyNow = () => {
         setOthers(true);
 
     }
+    const handleMobileNumber = (e: any) => {
+        if (mobileNumber.length >= 10) {
+            toast.error('Mobile Number should be of 10 digit!');
+
+        }
+        else if (mobileNumber.length < 0) {
+            toast.error('Invalid Mobile Number!');
+
+        }
+        else {
+            setMobileNumber(e.target.value)
+        }
+
+    }
+    const handleAdharNumber = (e: any) => {
+        if (adhar.length >= 12) {
+            toast.error('Adhar Number should be of 12 digit!');
+
+        }
+        else {
+            setAdhar(e.target.value)
+        }
+
+    }
+
+    const handleAlternateMobileNumber = (e: any) => {
+        if (alternateMobileNumber.length >= 10) {
+            toast.error('Alternate Mobile Number should be of 10 digit!');
+
+        }
+        else {
+            setAlternateMobileNumber(e.target.value)
+        }
+
+    }
+
+    const handlePanNoChange = (e: any) => {
+        if (panNo.length >= 10) {
+            toast.error('Pan should be of 10 digit!');
+
+        }
+        else {
+            setPanNo(e.target.value)
+        }
+
+    }
+    const handleChangePresentPinCode = (e: any) => {
+        if (pinCodePresent.length >= 6) {
+            toast.error('Pincode should be of 6 digit!');
+
+        }
+        else {
+            setPinCodePresent(e.target.value)
+        }
+
+    }
+    const handleChangePermanentPinCode = (e: any) => {
+        if (pincode.length >= 6) {
+            toast.error('Pincode should be of 6 digit!');
+
+        }
+        else {
+            setPinCode(e.target.value)
+        }
+
+    }
+
+
+
     return (
         <>
             {
@@ -469,18 +538,18 @@ const ApplyNow = () => {
                                     <div className="formBox">
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputEmail1" className="form-label">House No./Apartment Name/Block No. <span className="must-filed">*</span></label>
-                                            <RHFTextField name="houseNumber" label="" value={houseNo} onChange={(e) => setHouseNo(e.target.value)} placeholder='House No./Apartment Name/Block No.' />
+                                            <RHFTextField name="houseNumber" label="" value={houseNo} onChange={(e) => setHouseNo(e.target.value)} placeholder='House No./Apartment Name/Block No.' required />
 
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Road/Street/Lane <span className="must-filed">*</span></label>
 
-                                            <RHFTextField name="road" label="" value={permanentRoad} onChange={(e) => setPermanentRoad(e.target.value)} placeholder='Road/Street/Lane' />
+                                            <RHFTextField name="road" label="" value={permanentRoad} onChange={(e) => setPermanentRoad(e.target.value)} placeholder='Road/Street/Lane' required />
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Area/Landmark <span className="must-filed">*</span></label>
 
-                                            <RHFTextField name="area" label="" placeholder='Area/Landmark' value={permanentArea} onChange={(e) => setPermanentArea(e.target.value)} />
+                                            <RHFTextField name="area" label="" placeholder='Area/Landmark' value={permanentArea} onChange={(e) => setPermanentArea(e.target.value)} required />
                                         </div>
 
                                     </div>
@@ -544,7 +613,7 @@ const ApplyNow = () => {
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">City <span className="must-filed">*</span></label>
-                                            <RHFTextField name="city" label="" placeholder='City' value={permanentCity} onChange={(e) => setPermanentCity(e.target.value)} />
+                                            <RHFTextField name="city" label="" placeholder='City' value={permanentCity} onChange={(e) => setPermanentCity(e.target.value)} required />
                                         </div>
 
 
@@ -553,7 +622,7 @@ const ApplyNow = () => {
                                     <div className="formBox">
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-                                            <RHFTextField name="pincode" value={pincode} onChange={(e) => setPinCode(e.target.value)} type='number' label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
+                                            <RHFTextField name="pincode" value={pincode} onChange={handleChangePermanentPinCode} type='number' label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} required />
 
                                         </div>
                                     </div>
@@ -562,18 +631,18 @@ const ApplyNow = () => {
                                     <div className="formBox">
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputEmail1" className="form-label">House No./Apartment Name/Block No. <span className="must-filed">*</span></label>
-                                            <RHFTextField name="houseNumber" label="" value={presentHouseNo} onChange={(e) => setPresentHouseNo(e.target.value)} placeholder='House No./Apartment Name/Block No.' />
+                                            <RHFTextField name="houseNumber" label="" value={presentHouseNo} onChange={(e) => setPresentHouseNo(e.target.value)} placeholder='House No./Apartment Name/Block No.' required />
 
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Road/Street/Lane <span className="must-filed">*</span></label>
 
-                                            <RHFTextField name="road" label="" placeholder='Road/Street/Lane' value={road} onChange={(e) => setRoad(e.target.value)} />
+                                            <RHFTextField name="road" label="" placeholder='Road/Street/Lane' value={road} onChange={(e) => setRoad(e.target.value)} required />
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Area/Landmark <span className="must-filed">*</span></label>
 
-                                            <RHFTextField name="area" label="" placeholder='Area/Landmark' value={area} onChange={(e) => setArea(e.target.value)} />
+                                            <RHFTextField name="area" label="" placeholder='Area/Landmark' value={area} onChange={(e) => setArea(e.target.value)} required />
                                         </div>
 
 
@@ -638,7 +707,7 @@ const ApplyNow = () => {
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">City <span className="must-filed">*</span></label>
-                                            <RHFTextField name="city" label="" placeholder='City' value={city} onChange={(e) => setCity(e.target.value)} />
+                                            <RHFTextField name="city" label="" placeholder='City' value={city} onChange={(e) => setCity(e.target.value)} required />
                                         </div>
 
 
@@ -647,7 +716,7 @@ const ApplyNow = () => {
                                     <div className="formBox">
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-                                            <RHFTextField type='number' value={pinCodePresent} onChange={(e) => setPinCodePresent(e.target.value)} name="pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
+                                            <RHFTextField type='number' value={pinCodePresent} onChange={handleChangePresentPinCode} name="pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} required />
                                         </div>
                                     </div>
 
@@ -656,17 +725,17 @@ const ApplyNow = () => {
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputEmail1" className="form-label">Email ID <span className="must-filed">*</span></label>
 
-                                            <RHFTextField name="emailId" type='email' label="" placeholder='Email ID' required />
+                                            <RHFTextField name="emailId" label="" placeholder='Email ID' required />
 
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Mobile No. <span className="must-filed">*</span></label>
 
-                                            <RHFTextField name="mobileNumber" type='number' value={mobileNumber} onChange={(e) => setMobileNumber(e.target.value)} label="" placeholder='Mobile No.' inputProps={{ maxLength: 10 }} />
+                                            <RHFTextField name="mobileNumber" type='number' value={mobileNumber} onChange={handleMobileNumber} label="" placeholder='Mobile No.' inputProps={{ maxLength: 10 }} required />
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Aadhar No. <span className="must-filed">*</span></label>
-                                            <RHFTextField name="aadharNumber" type='number' value={adhar} onChange={(e) => setAdhar(e.target.value)} label="" placeholder='Aadhar No.' inputProps={{ maxLength: 12 }} required />
+                                            <RHFTextField name="aadharNumber" type='number' value={adhar} onChange={handleAdharNumber} label="" placeholder='Aadhar No.' inputProps={{ maxLength: 12 }} required />
                                         </div>
 
                                     </div>
@@ -674,18 +743,18 @@ const ApplyNow = () => {
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputEmail1" className="form-label">Alternate Email ID</label>
 
-                                            <RHFTextField name="alternateEmailId" label="" placeholder='Alternate Email ID' />
+                                            <RHFTextField name="alternateEmailId" label="" placeholder='Alternate Email ID' required />
 
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Alternate Mobile No.</label>
 
-                                            <RHFTextField name="alternateMobileNumber" type='number' value={alternateMobileNumber} onChange={(e) => setAlternateMobileNumber(e.target.value)} label="" placeholder='Alternate Mobile No.' inputProps={{ maxLength: 10 }} />
+                                            <RHFTextField name="alternateMobileNumber" type='number' value={alternateMobileNumber} onChange={handleAlternateMobileNumber} label="" placeholder='Alternate Mobile No.' inputProps={{ maxLength: 10 }} />
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Pan No.</label>
 
-                                            <RHFTextField name="pancard" label="" placeholder='Pan No.' inputProps={{ maxLength: 10 }} />
+                                            <RHFTextField name="pancard" label="" placeholder='Pan No.' value={panNo} onChange={handlePanNoChange} inputProps={{ maxLength: 10 }} required />
                                         </div>
 
 
@@ -714,11 +783,11 @@ const ApplyNow = () => {
                                                         [...Array(noOfRows)].map((elementInArray, index) => {
                                                             return (
                                                                 <tr key={index}>
-                                                                    <td> <RHFTextField name="className" value={className} onChange={(e) => setClassName(e.target.value)} label="" placeholder='Class Name' /></td>
-                                                                    <td> <RHFTextField name="schoolName" value={schoolName} onChange={(e) => setSchoolName(e.target.value)} label="" placeholder='School Name' /></td>
-                                                                    <td> <RHFTextField name="board" value={boardName} onChange={(e) => setBoardName(e.target.value)} label="" placeholder='Board' /></td>
-                                                                    <td> <RHFTextField name="percentage" value={percentage} onChange={(e) => setPercentage(e.target.value)} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
-                                                                    <td> <RHFTextField name="passingYear" value={passingYear} onChange={(e) => setPassingYear(e.target.value)} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
+                                                                    <td> <RHFTextField name="className" value={className} onChange={(e) => setClassName(e.target.value)} label="" placeholder='Class Name' required /></td>
+                                                                    <td> <RHFTextField name="schoolName" value={schoolName} onChange={(e) => setSchoolName(e.target.value)} label="" placeholder='School Name' required /></td>
+                                                                    <td> <RHFTextField name="board" value={boardName} onChange={(e) => setBoardName(e.target.value)} label="" placeholder='Board' required /></td>
+                                                                    <td> <RHFTextField name="percentage" value={percentage} onChange={(e) => setPercentage(e.target.value)} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} required /></td>
+                                                                    <td> <RHFTextField name="passingYear" value={passingYear} onChange={(e) => setPassingYear(e.target.value)} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} required /></td>
                                                                 </tr>
 
                                                             )
@@ -760,10 +829,10 @@ const ApplyNow = () => {
                                                         [...Array(noOfRows2)].map((elementInArray, index) => {
                                                             return (
                                                                 <tr key={index}>
-                                                                    <td> <RHFTextField name="courseName" value={courseName} onChange={(e) => setCourseName(e.target.value)} label="" placeholder='Course Name' /></td>
-                                                                    <td> <RHFTextField name="specialization" value={specialization} onChange={(e) => setSpecialization(e.target.value)} label="" placeholder='Specialization' /></td>
-                                                                    <td> <RHFTextField name="percentage" type='number' value={percentageHq} onChange={(e) => setPercentageHq(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
-                                                                    <td> <RHFTextField name="passingYear" type='number' value={passingYearHq} onChange={(e) => setPassingYearHq(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
+                                                                    <td> <RHFTextField name="courseName" value={courseName} onChange={(e) => setCourseName(e.target.value)} label="" placeholder='Course Name' required /></td>
+                                                                    <td> <RHFTextField name="specialization" value={specialization} onChange={(e) => setSpecialization(e.target.value)} label="" placeholder='Specialization' required /></td>
+                                                                    <td> <RHFTextField name="percentage" type='number' value={percentageHq} onChange={(e) => setPercentageHq(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} required /></td>
+                                                                    <td> <RHFTextField name="passingYear" type='number' value={passingYearHq} onChange={(e) => setPassingYearHq(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} required /></td>
                                                                     <td> <RHFTextField name="courseType" value={courseType} onChange={(e) => setCourseType(e.target.value)} label="" placeholder='Course Type' /></td>
                                                                 </tr>
 
@@ -792,7 +861,7 @@ const ApplyNow = () => {
                                                     ".MuiOutlinedInput-notchedOutline": {
                                                         border: "none",
                                                     },
-                                                }} value={exp} onChange={(e) => setExp(e.target.value)} className="form-control select-experience" name="experienced">
+                                                }} value={exp} required onChange={(e) => setExp(e.target.value)} className="form-control select-experience" name="experienced">
 
                                                     <MenuItem value="yes"  >Yes</MenuItem>
                                                     <MenuItem value="no" onClick={hanldeNo}>No</MenuItem>
@@ -803,10 +872,10 @@ const ApplyNow = () => {
                                                 <RHFTextField type="number" name="totalExperience" label="" placeholder='No Experience' disabled />
                                             }
 
-                                        </div>totalExperience
+                                        </div>
                                         {hideForm && <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Total Experience (IN YEAR)</label>
-                                            <RHFTextField type="number" name="totalExperience" value={totalExp} onChange={(e) => setTotalExp(e.target.value)} label="" placeholder='Total Experience (IN YEAR)' />
+                                            <RHFTextField type="number" name="totalExperience" value={totalExp} onChange={(e) => setTotalExp(e.target.value)} label="" placeholder='Total Experience (IN YEAR)' required />
                                         </div>}
 
 
@@ -832,11 +901,11 @@ const ApplyNow = () => {
                                                             [...Array(noOfRows3)].map((elementInArray, index) => {
                                                                 return (
                                                                     <tr key={index}>
-                                                                        <td> <RHFTextField name="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} label="" placeholder='durationFromCompany Name' /></td>
-                                                                        <td> <RHFTextField name="designation" value={designation} onChange={(e) => setDesignation(e.target.value)} label="" placeholder='Designation' /></td>
+                                                                        <td> <RHFTextField name="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} label="" placeholder='Company Name' required /></td>
+                                                                        <td> <RHFTextField name="designation" value={designation} onChange={(e) => setDesignation(e.target.value)} label="" placeholder='Designation' required /></td>
                                                                         <td> <RHFTextField name="location" value={location} onChange={(e) => setLocation(e.target.value)} label="" placeholder='Location' /></td>
-                                                                        <td> <RHFTextField name="durationFrom" value={durationFrom} onChange={(e) => setDurationFrom(e.target.value)} label="" placeholder='Duration From' /></td>
-                                                                        <td> <RHFTextField name="durationTo" value={durationTo} onChange={(e) => setdurationTo(e.target.value)} label="" placeholder='Duration To' /></td>
+                                                                        <td> <RHFTextField name="durationFrom" value={durationFrom} onChange={(e) => setDurationFrom(e.target.value)} label="" placeholder='Duration From' required /></td>
+                                                                        <td> <RHFTextField name="durationTo" value={durationTo} onChange={(e) => setdurationTo(e.target.value)} label="" placeholder='Duration To' required /></td>
                                                                     </tr>
 
                                                                 )
