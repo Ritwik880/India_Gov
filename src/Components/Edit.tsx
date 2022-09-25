@@ -1069,6 +1069,78 @@ const Edit = () => {
 
                                         </div>
 
+                                        <h2 className='footerFormHead' id="add-modal-label">Higher Qualification
+                                        </h2>
+
+                                        <div className="formBox">
+
+                                            <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                <table className="table table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Course Name</th>
+                                                            <th>Specialization</th>
+                                                            <th>% Mark	</th>
+                                                            <th>Passing Year	</th>
+                                                            <th>Course Type
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody className="add_row_div_experience">
+                                                        {
+                                                            isFormEnabled ? (
+                                                                <>
+                                                                    {
+                                                                        [...Array(noOfRows2)].map((elementInArray, index) => {
+                                                                            return (
+                                                                                <tr key={index}>
+                                                                                    <td> <RHFTextField name="courseName" value={courseName} onChange={(e) => setCourseName(e.target.value)} label="" placeholder='Course Name' /></td>
+                                                                                    <td> <RHFTextField name="specialization" value={specialization} onChange={(e) => setSpecialization(e.target.value)} label="" placeholder='Specialization' /></td>
+                                                                                    <td> <RHFTextField name="percentage" type='number' value={percentageHq} onChange={(e) => setPercentageHq(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                                                    <td> <RHFTextField name="passingYear" type='number' value={passingYearHq} onChange={(e) => setPassingYearHq(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
+                                                                                    <td> <RHFTextField name="courseType" value={courseType} onChange={(e) => setCourseType(e.target.value)} label="" placeholder='Course Type' /></td>
+                                                                                </tr>
+
+                                                                            )
+
+                                                                        })
+
+                                                                    }
+                                                                </>
+
+
+                                                            ) : (
+                                                                <>
+                                                                    {
+                                                                        [...Array(noOfRows2)].map((elementInArray, index) => {
+                                                                            return (
+                                                                                <tr key={index}>
+                                                                                    <td> <RHFTextField name="courseName" value={item.higherQualification[0].courseName} label="" placeholder='Course Name' /></td>
+                                                                                    <td> <RHFTextField name="specialization" value={item.higherQualification[0].specialization} label="" placeholder='Specialization' /></td>
+                                                                                    <td> <RHFTextField name="percentage" type='number' value={item.higherQualification[0].percentage} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                                                    <td> <RHFTextField name="passingYear" type='number' value={item.higherQualification[0].passingYear} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
+                                                                                    <td> <RHFTextField name="courseType" value={item.higherQualification[0].courseType} label="" placeholder='Course Type' /></td>
+                                                                                </tr>
+
+                                                                            )
+
+                                                                        })
+
+                                                                    }
+                                                                </>
+
+
+                                                            )
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                                <button onClick={() => setNoOfRows2(noOfRows2 + 1)} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                                            </div>
+
+
+                                        </div>
+
                                     </div>
 
                                     <div className="submitForm">

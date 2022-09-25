@@ -24,6 +24,8 @@ import Disclaimer from './Components/Disclaimer';
 import MyApplication from './Components/MyApplication';
 import View from './Components/View';
 import Edit from './Components/Edit';
+import Payment from './Components/Payment';
+import ThankYou from './Components/ThankYou';
 const App = () => {
   const [loading, setLoading] = useState(false);
 
@@ -50,7 +52,7 @@ const App = () => {
           </Box>
 
           : <div>
-            <Header />
+            <Header loginSuccess={false} />
             <ScrollToTop />
             <Routes>
               <Route path='/' element={<Home />}></Route>
@@ -67,9 +69,11 @@ const App = () => {
               <Route path='/terms-condition' element={<Terms />}></Route>
               <Route path='/forgot-password' element={<ForgotPass />}></Route>
               <Route path='/disclaimer' element={<Disclaimer />}></Route>
-              <Route path='/my-application' element={<MyApplication />}></Route>
+              <Route path='/my-application' element={<MyApplication userId={''} applicationId={0} id={0} />}></Route>
               <Route path='/view-application' element={<View />}></Route>
               <Route path='/edit-application' element={<Edit />}></Route>
+              <Route path='/payment' element={<Payment />}></Route>
+              <Route path='/thankyou' element={<ThankYou />}></Route>
             </Routes>
             <Footer />
 

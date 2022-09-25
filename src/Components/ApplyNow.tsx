@@ -412,7 +412,7 @@ const ApplyNow = () => {
                                     <div className="formBox">
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputEmail1" className="form-label">Date Of Birth <span className="must-filed">*</span></label>
-                                            <RHFTextField name="dateOfBirth" label="" placeholder='dd/mm/yyyy' />
+                                            <RHFTextField name="dateOfBirth" label="" placeholder='dd/mm/yyyy' type='date' />
 
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
@@ -656,7 +656,7 @@ const ApplyNow = () => {
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputEmail1" className="form-label">Email ID <span className="must-filed">*</span></label>
 
-                                            <RHFTextField name="emailId" type='email' label="" placeholder='Email ID' />
+                                            <RHFTextField name="emailId" type='email' label="" placeholder='Email ID' required />
 
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">

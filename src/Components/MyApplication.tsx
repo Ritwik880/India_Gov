@@ -20,6 +20,9 @@ const Div = styled('div')(({ theme }) => ({
 
 }));
 type MyApplicationType = {
+    emailId: string,
+    applicantName: string,
+    mobileNumber: string,
     createdDate: string;
     applicationId: number;
     postName: string;
@@ -76,6 +79,47 @@ const MyApplication = (props: PropsType) => {
         };
         getUser();
     }, []);
+
+
+
+
+
+
+
+    //handlePayment
+    // let order_Id = Math.random().toString(36).substring(2, 9);
+    const handlePayment = async (name: string, email: string, phoneNumber: string) => {
+        const url = 'https://www.cashfree.com/';
+        const amount = 100;
+        // const order_Id = Math.random().to(36).substring(2, 9);
+
+        try {
+            await axios
+                .post(`/api/application/payment-create-order`, {
+
+                    customerEmail: email,
+                    customerName: name,
+                    customerPhone: 1234567890,
+                    orderAmount: amount,
+                    orderId: Math.floor(Math.random() * 90000) + 10000,
+                    orderNote: "payment",
+                    paymentModes: "upi",
+                    returnUrl: url
+
+                })
+                .then((response) => {
+                    const { body } = response.data;
+                    // console.log(data);
+
+                    window.open(body)
+
+
+                });
+        } catch (error) {
+            console.log(error);
+
+        }
+    };
 
 
 
@@ -178,7 +222,7 @@ const MyApplication = (props: PropsType) => {
                                                                         {
                                                                             item.paymentStatus === false ?
                                                                                 <Div>
-                                                                                    <Btn>Proceed to pay</Btn>
+                                                                                    <Btn onClick={() => handlePayment(item.applicantName, item.emailId, item.mobileNumber)}>Proceed to pay</Btn>
                                                                                 </Div>
                                                                                 :
                                                                                 <Div>

@@ -526,6 +526,38 @@ th {
     align-items: center;
 }
 
+.thankyou_page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../public/images/table.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.thankyou_heading {
+    text-align: center;
+    color: #269b26;
+    font-size: 5rem;
+}
+
+.thankyou_button_parent_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.thankyou_button {
+    background-color: #f59620;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #FFFFFF;
+    padding: 0.5rem 1rem;
+}
+
 @media (max-width: 767px) {
     .myAppHead {
         width: 100%;
