@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-type Props = {
-    loginSuccess: boolean;
-}
-const Header = (props: Props) => {
+
+const Header = () => {
     // dispatch(authType({ type: LOGIN, authFlow: PHONENO }));
     return (
         <header>
@@ -44,13 +42,11 @@ const Header = (props: Props) => {
                                 <Nav.Link className='listItems'>LOGIN</Nav.Link>
                             </LinkContainer>
 
-                            {
 
-                                props.loginSuccess === true &&
-                                <LinkContainer to="/my-application">
-                                    <Nav.Link className='listItems'>My Application</Nav.Link>
-                                </LinkContainer>
-                            }
+                            <LinkContainer to="/my-application">
+                                <Nav.Link className='listItems'>My Application</Nav.Link>
+                            </LinkContainer>
+
 
                         </Nav>
                     </Navbar.Collapse>

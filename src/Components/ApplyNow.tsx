@@ -16,7 +16,7 @@ import RHFTextField from './hook-form/RHFTextField';
 import { ROW as rowData } from '../utils/constants';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 // @ts-ignore
 import Files from 'react-files';
 
@@ -121,6 +121,7 @@ const AttachmentWrapper = styled('div')(({ theme }) => ({
 }));
 const ApplyNow = () => {
     const [noOfRows, setNoOfRows] = useState(1);
+
     const [noOfRows2, setNoOfRows2] = useState(1);
     const [noOfRows3, setNoOfRows3] = useState(1);
     const [exp, setExp] = useState("");
@@ -138,7 +139,7 @@ const ApplyNow = () => {
     const [pincode, setPinCode] = useState("");
     const [pinCodePresent, setPinCodePresent] = useState("");
     const [religion, setReligion] = useState("");
-    const [state, setState] = useState("");
+    const [statePermanent, setStatePermanent] = useState("");
     const [adhar, setAdhar] = useState("");
     const [panNo, setPanNo] = useState("");
     const [percentage, setPercentage] = useState("");
@@ -172,6 +173,7 @@ const ApplyNow = () => {
 
     const navigate = useNavigate();
 
+    const { state }: { state: any } = useLocation();
     // const buttonRef = useRef();
 
     const ProfileSchema = Yup.object().shape({
@@ -235,7 +237,7 @@ const ApplyNow = () => {
                 gender: gender,
                 category: category,
                 paymentStatus: false,
-                postName: 'Project Manager',
+                postName: state?.name,
                 presentAddress: {
                     houseNumber: presentHouseNo,
                     road: road,
@@ -250,7 +252,7 @@ const ApplyNow = () => {
                     road: permanentRoad,
                     area: permanentArea,
                     country: country,
-                    state: state,
+                    state: statePermanent,
                     city: permanentCity,
                     pincode: parseInt(pincode),
                 },
@@ -476,7 +478,7 @@ const ApplyNow = () => {
 
     // }
     const handleChangePresentPinCode = (e: any) => {
-        if (pinCodePresent.length >= 6) {
+        if (pinCodePresent.length > 6) {
             toast.error('Pincode should be of 6 digit!');
 
         }
@@ -492,7 +494,7 @@ const ApplyNow = () => {
 
     }
     const handleChangePermanentPinCode = (e: any) => {
-        if (pincode.length >= 6) {
+        if (pincode.length > 6) {
             toast.error('Pincode should be of 6 digit!');
 
         }
@@ -524,6 +526,15 @@ const ApplyNow = () => {
 
     const MAX_FILE_SIZE = 10000000;
 
+    // const handleAddFields = (year: number) => {
+    //     recoveryYearList[year - 1].month.push({
+    //         number: recoveryYearList[year - 1].month.length + 1,
+    //         amount: 0,
+    //         date: "",
+    //     });
+    //     setRecoveryYearList([...recoveryYearList]);
+    // };
+
 
 
     return (
@@ -545,7 +556,8 @@ const ApplyNow = () => {
                     <section className='formSection'>
                         <div className="row container">
                             <ToastContainer position="top-center" />
-                            <h1 className='formHead'>Application Form for <span className='dynamic_data'>{rowData[0].name}</span></h1>
+                            <h1 className='formHead'>Application Form for <span className='dynamic_data'>{state?.name}
+                            </span></h1>
                             <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
                                 <div className="parentForm">
                                     <h2 className='footerFormHead'>Personal Details</h2>
@@ -625,6 +637,7 @@ const ApplyNow = () => {
                                         </div>
 
                                     </div>
+
                                     <h2 className='footerFormHead'>Permanent Address</h2>
                                     <div className="formBox">
                                         <div className="mb-3 col-lg-3 col-md-12">
@@ -657,7 +670,7 @@ const ApplyNow = () => {
                                                 ".MuiOutlinedInput-notchedOutline": {
                                                     border: "none",
                                                 },
-                                            }} name="state" value={state} onChange={(e) => setState(e.target.value)} required className="form-control">
+                                            }} name="state" value={statePermanent} onChange={(e) => setStatePermanent(e.target.value)} required className="form-control">
                                                 <MenuItem>--select--</MenuItem>
                                                 <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
                                                 <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
@@ -875,9 +888,18 @@ const ApplyNow = () => {
                                                             return (
                                                                 <tr key={index}>
                                                                     <td> <RHFTextField name="className" value={className} onChange={(e) => setClassName(e.target.value)} label="" placeholder='Class Name' required /></td>
+
+
                                                                     <td> <RHFTextField name="schoolName" value={schoolName} onChange={(e) => setSchoolName(e.target.value)} label="" placeholder='School Name' required /></td>
+
+
                                                                     <td> <RHFTextField name="board" value={boardName} onChange={(e) => setBoardName(e.target.value)} label="" placeholder='Board' required /></td>
+
+
+
                                                                     <td> <RHFTextField name="percentage" value={percentage} onChange={(e) => setPercentage(e.target.value)} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} required /></td>
+
+
                                                                     <td> <RHFTextField name="passingYear" value={passingYear} onChange={(e) => setPassingYear(e.target.value)} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} required /></td>
                                                                 </tr>
 

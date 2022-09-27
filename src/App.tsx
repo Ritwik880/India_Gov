@@ -52,7 +52,7 @@ const App = () => {
           </Box>
 
           : <div>
-            <Header loginSuccess={false} />
+            <Header />
             <ScrollToTop />
             <Routes>
               <Route path='/' element={<Home />}></Route>
@@ -69,7 +69,7 @@ const App = () => {
               <Route path='/terms-condition' element={<Terms />}></Route>
               <Route path='/forgot-password' element={<ForgotPass />}></Route>
               <Route path='/disclaimer' element={<Disclaimer />}></Route>
-              <Route path='/my-application' element={<MyApplication userId={''} applicationId={0} id={0} />}></Route>
+              <Route path='/my-application' element={<MyApplication />}></Route>
               <Route path='/view-application' element={<View />}></Route>
               <Route path='/edit-application' element={<Edit />}></Route>
               <Route path='/payment' element={<Payment />}></Route>

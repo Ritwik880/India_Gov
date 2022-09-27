@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Button, styled, Box, CircularProgress } from "@mui/material";
-import { useNavigate } from 'react-router-dom';
+import { Button, styled, Box, CircularProgress, Typography } from "@mui/material";
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../utils/axios';
 import { dispatch, useSelector } from "../redux/store";
+import ThankYou from './ThankYou';
 
 
 
@@ -20,32 +21,33 @@ const Div = styled('div')(({ theme }) => ({
     alignItems: 'center'
 
 }));
+const ContentWrapper = styled("div")(({ theme }) => ({
+    backgroundColor: theme.palette.grey[200],
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    marginTop: "5%",
+    padding: '1rem'
+}));
 type MyApplicationType = {
     emailId: string,
     applicantName: string,
     mobileNumber: string,
     createdDate: string;
-    applicationId: number;
+    applicationId: string;
     postName: string;
     paymentStatus: boolean;
 
 };
-type PropsType = {
-    userId: string;
-    applicationId: number;
-    id: number
 
-}
-const MyApplication = (props: PropsType) => {
-
-    // console.log(props.userId);
-    // console.log(props.applicationId);
-    // console.log(props.id);
-
+const MyApplication = () => {
     const [loading, setLoading] = useState(false);
     const [noSuggestion, setNoSuggestion] = useState(false);
     const [applicationId, setApplicationId] = useState([0]);
     const [users, setUsers] = useState<MyApplicationType[]>([]);
+
+    const { state }: { state: any } = useLocation();
 
     const navigate = useNavigate();
     const isMounted = useRef(false);
@@ -56,11 +58,13 @@ const MyApplication = (props: PropsType) => {
     useEffect(() => {
         const getUser = async () => {
             setLoading(true);
+            console.log('state', state);
+
             try {
                 await axios.post(`/api/application/fetch-application-details`,
                     {
-                        applicationId: [1],
-                        userId: 8809711912,
+                        applicationId: state?.applicationId,
+                        userId: state?.userId,
 
                     }
 
@@ -123,6 +127,11 @@ const MyApplication = (props: PropsType) => {
     };
 
 
+    const handleView = (id: string, userId: string) => {
+        navigate('/view-application', { state: { id, userId } })
+
+    }
+
 
 
 
@@ -153,114 +162,128 @@ const MyApplication = (props: PropsType) => {
                     <section className='myApp'>
                         <div className="row container">
                             <h4 className='myAppHead'>My Application</h4>
-                            {
-                                users && users.map((item, id) => {
-                                    return (
-                                        <div className="myAppTable" key={id}>
-                                            <table style={{ background: '#f7f7f7', border: '2px solid #26335d', boxShadow: '3px 4px 4px #26335d', padding: '0.5rem' }}>
-                                                <tr style={{ border: '1px solid #ddd' }}>
+                            {users.length > 0 ? (
+                                <>
+                                    {
+                                        users && users.map((item, id) => {
+                                            return (
+                                                <div className="myAppTable" key={id}>
+                                                    <table style={{ background: '#f7f7f7', border: '2px solid #26335d', boxShadow: '3px 4px 4px #26335d', padding: '0.5rem' }}>
+                                                        <tr style={{ border: '1px solid #ddd' }}>
 
-                                                    <th style={{ color: '#26335d' }}>
-                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                                            Reg No.
-                                                        </p>
+                                                            <th style={{ color: '#26335d' }}>
+                                                                <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                                    Reg No.
+                                                                </p>
 
-                                                    </th>
-                                                    <th style={{ color: '#26335d' }}>
-                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                                            Post Applied For
-                                                        </p>
+                                                            </th>
+                                                            <th style={{ color: '#26335d' }}>
+                                                                <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                                    Post Applied For
+                                                                </p>
 
-                                                    </th>
-                                                    <th style={{ color: '#26335d' }}>
-                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                                            Payment Status
-                                                        </p>
+                                                            </th>
+                                                            <th style={{ color: '#26335d' }}>
+                                                                <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                                    Payment Status
+                                                                </p>
 
-                                                    </th>
-                                                    <th style={{ color: '#26335d' }}>
-                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                                            View Application
-                                                        </p>
+                                                            </th>
+                                                            <th style={{ color: '#26335d' }}>
+                                                                <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                                    View Application
+                                                                </p>
 
-                                                    </th>
+                                                            </th>
 
-                                                    <th style={{ color: '#26335d' }}>
-                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                                            Edit
-                                                        </p>
+                                                            <th style={{ color: '#26335d' }}>
+                                                                <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                                    Edit
+                                                                </p>
 
-                                                    </th>
-
-
-                                                </tr>
-
-                                                <tr>
+                                                            </th>
 
 
+                                                        </tr>
 
-                                                    <td style={{ color: '#26335d' }}>
-                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                                            {
-                                                                item.applicationId
-                                                            }
-                                                        </p>
-                                                    </td>
-
-                                                    <td style={{ color: '#26335d' }}>
-                                                        <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                                            {
-                                                                item.postName
-                                                            }
-                                                        </p>
-                                                    </td>
-
-                                                    <td>
-                                                        {
-                                                            users.map((item, id) => {
-                                                                return (
-                                                                    <>
-                                                                        {
-                                                                            item.paymentStatus === false ?
-                                                                                <Div>
-                                                                                    <Btn onClick={() => handlePayment(item.applicantName, item.emailId, item.mobileNumber)}>Proceed to pay</Btn>
-                                                                                </Div>
-                                                                                :
-                                                                                <Div>
-                                                                                    <Btn sx={{ marginRight: '1rem' }}>Paid</Btn>
-                                                                                    <Btn>Download Receipt</Btn>
-                                                                                </Div>
-                                                                        }
-                                                                    </>
-                                                                )
-                                                            })
-                                                        }
-                                                    </td>
-                                                    <td>
-                                                        <Div>
-                                                            <Btn onClick={() => navigate('/view-application')}>
-                                                                View/Download
-                                                            </Btn>
-                                                        </Div>
-                                                    </td>
-
-                                                    <td>
-                                                        <Div>
-                                                            <Btn onClick={() => navigate('/edit-application')}>
-                                                                Edit
-                                                            </Btn>
-                                                        </Div>
-                                                    </td>
-
-                                                </tr>
+                                                        <tr>
 
 
-                                            </table>
-                                        </div>
-                                    )
-                                })
-                            }
+
+                                                            <td style={{ color: '#26335d' }}>
+                                                                <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                                    {
+                                                                        item.applicationId
+                                                                    }
+                                                                </p>
+                                                            </td>
+
+                                                            <td style={{ color: '#26335d' }}>
+                                                                <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                                    {
+                                                                        item.postName
+                                                                    }
+                                                                </p>
+                                                            </td>
+
+                                                            <td>
+                                                                {
+                                                                    users.map((item, id) => {
+                                                                        return (
+                                                                            <>
+                                                                                {
+                                                                                    item.paymentStatus === false ?
+                                                                                        <Div>
+                                                                                            <Btn onClick={() => handlePayment(item.applicantName, item.emailId, item.mobileNumber)}>Proceed to pay</Btn>
+                                                                                        </Div>
+                                                                                        :
+                                                                                        <Div>
+                                                                                            <Btn sx={{ marginRight: '1rem' }}>Paid</Btn>
+                                                                                            <Btn>Download Receipt</Btn>
+                                                                                        </Div>
+                                                                                }
+                                                                            </>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                <Div>
+                                                                    <Btn onClick={() => handleView(item.applicationId, item.mobileNumber)}>
+                                                                        View/Download
+                                                                    </Btn>
+                                                                </Div>
+                                                            </td>
+
+                                                            <td>
+                                                                <Div>
+                                                                    <Btn onClick={() => navigate('/edit-application')}>
+                                                                        Edit
+                                                                    </Btn>
+                                                                </Div>
+                                                            </td>
+
+                                                        </tr>
+
+
+                                                    </table>
+
+                                                </div>
+
+                                            )
+                                        })
+                                    }
+
+                                </>
+                            ) : (
+                                <ContentWrapper>
+                                    <Typography textAlign="center" variant="h5">
+                                        No Application Found!
+                                    </Typography>
+                                </ContentWrapper>
+                            )}
                         </div>
+
                     </section>
                 )
             }

@@ -7,8 +7,8 @@ const Table = () => {
 
     const navigate = useNavigate();
 
-    const handleClick = (id: number) => {
-        navigate('/apply-now')
+    const handleClick = (name: any) => {
+        navigate('/apply-now', { state: { name } })
     }
     return (
         <section className="jobSection">
@@ -45,7 +45,7 @@ const Table = () => {
                                         <td>{item.sal}</td>
                                         <td>
 
-                                            <button className='applyNow' onClick={() => handleClick(item.id)}>
+                                            <button className='applyNow' onClick={() => handleClick(item.name)}>
                                                 {item.btn}
                                             </button>
                                         </td>

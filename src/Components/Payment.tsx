@@ -2,6 +2,7 @@ import React from 'react'
 import Cta from './Cta'
 
 const Payment = () => {
+
     return (
         <>
             <div className="pb-6 d-flex align-items-center about-page">

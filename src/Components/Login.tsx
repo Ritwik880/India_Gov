@@ -31,13 +31,13 @@ type ProfileValuesProps = {
 
 
 };
-type MyApplicationType = {
+interface MyApplicationType {
     password: string;
     userId: string;
     loginSuccess: boolean;
     applicationDetails: [
         {
-            applicationId: number
+            applicationId: string
         }
     ]
 
@@ -48,19 +48,7 @@ const Login = () => {
     const [myApp, setMyApp] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [userId, setUserId] = useState('');
-    const [userProfileId, setUserProfileId] = useState<MyApplicationType>({
-        password: '',
-        userId: '',
-        loginSuccess: false,
-        applicationDetails: [
-            {
-                applicationId: 0,
-
-            }
-        ]
-
-
-    });
+    const [userProfileId, setUserProfileId] = useState<MyApplicationType[]>([]);
 
     const ProfileSchema = Yup.object().shape({
         password: Yup.string().required('Password is required'),
@@ -83,31 +71,26 @@ const Login = () => {
 
     const profileId = useSelector((state) => state.profileView.value);
 
-
-
     const onSubmit = async (data: ProfileValuesProps) => {
 
         try {
             const res = await axios.post('/api/application/login', {
                 userId: userId,
                 password: data.password,
-                id: profileId.userId
             }
             );
             const { body } = res.data;
-            console.log(body.applicationDetails[0].applicationId);
-
 
             if (!body.loginSuccess) {
                 toast.error("Bad Credentials");
 
             }
             else {
-                // dispatch(authType({ type: LOGIN }));
+                let applicationId = body.applicationDetails[0].applicationId
                 setUserProfileId(body);
                 toast.success('Success');
                 reset();
-                navigate('/my-application');
+                navigate('/my-application', { state: { applicationId, userId } });
 
             }
         } catch (error: any) {
@@ -117,14 +100,7 @@ const Login = () => {
 
 
     }
-    // const handleProfile = (id: number) => {
-    //     dispatch(
-    //         profileView({
-    //             id: id,
-    //         })
-    //     );
-    //     navigate('/my-application');
-    // };
+
 
     const handleMobileNumber = (e: any) => {
         if (userId.length >= 10) {
@@ -203,13 +179,7 @@ const Login = () => {
 
                 </div>
             </section>
-            {
-                myApp &&
-                <>
-                    <MyApplication userId={userProfileId.userId} id={profileId.userId} applicationId={userProfileId.applicationDetails[0].applicationId} />
-                    <Header loginSuccess={userProfileId.loginSuccess} />
-                </>
-            }
+
 
             <Cta />
         </>

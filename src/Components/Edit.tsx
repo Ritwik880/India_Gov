@@ -298,6 +298,7 @@ const Edit = () => {
                 const { body } = response.data;
                 if (!isMounted.current) {
                     setUsers(body);
+                    body.applicantName ? setValue("applicantName", body.applicantName) : setValue("applicantName", "");
 
                 }
             } catch (error) {
@@ -320,842 +321,876 @@ const Edit = () => {
         setOthers(true);
 
     }
+    // setOrganizationName(get(loanDoc, "organizationName", ""));
 
+
+
+    // const handleOnChange = (event: any, key: string) => {
+    //     switch (key) {
+    //         case "organizationName": {
+    //             setOrganizationName(event.target.value);
+    //             break;
+    //         }
+    //         case "accountNumber": {
+    //             setAccountNumber(event.target.value);
+    //             break;
+    //         }
+    //         case "collateral": {
+    //             setCollateral(event.target.value);
+    //             break;
+    //         }
+    //         case "idNumber": {
+    //             setIdNumber(event.target.value);
+    //             break;
+    //         }
+    //         case "bankIdentificationNumber": {
+    //             setBankIdentificationNumber(event.target.value);
+    //             break;
+    //         }
+    //     }
+
+    const handleChange = (event: any, name: string, id: number) => {
+        let editUsers: any = [...users];
+        editUsers[id]['applicantName'] = name;
+        setUsers(editUsers)
+        console.log(users);
+
+
+
+    }
     return (
         <>
 
             <section className='formSection'>
                 <div className="row container">
                     <ToastContainer position="top-center" />
-                    <h1 className='formHead'>Application Form for Project Manager</h1>
+
                     {
                         users.map((item, id) => {
                             return (
-                                <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                                <>
+                                    <h1 className='formHead'>Application Form for <span className='dynamic_data'>
+                                        {item.postName}
+                                    </span></h1>
+                                    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
-                                    <div className="parentForm" key={id}>
-                                        <h2 className='footerFormHead'>Personal Details</h2>
-                                        <div className="formBox">
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Name <span className="must-filed">*</span></label>
+                                        <div className="parentForm" key={id}>
+                                            <h2 className='footerFormHead'>Personal Details</h2>
+                                            <div className="formBox">
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputEmail1" className="form-label">Name <span className="must-filed">*</span></label>
 
+
+
+                                                    <RHFTextField name="applicantName" value={item.applicantName} onChange={(e) => handleChange(e, item.applicantName, id)} label="" placeholder='Enter Name' disabled />
+
+
+
+
+
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Father Name <span className="must-filed">*</span></label>
+
+
+                                                    {
+                                                        isFormEnabled ? (
+                                                            <RHFTextField name="fatherName" label="" placeholder='Enter Father Name' />
+                                                        ) : (
+                                                            <RHFTextField value={item.fatherName} name="fatherName" label="" placeholder='Enter Name' />
+                                                        )
+                                                    }
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Mother Name <span className="must-filed">*</span></label>
+
+
+
+                                                    {
+                                                        isFormEnabled ? (
+                                                            <RHFTextField name="motherName" label="" placeholder='Enter Mother Name' />
+                                                        ) : (
+                                                            <RHFTextField value={item.motherName} name="motherName" label="" placeholder='Enter Name' />
+                                                        )
+                                                    }
+                                                </div>
+
+                                            </div>
+
+                                            <div className="formBox">
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputEmail1" className="form-label">Date Of Birth <span className="must-filed">*</span></label>
+
+                                                    {
+                                                        isFormEnabled ? (
+                                                            <RHFTextField name="dateOfBirth" label="" placeholder='dd/mm/yyyy' />
+                                                        ) : (
+                                                            <RHFTextField value={item.dateOfBirth} name="dateOfBirth" label="" placeholder='Enter Name' />
+                                                        )
+                                                    }
+
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+                                                    {
+                                                        isFormEnabled ? (
+                                                            <Select fullWidth size='small' labelId='demo-simple-select-label' label="Gender" name='gender' value={gender} onChange={(e) => setGender(e.target.value)} className="form-select" required sx={{
+
+                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                    border: "none",
+                                                                },
+                                                            }}>
+                                                                <MenuItem value="Male">Male</MenuItem>
+                                                                <MenuItem value="Female">Female</MenuItem>
+                                                            </Select>
+                                                        ) : (
+                                                            <Select fullWidth size='small' labelId='demo-simple-select-label' label="Gender" name='gender' value={item.gender} className="form-select" required sx={{
+
+                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                    border: "none",
+                                                                },
+                                                            }}>
+                                                                <MenuItem value="Male">Male</MenuItem>
+                                                                <MenuItem value="Female">Female</MenuItem>
+                                                            </Select>
+                                                        )
+                                                    }
+
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Category <span className="must-filed">*</span></label>
+
+                                                    {
+                                                        isFormEnabled ? (
+                                                            <Select size='small' value={category} onChange={(e) => setCategory(e.target.value)} name='category' className="form-select" required sx={{
+
+                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                    border: "none",
+                                                                },
+                                                            }}>
+                                                                <MenuItem value="General">General</MenuItem>
+                                                                <MenuItem value="OBC">OBC</MenuItem>
+                                                                <MenuItem value="ST">ST</MenuItem>
+                                                                <MenuItem value="SC">SC</MenuItem>
+                                                                <MenuItem value="EWS">EWS</MenuItem>
+                                                                <MenuItem value="Others">Others</MenuItem>
+                                                            </Select>
+                                                        ) : (
+                                                            <Select size='small' value={item.category} name='category' className="form-select" required sx={{
+
+                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                    border: "none",
+                                                                },
+                                                            }}>
+                                                                <MenuItem value="General">General</MenuItem>
+                                                                <MenuItem value="OBC">OBC</MenuItem>
+                                                                <MenuItem value="ST">ST</MenuItem>
+                                                                <MenuItem value="SC">SC</MenuItem>
+                                                                <MenuItem value="EWS">EWS</MenuItem>
+                                                                <MenuItem value="Others">Others</MenuItem>
+                                                            </Select>
+                                                        )
+                                                    }
+
+                                                </div>
+
+                                            </div>
+
+                                            <div className="formBox">
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Religion <span className="must-filed">*</span></label>
+
+                                                    {
+                                                        isFormEnabled ? (
+                                                            <Select size='small' value={religion} onChange={(e) => setReligion(e.target.value)} name='religion' className="form-select" required sx={{
+
+                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                    border: "none",
+                                                                },
+                                                            }}>
+                                                                <MenuItem value="Hindu">Hindu</MenuItem>
+                                                                <MenuItem value="Sikh">Sikh</MenuItem>
+                                                                <MenuItem value="Christian">Christian</MenuItem>
+                                                                <MenuItem value="Muslim">Muslim</MenuItem>
+                                                                <MenuItem value="Jain">Jain</MenuItem>
+                                                                <MenuItem value="Buddhist">Buddhist</MenuItem>
+                                                                <MenuItem value="Others" onClick={hanldeShowOthers}>Others</MenuItem>
+                                                            </Select>
+                                                        ) : (
+                                                            <Select size='small' value={item.religion} name='religion' className="form-select" required sx={{
+
+                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                    border: "none",
+                                                                },
+                                                            }}>
+                                                                <MenuItem value="Hindu">Hindu</MenuItem>
+                                                                <MenuItem value="Sikh">Sikh</MenuItem>
+                                                                <MenuItem value="Christian">Christian</MenuItem>
+                                                                <MenuItem value="Muslim">Muslim</MenuItem>
+                                                                <MenuItem value="Jain">Jain</MenuItem>
+                                                                <MenuItem value="Buddhist">Buddhist</MenuItem>
+                                                                <MenuItem value="Others" onClick={hanldeShowOthers}>Others</MenuItem>
+                                                            </Select>
+                                                        )
+                                                    }
+
+                                                </div>
+
+                                            </div>
+
+                                            <h2 className='footerFormHead'>Permanent Address</h2>
+                                            <div className="formBox">
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputEmail1" className="form-label">House No./Apartment Name/Block No. <span className="must-filed">*</span></label>
+
+
+                                                    {
+                                                        isFormEnabled ? (
+                                                            <RHFTextField name="houseNumber" label="" value={houseNo} onChange={(e) => setHouseNo(e.target.value)} placeholder='House No./Apartment Name/Block No.' />
+                                                        ) : (
+                                                            <RHFTextField name="houseNumber" label="" value={item.permanentAddress.houseNumber} placeholder='House No./Apartment Name/Block No.' />
+                                                        )
+                                                    }
+
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Road/Street/Lane <span className="must-filed">*</span></label>
+
+                                                    {
+                                                        isFormEnabled ? (
+                                                            <RHFTextField name="road" label="" value={permanentRoad} onChange={(e) => setPermanentRoad(e.target.value)} placeholder='Road/Street/Lane' />
+                                                        ) : (
+                                                            <RHFTextField name="road" label="" value={item.permanentAddress.road} placeholder='Road/Street/Lane' />
+                                                        )
+                                                    }
+
+
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Area/Landmark <span className="must-filed">*</span></label>
+
+
+
+                                                    {
+                                                        isFormEnabled ? (
+                                                            <RHFTextField name="area" label="" placeholder='Area/Landmark' value={permanentArea} onChange={(e) => setPermanentArea(e.target.value)} />
+                                                        ) : (
+                                                            <RHFTextField name="area" label="" placeholder='Area/Landmark' value={item.permanentAddress.area} />
+                                                        )
+                                                    }
+                                                </div>
+
+                                            </div>
+                                            <div className="formBox">
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputEmail1" className="form-label">Country <span className="must-filed">*</span></label>
+
+
+                                                    {
+                                                        isFormEnabled ? (
+                                                            <RHFTextField name="country" label="" value={country} onChange={(e) => setCountry(e.target.value)} />
+                                                        ) : (
+                                                            <RHFTextField name="country" label="" value={item.permanentAddress.country} />
+                                                        )
+                                                    }
+
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">State <span className="must-filed">*</span></label>
+
+                                                    {
+                                                        isFormEnabled ? (
+                                                            <Select size='small' sx={{
+
+                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                    border: "none",
+                                                                },
+                                                            }} name="state" value={state} onChange={(e) => setState(e.target.value)} required className="form-control">
+                                                                <MenuItem>--select--</MenuItem>
+                                                                <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
+                                                                <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
+                                                                <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
+                                                                <MenuItem value="Assam"  >Assam</MenuItem>
+                                                                <MenuItem value="Bihar"  >Bihar</MenuItem>
+                                                                <MenuItem value="Chandigarh"  >Chandigarh</MenuItem>
+                                                                <MenuItem value="Chhattisgarh"  >Chhattisgarh</MenuItem>
+                                                                <MenuItem value="Dadra and Nagar Haveli"  >Dadra and Nagar Haveli</MenuItem>
+                                                                <MenuItem value="Daman and Diu"  >Daman and Diu</MenuItem>
+                                                                <MenuItem value="Delhi"  >Delhi</MenuItem>
+                                                                <MenuItem value="Goa"  >Goa</MenuItem>
+                                                                <MenuItem value="Gujarat"  >Gujarat</MenuItem>
+                                                                <MenuItem value="Haryana"  >Haryana</MenuItem>
+                                                                <MenuItem value="Himachal Pradesh"  >Himachal Pradesh</MenuItem>
+                                                                <MenuItem value="Jammu and Kashmir"  >Jammu and Kashmir</MenuItem>
+                                                                <MenuItem value="Jharkhand"  >Jharkhand</MenuItem>
+                                                                <MenuItem value="Karnataka"  >Karnataka</MenuItem>
+                                                                <MenuItem value="Kenmore"  >Kenmore</MenuItem>
+                                                                <MenuItem value="Kerala"  >Kerala</MenuItem>
+                                                                <MenuItem value="Lakshadweep"  >Lakshadweep</MenuItem>
+                                                                <MenuItem value="Madhya Pradesh"  >Madhya Pradesh</MenuItem>
+                                                                <MenuItem value="Maharashtra"  >Maharashtra</MenuItem>
+                                                                <MenuItem value="Manipur"  >Manipur</MenuItem>
+                                                                <MenuItem value="Meghalaya"  >Meghalaya</MenuItem>
+                                                                <MenuItem value="Mizoram"  >Mizoram</MenuItem>
+                                                                <MenuItem value="Nagaland"  >Nagaland</MenuItem>
+                                                                <MenuItem value="Narora"  >Narora</MenuItem>
+                                                                <MenuItem value="Natwar"  >Natwar</MenuItem>
+                                                                <MenuItem value="Odisha"  >Odisha</MenuItem>
+                                                                <MenuItem value="Paschim Medinipur"  >Paschim Medinipur</MenuItem>
+                                                                <MenuItem value="Pondicherry"  >Pondicherry</MenuItem>
+                                                                <MenuItem value="Punjab"  >Punjab</MenuItem>
+                                                                <MenuItem value="Rajasthan"  >Rajasthan</MenuItem>
+                                                                <MenuItem value="Sikkim"  >Sikkim</MenuItem>
+                                                                <MenuItem value="Tamil Nadu"  >Tamil Nadu</MenuItem>
+                                                                <MenuItem value="Telangana"  >Telangana</MenuItem>
+                                                                <MenuItem value="Tripura"  >Tripura</MenuItem>
+                                                                <MenuItem value="Uttar Pradesh"  >Uttar Pradesh</MenuItem>
+                                                                <MenuItem value="Uttarakhand"  >Uttarakhand</MenuItem>
+                                                                <MenuItem value="Vaishali"  >Vaishali</MenuItem>
+                                                                <MenuItem value="West Bengal"  >West Bengal</MenuItem>
+                                                            </Select>
+                                                        ) : (
+                                                            <Select size='small' sx={{
+
+                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                    border: "none",
+                                                                },
+                                                            }} name="state" value={item.permanentAddress.state} required className="form-control">
+                                                                <MenuItem>--select--</MenuItem>
+                                                                <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
+                                                                <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
+                                                                <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
+                                                                <MenuItem value="Assam"  >Assam</MenuItem>
+                                                                <MenuItem value="Bihar"  >Bihar</MenuItem>
+                                                                <MenuItem value="Chandigarh"  >Chandigarh</MenuItem>
+                                                                <MenuItem value="Chhattisgarh"  >Chhattisgarh</MenuItem>
+                                                                <MenuItem value="Dadra and Nagar Haveli"  >Dadra and Nagar Haveli</MenuItem>
+                                                                <MenuItem value="Daman and Diu"  >Daman and Diu</MenuItem>
+                                                                <MenuItem value="Delhi"  >Delhi</MenuItem>
+                                                                <MenuItem value="Goa"  >Goa</MenuItem>
+                                                                <MenuItem value="Gujarat"  >Gujarat</MenuItem>
+                                                                <MenuItem value="Haryana"  >Haryana</MenuItem>
+                                                                <MenuItem value="Himachal Pradesh"  >Himachal Pradesh</MenuItem>
+                                                                <MenuItem value="Jammu and Kashmir"  >Jammu and Kashmir</MenuItem>
+                                                                <MenuItem value="Jharkhand"  >Jharkhand</MenuItem>
+                                                                <MenuItem value="Karnataka"  >Karnataka</MenuItem>
+                                                                <MenuItem value="Kenmore"  >Kenmore</MenuItem>
+                                                                <MenuItem value="Kerala"  >Kerala</MenuItem>
+                                                                <MenuItem value="Lakshadweep"  >Lakshadweep</MenuItem>
+                                                                <MenuItem value="Madhya Pradesh"  >Madhya Pradesh</MenuItem>
+                                                                <MenuItem value="Maharashtra"  >Maharashtra</MenuItem>
+                                                                <MenuItem value="Manipur"  >Manipur</MenuItem>
+                                                                <MenuItem value="Meghalaya"  >Meghalaya</MenuItem>
+                                                                <MenuItem value="Mizoram"  >Mizoram</MenuItem>
+                                                                <MenuItem value="Nagaland"  >Nagaland</MenuItem>
+                                                                <MenuItem value="Narora"  >Narora</MenuItem>
+                                                                <MenuItem value="Natwar"  >Natwar</MenuItem>
+                                                                <MenuItem value="Odisha"  >Odisha</MenuItem>
+                                                                <MenuItem value="Paschim Medinipur"  >Paschim Medinipur</MenuItem>
+                                                                <MenuItem value="Pondicherry"  >Pondicherry</MenuItem>
+                                                                <MenuItem value="Punjab"  >Punjab</MenuItem>
+                                                                <MenuItem value="Rajasthan"  >Rajasthan</MenuItem>
+                                                                <MenuItem value="Sikkim"  >Sikkim</MenuItem>
+                                                                <MenuItem value="Tamil Nadu"  >Tamil Nadu</MenuItem>
+                                                                <MenuItem value="Telangana"  >Telangana</MenuItem>
+                                                                <MenuItem value="Tripura"  >Tripura</MenuItem>
+                                                                <MenuItem value="Uttar Pradesh"  >Uttar Pradesh</MenuItem>
+                                                                <MenuItem value="Uttarakhand"  >Uttarakhand</MenuItem>
+                                                                <MenuItem value="Vaishali"  >Vaishali</MenuItem>
+                                                                <MenuItem value="West Bengal"  >West Bengal</MenuItem>
+                                                            </Select>
+                                                        )
+                                                    }
+
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">City <span className="must-filed">*</span></label>
+
+
+                                                    {
+                                                        isFormEnabled ? (
+                                                            <RHFTextField name="city" label="" placeholder='City' value={permanentCity} onChange={(e) => setPermanentCity(e.target.value)} />
+                                                        ) : (
+                                                            <RHFTextField name="city" label="" placeholder='City' value={item.permanentAddress.city} />
+                                                        )
+                                                    }
+                                                </div>
+
+
+                                            </div>
+
+                                            <div className="formBox">
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
+
+                                                    {
+                                                        isFormEnabled ? (
+                                                            <RHFTextField name="pincode" value={pincode} onChange={(e) => setPinCode(e.target.value)} type='number' label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
+                                                        ) : (
+                                                            <RHFTextField name="pincode" value={item.permanentAddress.pincode} type='number' label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
+                                                        )
+                                                    }
+
+                                                </div>
+                                            </div>
+
+                                            <h2 className='footerFormHead'>Present Address</h2>
+                                            <div className="formBox">
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputEmail1" className="form-label">House No./Apartment Name/Block No. <span className="must-filed">*</span></label>
+
+
+                                                    {
+                                                        isFormEnabled ? (
+                                                            <RHFTextField name="houseNumber" label="" value={presentHouseNo} onChange={(e) => setPresentHouseNo(e.target.value)} placeholder='House No./Apartment Name/Block No.' />
+                                                        ) : (
+                                                            <RHFTextField name="houseNumber" label="" value={item.presentAddress.houseNumber} placeholder='House No./Apartment Name/Block No.' />
+                                                        )
+                                                    }
+
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Road/Street/Lane <span className="must-filed">*</span></label>
+
+                                                    {
+                                                        isFormEnabled ? (
+
+                                                            <RHFTextField name="road" label="" placeholder='Road/Street/Lane' value={road} onChange={(e) => setRoad(e.target.value)} />
+                                                        ) : (
+
+                                                            <RHFTextField name="road" label="" placeholder='Road/Street/Lane' value={item.presentAddress.road} />
+                                                        )
+                                                    }
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Area/Landmark <span className="must-filed">*</span></label>
+
+
+
+                                                    {
+                                                        isFormEnabled ? (
+
+                                                            <RHFTextField name="area" label="" placeholder='Area/Landmark' value={area} onChange={(e) => setArea(e.target.value)} />
+                                                        ) : (
+
+                                                            <RHFTextField name="area" label="" placeholder='Area/Landmark' value={item.presentAddress.area} />
+                                                        )
+                                                    }
+
+
+                                                </div>
+
+
+                                            </div>
+                                            <div className="formBox">
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputEmail1" className="form-label">Country <span className="must-filed">*</span></label>
+
+                                                    {
+                                                        isFormEnabled ? (
+
+                                                            <RHFTextField name="country" label="" value={countryPresent} onChange={(e) => setCountryPresent(e.target.value)} />
+                                                        ) : (
+
+                                                            <RHFTextField name="country" label="" value={item.presentAddress.country} />
+                                                        )
+                                                    }
+
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">State <span className="must-filed">*</span></label>
+
+
+                                                    {
+                                                        isFormEnabled ? (
+
+                                                            <Select size='small' sx={{
+
+                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                    border: "none",
+                                                                },
+                                                            }} name="state" value={statePresent} onChange={(e) => setStatePresent(e.target.value)} required className="form-control">
+
+                                                                <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
+                                                                <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
+                                                                <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
+                                                                <MenuItem value="Assam">Assam</MenuItem>
+                                                                <MenuItem value="Bihar">Bihar</MenuItem>
+                                                                <MenuItem value="Chandigarh"  >Chandigarh</MenuItem>
+                                                                <MenuItem value="Chhattisgarh"  >Chhattisgarh</MenuItem>
+                                                                <MenuItem value="Dadra and Nagar Haveli"  >Dadra and Nagar Haveli</MenuItem>
+                                                                <MenuItem value="Daman and Diu"  >Daman and Diu</MenuItem>
+                                                                <MenuItem value="Delhi"  >Delhi</MenuItem>
+                                                                <MenuItem value="Goa"  >Goa</MenuItem>
+                                                                <MenuItem value="Gujarat"  >Gujarat</MenuItem>
+                                                                <MenuItem value="Haryana"  >Haryana</MenuItem>
+                                                                <MenuItem value="Himachal Pradesh"  >Himachal Pradesh</MenuItem>
+                                                                <MenuItem value="Jammu and Kashmir"  >Jammu and Kashmir</MenuItem>
+                                                                <MenuItem value="Jharkhand"  >Jharkhand</MenuItem>
+                                                                <MenuItem value="Karnataka"  >Karnataka</MenuItem>
+                                                                <MenuItem value="Kenmore"  >Kenmore</MenuItem>
+                                                                <MenuItem value="Kerala"  >Kerala</MenuItem>
+                                                                <MenuItem value="Lakshadweep"  >Lakshadweep</MenuItem>
+                                                                <MenuItem value="Madhya Pradesh"  >Madhya Pradesh</MenuItem>
+                                                                <MenuItem value="Maharashtra"  >Maharashtra</MenuItem>
+                                                                <MenuItem value="Manipur"  >Manipur</MenuItem>
+                                                                <MenuItem value="Meghalaya"  >Meghalaya</MenuItem>
+                                                                <MenuItem value="Mizoram"  >Mizoram</MenuItem>
+                                                                <MenuItem value="Nagaland"  >Nagaland</MenuItem>
+                                                                <MenuItem value="Narora"  >Narora</MenuItem>
+                                                                <MenuItem value="Natwar"  >Natwar</MenuItem>
+                                                                <MenuItem value="Odisha"  >Odisha</MenuItem>
+                                                                <MenuItem value="Paschim Medinipur"  >Paschim Medinipur</MenuItem>
+                                                                <MenuItem value="Pondicherry"  >Pondicherry</MenuItem>
+                                                                <MenuItem value="Punjab"  >Punjab</MenuItem>
+                                                                <MenuItem value="Rajasthan"  >Rajasthan</MenuItem>
+                                                                <MenuItem value="Sikkim"  >Sikkim</MenuItem>
+                                                                <MenuItem value="Tamil Nadu"  >Tamil Nadu</MenuItem>
+                                                                <MenuItem value="Telangana"  >Telangana</MenuItem>
+                                                                <MenuItem value="Tripura"  >Tripura</MenuItem>
+                                                                <MenuItem value="Uttar Pradesh"  >Uttar Pradesh</MenuItem>
+                                                                <MenuItem value="Uttarakhand"  >Uttarakhand</MenuItem>
+                                                                <MenuItem value="Vaishali"  >Vaishali</MenuItem>
+                                                                <MenuItem value="West Bengal"  >West Bengal</MenuItem>
+                                                            </Select>
+                                                        ) : (
+
+                                                            <Select size='small' sx={{
+
+                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                    border: "none",
+                                                                },
+                                                            }} name="state" value={item.presentAddress.state} required className="form-control">
+
+                                                                <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
+                                                                <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
+                                                                <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
+                                                                <MenuItem value="Assam">Assam</MenuItem>
+                                                                <MenuItem value="Bihar">Bihar</MenuItem>
+                                                                <MenuItem value="Chandigarh"  >Chandigarh</MenuItem>
+                                                                <MenuItem value="Chhattisgarh"  >Chhattisgarh</MenuItem>
+                                                                <MenuItem value="Dadra and Nagar Haveli"  >Dadra and Nagar Haveli</MenuItem>
+                                                                <MenuItem value="Daman and Diu"  >Daman and Diu</MenuItem>
+                                                                <MenuItem value="Delhi"  >Delhi</MenuItem>
+                                                                <MenuItem value="Goa"  >Goa</MenuItem>
+                                                                <MenuItem value="Gujarat"  >Gujarat</MenuItem>
+                                                                <MenuItem value="Haryana"  >Haryana</MenuItem>
+                                                                <MenuItem value="Himachal Pradesh"  >Himachal Pradesh</MenuItem>
+                                                                <MenuItem value="Jammu and Kashmir"  >Jammu and Kashmir</MenuItem>
+                                                                <MenuItem value="Jharkhand"  >Jharkhand</MenuItem>
+                                                                <MenuItem value="Karnataka"  >Karnataka</MenuItem>
+                                                                <MenuItem value="Kenmore"  >Kenmore</MenuItem>
+                                                                <MenuItem value="Kerala"  >Kerala</MenuItem>
+                                                                <MenuItem value="Lakshadweep"  >Lakshadweep</MenuItem>
+                                                                <MenuItem value="Madhya Pradesh"  >Madhya Pradesh</MenuItem>
+                                                                <MenuItem value="Maharashtra"  >Maharashtra</MenuItem>
+                                                                <MenuItem value="Manipur"  >Manipur</MenuItem>
+                                                                <MenuItem value="Meghalaya"  >Meghalaya</MenuItem>
+                                                                <MenuItem value="Mizoram"  >Mizoram</MenuItem>
+                                                                <MenuItem value="Nagaland"  >Nagaland</MenuItem>
+                                                                <MenuItem value="Narora"  >Narora</MenuItem>
+                                                                <MenuItem value="Natwar"  >Natwar</MenuItem>
+                                                                <MenuItem value="Odisha"  >Odisha</MenuItem>
+                                                                <MenuItem value="Paschim Medinipur"  >Paschim Medinipur</MenuItem>
+                                                                <MenuItem value="Pondicherry"  >Pondicherry</MenuItem>
+                                                                <MenuItem value="Punjab"  >Punjab</MenuItem>
+                                                                <MenuItem value="Rajasthan"  >Rajasthan</MenuItem>
+                                                                <MenuItem value="Sikkim"  >Sikkim</MenuItem>
+                                                                <MenuItem value="Tamil Nadu"  >Tamil Nadu</MenuItem>
+                                                                <MenuItem value="Telangana"  >Telangana</MenuItem>
+                                                                <MenuItem value="Tripura"  >Tripura</MenuItem>
+                                                                <MenuItem value="Uttar Pradesh"  >Uttar Pradesh</MenuItem>
+                                                                <MenuItem value="Uttarakhand"  >Uttarakhand</MenuItem>
+                                                                <MenuItem value="Vaishali"  >Vaishali</MenuItem>
+                                                                <MenuItem value="West Bengal"  >West Bengal</MenuItem>
+                                                            </Select>
+                                                        )
+                                                    }
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">City <span className="must-filed">*</span></label>
+
+
+                                                    {
+                                                        isFormEnabled ? (
+
+                                                            <RHFTextField name="city" label="" placeholder='City' value={city} onChange={(e) => setCity(e.target.value)} />
+                                                        ) : (
+
+                                                            <RHFTextField name="city" label="" placeholder='City' value={item.presentAddress.city} />
+                                                        )
+                                                    }
+                                                </div>
+
+
+                                            </div>
+
+                                            <div className="formBox">
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
+
+
+                                                    {
+                                                        isFormEnabled ? (
+
+                                                            <RHFTextField type='number' value={pinCodePresent} onChange={(e) => setPinCodePresent(e.target.value)} name="pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
+                                                        ) : (
+
+                                                            <RHFTextField type='number' value={item.presentAddress.pincode} name="pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+
+                                            <h2 className='footerFormHead'>Contact Details</h2>
+                                            <div className="formBox">
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputEmail1" className="form-label">Email ID <span className="must-filed">*</span></label>
+
+                                                    <RHFTextField name="emailId" disabled value={item.emailId} type='email' label="" placeholder='Email ID' />
+
+
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Mobile No. <span className="must-filed">*</span></label>
+
+                                                    <RHFTextField name="mobileNumber" disabled type='number' value={item.mobileNumber} label="" placeholder='Mobile No.' inputProps={{ maxLength: 10 }} />
+
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Aadhar No. <span className="must-filed">*</span></label>
+
+                                                    {
+                                                        isFormEnabled ? (
+
+                                                            <RHFTextField name="aadharNumber" type='number' value={adhar} onChange={(e) => setAdhar(e.target.value)} label="" placeholder='Aadhar No.' inputProps={{ maxLength: 12 }} required />
+                                                        ) : (
+
+                                                            <RHFTextField name="aadharNumber" type='number' value={item.aadharNumber} label="" placeholder='Aadhar No.' inputProps={{ maxLength: 12 }} required />
+                                                        )
+                                                    }
+                                                </div>
+
+                                            </div>
+                                            <div className="formBox">
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputEmail1" className="form-label">Alternate Email ID</label>
+
+
+                                                    {
+                                                        isFormEnabled ? (
+
+                                                            <RHFTextField name="alternateEmailId" label="" placeholder='Alternate Email ID' />
+                                                        ) : (
+
+                                                            <RHFTextField name="alternateEmailId" value={item.alternateEmailId} label="" placeholder='Alternate Email ID' />
+                                                        )
+                                                    }
+
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Alternate Mobile No.</label>
+
+
+
+                                                    {
+                                                        isFormEnabled ? (
+
+                                                            <RHFTextField name="alternateMobileNumber" type='number' value={alternateMobileNumber} onChange={(e) => setAlternateMobileNumber(e.target.value)} label="" placeholder='Alternate Mobile No.' inputProps={{ maxLength: 10 }} />
+                                                        ) : (
+
+                                                            <RHFTextField name="alternateMobileNumber" type='number' value={item.alternateMobileNumber} label="" placeholder='Alternate Mobile No.' inputProps={{ maxLength: 10 }} />
+                                                        )
+                                                    }
+                                                </div>
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Pan No.</label>
+
+
+
+                                                    {
+                                                        isFormEnabled ? (
+
+                                                            <RHFTextField name="pancard" label="" placeholder='Pan No.' inputProps={{ maxLength: 10 }} />
+                                                        ) : (
+
+                                                            <RHFTextField name="pancard" value={item.pancard} label="" placeholder='Pan No.' inputProps={{ maxLength: 10 }} />
+                                                        )
+                                                    }
+
+
+                                                </div>
+
+
+                                            </div>
+
+                                            <h2 className='footerFormHead' id="add-modal-label">Academic Qualification
+                                            </h2>
+
+                                            <div className="formBox">
                                                 {
                                                     isFormEnabled ? (
-                                                        <RHFTextField name="applicantName" label="" placeholder='Enter Name' />
-                                                    ) : (
-                                                        <RHFTextField value={item.applicantName} name="applicantName" label="" placeholder='Enter Name' />
-                                                    )
-                                                }
 
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Father Name <span className="must-filed">*</span></label>
-
-
-                                                {
-                                                    isFormEnabled ? (
-                                                        <RHFTextField name="fatherName" label="" placeholder='Enter Father Name' />
-                                                    ) : (
-                                                        <RHFTextField value={item.fatherName} name="fatherName" label="" placeholder='Enter Name' />
-                                                    )
-                                                }
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Mother Name <span className="must-filed">*</span></label>
-
-
-
-                                                {
-                                                    isFormEnabled ? (
-                                                        <RHFTextField name="motherName" label="" placeholder='Enter Mother Name' />
-                                                    ) : (
-                                                        <RHFTextField value={item.motherName} name="motherName" label="" placeholder='Enter Name' />
-                                                    )
-                                                }
-                                            </div>
-
-                                        </div>
-
-                                        <div className="formBox">
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Date Of Birth <span className="must-filed">*</span></label>
-
-                                                {
-                                                    isFormEnabled ? (
-                                                        <RHFTextField name="dateOfBirth" label="" placeholder='dd/mm/yyyy' />
-                                                    ) : (
-                                                        <RHFTextField value={item.dateOfBirth} name="dateOfBirth" label="" placeholder='Enter Name' />
-                                                    )
-                                                }
-
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <InputLabel id="demo-simple-select-label">Gender</InputLabel>
-                                                {
-                                                    isFormEnabled ? (
-                                                        <Select fullWidth size='small' labelId='demo-simple-select-label' label="Gender" name='gender' value={gender} onChange={(e) => setGender(e.target.value)} className="form-select" required sx={{
-
-                                                            ".MuiOutlinedInput-notchedOutline": {
-                                                                border: "none",
-                                                            },
-                                                        }}>
-                                                            <MenuItem value="Male">Male</MenuItem>
-                                                            <MenuItem value="Female">Female</MenuItem>
-                                                        </Select>
-                                                    ) : (
-                                                        <Select fullWidth size='small' labelId='demo-simple-select-label' label="Gender" name='gender' value={item.gender} className="form-select" required sx={{
-
-                                                            ".MuiOutlinedInput-notchedOutline": {
-                                                                border: "none",
-                                                            },
-                                                        }}>
-                                                            <MenuItem value="Male">Male</MenuItem>
-                                                            <MenuItem value="Female">Female</MenuItem>
-                                                        </Select>
-                                                    )
-                                                }
-
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Category <span className="must-filed">*</span></label>
-
-                                                {
-                                                    isFormEnabled ? (
-                                                        <Select size='small' value={category} onChange={(e) => setCategory(e.target.value)} name='category' className="form-select" required sx={{
-
-                                                            ".MuiOutlinedInput-notchedOutline": {
-                                                                border: "none",
-                                                            },
-                                                        }}>
-                                                            <MenuItem value="General">General</MenuItem>
-                                                            <MenuItem value="OBC">OBC</MenuItem>
-                                                            <MenuItem value="ST">ST</MenuItem>
-                                                            <MenuItem value="SC">SC</MenuItem>
-                                                            <MenuItem value="EWS">EWS</MenuItem>
-                                                            <MenuItem value="Others">Others</MenuItem>
-                                                        </Select>
-                                                    ) : (
-                                                        <Select size='small' value={item.category} name='category' className="form-select" required sx={{
-
-                                                            ".MuiOutlinedInput-notchedOutline": {
-                                                                border: "none",
-                                                            },
-                                                        }}>
-                                                            <MenuItem value="General">General</MenuItem>
-                                                            <MenuItem value="OBC">OBC</MenuItem>
-                                                            <MenuItem value="ST">ST</MenuItem>
-                                                            <MenuItem value="SC">SC</MenuItem>
-                                                            <MenuItem value="EWS">EWS</MenuItem>
-                                                            <MenuItem value="Others">Others</MenuItem>
-                                                        </Select>
-                                                    )
-                                                }
-
-                                            </div>
-
-                                        </div>
-
-                                        <div className="formBox">
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Religion <span className="must-filed">*</span></label>
-
-                                                {
-                                                    isFormEnabled ? (
-                                                        <Select size='small' value={religion} onChange={(e) => setReligion(e.target.value)} name='religion' className="form-select" required sx={{
-
-                                                            ".MuiOutlinedInput-notchedOutline": {
-                                                                border: "none",
-                                                            },
-                                                        }}>
-                                                            <MenuItem value="Hindu">Hindu</MenuItem>
-                                                            <MenuItem value="Sikh">Sikh</MenuItem>
-                                                            <MenuItem value="Christian">Christian</MenuItem>
-                                                            <MenuItem value="Muslim">Muslim</MenuItem>
-                                                            <MenuItem value="Jain">Jain</MenuItem>
-                                                            <MenuItem value="Buddhist">Buddhist</MenuItem>
-                                                            <MenuItem value="Others" onClick={hanldeShowOthers}>Others</MenuItem>
-                                                        </Select>
-                                                    ) : (
-                                                        <Select size='small' value={item.religion} name='religion' className="form-select" required sx={{
-
-                                                            ".MuiOutlinedInput-notchedOutline": {
-                                                                border: "none",
-                                                            },
-                                                        }}>
-                                                            <MenuItem value="Hindu">Hindu</MenuItem>
-                                                            <MenuItem value="Sikh">Sikh</MenuItem>
-                                                            <MenuItem value="Christian">Christian</MenuItem>
-                                                            <MenuItem value="Muslim">Muslim</MenuItem>
-                                                            <MenuItem value="Jain">Jain</MenuItem>
-                                                            <MenuItem value="Buddhist">Buddhist</MenuItem>
-                                                            <MenuItem value="Others" onClick={hanldeShowOthers}>Others</MenuItem>
-                                                        </Select>
-                                                    )
-                                                }
-
-                                            </div>
-
-                                        </div>
-
-                                        <h2 className='footerFormHead'>Permanent Address</h2>
-                                        <div className="formBox">
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">House No./Apartment Name/Block No. <span className="must-filed">*</span></label>
-
-
-                                                {
-                                                    isFormEnabled ? (
-                                                        <RHFTextField name="houseNumber" label="" value={houseNo} onChange={(e) => setHouseNo(e.target.value)} placeholder='House No./Apartment Name/Block No.' />
-                                                    ) : (
-                                                        <RHFTextField name="houseNumber" label="" value={item.permanentAddress.houseNumber} placeholder='House No./Apartment Name/Block No.' />
-                                                    )
-                                                }
-
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Road/Street/Lane <span className="must-filed">*</span></label>
-
-                                                {
-                                                    isFormEnabled ? (
-                                                        <RHFTextField name="road" label="" value={permanentRoad} onChange={(e) => setPermanentRoad(e.target.value)} placeholder='Road/Street/Lane' />
-                                                    ) : (
-                                                        <RHFTextField name="road" label="" value={item.permanentAddress.road} placeholder='Road/Street/Lane' />
-                                                    )
-                                                }
-
-
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Area/Landmark <span className="must-filed">*</span></label>
-
-
-
-                                                {
-                                                    isFormEnabled ? (
-                                                        <RHFTextField name="area" label="" placeholder='Area/Landmark' value={permanentArea} onChange={(e) => setPermanentArea(e.target.value)} />
-                                                    ) : (
-                                                        <RHFTextField name="area" label="" placeholder='Area/Landmark' value={item.permanentAddress.area} />
-                                                    )
-                                                }
-                                            </div>
-
-                                        </div>
-                                        <div className="formBox">
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Country <span className="must-filed">*</span></label>
-
-
-                                                {
-                                                    isFormEnabled ? (
-                                                        <RHFTextField name="country" label="" value={country} onChange={(e) => setCountry(e.target.value)} />
-                                                    ) : (
-                                                        <RHFTextField name="country" label="" value={item.permanentAddress.country} />
-                                                    )
-                                                }
-
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">State <span className="must-filed">*</span></label>
-
-                                                {
-                                                    isFormEnabled ? (
-                                                        <Select size='small' sx={{
-
-                                                            ".MuiOutlinedInput-notchedOutline": {
-                                                                border: "none",
-                                                            },
-                                                        }} name="state" value={state} onChange={(e) => setState(e.target.value)} required className="form-control">
-                                                            <MenuItem>--select--</MenuItem>
-                                                            <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
-                                                            <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
-                                                            <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
-                                                            <MenuItem value="Assam"  >Assam</MenuItem>
-                                                            <MenuItem value="Bihar"  >Bihar</MenuItem>
-                                                            <MenuItem value="Chandigarh"  >Chandigarh</MenuItem>
-                                                            <MenuItem value="Chhattisgarh"  >Chhattisgarh</MenuItem>
-                                                            <MenuItem value="Dadra and Nagar Haveli"  >Dadra and Nagar Haveli</MenuItem>
-                                                            <MenuItem value="Daman and Diu"  >Daman and Diu</MenuItem>
-                                                            <MenuItem value="Delhi"  >Delhi</MenuItem>
-                                                            <MenuItem value="Goa"  >Goa</MenuItem>
-                                                            <MenuItem value="Gujarat"  >Gujarat</MenuItem>
-                                                            <MenuItem value="Haryana"  >Haryana</MenuItem>
-                                                            <MenuItem value="Himachal Pradesh"  >Himachal Pradesh</MenuItem>
-                                                            <MenuItem value="Jammu and Kashmir"  >Jammu and Kashmir</MenuItem>
-                                                            <MenuItem value="Jharkhand"  >Jharkhand</MenuItem>
-                                                            <MenuItem value="Karnataka"  >Karnataka</MenuItem>
-                                                            <MenuItem value="Kenmore"  >Kenmore</MenuItem>
-                                                            <MenuItem value="Kerala"  >Kerala</MenuItem>
-                                                            <MenuItem value="Lakshadweep"  >Lakshadweep</MenuItem>
-                                                            <MenuItem value="Madhya Pradesh"  >Madhya Pradesh</MenuItem>
-                                                            <MenuItem value="Maharashtra"  >Maharashtra</MenuItem>
-                                                            <MenuItem value="Manipur"  >Manipur</MenuItem>
-                                                            <MenuItem value="Meghalaya"  >Meghalaya</MenuItem>
-                                                            <MenuItem value="Mizoram"  >Mizoram</MenuItem>
-                                                            <MenuItem value="Nagaland"  >Nagaland</MenuItem>
-                                                            <MenuItem value="Narora"  >Narora</MenuItem>
-                                                            <MenuItem value="Natwar"  >Natwar</MenuItem>
-                                                            <MenuItem value="Odisha"  >Odisha</MenuItem>
-                                                            <MenuItem value="Paschim Medinipur"  >Paschim Medinipur</MenuItem>
-                                                            <MenuItem value="Pondicherry"  >Pondicherry</MenuItem>
-                                                            <MenuItem value="Punjab"  >Punjab</MenuItem>
-                                                            <MenuItem value="Rajasthan"  >Rajasthan</MenuItem>
-                                                            <MenuItem value="Sikkim"  >Sikkim</MenuItem>
-                                                            <MenuItem value="Tamil Nadu"  >Tamil Nadu</MenuItem>
-                                                            <MenuItem value="Telangana"  >Telangana</MenuItem>
-                                                            <MenuItem value="Tripura"  >Tripura</MenuItem>
-                                                            <MenuItem value="Uttar Pradesh"  >Uttar Pradesh</MenuItem>
-                                                            <MenuItem value="Uttarakhand"  >Uttarakhand</MenuItem>
-                                                            <MenuItem value="Vaishali"  >Vaishali</MenuItem>
-                                                            <MenuItem value="West Bengal"  >West Bengal</MenuItem>
-                                                        </Select>
-                                                    ) : (
-                                                        <Select size='small' sx={{
-
-                                                            ".MuiOutlinedInput-notchedOutline": {
-                                                                border: "none",
-                                                            },
-                                                        }} name="state" value={item.permanentAddress.state} required className="form-control">
-                                                            <MenuItem>--select--</MenuItem>
-                                                            <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
-                                                            <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
-                                                            <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
-                                                            <MenuItem value="Assam"  >Assam</MenuItem>
-                                                            <MenuItem value="Bihar"  >Bihar</MenuItem>
-                                                            <MenuItem value="Chandigarh"  >Chandigarh</MenuItem>
-                                                            <MenuItem value="Chhattisgarh"  >Chhattisgarh</MenuItem>
-                                                            <MenuItem value="Dadra and Nagar Haveli"  >Dadra and Nagar Haveli</MenuItem>
-                                                            <MenuItem value="Daman and Diu"  >Daman and Diu</MenuItem>
-                                                            <MenuItem value="Delhi"  >Delhi</MenuItem>
-                                                            <MenuItem value="Goa"  >Goa</MenuItem>
-                                                            <MenuItem value="Gujarat"  >Gujarat</MenuItem>
-                                                            <MenuItem value="Haryana"  >Haryana</MenuItem>
-                                                            <MenuItem value="Himachal Pradesh"  >Himachal Pradesh</MenuItem>
-                                                            <MenuItem value="Jammu and Kashmir"  >Jammu and Kashmir</MenuItem>
-                                                            <MenuItem value="Jharkhand"  >Jharkhand</MenuItem>
-                                                            <MenuItem value="Karnataka"  >Karnataka</MenuItem>
-                                                            <MenuItem value="Kenmore"  >Kenmore</MenuItem>
-                                                            <MenuItem value="Kerala"  >Kerala</MenuItem>
-                                                            <MenuItem value="Lakshadweep"  >Lakshadweep</MenuItem>
-                                                            <MenuItem value="Madhya Pradesh"  >Madhya Pradesh</MenuItem>
-                                                            <MenuItem value="Maharashtra"  >Maharashtra</MenuItem>
-                                                            <MenuItem value="Manipur"  >Manipur</MenuItem>
-                                                            <MenuItem value="Meghalaya"  >Meghalaya</MenuItem>
-                                                            <MenuItem value="Mizoram"  >Mizoram</MenuItem>
-                                                            <MenuItem value="Nagaland"  >Nagaland</MenuItem>
-                                                            <MenuItem value="Narora"  >Narora</MenuItem>
-                                                            <MenuItem value="Natwar"  >Natwar</MenuItem>
-                                                            <MenuItem value="Odisha"  >Odisha</MenuItem>
-                                                            <MenuItem value="Paschim Medinipur"  >Paschim Medinipur</MenuItem>
-                                                            <MenuItem value="Pondicherry"  >Pondicherry</MenuItem>
-                                                            <MenuItem value="Punjab"  >Punjab</MenuItem>
-                                                            <MenuItem value="Rajasthan"  >Rajasthan</MenuItem>
-                                                            <MenuItem value="Sikkim"  >Sikkim</MenuItem>
-                                                            <MenuItem value="Tamil Nadu"  >Tamil Nadu</MenuItem>
-                                                            <MenuItem value="Telangana"  >Telangana</MenuItem>
-                                                            <MenuItem value="Tripura"  >Tripura</MenuItem>
-                                                            <MenuItem value="Uttar Pradesh"  >Uttar Pradesh</MenuItem>
-                                                            <MenuItem value="Uttarakhand"  >Uttarakhand</MenuItem>
-                                                            <MenuItem value="Vaishali"  >Vaishali</MenuItem>
-                                                            <MenuItem value="West Bengal"  >West Bengal</MenuItem>
-                                                        </Select>
-                                                    )
-                                                }
-
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">City <span className="must-filed">*</span></label>
-
-
-                                                {
-                                                    isFormEnabled ? (
-                                                        <RHFTextField name="city" label="" placeholder='City' value={permanentCity} onChange={(e) => setPermanentCity(e.target.value)} />
-                                                    ) : (
-                                                        <RHFTextField name="city" label="" placeholder='City' value={item.permanentAddress.city} />
-                                                    )
-                                                }
-                                            </div>
-
-
-                                        </div>
-
-                                        <div className="formBox">
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-
-                                                {
-                                                    isFormEnabled ? (
-                                                        <RHFTextField name="pincode" value={pincode} onChange={(e) => setPinCode(e.target.value)} type='number' label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
-                                                    ) : (
-                                                        <RHFTextField name="pincode" value={item.permanentAddress.pincode} type='number' label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
-                                                    )
-                                                }
-
-                                            </div>
-                                        </div>
-
-                                        <h2 className='footerFormHead'>Present Address</h2>
-                                        <div className="formBox">
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">House No./Apartment Name/Block No. <span className="must-filed">*</span></label>
-
-
-                                                {
-                                                    isFormEnabled ? (
-                                                        <RHFTextField name="houseNumber" label="" value={presentHouseNo} onChange={(e) => setPresentHouseNo(e.target.value)} placeholder='House No./Apartment Name/Block No.' />
-                                                    ) : (
-                                                        <RHFTextField name="houseNumber" label="" value={item.presentAddress.houseNumber} placeholder='House No./Apartment Name/Block No.' />
-                                                    )
-                                                }
-
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Road/Street/Lane <span className="must-filed">*</span></label>
-
-                                                {
-                                                    isFormEnabled ? (
-
-                                                        <RHFTextField name="road" label="" placeholder='Road/Street/Lane' value={road} onChange={(e) => setRoad(e.target.value)} />
-                                                    ) : (
-
-                                                        <RHFTextField name="road" label="" placeholder='Road/Street/Lane' value={item.presentAddress.road} />
-                                                    )
-                                                }
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Area/Landmark <span className="must-filed">*</span></label>
-
-
-
-                                                {
-                                                    isFormEnabled ? (
-
-                                                        <RHFTextField name="area" label="" placeholder='Area/Landmark' value={area} onChange={(e) => setArea(e.target.value)} />
-                                                    ) : (
-
-                                                        <RHFTextField name="area" label="" placeholder='Area/Landmark' value={item.presentAddress.area} />
-                                                    )
-                                                }
-
-
-                                            </div>
-
-
-                                        </div>
-                                        <div className="formBox">
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Country <span className="must-filed">*</span></label>
-
-                                                {
-                                                    isFormEnabled ? (
-
-                                                        <RHFTextField name="country" label="" value={countryPresent} onChange={(e) => setCountryPresent(e.target.value)} />
-                                                    ) : (
-
-                                                        <RHFTextField name="country" label="" value={item.presentAddress.country} />
-                                                    )
-                                                }
-
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">State <span className="must-filed">*</span></label>
-
-
-                                                {
-                                                    isFormEnabled ? (
-
-                                                        <Select size='small' sx={{
-
-                                                            ".MuiOutlinedInput-notchedOutline": {
-                                                                border: "none",
-                                                            },
-                                                        }} name="state" value={statePresent} onChange={(e) => setStatePresent(e.target.value)} required className="form-control">
-
-                                                            <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
-                                                            <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
-                                                            <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
-                                                            <MenuItem value="Assam">Assam</MenuItem>
-                                                            <MenuItem value="Bihar">Bihar</MenuItem>
-                                                            <MenuItem value="Chandigarh"  >Chandigarh</MenuItem>
-                                                            <MenuItem value="Chhattisgarh"  >Chhattisgarh</MenuItem>
-                                                            <MenuItem value="Dadra and Nagar Haveli"  >Dadra and Nagar Haveli</MenuItem>
-                                                            <MenuItem value="Daman and Diu"  >Daman and Diu</MenuItem>
-                                                            <MenuItem value="Delhi"  >Delhi</MenuItem>
-                                                            <MenuItem value="Goa"  >Goa</MenuItem>
-                                                            <MenuItem value="Gujarat"  >Gujarat</MenuItem>
-                                                            <MenuItem value="Haryana"  >Haryana</MenuItem>
-                                                            <MenuItem value="Himachal Pradesh"  >Himachal Pradesh</MenuItem>
-                                                            <MenuItem value="Jammu and Kashmir"  >Jammu and Kashmir</MenuItem>
-                                                            <MenuItem value="Jharkhand"  >Jharkhand</MenuItem>
-                                                            <MenuItem value="Karnataka"  >Karnataka</MenuItem>
-                                                            <MenuItem value="Kenmore"  >Kenmore</MenuItem>
-                                                            <MenuItem value="Kerala"  >Kerala</MenuItem>
-                                                            <MenuItem value="Lakshadweep"  >Lakshadweep</MenuItem>
-                                                            <MenuItem value="Madhya Pradesh"  >Madhya Pradesh</MenuItem>
-                                                            <MenuItem value="Maharashtra"  >Maharashtra</MenuItem>
-                                                            <MenuItem value="Manipur"  >Manipur</MenuItem>
-                                                            <MenuItem value="Meghalaya"  >Meghalaya</MenuItem>
-                                                            <MenuItem value="Mizoram"  >Mizoram</MenuItem>
-                                                            <MenuItem value="Nagaland"  >Nagaland</MenuItem>
-                                                            <MenuItem value="Narora"  >Narora</MenuItem>
-                                                            <MenuItem value="Natwar"  >Natwar</MenuItem>
-                                                            <MenuItem value="Odisha"  >Odisha</MenuItem>
-                                                            <MenuItem value="Paschim Medinipur"  >Paschim Medinipur</MenuItem>
-                                                            <MenuItem value="Pondicherry"  >Pondicherry</MenuItem>
-                                                            <MenuItem value="Punjab"  >Punjab</MenuItem>
-                                                            <MenuItem value="Rajasthan"  >Rajasthan</MenuItem>
-                                                            <MenuItem value="Sikkim"  >Sikkim</MenuItem>
-                                                            <MenuItem value="Tamil Nadu"  >Tamil Nadu</MenuItem>
-                                                            <MenuItem value="Telangana"  >Telangana</MenuItem>
-                                                            <MenuItem value="Tripura"  >Tripura</MenuItem>
-                                                            <MenuItem value="Uttar Pradesh"  >Uttar Pradesh</MenuItem>
-                                                            <MenuItem value="Uttarakhand"  >Uttarakhand</MenuItem>
-                                                            <MenuItem value="Vaishali"  >Vaishali</MenuItem>
-                                                            <MenuItem value="West Bengal"  >West Bengal</MenuItem>
-                                                        </Select>
-                                                    ) : (
-
-                                                        <Select size='small' sx={{
-
-                                                            ".MuiOutlinedInput-notchedOutline": {
-                                                                border: "none",
-                                                            },
-                                                        }} name="state" value={item.presentAddress.state} required className="form-control">
-
-                                                            <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
-                                                            <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
-                                                            <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
-                                                            <MenuItem value="Assam">Assam</MenuItem>
-                                                            <MenuItem value="Bihar">Bihar</MenuItem>
-                                                            <MenuItem value="Chandigarh"  >Chandigarh</MenuItem>
-                                                            <MenuItem value="Chhattisgarh"  >Chhattisgarh</MenuItem>
-                                                            <MenuItem value="Dadra and Nagar Haveli"  >Dadra and Nagar Haveli</MenuItem>
-                                                            <MenuItem value="Daman and Diu"  >Daman and Diu</MenuItem>
-                                                            <MenuItem value="Delhi"  >Delhi</MenuItem>
-                                                            <MenuItem value="Goa"  >Goa</MenuItem>
-                                                            <MenuItem value="Gujarat"  >Gujarat</MenuItem>
-                                                            <MenuItem value="Haryana"  >Haryana</MenuItem>
-                                                            <MenuItem value="Himachal Pradesh"  >Himachal Pradesh</MenuItem>
-                                                            <MenuItem value="Jammu and Kashmir"  >Jammu and Kashmir</MenuItem>
-                                                            <MenuItem value="Jharkhand"  >Jharkhand</MenuItem>
-                                                            <MenuItem value="Karnataka"  >Karnataka</MenuItem>
-                                                            <MenuItem value="Kenmore"  >Kenmore</MenuItem>
-                                                            <MenuItem value="Kerala"  >Kerala</MenuItem>
-                                                            <MenuItem value="Lakshadweep"  >Lakshadweep</MenuItem>
-                                                            <MenuItem value="Madhya Pradesh"  >Madhya Pradesh</MenuItem>
-                                                            <MenuItem value="Maharashtra"  >Maharashtra</MenuItem>
-                                                            <MenuItem value="Manipur"  >Manipur</MenuItem>
-                                                            <MenuItem value="Meghalaya"  >Meghalaya</MenuItem>
-                                                            <MenuItem value="Mizoram"  >Mizoram</MenuItem>
-                                                            <MenuItem value="Nagaland"  >Nagaland</MenuItem>
-                                                            <MenuItem value="Narora"  >Narora</MenuItem>
-                                                            <MenuItem value="Natwar"  >Natwar</MenuItem>
-                                                            <MenuItem value="Odisha"  >Odisha</MenuItem>
-                                                            <MenuItem value="Paschim Medinipur"  >Paschim Medinipur</MenuItem>
-                                                            <MenuItem value="Pondicherry"  >Pondicherry</MenuItem>
-                                                            <MenuItem value="Punjab"  >Punjab</MenuItem>
-                                                            <MenuItem value="Rajasthan"  >Rajasthan</MenuItem>
-                                                            <MenuItem value="Sikkim"  >Sikkim</MenuItem>
-                                                            <MenuItem value="Tamil Nadu"  >Tamil Nadu</MenuItem>
-                                                            <MenuItem value="Telangana"  >Telangana</MenuItem>
-                                                            <MenuItem value="Tripura"  >Tripura</MenuItem>
-                                                            <MenuItem value="Uttar Pradesh"  >Uttar Pradesh</MenuItem>
-                                                            <MenuItem value="Uttarakhand"  >Uttarakhand</MenuItem>
-                                                            <MenuItem value="Vaishali"  >Vaishali</MenuItem>
-                                                            <MenuItem value="West Bengal"  >West Bengal</MenuItem>
-                                                        </Select>
-                                                    )
-                                                }
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">City <span className="must-filed">*</span></label>
-
-
-                                                {
-                                                    isFormEnabled ? (
-
-                                                        <RHFTextField name="city" label="" placeholder='City' value={city} onChange={(e) => setCity(e.target.value)} />
-                                                    ) : (
-
-                                                        <RHFTextField name="city" label="" placeholder='City' value={item.presentAddress.city} />
-                                                    )
-                                                }
-                                            </div>
-
-
-                                        </div>
-
-                                        <div className="formBox">
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-
-
-                                                {
-                                                    isFormEnabled ? (
-
-                                                        <RHFTextField type='number' value={pinCodePresent} onChange={(e) => setPinCodePresent(e.target.value)} name="pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
-                                                    ) : (
-
-                                                        <RHFTextField type='number' value={item.presentAddress.pincode} name="pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
-
-                                        <h2 className='footerFormHead'>Contact Details</h2>
-                                        <div className="formBox">
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Email ID <span className="must-filed">*</span></label>
-
-                                                <RHFTextField name="emailId" disabled value={item.emailId} type='email' label="" placeholder='Email ID' />
-
-
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Mobile No. <span className="must-filed">*</span></label>
-
-                                                <RHFTextField name="mobileNumber" disabled type='number' value={item.mobileNumber} label="" placeholder='Mobile No.' inputProps={{ maxLength: 10 }} />
-
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Aadhar No. <span className="must-filed">*</span></label>
-
-                                                {
-                                                    isFormEnabled ? (
-
-                                                        <RHFTextField name="aadharNumber" type='number' value={adhar} onChange={(e) => setAdhar(e.target.value)} label="" placeholder='Aadhar No.' inputProps={{ maxLength: 12 }} required />
-                                                    ) : (
-
-                                                        <RHFTextField name="aadharNumber" type='number' value={item.aadharNumber} label="" placeholder='Aadhar No.' inputProps={{ maxLength: 12 }} required />
-                                                    )
-                                                }
-                                            </div>
-
-                                        </div>
-                                        <div className="formBox">
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Alternate Email ID</label>
-
-
-                                                {
-                                                    isFormEnabled ? (
-
-                                                        <RHFTextField name="alternateEmailId" label="" placeholder='Alternate Email ID' />
-                                                    ) : (
-
-                                                        <RHFTextField name="alternateEmailId" value={item.alternateEmailId} label="" placeholder='Alternate Email ID' />
-                                                    )
-                                                }
-
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Alternate Mobile No.</label>
-
-
-
-                                                {
-                                                    isFormEnabled ? (
-
-                                                        <RHFTextField name="alternateMobileNumber" type='number' value={alternateMobileNumber} onChange={(e) => setAlternateMobileNumber(e.target.value)} label="" placeholder='Alternate Mobile No.' inputProps={{ maxLength: 10 }} />
-                                                    ) : (
-
-                                                        <RHFTextField name="alternateMobileNumber" type='number' value={item.alternateMobileNumber} label="" placeholder='Alternate Mobile No.' inputProps={{ maxLength: 10 }} />
-                                                    )
-                                                }
-                                            </div>
-                                            <div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Pan No.</label>
-
-
-
-                                                {
-                                                    isFormEnabled ? (
-
-                                                        <RHFTextField name="pancard" label="" placeholder='Pan No.' inputProps={{ maxLength: 10 }} />
-                                                    ) : (
-
-                                                        <RHFTextField name="pancard" value={item.pancard} label="" placeholder='Pan No.' inputProps={{ maxLength: 10 }} />
-                                                    )
-                                                }
-
-
-                                            </div>
-
-
-                                        </div>
-
-                                        <h2 className='footerFormHead' id="add-modal-label">Academic Qualification
-                                        </h2>
-
-                                        <div className="formBox">
-                                            {
-                                                isFormEnabled ? (
-
-                                                    <div className="form-group col-md-12 col-lg-12 tableFlow">
-                                                        <table className="table table-bordered table-hover">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Class	</th>
-                                                                    <th>School Name	</th>
-                                                                    <th>Board		</th>
-                                                                    <th>% Mark		</th>
-                                                                    <th>Passing Year
-
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody className="add_row_div_experience">
-                                                                {
-                                                                    [...Array(noOfRows)].map((elementInArray, index) => {
-                                                                        return (
-                                                                            <tr key={index}>
-                                                                                <td> <RHFTextField name="className" value={className} onChange={(e) => setClassName(e.target.value)} label="" placeholder='Class Name' /></td>
-                                                                                <td> <RHFTextField name="schoolName" value={schoolName} onChange={(e) => setSchoolName(e.target.value)} label="" placeholder='School Name' /></td>
-                                                                                <td> <RHFTextField name="board" value={boardName} onChange={(e) => setBoardName(e.target.value)} label="" placeholder='Board' /></td>
-                                                                                <td> <RHFTextField name="percentage" value={percentage} onChange={(e) => setPercentage(e.target.value)} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
-                                                                                <td> <RHFTextField name="passingYear" value={passingYear} onChange={(e) => setPassingYear(e.target.value)} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
-                                                                            </tr>
-
-                                                                        )
-
-                                                                    })
-
-
-
-                                                                }
-
-
-                                                            </tbody>
-                                                        </table>
-                                                        <button onClick={() => setNoOfRows(noOfRows + 1)} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
-                                                    </div>
-                                                ) : (
-
-                                                    <div className="form-group col-md-12 col-lg-12 tableFlow">
-                                                        <table className="table table-bordered table-hover">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Class	</th>
-                                                                    <th>School Name	</th>
-                                                                    <th>Board		</th>
-                                                                    <th>% Mark		</th>
-                                                                    <th>Passing Year
-
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody className="add_row_div_experience">
-
-
-                                                                <tr>
-                                                                    <td> <RHFTextField name="className" value={item.academicQualification[0].className} label="" placeholder='Class Name' /></td>
-                                                                    <td> <RHFTextField name="schoolName" value={item.academicQualification[0].schoolName} label="" placeholder='School Name' /></td>
-                                                                    <td> <RHFTextField name="board" value={item.academicQualification[0].board} label="" placeholder='Board' /></td>
-                                                                    <td> <RHFTextField name="percentage" value={item.academicQualification[0].percentage} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
-                                                                    <td> <RHFTextField name="passingYear" value={item.academicQualification[0].passingYear} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
-                                                                </tr>
-
-
-
-
-                                                            </tbody>
-                                                        </table>
-
-                                                    </div>
-                                                )
-                                            }
-
-
-
-
-                                        </div>
-
-                                        <h2 className='footerFormHead' id="add-modal-label">Higher Qualification
-                                        </h2>
-
-                                        <div className="formBox">
-
-                                            <div className="form-group col-md-12 col-lg-12 tableFlow">
-                                                <table className="table table-bordered table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Course Name</th>
-                                                            <th>Specialization</th>
-                                                            <th>% Mark	</th>
-                                                            <th>Passing Year	</th>
-                                                            <th>Course Type
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody className="add_row_div_experience">
-                                                        {
-                                                            isFormEnabled ? (
-                                                                <>
+                                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                            <table className="table table-bordered table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Class	</th>
+                                                                        <th>School Name	</th>
+                                                                        <th>Board		</th>
+                                                                        <th>% Mark		</th>
+                                                                        <th>Passing Year
+
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody className="add_row_div_experience">
                                                                     {
-                                                                        [...Array(noOfRows2)].map((elementInArray, index) => {
+                                                                        [...Array(noOfRows)].map((elementInArray, index) => {
                                                                             return (
                                                                                 <tr key={index}>
-                                                                                    <td> <RHFTextField name="courseName" value={courseName} onChange={(e) => setCourseName(e.target.value)} label="" placeholder='Course Name' /></td>
-                                                                                    <td> <RHFTextField name="specialization" value={specialization} onChange={(e) => setSpecialization(e.target.value)} label="" placeholder='Specialization' /></td>
-                                                                                    <td> <RHFTextField name="percentage" type='number' value={percentageHq} onChange={(e) => setPercentageHq(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
-                                                                                    <td> <RHFTextField name="passingYear" type='number' value={passingYearHq} onChange={(e) => setPassingYearHq(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
-                                                                                    <td> <RHFTextField name="courseType" value={courseType} onChange={(e) => setCourseType(e.target.value)} label="" placeholder='Course Type' /></td>
+                                                                                    <td> <RHFTextField name="className" value={className} onChange={(e) => setClassName(e.target.value)} label="" placeholder='Class Name' /></td>
+                                                                                    <td> <RHFTextField name="schoolName" value={schoolName} onChange={(e) => setSchoolName(e.target.value)} label="" placeholder='School Name' /></td>
+                                                                                    <td> <RHFTextField name="board" value={boardName} onChange={(e) => setBoardName(e.target.value)} label="" placeholder='Board' /></td>
+                                                                                    <td> <RHFTextField name="percentage" value={percentage} onChange={(e) => setPercentage(e.target.value)} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                                                    <td> <RHFTextField name="passingYear" value={passingYear} onChange={(e) => setPassingYear(e.target.value)} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
                                                                                 </tr>
 
                                                                             )
 
                                                                         })
 
-                                                                    }
-                                                                </>
 
-
-                                                            ) : (
-                                                                <>
-                                                                    {
-                                                                        [...Array(noOfRows2)].map((elementInArray, index) => {
-                                                                            return (
-                                                                                <tr key={index}>
-                                                                                    <td> <RHFTextField name="courseName" value={item.higherQualification[0].courseName} label="" placeholder='Course Name' /></td>
-                                                                                    <td> <RHFTextField name="specialization" value={item.higherQualification[0].specialization} label="" placeholder='Specialization' /></td>
-                                                                                    <td> <RHFTextField name="percentage" type='number' value={item.higherQualification[0].percentage} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
-                                                                                    <td> <RHFTextField name="passingYear" type='number' value={item.higherQualification[0].passingYear} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
-                                                                                    <td> <RHFTextField name="courseType" value={item.higherQualification[0].courseType} label="" placeholder='Course Type' /></td>
-                                                                                </tr>
-
-                                                                            )
-
-                                                                        })
 
                                                                     }
-                                                                </>
 
 
-                                                            )
-                                                        }
+                                                                </tbody>
+                                                            </table>
+                                                            <button onClick={() => setNoOfRows(noOfRows + 1)} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                                                        </div>
+                                                    ) : (
 
-                                                    </tbody>
-                                                </table>
-                                                <button onClick={() => setNoOfRows2(noOfRows2 + 1)} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                            <table className="table table-bordered table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Class	</th>
+                                                                        <th>School Name	</th>
+                                                                        <th>Board		</th>
+                                                                        <th>% Mark		</th>
+                                                                        <th>Passing Year
+
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody className="add_row_div_experience">
+
+
+                                                                    <tr>
+                                                                        <td> <RHFTextField name="className" value={item.academicQualification[0].className} label="" placeholder='Class Name' /></td>
+                                                                        <td> <RHFTextField name="schoolName" value={item.academicQualification[0].schoolName} label="" placeholder='School Name' /></td>
+                                                                        <td> <RHFTextField name="board" value={item.academicQualification[0].board} label="" placeholder='Board' /></td>
+                                                                        <td> <RHFTextField name="percentage" value={item.academicQualification[0].percentage} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                                        <td> <RHFTextField name="passingYear" value={item.academicQualification[0].passingYear} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
+                                                                    </tr>
+
+
+
+
+                                                                </tbody>
+                                                            </table>
+
+                                                        </div>
+                                                    )
+                                                }
+
+
+
+
                                             </div>
 
+                                            <h2 className='footerFormHead' id="add-modal-label">Higher Qualification
+                                            </h2>
+
+                                            <div className="formBox">
+
+                                                <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                    <table className="table table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Course Name</th>
+                                                                <th>Specialization</th>
+                                                                <th>% Mark	</th>
+                                                                <th>Passing Year	</th>
+                                                                <th>Course Type
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody className="add_row_div_experience">
+                                                            {
+                                                                isFormEnabled ? (
+                                                                    <>
+                                                                        {
+                                                                            [...Array(noOfRows2)].map((elementInArray, index) => {
+                                                                                return (
+                                                                                    <tr key={index}>
+                                                                                        <td> <RHFTextField name="courseName" value={courseName} onChange={(e) => setCourseName(e.target.value)} label="" placeholder='Course Name' /></td>
+                                                                                        <td> <RHFTextField name="specialization" value={specialization} onChange={(e) => setSpecialization(e.target.value)} label="" placeholder='Specialization' /></td>
+                                                                                        <td> <RHFTextField name="percentage" type='number' value={percentageHq} onChange={(e) => setPercentageHq(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                                                        <td> <RHFTextField name="passingYear" type='number' value={passingYearHq} onChange={(e) => setPassingYearHq(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
+                                                                                        <td> <RHFTextField name="courseType" value={courseType} onChange={(e) => setCourseType(e.target.value)} label="" placeholder='Course Type' /></td>
+                                                                                    </tr>
+
+                                                                                )
+
+                                                                            })
+
+                                                                        }
+                                                                    </>
+
+
+                                                                ) : (
+                                                                    <>
+                                                                        {
+                                                                            [...Array(noOfRows2)].map((elementInArray, index) => {
+                                                                                return (
+                                                                                    <tr key={index}>
+                                                                                        <td> <RHFTextField name="courseName" value={item.higherQualification[0].courseName} label="" placeholder='Course Name' /></td>
+                                                                                        <td> <RHFTextField name="specialization" value={item.higherQualification[0].specialization} label="" placeholder='Specialization' /></td>
+                                                                                        <td> <RHFTextField name="percentage" type='number' value={item.higherQualification[0].percentage} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                                                        <td> <RHFTextField name="passingYear" type='number' value={item.higherQualification[0].passingYear} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
+                                                                                        <td> <RHFTextField name="courseType" value={item.higherQualification[0].courseType} label="" placeholder='Course Type' /></td>
+                                                                                    </tr>
+
+                                                                                )
+
+                                                                            })
+
+                                                                        }
+                                                                    </>
+
+
+                                                                )
+                                                            }
+
+                                                        </tbody>
+                                                    </table>
+                                                    <button onClick={() => setNoOfRows2(noOfRows2 + 1)} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                                                </div>
+
+
+                                            </div>
 
                                         </div>
 
-                                    </div>
+                                        <div className="submitForm">
 
-                                    <div className="submitForm">
-                                        {
-                                            isFormEnabled ? (
-                                                <button className="formSubmit" type='submit'>Save</button>
+                                            <button className="formSubmit" type='submit'>Save</button>
 
-                                            ) : (
-                                                <button className="formSubmit" onClick={() => {
-                                                    setIsFormEnabled(!isFormEnabled);
-                                                }}>Edit</button>
-                                            )
-                                        }
-                                    </div>
-                                </FormProvider>
+                                        </div>
+                                    </FormProvider>
+                                </>
                             )
                         })
                     }
