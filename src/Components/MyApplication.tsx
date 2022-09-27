@@ -43,8 +43,6 @@ type MyApplicationType = {
 
 const MyApplication = () => {
     const [loading, setLoading] = useState(false);
-    const [noSuggestion, setNoSuggestion] = useState(false);
-    const [applicationId, setApplicationId] = useState([0]);
     const [users, setUsers] = useState<MyApplicationType[]>([]);
 
     const { state }: { state: any } = useLocation();
@@ -52,7 +50,6 @@ const MyApplication = () => {
     const navigate = useNavigate();
     const isMounted = useRef(false);
 
-    const profileDetails = useSelector((state: any) => state.profileView.value);
 
 
     useEffect(() => {
