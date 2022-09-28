@@ -1,10 +1,46 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { BUTTONDATA as data } from '../../utils/constants';
 import axios from '../../utils/axios';
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, styled } from "@mui/material";
 type UsersList = {
-    name: string
+    news: string
 }
+const Wrapper = styled("div")(({ theme }) => ({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    height: "300px",
+    width: '82%',
+    background: 'rgba(255, 255, 255, .6)',
+    boxShadow: '3px 3px 5px #a29191',
+    borderBottomRightRadius: '1rem',
+    borderBottomLeftRadius: '1rem',
+    marginBottom: '2rem'
+}));
+const Body = styled("div")(({ theme }) => ({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    height: "200px",
+    maxHeight: "100%",
+    overflow: "auto",
+    overflowY: "auto",
+    "&::-webkit-scrollbar": {
+        width: "0.3em",
+        backgroundColor: "#000",
+    },
+    "&::-webkit-scrollbar-track": {
+        boxShadow: "inset 0 0 6px rgba(0,0,0,0.1)",
+        backgroundColor: "#fff",
+        borderRadius: "10px",
+    },
+    "&::-webkit-scrollbar-thumb": {
+        borderRadius: "10px",
+        backgroundColor: theme.palette.primary.main,
+    },
+}));
 const Notification = () => {
     const [loading, setLoading] = useState(false);
     const [users, setUsers] = useState<UsersList[]>([]);
@@ -15,7 +51,7 @@ const Notification = () => {
         const getUser = async () => {
             setLoading(true);
             try {
-                await axios.post(`/api/application/fetch-news`).then((response) => {
+                await axios.get(`/api/application/fetch-news`).then((response) => {
                     if (!isMounted.current) {
                         const { body } = response.data;
                         setUsers(body);
@@ -44,7 +80,8 @@ const Notification = () => {
                     })
                 }
             </div>
-            <div className="box">
+
+            <Wrapper>
                 <div className="head">
                     <h1 style={{ fontSize: '2rem' }}> What's new</h1>
                 </div>
@@ -63,32 +100,38 @@ const Notification = () => {
 
                     ) : (
 
+                        <Body>
 
-                        users.length > 0 ? (
-                            <>
-                                {
-                                    users.map((item, id) => {
-                                        return (
-                                            <div key={id}>
-                                                <p>
-                                                    {item.name}
-                                                </p>
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </>
-                        ) : (
-                            <div className="text">
-                                <p className='textPara'>No News Found!</p>
-                            </div>
-                        )
+                            {
+                                users.length > 0 ? (
+                                    <>
+                                        {
+                                            users.map((item, id) => {
+                                                return (
+
+                                                    <h5 className='newsPara' key={id}>
+                                                        {item.news}
+                                                    </h5>
+
+                                                )
+                                            })
+                                        }
+                                    </>
+                                ) : (
+                                    <div className="text">
+                                        <p className='textPara'>No News Found!</p>
+                                    </div>
+                                )
+                            }
+                        </Body>
+
 
 
                     )
                 }
-            </div>
-        </section>
+            </Wrapper>
+
+        </section >
 
     )
 }

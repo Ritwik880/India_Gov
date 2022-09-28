@@ -27,6 +27,13 @@
 
 }
 
+.allNews {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
 input {
     width: 100%;
 }
@@ -186,7 +193,7 @@ th {
 .box {
     display: flex;
     align-items: center;
-    height: 200px;
+    height: auto;
     flex-direction: column;
     width: 82%;
     margin: 2rem 0;
@@ -411,6 +418,12 @@ th {
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
+}
+
+.newsPara {
+    width: 80%;
+    margin: auto;
+    padding: 1rem 0;
 }
 
 .policySection {
@@ -682,6 +695,10 @@ th {
 @media (min-width: 768px) and (max-width: 1023px) {
     .myAppHead {
         width: 100%;
+    }
+
+    .jobSection {
+        height: 1500px;
     }
 
 }
