@@ -26,6 +26,7 @@ import View from './Components/View';
 import Edit from './Components/Edit';
 import Payment from './Components/Payment';
 import ThankYou from './Components/ThankYou';
+import LoginMyApplication from './Components/LoginMyApplication';
 const App = () => {
   const [loading, setLoading] = useState(false);
 
@@ -74,6 +75,7 @@ const App = () => {
               <Route path='/edit-application' element={<Edit />}></Route>
               <Route path='/payment' element={<Payment />}></Route>
               <Route path='/thankyou' element={<ThankYou />}></Route>
+              <Route path='/login-my-application' element={<LoginMyApplication />}></Route>
             </Routes>
             <Footer />
 

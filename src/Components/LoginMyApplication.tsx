@@ -41,7 +41,7 @@ type MyApplicationType = {
 
 };
 
-const MyApplication = () => {
+const LoginMyApplication = () => {
     const [loading, setLoading] = useState(false);
     const [users, setUsers] = useState<MyApplicationType[]>([]);
 
@@ -55,7 +55,6 @@ const MyApplication = () => {
     useEffect(() => {
         const getUser = async () => {
             setLoading(true);
-            console.log('state', state);
 
             try {
                 await axios.post(`/api/application/fetch-application-details`,
@@ -69,7 +68,6 @@ const MyApplication = () => {
                     if (!isMounted.current) {
                         const { body } = response.data;
                         setUsers(body);
-                        console.log(body);
 
                     }
                 });
@@ -90,10 +88,11 @@ const MyApplication = () => {
 
     //handlePayment
     // let order_Id = Math.random().toString(36).substring(2, 9);
-    const handlePayment = async (name: string, email: string, phoneNumber: string) => {
-        const url = 'http://localhost:5173/thankyou';
+    const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: string) => {
+        const url = `http://localhost:5173/thankyou`;
         const amount = 100;
-        // const order_Id = Math.random().to(36).substring(2, 9);
+        const order_Id = Math.random().toString(36).substring(2, 9);
+        // const url = `http://localhost:5173/thankyou${ state: { applicationId, phoneNumber, order_Id }}`
 
         try {
             await axios
@@ -103,7 +102,7 @@ const MyApplication = () => {
                     customerName: name,
                     customerPhone: phoneNumber,
                     orderAmount: amount,
-                    orderId: Math.floor(Math.random() * 90000) + 10000,
+                    orderId: order_Id,
                     orderNote: "payment",
                     paymentModes: "upi",
                     returnUrl: url
@@ -111,8 +110,6 @@ const MyApplication = () => {
                 })
                 .then((response) => {
                     const { body } = response.data;
-                    // console.log(data);
-
                     window.open(body)
 
 
@@ -127,6 +124,9 @@ const MyApplication = () => {
     const handleView = (id: string, userId: string) => {
         navigate('/view-application', { state: { id, userId } })
 
+    }
+    const handleEdit = (id: string, userId: string) => {
+        navigate('/edit-application', { state: { id, userId } })
     }
 
 
@@ -231,7 +231,7 @@ const MyApplication = () => {
                                                                                 {
                                                                                     item.paymentStatus === false ?
                                                                                         <Div>
-                                                                                            <Btn onClick={() => handlePayment(item.applicantName, item.emailId, item.mobileNumber)}>Proceed to pay</Btn>
+                                                                                            <Btn onClick={() => handlePayment(item.applicantName, item.emailId, item.mobileNumber, item.applicationId)}>Proceed to pay</Btn>
                                                                                         </Div>
                                                                                         :
                                                                                         <Div>
@@ -254,7 +254,7 @@ const MyApplication = () => {
 
                                                             <td>
                                                                 <Div>
-                                                                    <Btn onClick={() => navigate('/edit-application')}>
+                                                                    <Btn onClick={() => handleEdit(item.applicationId, item.mobileNumber)}>
                                                                         Edit
                                                                     </Btn>
                                                                 </Div>
@@ -288,4 +288,4 @@ const MyApplication = () => {
     )
 }
 
-export default MyApplication
+export default LoginMyApplication

@@ -17,81 +17,12 @@ import { ROW as rowData } from '../utils/constants';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ProfileValuesProps } from '../@types/object';
 // @ts-ignore
 import Files from 'react-files';
 
 
-type ProfileValuesProps = {
-    // upload_signature:
-    aadharNumber: string;
-    academicQualification: [
-        {
-            board: string;
-            className: string;
-            passingYear: string;
-            percentage: string;
-            schoolName: string
-        }
-    ],
-    higherQualification: [
-        {
-            courseName: string;
-            courseType: string;
-            passingYear: string;
-            percentage: string;
-            specialization: string;
-        }
-    ],
-    experienceDetails: [
-        {
-            companyName: string;
-            designation: string;
-            durationFrom: string;
-            durationTo: string;
-            experienced: string;
-            location: string;
-        }
-    ],
-    alternateEmailId: string;
-    alternateMobileNumber: string;
-    applicantName: string;
-    category: string;
-    dateOfBirth: string;
-    emailId: string;
-    experienced: string;
-    fatherName: string;
-    gender: string;
-    mobileNumber: string;
-    motherName: string;
-    pancard: string;
-    password: string;
-    paymentStatus: boolean;
-    permanentAddress: {
-        area: string;
-        city: string;
-        country: string;
-        houseNumber: string;
-        pincode: string;
-        road: string;
-        state: string;
-    },
-    postName: string,
-    presentAddress: {
-        area: string;
-        city: string;
-        country: string;
-        houseNumber: string;
-        pincode: string;
-        road: string;
-        state: string;
-    },
-    religion: string,
-    totalExperience: string,
-    afterSubmit?: string;
 
-
-
-};
 const AttachmentThumbnail = styled('div')(({ theme }) => ({
     background: theme.palette.grey[200],
     borderRadius: '15px',
@@ -121,7 +52,7 @@ const AttachmentWrapper = styled('div')(({ theme }) => ({
 }));
 const ApplyNow = () => {
     const [noOfRows, setNoOfRows] = useState(1);
-
+    const [applyform, setApplyForm] = useState<ProfileValuesProps[]>([]);
     const [noOfRows2, setNoOfRows2] = useState(1);
     const [noOfRows3, setNoOfRows3] = useState(1);
     const [exp, setExp] = useState("");
@@ -226,7 +157,7 @@ const ApplyNow = () => {
         alert('Are you sure the data entered is correct if YES click submit button.')
         setLoading(true);
         try {
-            await axios.post('/api/application/save-application-details', {
+            const res = await axios.post('/api/application/save-application-details', {
                 upload_photo: uploadFile,
                 upload_signature: uploadFileSignature,
                 applicantName: data.applicantName,
@@ -297,8 +228,14 @@ const ApplyNow = () => {
                 ],
                 password: Math.random().toString(36).substring(2, 9)
             });
+            const { body } = res.data;
+            let applicationId = body.applicationId;
+            let userId = body.mobileNumber;
+            console.log(body.applicationId);
+            console.log(body.mobileNumber);
+
             toast.success('Success');
-            navigate('/my-application')
+            navigate('/my-application', { state: { applicationId, userId } })
             reset();
             setLoading(false);
         } catch (error: any) {
@@ -350,7 +287,7 @@ const ApplyNow = () => {
                 alternateEmailId: data.alternateEmailId,
                 emailId: data.emailId,
                 aadharNumber: parseInt(adhar),
-                pancard: data.pancard,
+                pancard: panNo,
                 academicQualification: [
                     {
                         schoolName: schoolName,
@@ -546,7 +483,7 @@ const ApplyNow = () => {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            heigh: '50vh',
+                            height: '100vh',
                         }}
                     >
                         <CircularProgress />
@@ -976,8 +913,8 @@ const ApplyNow = () => {
                                                     },
                                                 }} value={exp} required onChange={(e) => setExp(e.target.value)} className="form-control select-experience" name="experienced">
 
-                                                    <MenuItem value="yes"  >Yes</MenuItem>
-                                                    <MenuItem value="no" onClick={hanldeNo}>No</MenuItem>
+                                                    <MenuItem value="Yes"  >Yes</MenuItem>
+                                                    <MenuItem value="No" onClick={hanldeNo}>No</MenuItem>
                                                 </Select>
                                             }
                                             {

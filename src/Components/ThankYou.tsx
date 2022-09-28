@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../utils/axios';
 
 type Props = {
@@ -9,23 +9,19 @@ type Props = {
 
 const ThankYou = () => {
     const navigate = useNavigate();
-    const handleReturn = async (name: string, email: string, phoneNumber: string) => {
-  
-
+    const { state }: { state: any } = useLocation();
+    const handleReturn = async () => {
         try {
             await axios
                 .post(`/api/application/update-payment-status`, {
-
-                    applicationId: "1",
-                    orderId: "",
-                    userId: ""
+                    applicationId: state?.applicationId,
+                    userId: state?.phoneNumber,
+                    orderId: state?.order_Id,
 
                 })
                 .then((response) => {
                     const { body } = response.data;
-                    // console.log(data);
-
-                    window.open(body)
+                    navigate('/')
 
 
                 });
@@ -40,7 +36,7 @@ const ThankYou = () => {
                 <div className="row container">
                     <h1 className='thankyou_heading'>Thank You</h1>
                     <div className="thankyou_button_parent_div">
-                        <button onClick={()=> handleReturn()} className='thankyou_button'>Go Back</button>
+                        <button onClick={() => handleReturn()} className='thankyou_button'>Go Back</button>
                     </div>
                 </div>
             </section>

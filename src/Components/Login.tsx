@@ -87,10 +87,12 @@ const Login = () => {
             }
             else {
                 let applicationId = body.applicationDetails[0].applicationId
+                console.log(applicationId);
+
                 setUserProfileId(body);
                 toast.success('Success');
                 reset();
-                navigate('/my-application', { state: { applicationId, userId } });
+                navigate('/login-my-application', { state: { applicationId, userId } });
 
             }
         } catch (error: any) {

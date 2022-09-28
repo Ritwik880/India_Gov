@@ -50,6 +50,7 @@ type ProfileValues = {
             durationTo: string;
             experienced: string;
             location: string;
+            totalExperience: string,
         }
     ],
     alternateEmailId: string;
@@ -86,7 +87,6 @@ type ProfileValues = {
         state: string;
     },
     religion: string,
-    totalExperience: string,
     applicationId: number;
 
 
@@ -140,7 +140,7 @@ const View = () => {
             try {
                 await axios.post(`/api/application/fetch-application-details`,
                     {
-                        applicationId: state?.id,
+                        applicationId: [state?.id],
                         userId: state?.userId,
 
                     }
@@ -186,7 +186,7 @@ const View = () => {
                                     display: "flex",
                                     justifyContent: "center",
                                     alignItems: "center",
-                                    heigh: '100vh',
+                                    height: '100vh',
                                 }}
                             >
                                 <CircularProgress />
@@ -201,6 +201,11 @@ const View = () => {
                                             {
 
                                                 users.map((item, id) => {
+                                                    const extractedDate = item.dateOfBirth
+                                                        .split("T")[0]
+                                                        .split("-")
+                                                        .reverse()
+                                                        .join("-");
                                                     return (
                                                         <>
                                                             <h1 className='formHead'>Application Form for <span className='dynamic_data'>
@@ -232,7 +237,7 @@ const View = () => {
                                                                     <div className="formBox">
                                                                         <div className="mb-3 col-lg-3 col-md-12">
                                                                             <label htmlFor="exampleInputEmail1" className="form-label">Date Of Birth <span className="must-filed">*</span></label>
-                                                                            <RHFTextField disabled name="dateOfBirth" label="" placeholder='dd/mm/yyyy' value={item.dateOfBirth} />
+                                                                            <RHFTextField disabled name="dateOfBirth" label="" placeholder='dd/mm/yyyy' value={extractedDate} />
 
                                                                         </div>
                                                                         <div className="mb-3 col-lg-3 col-md-12">
@@ -596,10 +601,10 @@ const View = () => {
                                                                                     ".MuiOutlinedInput-notchedOutline": {
                                                                                         border: "none",
                                                                                     },
-                                                                                }} value={item.experienceDetails[0].experienced} className="form-control select-experience" name="experienced">
+                                                                                }} value={item.experienceDetails[0].experienced} className="form-control select-experience" name="experienced" disabled>
 
-                                                                                    <MenuItem value="yes"  >Yes</MenuItem>
-                                                                                    <MenuItem value="no" onClick={hanldeNo}>No</MenuItem>
+                                                                                    <MenuItem value="Yes">Yes</MenuItem>
+                                                                                    <MenuItem value="No" onClick={hanldeNo}>No</MenuItem>
                                                                                 </Select>
                                                                             }
                                                                             {
@@ -610,7 +615,7 @@ const View = () => {
                                                                         </div>
                                                                         {hideForm && <div className="mb-3 col-lg-3 col-md-12">
                                                                             <label htmlFor="exampleInputPassword1" className="form-label">Total Experience (IN YEAR)</label>
-                                                                            <RHFTextField disabled type="number" name="totalExperience" value={item.totalExperience} label="" placeholder='Total Experience (IN YEAR)' />
+                                                                            <RHFTextField disabled type="number" name="totalExperience" value={item.experienceDetails[0].totalExperience} label="" placeholder='Total Experience (IN YEAR)' />
                                                                         </div>}
 
 

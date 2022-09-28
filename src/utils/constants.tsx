@@ -141,7 +141,7 @@ export const ROW = [
     },
     {
         id: 11,
-        name: 'Electrician	',
+        name: 'Electrician',
         vacancy: 120,
         exp: '0 Years',
         qual: 'ITI',
@@ -152,7 +152,7 @@ export const ROW = [
     },
     {
         id: 12,
-        name: 'Driver	',
+        name: 'Driver',
         vacancy: 72,
         exp: '0 Years',
         qual: 'Valid Driving Licence',
@@ -174,7 +174,7 @@ export const ROW = [
     },
     {
         id: 14,
-        name: 'Helper	',
+        name: 'Helper',
         vacancy: 181,
         exp: '0 Years',
         qual: '8th',
@@ -185,7 +185,7 @@ export const ROW = [
     },
     {
         id: 15,
-        name: 'Guard	',
+        name: 'Guard',
         vacancy: 554,
         exp: '0 Years',
         qual: '8th',
