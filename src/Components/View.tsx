@@ -9,8 +9,11 @@ import { Select, MenuItem, InputLabel, Typography, styled } from '@mui/material'
 import FormProvider from './hook-form/FormProvider';
 import RHFTextField from './hook-form/RHFTextField';
 import { useLocation, useNavigate } from 'react-router-dom';
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+// @ts-ignore
+import Files from 'react-files';
 
 const ContentWrapper = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.grey[200],
@@ -21,8 +24,41 @@ const ContentWrapper = styled("div")(({ theme }) => ({
     marginTop: "5%",
     padding: '1rem'
 }));
+const AttachmentThumbnail = styled('div')(({ theme }) => ({
+    background: theme.palette.grey[200],
+    borderRadius: '15px',
+    height: '96px',
+    width: '147px',
+    marginBottom: theme.spacing(1),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+        height: '90px',
+        width: '120px',
+    },
+}));
+const ImgStyle = styled('img')(({ theme }) => ({
+    borderRadius: '15px',
+    height: '80px',
+    width: '130px',
+    objectFit: 'cover',
+}));
+
+const AttachmentWrapper = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    marginBottom: theme.spacing(2),
+}));
 
 type ProfileValues = {
+    uploadPhoto: {
+        url: string;
+    };
+    uploadSignature: {
+        url: string;
+    };
     aadharNumber: string;
     academicQualification: [
         {
@@ -149,7 +185,7 @@ const View = () => {
                     if (!isMounted.current) {
                         const { body } = response.data;
                         setUsers(body);
-                        console.log(body);
+
 
                     }
                 });
@@ -206,6 +242,9 @@ const View = () => {
                                                         .split("-")
                                                         .reverse()
                                                         .join("-");
+
+
+
                                                     return (
                                                         <>
                                                             <h1 className='formHead'>Application Form for <span className='dynamic_data'>
@@ -653,7 +692,54 @@ const View = () => {
 
 
                                                                         </div>
+
                                                                     }
+
+                                                                    <div className="file">
+                                                                        <div>
+                                                                            <Files
+                                                                                className="files-dropzone"
+
+                                                                                accepts={['image/*', '.jpeg']}
+                                                                                multiple={false}
+
+                                                                                clickable
+                                                                            >
+                                                                                <AttachmentThumbnail color="primary">
+
+                                                                                    <ImgStyle src={String(item.uploadPhoto.url)} alt="img" />
+
+                                                                                </AttachmentThumbnail>
+                                                                                <AttachmentWrapper>
+                                                                                    <AddBoxOutlinedIcon color="primary" />
+                                                                                    <Typography px={1} variant="body2">
+                                                                                        Upload Photo
+                                                                                    </Typography>
+                                                                                </AttachmentWrapper>
+                                                                            </Files>
+                                                                        </div>
+
+                                                                        <div style={{ marginLeft: '2rem' }}>
+                                                                            <Files
+                                                                                className="files-dropzone"
+                                                                                accepts={['image/*', '.jpeg']}
+                                                                                multiple={false}
+                                                                                clickable
+                                                                            >
+                                                                                <AttachmentThumbnail color="primary">
+
+                                                                                    <ImgStyle src={String(item.uploadSignature.url)} alt="img" />
+
+                                                                                </AttachmentThumbnail>
+                                                                                <AttachmentWrapper>
+                                                                                    <AddBoxOutlinedIcon color="primary" />
+                                                                                    <Typography px={1} variant="body2">
+                                                                                        Upload Signature
+                                                                                    </Typography>
+                                                                                </AttachmentWrapper>
+                                                                            </Files>
+                                                                        </div>
+                                                                    </div>
 
                                                                 </div>
                                                             </FormProvider>

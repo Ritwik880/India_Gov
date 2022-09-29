@@ -1,4 +1,6 @@
 import React, { useRef, useState } from 'react';
+// @ts-ignore
+import Files from 'react-files';
 import * as Yup from 'yup';
 import {
     CircularProgress,
@@ -13,13 +15,11 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { Select, MenuItem, InputLabel } from '@mui/material';
 import FormProvider from './hook-form/FormProvider';
 import RHFTextField from './hook-form/RHFTextField';
-import { ROW as rowData } from '../utils/constants';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ProfileValuesProps } from '../@types/object';
-// @ts-ignore
-import Files from 'react-files';
+
 
 
 
@@ -95,6 +95,7 @@ const ApplyNow = () => {
     const [durationTo, setdurationTo] = useState("");
     const [hideForm, setHideForm] = useState(true);
     const [others, setOthers] = useState(false);
+    const [otherCategory, setOtherCategory] = useState(false);
     const [noExperience, setNoexperience] = useState(false);
     const [loading, setLoading] = useState(false);
     const [uploadFile, setUploadFile] = useState<string | Blob>('');
@@ -105,7 +106,6 @@ const ApplyNow = () => {
     const navigate = useNavigate();
 
     const { state }: { state: any } = useLocation();
-    // const buttonRef = useRef();
 
     const ProfileSchema = Yup.object().shape({
         applicantName: Yup.string().required('Applicant name is required'),
@@ -150,16 +150,13 @@ const ApplyNow = () => {
     const { reset, handleSubmit } = methods;
 
     const onSubmit = async (data: ProfileValuesProps, e: any) => {
-        // const profileForm = new FormData();
-        // uploadFileSignature && profileForm.append('upload_signature', uploadFileSignature);
-        // uploadFile && profileForm.append('upload_photo', uploadFile);
         e.preventDefault();
         alert('Are you sure the data entered is correct if YES click submit button.')
         setLoading(true);
         try {
             const res = await axios.post('/api/application/save-application-details', {
-                upload_photo: uploadFile,
-                upload_signature: uploadFileSignature,
+                uploadPhoto: uploadFile,
+                uploadSignature: uploadFileSignature,
                 applicantName: data.applicantName,
                 fatherName: data.fatherName,
                 motherName: data.motherName,
@@ -167,6 +164,8 @@ const ApplyNow = () => {
                 religion: religion,
                 gender: gender,
                 category: category,
+                otherCategory: data.otherCategory,
+                otherReligion: data.otherReligion,
                 paymentStatus: false,
                 postName: state?.name,
                 presentAddress: {
@@ -192,7 +191,7 @@ const ApplyNow = () => {
                 alternateEmailId: data.alternateEmailId,
                 emailId: data.emailId,
                 aadharNumber: adhar,
-                pancard: data.pancard,
+                pancard: panNo,
                 academicQualification: [
                     {
                         schoolName: schoolName,
@@ -231,11 +230,8 @@ const ApplyNow = () => {
             const { body } = res.data;
             let applicationId = body.applicationId;
             let userId = body.mobileNumber;
-            console.log(body.applicationId);
-            console.log(body.mobileNumber);
-
             toast.success('Success');
-            navigate('/my-application', { state: { applicationId, userId } })
+            navigate('/my-application', { state: { applicationId, userId, category } })
             reset();
             setLoading(false);
         } catch (error: any) {
@@ -262,6 +258,8 @@ const ApplyNow = () => {
                 religion: religion,
                 gender: gender,
                 category: category,
+                otherCategory: data.otherCategory,
+                otherReligion: data.otherReligion,
                 paymentStatus: false,
                 postName: 'Project Manager',
                 presentAddress: {
@@ -342,7 +340,7 @@ const ApplyNow = () => {
 
     }
 
-    const hanldeShowOthers = () => {
+    const hanldeShowOtherReligion = () => {
         setOthers(true);
 
     }
@@ -415,23 +413,18 @@ const ApplyNow = () => {
 
     // }
     const handleChangePresentPinCode = (e: any) => {
-        if (pinCodePresent.length > 6) {
+        if (pinCodePresent.length === 7) {
             toast.error('Pincode should be of 6 digit!');
 
         }
-        else if (pinCodePresent.length === 4) {
-            setPinCodePresent(e.target.value);
-            toast.error('Pincode should be of 6 digit!');
 
-
-        }
         else {
             setPinCodePresent(e.target.value);
         }
 
     }
     const handleChangePermanentPinCode = (e: any) => {
-        if (pincode.length > 6) {
+        if (pincode.length === 7) {
             toast.error('Pincode should be of 6 digit!');
 
         }
@@ -549,9 +542,22 @@ const ApplyNow = () => {
                                                 <MenuItem value="ST">ST</MenuItem>
                                                 <MenuItem value="SC">SC</MenuItem>
                                                 <MenuItem value="EWS">EWS</MenuItem>
-                                                <MenuItem value="Others">Others</MenuItem>
+                                                <MenuItem value="Others" onClick={() => setOtherCategory(true)}>Others</MenuItem>
                                             </Select>
                                         </div>
+
+                                    </div>
+                                    <div className="formBox">
+                                        {
+                                            otherCategory &&
+                                            (<div className="mb-3 col-lg-3 col-md-12">
+                                                <label htmlFor="exampleInputPassword1" className="form-label">Other Category <span className="must-filed">*</span></label>
+
+                                                <RHFTextField name="otherCategory" label="" placeholder='Other Category' required />
+
+
+                                            </div>)
+                                        }
 
                                     </div>
                                     <div className="formBox">
@@ -569,11 +575,25 @@ const ApplyNow = () => {
                                                 <MenuItem value="Muslim">Muslim</MenuItem>
                                                 <MenuItem value="Jain">Jain</MenuItem>
                                                 <MenuItem value="Buddhist">Buddhist</MenuItem>
-                                                <MenuItem value="Others" onClick={hanldeShowOthers}>Others</MenuItem>
+                                                <MenuItem value="Others" onClick={hanldeShowOtherReligion}>Others</MenuItem>
                                             </Select>
                                         </div>
 
                                     </div>
+                                    <div className="formBox">
+                                        {
+                                            others &&
+                                            (<div className="mb-3 col-lg-3 col-md-12">
+                                                <label htmlFor="exampleInputPassword1" className="form-label">Other Religion <span className="must-filed">*</span></label>
+
+                                                <RHFTextField name="otherReligion" label="" placeholder='Other Religion' required />
+
+
+                                            </div>)
+                                        }
+
+                                    </div>
+
 
                                     <h2 className='footerFormHead'>Permanent Address</h2>
                                     <div className="formBox">
@@ -626,7 +646,6 @@ const ApplyNow = () => {
                                                 <MenuItem value="Jammu and Kashmir"  >Jammu and Kashmir</MenuItem>
                                                 <MenuItem value="Jharkhand"  >Jharkhand</MenuItem>
                                                 <MenuItem value="Karnataka"  >Karnataka</MenuItem>
-                                                <MenuItem value="Kenmore"  >Kenmore</MenuItem>
                                                 <MenuItem value="Kerala"  >Kerala</MenuItem>
                                                 <MenuItem value="Lakshadweep"  >Lakshadweep</MenuItem>
                                                 <MenuItem value="Madhya Pradesh"  >Madhya Pradesh</MenuItem>
@@ -635,10 +654,7 @@ const ApplyNow = () => {
                                                 <MenuItem value="Meghalaya"  >Meghalaya</MenuItem>
                                                 <MenuItem value="Mizoram"  >Mizoram</MenuItem>
                                                 <MenuItem value="Nagaland"  >Nagaland</MenuItem>
-                                                <MenuItem value="Narora"  >Narora</MenuItem>
-                                                <MenuItem value="Natwar"  >Natwar</MenuItem>
                                                 <MenuItem value="Odisha"  >Odisha</MenuItem>
-                                                <MenuItem value="Paschim Medinipur"  >Paschim Medinipur</MenuItem>
                                                 <MenuItem value="Pondicherry"  >Pondicherry</MenuItem>
                                                 <MenuItem value="Punjab"  >Punjab</MenuItem>
                                                 <MenuItem value="Rajasthan"  >Rajasthan</MenuItem>
@@ -648,7 +664,6 @@ const ApplyNow = () => {
                                                 <MenuItem value="Tripura"  >Tripura</MenuItem>
                                                 <MenuItem value="Uttar Pradesh"  >Uttar Pradesh</MenuItem>
                                                 <MenuItem value="Uttarakhand"  >Uttarakhand</MenuItem>
-                                                <MenuItem value="Vaishali"  >Vaishali</MenuItem>
                                                 <MenuItem value="West Bengal"  >West Bengal</MenuItem>
                                             </Select>
                                         </div>
@@ -706,8 +721,8 @@ const ApplyNow = () => {
                                                 <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
                                                 <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
                                                 <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
-                                                <MenuItem value="Assam">Assam</MenuItem>
-                                                <MenuItem value="Bihar">Bihar</MenuItem>
+                                                <MenuItem value="Assam"  >Assam</MenuItem>
+                                                <MenuItem value="Bihar"  >Bihar</MenuItem>
                                                 <MenuItem value="Chandigarh"  >Chandigarh</MenuItem>
                                                 <MenuItem value="Chhattisgarh"  >Chhattisgarh</MenuItem>
                                                 <MenuItem value="Dadra and Nagar Haveli"  >Dadra and Nagar Haveli</MenuItem>
@@ -720,7 +735,6 @@ const ApplyNow = () => {
                                                 <MenuItem value="Jammu and Kashmir"  >Jammu and Kashmir</MenuItem>
                                                 <MenuItem value="Jharkhand"  >Jharkhand</MenuItem>
                                                 <MenuItem value="Karnataka"  >Karnataka</MenuItem>
-                                                <MenuItem value="Kenmore"  >Kenmore</MenuItem>
                                                 <MenuItem value="Kerala"  >Kerala</MenuItem>
                                                 <MenuItem value="Lakshadweep"  >Lakshadweep</MenuItem>
                                                 <MenuItem value="Madhya Pradesh"  >Madhya Pradesh</MenuItem>
@@ -729,10 +743,7 @@ const ApplyNow = () => {
                                                 <MenuItem value="Meghalaya"  >Meghalaya</MenuItem>
                                                 <MenuItem value="Mizoram"  >Mizoram</MenuItem>
                                                 <MenuItem value="Nagaland"  >Nagaland</MenuItem>
-                                                <MenuItem value="Narora"  >Narora</MenuItem>
-                                                <MenuItem value="Natwar"  >Natwar</MenuItem>
                                                 <MenuItem value="Odisha"  >Odisha</MenuItem>
-                                                <MenuItem value="Paschim Medinipur"  >Paschim Medinipur</MenuItem>
                                                 <MenuItem value="Pondicherry"  >Pondicherry</MenuItem>
                                                 <MenuItem value="Punjab"  >Punjab</MenuItem>
                                                 <MenuItem value="Rajasthan"  >Rajasthan</MenuItem>
@@ -742,7 +753,6 @@ const ApplyNow = () => {
                                                 <MenuItem value="Tripura"  >Tripura</MenuItem>
                                                 <MenuItem value="Uttar Pradesh"  >Uttar Pradesh</MenuItem>
                                                 <MenuItem value="Uttarakhand"  >Uttarakhand</MenuItem>
-                                                <MenuItem value="Vaishali"  >Vaishali</MenuItem>
                                                 <MenuItem value="West Bengal"  >West Bengal</MenuItem>
                                             </Select>
                                         </div>

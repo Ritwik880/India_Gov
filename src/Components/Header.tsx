@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-    // dispatch(authType({ type: LOGIN, authFlow: PHONENO }));
+    const navigate = useNavigate();
     return (
         <header>
             <div className='upperNav'>
@@ -43,9 +44,9 @@ const Header = () => {
                             </LinkContainer>
 
 
-                            <LinkContainer to="/my-application">
-                                <Nav.Link className='listItems'>My Application</Nav.Link>
-                            </LinkContainer>
+
+                            <Nav.Link className='listItems' onClick={() => navigate('/my-application')}>My Application</Nav.Link>
+
 
 
                         </Nav>

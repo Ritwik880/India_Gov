@@ -55,7 +55,7 @@ const MyApplication = () => {
     useEffect(() => {
         const getUser = async () => {
             setLoading(true);
-            console.log('state', state);
+
 
             try {
                 await axios.post(`/api/application/fetch-application-details`,
@@ -69,7 +69,7 @@ const MyApplication = () => {
                     if (!isMounted.current) {
                         const { body } = response.data;
                         setUsers(body);
-                        console.log(body);
+
 
                     }
                 });
@@ -93,6 +93,14 @@ const MyApplication = () => {
     const handlePayment = async (name: string, email: string, phoneNumber: string) => {
         const url = 'http://localhost:5173/thankyou';
         const amount = 100;
+        switch (state?.category) {
+            case 'General':
+
+                break;
+
+            default:
+                break;
+        }
         // const order_Id = Math.random().to(36).substring(2, 9);
 
         try {
@@ -111,8 +119,6 @@ const MyApplication = () => {
                 })
                 .then((response) => {
                     const { body } = response.data;
-                    // console.log(data);
-
                     window.open(body)
 
 

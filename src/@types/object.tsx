@@ -34,6 +34,8 @@ export type ProfileValuesProps = {
     alternateMobileNumber: string;
     applicantName: string;
     category: string;
+    otherCategory: string;
+    otherReligion: string;
     dateOfBirth: string;
     emailId: string;
     experienced: string;
