@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { InputAdornment, IconButton } from '@mui/material';
 import { Form } from 'react-bootstrap';
 import { BiLock } from 'react-icons/bi';
@@ -14,15 +14,7 @@ import Iconify from './Iconify';
 import { IoCallOutline } from 'react-icons/io5'
 import '../login.css'
 import Cta from './Cta';
-//object
-import { useSelector } from "../redux/store";
-import { authType } from '../redux/slices/auth';
-// import { profileView } from "../redux/slices/profileView";
 
-//redux
-import { useDispatch } from "../redux/store";
-import MyApplication from './MyApplication';
-import Header from './Header';
 
 type ProfileValuesProps = {
     password: string;
@@ -45,7 +37,6 @@ interface MyApplicationType {
 }
 
 const Login = () => {
-    const [myApp, setMyApp] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [userId, setUserId] = useState('');
     const [userProfileId, setUserProfileId] = useState<MyApplicationType[]>([]);
@@ -66,10 +57,6 @@ const Login = () => {
     const { handleSubmit, reset } = methods;
 
     const navigate = useNavigate();
-
-    const dispatch = useDispatch();
-
-    const profileId = useSelector((state) => state.profileView.value);
 
     const onSubmit = async (data: ProfileValuesProps) => {
 

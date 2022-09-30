@@ -1,6 +1,6 @@
 export type ProfileValuesProps = {
-    upload_signature: Blob;
-    upload_photo: Blob;
+    uploadSignature: Blob;
+    uploadPhoto: Blob;
     aadharNumber: string;
     academicQualification: [
         {
@@ -29,6 +29,7 @@ export type ProfileValuesProps = {
             durationTo: string;
             experienced: string;
             location: string;
+            totalExperience: string,
         }
     ],
     alternateEmailId: string;
@@ -67,7 +68,7 @@ export type ProfileValuesProps = {
         state: string;
     },
     religion: string,
-    totalExperience: string,
+
     afterSubmit?: string;
 
 
@@ -75,6 +76,12 @@ export type ProfileValuesProps = {
 };
 
 export type ProfileValues = {
+    uploadSignature: {
+        url: string;
+    };
+    uploadPhoto: {
+        url: string;
+    };
     aadharNumber: string;
     academicQualification: [
         {
@@ -102,6 +109,7 @@ export type ProfileValues = {
             durationTo: string;
             experienced: string;
             location: string;
+            totalExperience: string,
         }
     ],
     alternateEmailId: string;
@@ -138,7 +146,7 @@ export type ProfileValues = {
         state: string;
     },
     religion: string,
-    totalExperience: string,
+
     afterSubmit?: string;
 
 

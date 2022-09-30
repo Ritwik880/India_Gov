@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Button, styled, Box, CircularProgress, Typography } from "@mui/material";
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../utils/axios';
-import { dispatch, useSelector } from "../redux/store";
-import ThankYou from './ThankYou';
 
 
 

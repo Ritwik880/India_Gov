@@ -8,10 +8,11 @@ import axios from '../utils/axios';
 import { Select, MenuItem, InputLabel, Typography, styled } from '@mui/material';
 import FormProvider from './hook-form/FormProvider';
 import RHFTextField from './hook-form/RHFTextField';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { ProfileValues } from '../@types/object';
 // @ts-ignore
 import Files from 'react-files';
 
@@ -52,82 +53,7 @@ const AttachmentWrapper = styled('div')(({ theme }) => ({
     marginBottom: theme.spacing(2),
 }));
 
-type ProfileValues = {
-    uploadPhoto: {
-        url: string;
-    };
-    uploadSignature: {
-        url: string;
-    };
-    aadharNumber: string;
-    academicQualification: [
-        {
-            board: string;
-            className: string;
-            passingYear: string;
-            percentage: string;
-            schoolName: string
-        }
-    ],
-    higherQualification: [
-        {
-            courseName: string;
-            courseType: string;
-            passingYear: string;
-            percentage: string;
-            specialization: string;
-        }
-    ],
-    experienceDetails: [
-        {
-            companyName: string;
-            designation: string;
-            durationFrom: string;
-            durationTo: string;
-            experienced: string;
-            location: string;
-            totalExperience: string,
-        }
-    ],
-    alternateEmailId: string;
-    alternateMobileNumber: string;
-    applicantName: string;
-    category: string;
-    dateOfBirth: string;
-    emailId: string;
-    experienced: string;
-    fatherName: string;
-    gender: string;
-    mobileNumber: string;
-    motherName: string;
-    pancard: string;
-    password: string;
-    paymentStatus: boolean;
-    permanentAddress: {
-        area: string;
-        city: string;
-        country: string;
-        houseNumber: string;
-        pincode: string;
-        road: string;
-        state: string;
-    },
-    postName: string,
-    presentAddress: {
-        area: string;
-        city: string;
-        country: string;
-        houseNumber: string;
-        pincode: string;
-        road: string;
-        state: string;
-    },
-    religion: string,
-    applicationId: number;
 
-
-
-};
 const View = () => {
     const [hideForm, setHideForm] = useState(true);
     const [others, setOthers] = useState(false);

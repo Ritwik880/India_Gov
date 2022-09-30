@@ -2,10 +2,6 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Button, styled, Box, CircularProgress, Typography } from "@mui/material";
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../utils/axios';
-import { dispatch, useSelector } from "../redux/store";
-import ThankYou from './ThankYou';
-
-
 
 const Btn = styled(Button)(({ theme }) => ({
     borderRadius: "3px",
@@ -83,14 +79,6 @@ const MyApplication = () => {
     }, []);
 
 
-
-
-
-
-
-
-    //handlePayment
-    // let order_Id = Math.random().toString(36).substring(2, 9);
     const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: number) => {
         const url = 'http://localhost:5173/thankyou';
 
