@@ -9,6 +9,8 @@ import {
     Typography
 } from "@mui/material";
 import axios from '../utils/axios';
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import { ToastContainer, toast } from "react-toastify";
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
@@ -51,10 +53,6 @@ const AttachmentWrapper = styled('div')(({ theme }) => ({
     marginBottom: theme.spacing(2),
 }));
 const ApplyNow = () => {
-    const [noOfRows, setNoOfRows] = useState(1);
-    const [applyform, setApplyForm] = useState<ProfileValuesProps[]>([]);
-    const [noOfRows2, setNoOfRows2] = useState(1);
-    const [noOfRows3, setNoOfRows3] = useState(1);
     const [exp, setExp] = useState("");
     const [totalExp, setTotalExp] = useState("");
     const [category, setCategory] = useState("");
@@ -74,25 +72,16 @@ const ApplyNow = () => {
     const [adhar, setAdhar] = useState("");
     const [panNo, setPanNo] = useState("");
     const [percentage, setPercentage] = useState("");
-    const [percentageHq, setPercentageHq] = useState("");
     const [passingYear, setPassingYear] = useState("");
-    const [passingYearHq, setPassingYearHq] = useState("");
     const [mobileNumber, setMobileNumber] = useState("");
     const [country, setCountry] = useState("India");
     const [countryPresent, setCountryPresent] = useState("India");
     const [alternateMobileNumber, setAlternateMobileNumber] = useState("");
     const [statePresent, setStatePresent] = useState("");
     const [schoolName, setSchoolName] = useState("");
-    const [className, setClassName] = useState("");
+    const [className, setClassName] = useState("High School");
     const [boardName, setBoardName] = useState("");
     const [courseName, setCourseName] = useState("");
-    const [specialization, setSpecialization] = useState("");
-    const [courseType, setCourseType] = useState("");
-    const [companyName, setCompanyName] = useState("");
-    const [designation, setDesignation] = useState("");
-    const [location, setLocation] = useState("");
-    const [durationFrom, setDurationFrom] = useState("");
-    const [durationTo, setdurationTo] = useState("");
     const [hideForm, setHideForm] = useState(true);
     const [others, setOthers] = useState(false);
     const [otherCategory, setOtherCategory] = useState(false);
@@ -102,6 +91,53 @@ const ApplyNow = () => {
     const [uploadFileSignature, setUploadFileSignature] = useState<string | Blob>('');
     const [uploadFileSrc, setUploadFileSrc] = useState<string>('');
     const [uploadFileSignatureSrc, setUploadSignatureSrc] = useState<string>('');
+
+
+    //diploma
+    const [diploma, setDiploma] = useState("Intermediate/Diploma");
+    const [highSchool, setHighSchool] = useState("High School");
+    const [collegeName, setCollegeName] = useState("");
+    const [boardDiploma, setBoardDiploma] = useState("");
+    const [percentageDiploma, setPercentageDiploma] = useState("");
+    const [passingYearDiploma, setPassingYearDiploma] = useState("");
+
+    //bachelor
+    const [bachelor, setBachelor] = useState("UG/Bachlore Degree");
+    const [collegeBachelor, setCollegeBachelor] = useState("");
+    const [boardBachelor, setBoardBachelor] = useState("");
+    const [percentageBachelor, setPercentageBachelor] = useState("");
+    const [passingYearBachelor, setPassingYearBachelor] = useState("");
+
+    ///Masters
+    const [masterDegreeName, setMasterDegreeName] = useState("Graduation/Masters Degree");
+    const [specialization, setSpecialization] = useState("");
+    const [percentageHq, setPercentageHq] = useState("");
+    const [passingYearHq, setPassingYearHq] = useState("");
+    const [courseType, setCourseType] = useState("");
+
+    ///PHD
+    const [postGraduation, setPostGraduation] = useState("Post Graduation/ PhD");
+    const [specializationGraduation, setSpecializationGraduation] = useState("");
+    const [percentageGraduation, setPercentageGraduation] = useState("");
+    const [passingYearGraduation, setPassingYearGraduation] = useState("");
+    const [courseTypeGraduation, setCourseTypeGraduation] = useState("");
+
+    //exp
+    const [companyName, setCompanyName] = useState("");
+    const [designation, setDesignation] = useState("");
+    const [location, setLocation] = useState("");
+    const [durationFrom, setDurationFrom] = useState("");
+    const [durationTo, setdurationTo] = useState("");
+
+    const [companyNameSecond, setCompanyNameSecond] = useState("");
+    const [designationSecond, setDesignationSecond] = useState("");
+    const [locationSecond, setLocationSecond] = useState("");
+    const [durationFromSecond, setDurationFromSecond] = useState("");
+    const [durationToSecond, setdurationToSecond] = useState("");
+
+
+
+
 
     const navigate = useNavigate();
 
@@ -148,8 +184,8 @@ const ApplyNow = () => {
     });
 
     const { reset, handleSubmit } = methods;
-
     const onSubmit = async (data: ProfileValuesProps, e: any) => {
+
         e.preventDefault();
         alert('Are you sure the data entered is correct if YES click submit button.')
         setLoading(true);
@@ -194,23 +230,49 @@ const ApplyNow = () => {
                 pancard: panNo,
                 academicQualification: [
                     {
-                        schoolName: schoolName,
-                        className: className,
-                        board: boardName,
-                        passingYear: parseInt(passingYear),
-                        percentage: parseInt(percentage),
+                        className: highSchool ? highSchool : null,
+                        schoolName: schoolName ? schoolName : null,
+                        board: boardName ? boardName : null,
+                        percentage: percentage ? parseInt(percentage) : 0,
+                        passingYear: passingYear ? parseInt(passingYear) : 0,
+                    },
+                    {
+                        className: diploma ? diploma : null,
+                        schoolName: collegeName ? collegeName : null,
+                        board: boardDiploma ? boardDiploma : null,
+                        percentage: percentageDiploma ? parseInt(percentageDiploma) : null,
+                        passingYear: passingYearDiploma ? parseInt(passingYearDiploma) : null,
+                    },
+                    {
+                        className: bachelor ? bachelor : null,
+                        schoolName: collegeBachelor ? collegeBachelor : null,
+                        board: boardBachelor ? boardBachelor : null,
+                        percentage: percentageBachelor ? parseInt(percentageBachelor) : null,
+                        passingYear: passingYearBachelor ? parseInt(passingYearBachelor) : null,
+                    },
 
-                    }
+
+
+
                 ],
                 higherQualification: [
                     {
-                        courseName: courseName,
-                        specialization: specialization,
-                        courseType: courseType,
-                        passingYear: parseInt(passingYearHq),
-                        percentage: parseInt(percentageHq),
+                        courseName: masterDegreeName ? masterDegreeName : null,
+                        specialization: specialization ? specialization : null,
+                        courseType: courseType ? courseType : null,
+                        passingYear: passingYearHq ? parseInt(passingYearHq) : null,
+                        percentage: percentageHq ? parseInt(percentageHq) : null,
 
-                    }
+                    },
+                    {
+                        courseName: postGraduation ? postGraduation : null,
+                        specialization: specializationGraduation ? specializationGraduation : null,
+                        courseType: courseTypeGraduation ? courseTypeGraduation : null,
+                        passingYear: passingYearGraduation ? parseInt(passingYearGraduation) : null,
+                        percentage: percentageGraduation ? parseInt(percentageGraduation) : null,
+
+                    },
+
                 ],
 
 
@@ -224,22 +286,38 @@ const ApplyNow = () => {
                         totalExperience: parseInt(totalExp),
                         experienced: exp,
                     },
+                    {
+                        companyName: companyNameSecond ? companyNameSecond : null,
+                        designation: designationSecond ? designationSecond : null,
+                        location: locationSecond ? locationSecond : null,
+                        durationFrom: durationFromSecond ? durationFromSecond : null,
+                        durationTo: durationToSecond ? durationToSecond : null,
+                        totalExperience: parseInt(totalExp),
+                        experienced: exp,
+                    },
                 ],
                 password: Math.random().toString(36).substring(2, 9)
             });
             const { body } = res.data;
             let applicationId = body.applicationId;
             let userId = body.mobileNumber;
-            toast.success('Success');
-            navigate('/my-application', { state: { applicationId, userId, category } })
-            reset();
             setLoading(false);
+            toast.success('Success');
+            reset();
+            navigate('/my-application', { state: { applicationId, userId, category } })
         } catch (error: any) {
             setLoading(false);
             console.log(error);
-
             toast.error("Something went wrong!");
         }
+
+
+
+
+
+
+
+
     };
 
 
@@ -454,19 +532,66 @@ const ApplyNow = () => {
         toast.error('Something went wromg');
     };
 
+    const handleChange = (e: any) => {
+        if (highSchool === "") {
+            setHighSchool('High School')
+            setSchoolName(e.target.value)
+
+        }
+        else {
+            setSchoolName(e.target.value)
+        }
+
+    }
+    const handleCollegeChange = (e: any) => {
+        if (diploma === "") {
+            setDiploma('Intermediate/Diploma')
+            setCollegeName(e.target.value)
+
+        }
+        else {
+            setCollegeName(e.target.value)
+        }
+
+    }
+
+    const handleBachelorChange = (e: any) => {
+        if (bachelor === "") {
+            setBachelor('UG/Bachlore Degree')
+            setCollegeBachelor(e.target.value)
+
+        }
+        else {
+            setCollegeBachelor(e.target.value)
+        }
+
+    }
+    const handleChangeName = (e: any) => {
+        if (masterDegreeName === "") {
+            setMasterDegreeName('Graduation/Masters Degree')
+            setSpecialization(e.target.value)
+
+        }
+        else {
+            setSpecialization(e.target.value)
+        }
+
+
+    }
+    const handleChangeLast = (e: any) => {
+        if (postGraduation === "") {
+            setPostGraduation('"Post Graduation/ PhD')
+            setSpecializationGraduation(e.target.value)
+
+        }
+        else {
+            setSpecializationGraduation(e.target.value)
+        }
+
+
+    }
+
     const MAX_FILE_SIZE = 10000000;
-
-    // const handleAddFields = (year: number) => {
-    //     recoveryYearList[year - 1].month.push({
-    //         number: recoveryYearList[year - 1].month.length + 1,
-    //         amount: 0,
-    //         date: "",
-    //     });
-    //     setRecoveryYearList([...recoveryYearList]);
-    // };
-
-
-
     return (
         <>
             {
@@ -817,59 +942,160 @@ const ApplyNow = () => {
                                     <div className="formBox">
 
                                         <div className="form-group col-md-12 col-lg-12 tableFlow">
-                                            <table className="table table-bordered table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Class	</th>
-                                                        <th>School Name	</th>
-                                                        <th>Board		</th>
-                                                        <th>% Mark		</th>
-                                                        <th>Passing Year
+                                            <table className="table">
 
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="add_row_div_experience">
-                                                    {
-                                                        [...Array(noOfRows)].map((elementInArray, index) => {
-                                                            return (
-                                                                <tr key={index}>
-                                                                    <td> <RHFTextField name="className" value={className} onChange={(e) => setClassName(e.target.value)} label="" placeholder='Class Name' required /></td>
+                                                <tr>
+                                                    <th>Course Name</th>
+                                                    <th>School Name	</th>
+                                                    <th>Board		</th>
+                                                    <th>% Mark		</th>
+                                                    <th>Passing Year
 
+                                                    </th>
+                                                </tr>
 
-                                                                    <td> <RHFTextField name="schoolName" value={schoolName} onChange={(e) => setSchoolName(e.target.value)} label="" placeholder='School Name' required /></td>
+                                                <tr>
+
+                                                    <td> <RHFTextField name="className" value={highSchool} onChange={(e) => setHighSchool(e.target.value)} label="" placeholder='High School' /></td>
+
+                                                    <td> <RHFTextField name="schoolName" value={schoolName} onChange={handleChange} label="" placeholder='School Name' /></td>
 
 
-                                                                    <td> <RHFTextField name="board" value={boardName} onChange={(e) => setBoardName(e.target.value)} label="" placeholder='Board' required /></td>
+                                                    <td> <RHFTextField name="board" value={boardName} onChange={(e) => setBoardName(e.target.value)} label="" placeholder='Board' /></td>
 
 
 
-                                                                    <td> <RHFTextField name="percentage" value={percentage} onChange={(e) => setPercentage(e.target.value)} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} required /></td>
+                                                    <td> <RHFTextField name="percentage" value={percentage} onChange={(e) => setPercentage(e.target.value)} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
 
 
-                                                                    <td> <RHFTextField name="passingYear" value={passingYear} onChange={(e) => setPassingYear(e.target.value)} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} required /></td>
-                                                                </tr>
-
-                                                            )
-
-                                                        })
+                                                    <td> <RHFTextField name="passingYear" value={passingYear} onChange={(e) => setPassingYear(e.target.value)} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
 
 
 
-                                                    }
-                                                </tbody>
+                                                </tr>
                                             </table>
-                                            <button onClick={() => setNoOfRows(noOfRows + 1)} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+
                                         </div>
 
 
                                     </div>
 
+
+                                    <div className="formBox">
+
+                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                            <table className="table">
+
+                                                <tr>
+                                                    <th>Course Name</th>
+                                                    <th>Institution Name	</th>
+                                                    <th>Board</th>
+                                                    <th>% Mark</th>
+                                                    <th>Passing Year
+
+                                                    </th>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td> <RHFTextField name="className" value={diploma} onChange={(e) => setDiploma(e.target.value)} label="" placeholder='Diploma Name' /></td>
+
+                                                    <td> <RHFTextField name="schoolName" value={collegeName} onChange={handleCollegeChange} label="" placeholder='Institute Name' /></td>
+
+
+                                                    <td> <RHFTextField name="board" value={boardDiploma} onChange={(e) => setBoardDiploma(e.target.value)} label="" placeholder='Board' /></td>
+
+
+
+                                                    <td> <RHFTextField name="percentage" value={percentageDiploma} onChange={(e) => setPercentageDiploma(e.target.value)} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+
+
+                                                    <td> <RHFTextField name="passingYear" value={passingYearDiploma} onChange={(e) => setPassingYearDiploma(e.target.value)} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
+
+
+
+                                                </tr>
+                                            </table>
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div className="formBox">
+
+                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                            <table className="table">
+
+                                                <tr>
+                                                    <th>Course Name</th>
+                                                    <th>Institution Name	</th>
+                                                    <th>Board</th>
+                                                    <th>% Mark</th>
+                                                    <th>Passing Year
+
+                                                    </th>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td> <RHFTextField name="className" value={bachelor} onChange={(e) => setBachelor(e.target.value)} label="" placeholder='Bachelor Name' /></td>
+
+                                                    <td> <RHFTextField name="schoolName" value={collegeBachelor} onChange={handleBachelorChange} label="" placeholder='Institute Name' /></td>
+
+
+                                                    <td> <RHFTextField name="board" value={boardBachelor} onChange={(e) => setBoardBachelor(e.target.value)} label="" placeholder='Board' /></td>
+
+
+
+                                                    <td> <RHFTextField name="percentage" value={percentageBachelor} onChange={(e) => setPercentageBachelor(e.target.value)} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+
+
+                                                    <td> <RHFTextField name="passingYear" value={passingYearBachelor} onChange={(e) => setPassingYearBachelor(e.target.value)} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
+
+
+
+                                                </tr>
+                                            </table>
+
+                                        </div>
+
+
+                                    </div>
+
+
                                     <h2 className='footerFormHead' id="add-modal-label">Higher Qualification
                                     </h2>
 
                                     <div className="formBox">
+                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                            <table className="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Course Name
+                                                        </th>
+                                                        <th>Specialization</th>
+                                                        <th>% Mark	</th>
+                                                        <th>Passing Year	</th>
+                                                        <th>Course Type
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="add_row_div_experience">
+                                                    <tr>
+                                                        <td> <RHFTextField name="masterDegreeName" value={masterDegreeName} onChange={(e) => setMasterDegreeName(e.target.value)} label="" placeholder='Course Name' /></td>
+                                                        <td> <RHFTextField name="specialization" value={specialization} onChange={handleChangeName} label="" placeholder='Specialization' /></td>
+                                                        <td> <RHFTextField name="percentage" type='number' value={percentageHq} onChange={(e) => setPercentageHq(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                        <td> <RHFTextField name="passingYear" type='number' value={passingYearHq} onChange={(e) => setPassingYearHq(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
+                                                        <td> <RHFTextField name="courseType" value={courseType} onChange={(e) => setCourseType(e.target.value)} label="" placeholder='Course Type' /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
 
+                                        </div>
+                                    </div>
+
+                                    <div className="formBox">
                                         <div className="form-group col-md-12 col-lg-12 tableFlow">
                                             <table className="table table-bordered table-hover">
                                                 <thead>
@@ -883,106 +1109,92 @@ const ApplyNow = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody className="add_row_div_experience">
-
-
-                                                    {
-                                                        [...Array(noOfRows2)].map((elementInArray, index) => {
-                                                            return (
-                                                                <tr key={index}>
-                                                                    <td> <RHFTextField name="courseName" value={courseName} onChange={(e) => setCourseName(e.target.value)} label="" placeholder='Course Name' required /></td>
-                                                                    <td> <RHFTextField name="specialization" value={specialization} onChange={(e) => setSpecialization(e.target.value)} label="" placeholder='Specialization' required /></td>
-                                                                    <td> <RHFTextField name="percentage" type='number' value={percentageHq} onChange={(e) => setPercentageHq(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} required /></td>
-                                                                    <td> <RHFTextField name="passingYear" type='number' value={passingYearHq} onChange={(e) => setPassingYearHq(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} required /></td>
-                                                                    <td> <RHFTextField name="courseType" value={courseType} onChange={(e) => setCourseType(e.target.value)} label="" placeholder='Course Type' /></td>
-                                                                </tr>
-
-                                                            )
-
-                                                        })
-
-                                                    }
-
+                                                    <tr>
+                                                        <td> <RHFTextField name="postGraduation" value={postGraduation} onChange={(e) => setPostGraduation(e.target.value)} label="" placeholder='Course Name' required /></td>
+                                                        <td> <RHFTextField name="specialization" value={specializationGraduation} onChange={handleChangeLast} label="" placeholder='Specialization' /></td>
+                                                        <td> <RHFTextField name="percentage" type='number' value={percentageGraduation} onChange={(e) => setPercentageGraduation(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                        <td> <RHFTextField name="passingYear" type='number' value={passingYearGraduation} onChange={(e) => setPassingYearGraduation(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
+                                                        <td> <RHFTextField name="courseType" value={courseTypeGraduation} onChange={(e) => setCourseTypeGraduation(e.target.value)} label="" placeholder='Course Type' /></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
-                                            <button onClick={() => setNoOfRows2(noOfRows2 + 1)} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+
                                         </div>
-
-
                                     </div>
 
                                     <h2 className='footerFormHead' id="add-modal-label">Experience Details</h2>
                                     <div className="formBox">
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputEmail1" className="form-label">Experience</label>
-                                            {
-                                                hideForm &&
-                                                <Select size='small' sx={{
 
-                                                    ".MuiOutlinedInput-notchedOutline": {
-                                                        border: "none",
-                                                    },
-                                                }} value={exp} required onChange={(e) => setExp(e.target.value)} className="form-control select-experience" name="experienced">
+                                            <Select size='small' sx={{
 
-                                                    <MenuItem value="Yes"  >Yes</MenuItem>
-                                                    <MenuItem value="No" onClick={hanldeNo}>No</MenuItem>
-                                                </Select>
-                                            }
-                                            {
-                                                noExperience &&
-                                                <RHFTextField type="number" name="totalExperience" label="" placeholder='No Experience' disabled />
-                                            }
+                                                ".MuiOutlinedInput-notchedOutline": {
+                                                    border: "none",
+                                                },
+                                            }} value={exp} onChange={(e) => setExp(e.target.value)} className="form-control select-experience" name="experienced">
+
+                                                <MenuItem value="Yes"  >Yes</MenuItem>
+                                                <MenuItem value="No" onClick={hanldeNo}>No</MenuItem>
+                                            </Select>
+
+
 
                                         </div>
                                         {hideForm && <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Total Experience (IN YEAR)</label>
-                                            <RHFTextField type="number" name="totalExperience" value={totalExp} onChange={(e) => setTotalExp(e.target.value)} label="" placeholder='Total Experience (IN YEAR)' required />
+                                            <RHFTextField type="number" name="totalExperience" value={totalExp} onChange={(e) => setTotalExp(e.target.value)} label="" placeholder='Total Experience (IN YEAR)' />
                                         </div>}
 
 
                                     </div>
                                     {
                                         hideForm &&
-                                        <div className="formBox">
+                                        <>
+                                            <div className="formBox">
 
-                                            <div className="form-group col-md-12 col-lg-12 tableFlow">
-                                                <table className="table table-bordered table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Company Name</th>
-                                                            <th>Designation</th>
-                                                            <th>Location</th>
-                                                            <th>Duration From</th>
-                                                            <th>Duration To</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody className="add_row_div_experience">
-
-                                                        {
-                                                            [...Array(noOfRows3)].map((elementInArray, index) => {
-                                                                return (
-                                                                    <tr key={index}>
-                                                                        <td> <RHFTextField name="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} label="" placeholder='Company Name' required /></td>
-                                                                        <td> <RHFTextField name="designation" value={designation} onChange={(e) => setDesignation(e.target.value)} label="" placeholder='Designation' required /></td>
-                                                                        <td> <RHFTextField name="location" value={location} onChange={(e) => setLocation(e.target.value)} label="" placeholder='Location' /></td>
-                                                                        <td> <RHFTextField name="durationFrom" value={durationFrom} onChange={(e) => setDurationFrom(e.target.value)} label="" placeholder='Duration From' required /></td>
-                                                                        <td> <RHFTextField name="durationTo" value={durationTo} onChange={(e) => setdurationTo(e.target.value)} label="" placeholder='Duration To' required /></td>
-                                                                    </tr>
-
-                                                                )
-
-                                                            })
+                                                <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                    <table className="table table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Company Name</th>
+                                                                <th>Designation</th>
+                                                                <th>Location</th>
+                                                                <th>Duration From</th>
+                                                                <th>Duration To</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody className="add_row_div_experience">
 
 
+                                                            <tr>
+                                                                <td> <RHFTextField name="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} label="" placeholder='Company Name' /></td>
+                                                                <td> <RHFTextField name="designation" value={designation} onChange={(e) => setDesignation(e.target.value)} label="" placeholder='Designation' /></td>
+                                                                <td> <RHFTextField name="location" value={location} onChange={(e) => setLocation(e.target.value)} label="" placeholder='Location' /></td>
+                                                                <td> <RHFTextField name="durationFrom" value={durationFrom} onChange={(e) => setDurationFrom(e.target.value)} label="" placeholder='Duration From' /></td>
+                                                                <td> <RHFTextField name="durationTo" value={durationTo} onChange={(e) => setdurationTo(e.target.value)} label="" placeholder='Duration To' /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td> <RHFTextField name="companyName" value={companyNameSecond} onChange={(e) => setCompanyNameSecond(e.target.value)} label="" placeholder='Company Name' /></td>
+                                                                <td> <RHFTextField name="designation" value={designationSecond} onChange={(e) => setDesignationSecond(e.target.value)} label="" placeholder='Designation' /></td>
+                                                                <td> <RHFTextField name="location" value={locationSecond} onChange={(e) => setLocationSecond(e.target.value)} label="" placeholder='Location' /></td>
+                                                                <td> <RHFTextField name="durationFrom" value={durationFromSecond} onChange={(e) => setDurationFromSecond(e.target.value)} label="" placeholder='Duration From' /></td>
+                                                                <td> <RHFTextField name="durationTo" value={durationToSecond} onChange={(e) => setdurationToSecond(e.target.value)} label="" placeholder='Duration To' /></td>
+                                                            </tr>
 
-                                                        }
 
-                                                    </tbody>
-                                                </table>
-                                                <button onClick={() => setNoOfRows3(noOfRows3 + 1)} type="button" className="add-more-row-experience"><i className="fa fa-plus-circle"></i> Add New</button>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+
+
+
                                             </div>
 
+                                        </>
 
-                                        </div>
+
                                     }
 
                                     <div className="file">

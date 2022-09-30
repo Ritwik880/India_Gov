@@ -216,19 +216,25 @@ const Edit = () => {
     //         }
     //     }
 
-    const handleChange = (event: any, name: string, id: number) => {
-        let editUsers: any = [{ ...users }];
-        editUsers[id]['applicantName'] = name;
-        setUsers(editUsers)
-        console.log(users);
+    // const handleChange = (event: any, name: string, id: number) => {
+    //     let editUsers: any = [{ ...users }];
+    //     editUsers[id]['applicantName'] = name;
+    //     setUsers(editUsers)
+    //     console.log(users);
 
 
 
-    }
+    // }
 
+
+    const handleChange = (e: any) => {
+        setUsers({ ...users, [e.target.name]: e.target.value });
+    };
 
     // const handleChange = (e: any) => {
-    //     setUsers({ ...users, [e.target.name]: e.target.value });
+    //     const { name, value } = e.target;
+    //     setUsers({ ...users, [name]: value });
+    //     // console.log(post);
     // };
     return (
         <>
@@ -251,7 +257,7 @@ const Edit = () => {
                                             <div className="formBox">
                                                 <div className="mb-3 col-lg-3 col-md-12">
                                                     <label htmlFor="exampleInputEmail1" className="form-label">Name <span className="must-filed">*</span></label>
-                                                    <RHFTextField name="applicantName" value={item.applicantName} onChange={(e) => handleChange(e, item.applicantName, id)} label="" placeholder='Enter Name' />
+                                                    <RHFTextField name='applicantName' value={item.applicantName} onChange={handleChange} label="" placeholder='Enter Name' />
                                                 </div>
                                             </div>
 

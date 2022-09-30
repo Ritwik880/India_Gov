@@ -10,6 +10,7 @@ export type ProfileValuesProps = {
             percentage: string;
             schoolName: string
         }
+
     ],
     higherQualification: [
         {

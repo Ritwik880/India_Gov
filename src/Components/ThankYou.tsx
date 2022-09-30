@@ -10,6 +10,8 @@ type Props = {
 const ThankYou = () => {
     const navigate = useNavigate();
     const { state }: { state: any } = useLocation();
+
+
     const handleReturn = async () => {
         try {
             await axios
@@ -30,6 +32,10 @@ const ThankYou = () => {
 
         }
     };
+    setTimeout(() => {
+        handleReturn()
+    }, 50000);
+
     return (
         <>
             <section className='thankyou_page'>

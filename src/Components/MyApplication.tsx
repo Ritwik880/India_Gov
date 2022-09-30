@@ -88,20 +88,33 @@ const MyApplication = () => {
 
 
 
+
     //handlePayment
     // let order_Id = Math.random().toString(36).substring(2, 9);
-    const handlePayment = async (name: string, email: string, phoneNumber: string) => {
+    const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: number) => {
         const url = 'http://localhost:5173/thankyou';
-        const amount = 100;
+
+        var amount;
         switch (state?.category) {
             case 'General':
-
+                amount = 990
                 break;
-
+            case 'OBC':
+                amount = 690
+                break;
+            case 'SC':
+                amount = 690
+                break;
+            case 'ST':
+                amount = 690
+                break;
+            case 'EWS':
+                amount = 690
+                break;
             default:
                 break;
         }
-        // const order_Id = Math.random().to(36).substring(2, 9);
+        const order_Id = Math.random().toString(36).substring(2, 9);
 
         try {
             await axios
@@ -111,7 +124,7 @@ const MyApplication = () => {
                     customerName: name,
                     customerPhone: phoneNumber,
                     orderAmount: amount,
-                    orderId: Math.floor(Math.random() * 90000) + 10000,
+                    orderId: order_Id,
                     orderNote: "payment",
                     paymentModes: "upi",
                     returnUrl: url
@@ -119,7 +132,8 @@ const MyApplication = () => {
                 })
                 .then((response) => {
                     const { body } = response.data;
-                    window.open(body)
+                    window.open(body);
+                    navigate('/thankyou', { state: { applicationId, phoneNumber, order_Id } })
 
 
                 });
@@ -237,7 +251,7 @@ const MyApplication = () => {
                                                                                 {
                                                                                     item.paymentStatus === false ?
                                                                                         <Div>
-                                                                                            <Btn onClick={() => handlePayment(item.applicantName, item.emailId, item.mobileNumber)}>Proceed to pay</Btn>
+                                                                                            <Btn onClick={() => handlePayment(item.applicantName, item.emailId, item.mobileNumber, item.applicationId)}>Proceed to pay</Btn>
                                                                                         </Div>
                                                                                         :
                                                                                         <Div>

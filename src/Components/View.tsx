@@ -246,12 +246,12 @@ const View = () => {
 
 
                                                     return (
-                                                        <>
+                                                        <div key={id}>
                                                             <h1 className='formHead'>Application Form for <span className='dynamic_data'>
                                                                 {item.postName}
                                                             </span></h1>
                                                             <FormProvider methods={methods}>
-                                                                <div className="parentForm" key={id}>
+                                                                <div className="parentForm">
                                                                     <h2 className='footerFormHead'>Personal Details</h2>
                                                                     <div className="formBox">
                                                                         <div className="mb-3 col-lg-3 col-md-12">
@@ -743,7 +743,7 @@ const View = () => {
 
                                                                 </div>
                                                             </FormProvider>
-                                                        </>
+                                                        </div>
                                                     )
                                                 })
 
