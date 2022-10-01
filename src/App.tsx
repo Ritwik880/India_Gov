@@ -24,7 +24,6 @@ import Disclaimer from './Components/Disclaimer';
 import MyApplication from './Components/MyApplication';
 import View from './Components/View';
 import Edit from './Components/Edit';
-import Payment from './Components/Payment';
 import ThankYou from './Components/ThankYou';
 import LoginMyApplication from './Components/LoginMyApplication';
 const App = () => {
@@ -73,7 +72,6 @@ const App = () => {
               <Route path='/my-application' element={<MyApplication />}></Route>
               <Route path='/view-application' element={<View />}></Route>
               <Route path='/edit-application' element={<Edit />}></Route>
-              <Route path='/payment' element={<Payment />}></Route>
               <Route path='/thankyou' element={<ThankYou />}></Route>
               <Route path='/login-my-application' element={<LoginMyApplication />}></Route>
             </Routes>

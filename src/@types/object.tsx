@@ -1,6 +1,18 @@
 export type ProfileValuesProps = {
-    uploadSignature: Blob;
-    uploadPhoto: Blob;
+    uploadPhoto: {
+        extension: string;
+        id: string;
+        type: string;
+        url: string;
+        sizeReadable: string;
+    },
+    uploadSignature: {
+        extension: string;
+        id: string;
+        type: string;
+        url: string;
+        sizeReadable: string;
+    },
     aadharNumber: string;
     academicQualification: [
         {
@@ -76,40 +88,87 @@ export type ProfileValuesProps = {
 };
 
 export type ProfileValues = {
-    uploadSignature: {
-        url: string;
-    };
     uploadPhoto: {
+        extension: string;
+        id: string;
+        type: string;
         url: string;
-    };
+        sizeReadable: string;
+    },
+    uploadSignature: {
+        extension: string;
+        id: string;
+        type: string;
+        url: string;
+        sizeReadable: string;
+    },
     aadharNumber: string;
     academicQualification: [
         {
-            board: string;
+            academicQualificationId: number;
             className: string;
-            passingYear: string;
-            percentage: string;
-            schoolName: string
+            schoolName: string;
+            board: string;
+            percentage: number;
+            passingYear: number;
+        },
+        {
+            academicQualificationId: number;
+            className: string;
+            schoolName: string;
+            board: string;
+            percentage: number;
+            passingYear: number;
+        },
+        {
+            academicQualificationId: number;
+            className: string;
+            schoolName: string;
+            board: string;
+            percentage: number;
+            passingYear: number;
         }
     ],
+
     higherQualification: [
         {
+            higherQualificationId: number;
             courseName: string;
-            courseType: string;
-            passingYear: string;
-            percentage: string;
             specialization: string;
+            percentage: number;
+            passingYear: number;
+            courseType: string;
+        },
+        {
+            higherQualificationId: number;
+            courseName: string;
+            specialization: string;
+            percentage: number;
+            passingYear: number;
+            courseType: string;
         }
     ],
+
     experienceDetails: [
         {
+            experienceDetailId: number,
             companyName: string;
             designation: string;
+            location: string;
             durationFrom: string;
             durationTo: string;
             experienced: string;
+            totalExperience: number;
+        },
+        {
+            experienceDetailId: number,
+            companyName: string;
+            designation: string;
             location: string;
-            totalExperience: string,
+            durationFrom: string;
+            durationTo: string;
+            experienced: string;
+            totalExperience: number;
         }
     ],
     alternateEmailId: string;

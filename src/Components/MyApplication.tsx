@@ -136,6 +136,9 @@ const MyApplication = () => {
         navigate('/view-application', { state: { id, userId } })
 
     }
+    const handleEdit = (id: string, userId: string) => {
+        navigate('/edit-application', { state: { id, userId } })
+    }
 
 
 
@@ -262,7 +265,7 @@ const MyApplication = () => {
 
                                                             <td>
                                                                 <Div>
-                                                                    <Btn onClick={() => navigate('/edit-application')}>
+                                                                    <Btn onClick={() => handleEdit(item.applicationId, item.mobileNumber)}>
                                                                         Edit
                                                                     </Btn>
                                                                 </Div>

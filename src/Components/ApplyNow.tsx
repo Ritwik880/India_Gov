@@ -660,62 +660,63 @@ const ApplyNow = () => {
                                                     border: "none",
                                                 },
                                             }}>
-                                                <MenuItem value="General">General</MenuItem>
-                                                <MenuItem value="OBC">OBC</MenuItem>
-                                                <MenuItem value="ST">ST</MenuItem>
-                                                <MenuItem value="SC">SC</MenuItem>
-                                                <MenuItem value="EWS">EWS</MenuItem>
+                                                <MenuItem value="General" onClick={() => setOtherCategory(false)}>General</MenuItem>
+                                                <MenuItem value="OBC" onClick={() => setOtherCategory(false)}>OBC</MenuItem>
+                                                <MenuItem value="ST" onClick={() => setOtherCategory(false)}>ST</MenuItem>
+                                                <MenuItem value="SC" onClick={() => setOtherCategory(false)}>SC</MenuItem>
+                                                <MenuItem value="EWS" onClick={() => setOtherCategory(false)}>EWS</MenuItem>
                                                 <MenuItem value="Others" onClick={() => setOtherCategory(true)}>Others</MenuItem>
                                             </Select>
                                         </div>
 
                                     </div>
-                                    <div className="formBox">
+                                    <div className="mb-3 col-lg-3 col-md-12">
+
+
+
+
                                         {
                                             otherCategory &&
-                                            (<div className="mb-3 col-lg-3 col-md-12">
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Other Category <span className="must-filed">*</span></label>
+                                            (
+                                                <>
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Other Category <span className="must-filed">*</span></label>
 
-                                                <RHFTextField name="otherCategory" label="" placeholder='Other Category' required />
-
-
-                                            </div>)
+                                                    <RHFTextField name="otherCategory" label="" placeholder='Other Category' />
+                                                </>
+                                            )
                                         }
-
                                     </div>
-                                    <div className="formBox">
-                                        <div className="mb-3 col-lg-3 col-md-12">
-                                            <label htmlFor="exampleInputPassword1" className="form-label">Religion <span className="must-filed">*</span></label>
-                                            <Select size='small' value={religion} onChange={(e) => setReligion(e.target.value)} name='religion' className="form-select" required sx={{
 
-                                                ".MuiOutlinedInput-notchedOutline": {
-                                                    border: "none",
-                                                },
-                                            }}>
-                                                <MenuItem value="Hindu">Hindu</MenuItem>
-                                                <MenuItem value="Sikh">Sikh</MenuItem>
-                                                <MenuItem value="Christian">Christian</MenuItem>
-                                                <MenuItem value="Muslim">Muslim</MenuItem>
-                                                <MenuItem value="Jain">Jain</MenuItem>
-                                                <MenuItem value="Buddhist">Buddhist</MenuItem>
-                                                <MenuItem value="Others" onClick={hanldeShowOtherReligion}>Others</MenuItem>
-                                            </Select>
-                                        </div>
 
+
+                                    <div className="mb-3 col-lg-3 col-md-12">
+                                        <label htmlFor="exampleInputPassword1" className="form-label">Religion <span className="must-filed">*</span></label>
+                                        <Select size='small' value={religion} onChange={(e) => setReligion(e.target.value)} name='religion' className="form-select" required sx={{
+
+                                            ".MuiOutlinedInput-notchedOutline": {
+                                                border: "none",
+                                            },
+                                        }}>
+                                            <MenuItem value="Hindu" onClick={() => setOthers(false)}>Hindu</MenuItem>
+                                            <MenuItem value="Sikh" onClick={() => setOthers(false)}>Sikh</MenuItem>
+                                            <MenuItem value="Christian" onClick={() => setOthers(false)}>Christian</MenuItem>
+                                            <MenuItem value="Muslim" onClick={() => setOthers(false)}>Muslim</MenuItem>
+                                            <MenuItem value="Jain" onClick={() => setOthers(false)}>Jain</MenuItem>
+                                            <MenuItem value="Buddhist" onClick={() => setOthers(false)}>Buddhist</MenuItem>
+                                            <MenuItem value="Others" onClick={hanldeShowOtherReligion}>Others</MenuItem>
+                                        </Select>
                                     </div>
-                                    <div className="formBox">
+                                    <div className="mb-3 col-lg-3 col-md-12">
                                         {
                                             others &&
-                                            (<div className="mb-3 col-lg-3 col-md-12">
+                                            (<>
                                                 <label htmlFor="exampleInputPassword1" className="form-label">Other Religion <span className="must-filed">*</span></label>
 
-                                                <RHFTextField name="otherReligion" label="" placeholder='Other Religion' required />
-
-
-                                            </div>)
+                                                <RHFTextField name="otherReligion" label="" placeholder='Other Religion' />
+                                            </>)
                                         }
-
                                     </div>
+
 
 
                                     <h2 className='footerFormHead'>Permanent Address</h2>
@@ -1139,10 +1140,10 @@ const ApplyNow = () => {
 
 
                                         </div>
-                                        {hideForm && <div className="mb-3 col-lg-3 col-md-12">
+                                        <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Total Experience (IN YEAR)</label>
                                             <RHFTextField type="number" name="totalExperience" value={totalExp} onChange={(e) => setTotalExp(e.target.value)} label="" placeholder='Total Experience (IN YEAR)' />
-                                        </div>}
+                                        </div>
 
 
                                     </div>
@@ -1191,6 +1192,7 @@ const ApplyNow = () => {
                                             </div>
 
                                         </>
+
 
 
                                     }
