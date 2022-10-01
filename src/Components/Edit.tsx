@@ -112,7 +112,7 @@ const Edit = () => {
                 category: data.category,
                 emailId: data.emailId,
                 mobileNumber: data.mobileNumber,
-                postName: data.postName,
+                postName: state?.postName,
                 permanentAddress: {
                     houseNumber: data.permanentAddress.houseNumber,
                     road: data.permanentAddress.road,
@@ -494,7 +494,7 @@ const Edit = () => {
 
                             <>
                                 <h1 className='formHead'>Application Form for <span className='dynamic_data'>
-                                    {postName}
+                                    {state?.postName}
                                 </span></h1>
                                 <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
