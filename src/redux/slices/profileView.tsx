@@ -4,7 +4,9 @@ export const profileViewSlice = createSlice({
     name: 'profileView',
     initialState: {
         value: {
-            userId: 0,
+            isLoggedin: false,
+            userId: "",
+            applicationId: "",
 
 
         },

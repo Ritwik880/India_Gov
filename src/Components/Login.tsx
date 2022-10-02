@@ -14,6 +14,7 @@ import Iconify from './Iconify';
 import { IoCallOutline } from 'react-icons/io5'
 import '../login.css'
 import Cta from './Cta';
+import { useDispatch } from '../redux/store';
 
 
 type ProfileValuesProps = {
@@ -40,6 +41,7 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [userId, setUserId] = useState('');
     const [userProfileId, setUserProfileId] = useState<MyApplicationType[]>([]);
+    const dispatch = useDispatch();
 
     const ProfileSchema = Yup.object().shape({
         password: Yup.string().required('Password is required'),
@@ -67,15 +69,19 @@ const Login = () => {
             }
             );
             const { body } = res.data;
-
             if (!body.loginSuccess) {
                 toast.error("Bad Credentials");
 
             }
             else {
+                dispatch({
+                    type: 'loginSuccess',
+                    payload: 'Login Successfully',
+                    userId: userId,
+                    isLoggedin: true,
+                    applicationId: body.applicationDetails[0].applicationId
+                });
                 let applicationId = body.applicationDetails[0].applicationId
-                console.log(applicationId);
-
                 setUserProfileId(body);
                 toast.success('Success');
                 reset();

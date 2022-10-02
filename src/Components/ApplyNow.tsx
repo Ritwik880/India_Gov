@@ -182,9 +182,8 @@ const ApplyNow = () => {
     });
 
     const { reset, handleSubmit } = methods;
-    const onSubmit = async (data: ProfileValuesProps, e: any) => {
-
-        e.preventDefault();
+    const onSubmit = async (data: ProfileValuesProps, event: any) => {
+        event.stopPropagation();
         alert('Are you sure the data entered is correct if YES click submit button.')
         setLoading(true);
         try {
@@ -299,8 +298,8 @@ const ApplyNow = () => {
             const { body } = res.data;
             let applicationId = body.applicationId;
             let userId = body.mobileNumber;
-            setLoading(false);
             toast.success('Success');
+            setLoading(false);
             reset();
             navigate('/my-application', { state: { applicationId, userId, category } })
         } catch (error: any) {

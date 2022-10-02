@@ -15,6 +15,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ProfileValues } from '../@types/object';
 // @ts-ignore
 import Files from 'react-files';
+import Home from './Home';
+import About from './About';
+import Header from './Header';
 
 const ContentWrapper = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.grey[200],
@@ -56,6 +59,7 @@ const AttachmentWrapper = styled('div')(({ theme }) => ({
 
 const View = () => {
     const [hideForm, setHideForm] = useState(true);
+    const [header, setHeader] = useState(false);
     const [others, setOthers] = useState(false);
     const [noExperience, setNoexperience] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -833,7 +837,9 @@ const View = () => {
 
 
                 </div>
+
             </section>
+
 
 
         </>

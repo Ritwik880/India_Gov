@@ -94,7 +94,9 @@ const Edit = () => {
         defaultValues,
     });
 
-    const { handleSubmit, setValue } = methods;
+    const { handleSubmit, setValue, getValues } = methods;
+
+    const values = getValues();
 
     const onSubmit = async (data: ProfileValuesEditProps, event: any) => {
         event.stopPropagation();
@@ -240,7 +242,6 @@ const Edit = () => {
                 setPostName(body[0].postName);
                 setPhotoUrl(body[0].uploadPhoto.url);
                 setPhotoSignature(body[0].uploadSignature.url);
-                console.log(setPhotoSignature(body[0].uploadSignature.url));
                 body[0].applicantName
                     ? setValue('applicantName', body[0].applicantName)
                     : setValue('applicantName', '');

@@ -88,9 +88,27 @@ const LoginMyApplication = () => {
     // let order_Id = Math.random().toString(36).substring(2, 9);
     const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: string) => {
         const url = `http://localhost:5173/thankyou`;
-        const amount = 100;
         const order_Id = Math.random().toString(36).substring(2, 9);
-        // const url = `http://localhost:5173/thankyou${ state: { applicationId, phoneNumber, order_Id }}`
+        var amount;
+        switch (state?.category) {
+            case 'General':
+                amount = 990
+                break;
+            case 'OBC':
+                amount = 690
+                break;
+            case 'SC':
+                amount = 690
+                break;
+            case 'ST':
+                amount = 690
+                break;
+            case 'EWS':
+                amount = 690
+                break;
+            default:
+                break;
+        }
 
         try {
             await axios

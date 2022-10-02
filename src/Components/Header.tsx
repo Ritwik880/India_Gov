@@ -1,10 +1,18 @@
 import React, { useState } from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import { useNavigate } from 'react-router-dom';
-
-const Header = () => {
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from '../redux/store';
+type Proptype = {
+    applicationId: string;
+    userId: number;
+}
+const Header = (props: Proptype) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const profileDetails = useSelector((state) => state.profileView.value);
+    console.log(profileDetails.isLoggedin);
+    const { state }: { state: any } = useLocation();
+
     return (
         <header>
             <div className='upperNav'>
@@ -21,34 +29,18 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mx-auto navItem">
-                            <LinkContainer to="/">
-                                <Nav.Link className='listItems'>
-                                    HOME
-                                </Nav.Link>
-                            </LinkContainer>
-                            <LinkContainer to="/about">
-                                <Nav.Link className='listItems'>ABOUT US</Nav.Link>
-                            </LinkContainer>
-                            <LinkContainer to="/career">
-                                <Nav.Link className='listItems'>CAREER</Nav.Link>
-                            </LinkContainer>
-                            <LinkContainer to="/gallery">
-                                <Nav.Link className='listItems'>GALLERY</Nav.Link>
-                            </LinkContainer>
-                            <LinkContainer to="/contact">
-                                <Nav.Link className='listItems'>CONTACT US</Nav.Link>
-                            </LinkContainer>
+                            <Nav.Link className='listItems' onClick={() => navigate('/')}>HOME</Nav.Link>
+                            <Nav.Link className='listItems' onClick={() => navigate('/about')}>ABOUT US</Nav.Link>
+                            <Nav.Link className='listItems' onClick={() => navigate('/career')}>CAREER</Nav.Link>
+                            <Nav.Link className='listItems' onClick={() => navigate('/gallery')}>GALLERY</Nav.Link>
+                            <Nav.Link className='listItems' onClick={() => navigate('/contact')}>CONTACT US</Nav.Link>
+                            <Nav.Link className='listItems' onClick={() => navigate('/login')}>LOGIN</Nav.Link>
 
-                            <LinkContainer to="/login">
-                                <Nav.Link className='listItems'>LOGIN</Nav.Link>
-                            </LinkContainer>
-
-
-
-                            <Nav.Link className='listItems' onClick={() => navigate('/my-application')}>My Application</Nav.Link>
-
-
-
+                            {
+                                profileDetails.isLoggedin === true && (
+                                    <Nav.Link className='listItems' onClick={() => navigate('/my-application')}>My Application</Nav.Link>
+                                )
+                            }
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
