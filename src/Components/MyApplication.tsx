@@ -121,7 +121,7 @@ const MyApplication = () => {
 
 
     const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: string) => {
-        const url = 'http://localhost:5173/thankyou';
+        const url = 'https://fpci-fe.netlify.app/thankyou';
 
         var amount;
         switch (state?.category) {

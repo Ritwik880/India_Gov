@@ -89,7 +89,7 @@ const LoginMyApplication = () => {
     //handlePayment
     // let order_Id = Math.random().toString(36).substring(2, 9);
     const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: string) => {
-        const url = `http://localhost:5173/thankyou`;
+        const url = `https://fpci-fe.netlify.app/thankyou`;
         const order_Id = Math.random().toString(36).substring(2, 9);
         var amount;
         switch (state?.category) {
