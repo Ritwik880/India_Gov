@@ -1088,7 +1088,7 @@ const Edit = () => {
 
 
 
-                                        <div className="file">
+                                        {/* <div className="file">
                                             <div>
                                                 <Files
                                                     className="files-dropzone"
@@ -1132,7 +1132,7 @@ const Edit = () => {
                                                     </AttachmentWrapper>
                                                 </Files>
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                     </div>
 

@@ -119,8 +119,7 @@ const MyApplicationOther = () => {
 
 
     const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: string) => {
-        const url = 'http://localhost:5173/thankyou';
-
+        const url = 'https://fpci-fe.netlify.app/thankyou';
         var amount;
         switch (state?.category) {
             case 'General':
@@ -139,6 +138,7 @@ const MyApplicationOther = () => {
                 amount = 690
                 break;
             default:
+                amount = 690;
                 break;
         }
         const order_Id = Math.random().toString(36).substring(2, 9);
