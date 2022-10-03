@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
-import * as Yup from 'yup';
 import {
     CircularProgress,
     Box,
 } from "@mui/material";
+import * as Yup from 'yup';
 import axios from '../utils/axios';
 import { Select, MenuItem, InputLabel, Typography, styled } from '@mui/material';
 import FormProvider from './hook-form/FormProvider';
@@ -13,11 +13,10 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ProfileValues } from '../@types/object';
+import ReactToPrint from "react-to-print";
 // @ts-ignore
 import Files from 'react-files';
-import Home from './Home';
-import About from './About';
-import Header from './Header';
+
 
 const ContentWrapper = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.grey[200],
@@ -59,7 +58,6 @@ const AttachmentWrapper = styled('div')(({ theme }) => ({
 
 const View = () => {
     const [hideForm, setHideForm] = useState(true);
-    const [header, setHeader] = useState(false);
     const [others, setOthers] = useState(false);
     const [noExperience, setNoexperience] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -67,6 +65,7 @@ const View = () => {
 
     const { state }: { state: any } = useLocation();
     const isMounted = useRef(false);
+
     const ProfileSchema = Yup.object().shape({
         applicantName: Yup.string().required('Applicant name is required'),
         fatherName: Yup.string().required('Applicant father name is required'),
@@ -139,6 +138,10 @@ const View = () => {
         setOthers(true);
 
     }
+    const handlePrint = (event: any) => {
+        event.preventDefault();
+        window.print();
+    }
     return (
         <>
 
@@ -185,6 +188,12 @@ const View = () => {
                                                                     <h2 className='footerFormHead'>Personal Details</h2>
                                                                     <div className="formBox">
                                                                         <div className="mb-3 col-lg-3 col-md-12">
+                                                                            <label htmlFor="exampleInputEmail1" className="form-label">Registration Id <span className="must-filed">*</span></label>
+
+                                                                            <RHFTextField disabled name="applicationId" label="" placeholder='Enter Name' value={item.applicationId} />
+
+                                                                        </div>
+                                                                        <div className="mb-3 col-lg-3 col-md-12">
                                                                             <label htmlFor="exampleInputEmail1" className="form-label">Name <span className="must-filed">*</span></label>
 
                                                                             <RHFTextField disabled name="applicantName" label="" placeholder='Enter Name' value={item.applicantName} />
@@ -195,15 +204,17 @@ const View = () => {
 
                                                                             <RHFTextField disabled name="fatherName" label="" placeholder='Enter Father Name' value={item.fatherName} />
                                                                         </div>
+
+
+
+                                                                    </div>
+
+                                                                    <div className="formBox">
                                                                         <div className="mb-3 col-lg-3 col-md-12">
                                                                             <label htmlFor="exampleInputPassword1" className="form-label">Mother Name <span className="must-filed">*</span></label>
 
                                                                             <RHFTextField disabled name="motherName" label="" placeholder='Enter Mother Name' value={item.motherName} />
                                                                         </div>
-
-                                                                    </div>
-
-                                                                    <div className="formBox">
                                                                         <div className="mb-3 col-lg-3 col-md-12">
                                                                             <label htmlFor="exampleInputEmail1" className="form-label">Date Of Birth <span className="must-filed">*</span></label>
                                                                             <RHFTextField disabled name="dateOfBirth" label="" placeholder='dd/mm/yyyy' value={extractedDate} />
@@ -221,22 +232,7 @@ const View = () => {
                                                                                 <MenuItem value="Female">Female</MenuItem>
                                                                             </Select>
                                                                         </div>
-                                                                        <div className="mb-3 col-lg-3 col-md-12">
-                                                                            <label htmlFor="exampleInputPassword1" className="form-label">Category <span className="must-filed">*</span></label>
-                                                                            <Select size='small' value={item.category} name='category' className="form-select" disabled required sx={{
 
-                                                                                ".MuiOutlinedInput-notchedOutline": {
-                                                                                    border: "none",
-                                                                                },
-                                                                            }}>
-                                                                                <MenuItem value="General">General</MenuItem>
-                                                                                <MenuItem value="OBC">OBC</MenuItem>
-                                                                                <MenuItem value="ST">ST</MenuItem>
-                                                                                <MenuItem value="SC">SC</MenuItem>
-                                                                                <MenuItem value="EWS">EWS</MenuItem>
-                                                                                <MenuItem value="Others">Others</MenuItem>
-                                                                            </Select>
-                                                                        </div>
 
                                                                     </div>
                                                                     <div className="formBox">
@@ -257,6 +253,26 @@ const View = () => {
                                                                                 <MenuItem value="Others" onClick={hanldeShowOthers}>Others</MenuItem>
                                                                             </Select>
                                                                         </div>
+                                                                        <div className="mb-3 col-lg-3 col-md-12">
+                                                                            <label htmlFor="exampleInputPassword1" className="form-label">Category <span className="must-filed">*</span></label>
+                                                                            <Select size='small' value={item.category} name='category' className="form-select" disabled required sx={{
+
+                                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                                    border: "none",
+                                                                                },
+                                                                            }}>
+                                                                                <MenuItem value="General">General</MenuItem>
+                                                                                <MenuItem value="OBC">OBC</MenuItem>
+                                                                                <MenuItem value="ST">ST</MenuItem>
+                                                                                <MenuItem value="SC">SC</MenuItem>
+                                                                                <MenuItem value="EWS">EWS</MenuItem>
+                                                                                <MenuItem value="Others">Others</MenuItem>
+                                                                            </Select>
+                                                                        </div>
+                                                                        <div className="mb-3 col-lg-3 col-md-12">
+
+                                                                        </div>
+
 
                                                                     </div>
                                                                     <h2 className='footerFormHead'>Permanent Address</h2>
@@ -291,8 +307,8 @@ const View = () => {
                                                                                 ".MuiOutlinedInput-notchedOutline": {
                                                                                     border: "none",
                                                                                 },
-                                                                            }} name="state" value={item.permanentAddress.state} required className="form-control">
-                                                                                <MenuItem>--select--</MenuItem>
+                                                                            }} name="state" value={item.permanentAddress.state} className="form-control">
+
                                                                                 <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
                                                                                 <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
                                                                                 <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
@@ -816,8 +832,16 @@ const View = () => {
                                                                     </div>
 
                                                                 </div>
+                                                                <div className="submitForm">
+
+                                                                    <button className="formSubmit" onClick={handlePrint}>Print</button>
+
+                                                                </div>
                                                             </FormProvider>
+
+
                                                         </div>
+
                                                     )
                                                 })
 

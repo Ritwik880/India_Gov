@@ -5,6 +5,7 @@ import {
     Box,
     styled,
     Typography,
+    SelectChangeEvent,
 } from "@mui/material";
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import axios from '../utils/axios';
@@ -69,6 +70,10 @@ const Edit = () => {
     const [id6, setId6] = useState(0);
     const [id7, setId7] = useState(0);
     const [postName, setPostName] = useState("");
+    const [gender, setGender] = useState<ProfileValuesEditProps | null>(null);
+    const [category, setCategory] = useState<ProfileValuesEditProps | null>(null);
+    const [religion, setReligion] = useState<ProfileValuesEditProps | null>(null);
+    // const [statePermanent, setStatePermanent] = useState<ProfileValuesEditProps>;/
     const [hideForm, setHideForm] = useState(true);
     const [others, setOthers] = useState(false);
     const [noExperience, setNoexperience] = useState(false);
@@ -254,15 +259,10 @@ const Edit = () => {
                 body[0].dateOfBirth
                     ? setValue('dateOfBirth', body[0].dateOfBirth)
                     : setValue('dateOfBirth', '');
-                body[0].gender
-                    ? setValue('gender', body[0].gender)
-                    : setValue('gender', '');
-                body[0].category
-                    ? setValue('category', body[0].category)
-                    : setValue('category', '');
-                body[0].religion
-                    ? setValue('religion', body[0].religion)
-                    : setValue('religion', '');
+                body[0].gender ? setValue('gender', body[0].gender) : setValue('gender', '');
+
+                body[0].category && setCategory(body[0].category)
+                body[0].religion && setReligion(body[0].religion)
                 body[0].pancard
                     ? setValue('pancard', body[0].pancard)
                     : setValue('pancard', '');
@@ -286,6 +286,9 @@ const Edit = () => {
                 body[0].permanentAddress.country
                     ? setValue('permanentAddress.country', body[0].permanentAddress.country)
                     : setValue('permanentAddress.country', '');
+                body[0].permanentAddress.state
+                    ? setValue('presentAddress.state', body[0].permanentAddress.state)
+                    : setValue('presentAddress.state', '');
                 body[0].permanentAddress.houseNumber
                     ? setValue('permanentAddress.houseNumber', body[0].permanentAddress.houseNumber)
                     : setValue('permanentAddress.houseNumber', '');
@@ -440,17 +443,6 @@ const Edit = () => {
                 body[0].experienceDetails[1].location
                     ? setValue('experienceDetails.1.location', body[0].experienceDetails[1].location)
                     : setValue('experienceDetails.1.location', '');
-
-
-
-
-
-
-
-
-
-
-
             } catch (error) {
                 console.error(error);
             }
@@ -472,6 +464,27 @@ const Edit = () => {
 
     }
 
+    const handleChange = (event: SelectChangeEvent, newValue: ProfileValuesEditProps | null) => {
+        if (newValue) {
+            setGender(newValue);
+            setGender({ ...values, gender: event.target.value as string });
+        }
+
+    };
+    const handleChangeCategory = (event: SelectChangeEvent, newValue: ProfileValuesEditProps | null) => {
+        if (newValue) {
+            setCategory(newValue);
+        }
+
+    };
+
+
+    const handleChangeReligion = (event: SelectChangeEvent, newValue: ProfileValuesEditProps | null) => {
+        if (newValue) {
+            setReligion(newValue);
+        }
+
+    };
     return (
         <>
 
@@ -529,25 +542,25 @@ const Edit = () => {
                                             </div>
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <InputLabel id="demo-simple-select-label">Gender</InputLabel>
-                                                <Select fullWidth size='small' labelId='demo-simple-select-label' label="Gender" name='gender' className="form-select" required sx={{
+                                                <Select fullWidth size='small' labelId='demo-simple-select-label' label="Gender" name='gender' className="form-select" required value='Male' sx={{
 
                                                     ".MuiOutlinedInput-notchedOutline": {
                                                         border: "none",
                                                     },
                                                 }}>
-                                                    <MenuItem value="Male">Male</MenuItem>
+                                                    <MenuItem value="Male" selected>Male</MenuItem>
                                                     <MenuItem value="Female">Female</MenuItem>
                                                 </Select>
                                             </div>
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">Category <span className="must-filed">*</span></label>
-                                                <Select size='small' name='category' className="form-select" required sx={{
+                                                <Select size='small' name='category' className="form-select" value='General' required sx={{
 
                                                     ".MuiOutlinedInput-notchedOutline": {
                                                         border: "none",
                                                     },
                                                 }}>
-                                                    <MenuItem value="General">General</MenuItem>
+                                                    <MenuItem value="General" selected>General</MenuItem>
                                                     <MenuItem value="OBC">OBC</MenuItem>
                                                     <MenuItem value="ST">ST</MenuItem>
                                                     <MenuItem value="SC">SC</MenuItem>
@@ -560,7 +573,7 @@ const Edit = () => {
                                         <div className="formBox">
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">Religion <span className="must-filed">*</span></label>
-                                                <Select size='small' name='religion' className="form-select" required sx={{
+                                                <Select size='small' name='religion' value='Hindu' className="form-select" required sx={{
 
                                                     ".MuiOutlinedInput-notchedOutline": {
                                                         border: "none",
@@ -604,13 +617,12 @@ const Edit = () => {
                                             </div>
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">State <span className="must-filed">*</span></label>
-                                                <Select size='small' sx={{
+                                                <Select size='small' value='Bihar' sx={{
 
                                                     ".MuiOutlinedInput-notchedOutline": {
                                                         border: "none",
                                                     },
                                                 }} name="permanentAddress.state" required className="form-control">
-                                                    <MenuItem>--select--</MenuItem>
                                                     <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
                                                     <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
                                                     <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
@@ -628,7 +640,6 @@ const Edit = () => {
                                                     <MenuItem value="Jammu and Kashmir"  >Jammu and Kashmir</MenuItem>
                                                     <MenuItem value="Jharkhand"  >Jharkhand</MenuItem>
                                                     <MenuItem value="Karnataka"  >Karnataka</MenuItem>
-                                                    <MenuItem value="Kenmore"  >Kenmore</MenuItem>
                                                     <MenuItem value="Kerala"  >Kerala</MenuItem>
                                                     <MenuItem value="Lakshadweep"  >Lakshadweep</MenuItem>
                                                     <MenuItem value="Madhya Pradesh"  >Madhya Pradesh</MenuItem>
@@ -637,10 +648,7 @@ const Edit = () => {
                                                     <MenuItem value="Meghalaya"  >Meghalaya</MenuItem>
                                                     <MenuItem value="Mizoram"  >Mizoram</MenuItem>
                                                     <MenuItem value="Nagaland"  >Nagaland</MenuItem>
-                                                    <MenuItem value="Narora"  >Narora</MenuItem>
-                                                    <MenuItem value="Natwar"  >Natwar</MenuItem>
                                                     <MenuItem value="Odisha"  >Odisha</MenuItem>
-                                                    <MenuItem value="Paschim Medinipur"  >Paschim Medinipur</MenuItem>
                                                     <MenuItem value="Pondicherry"  >Pondicherry</MenuItem>
                                                     <MenuItem value="Punjab"  >Punjab</MenuItem>
                                                     <MenuItem value="Rajasthan"  >Rajasthan</MenuItem>
@@ -650,7 +658,6 @@ const Edit = () => {
                                                     <MenuItem value="Tripura"  >Tripura</MenuItem>
                                                     <MenuItem value="Uttar Pradesh"  >Uttar Pradesh</MenuItem>
                                                     <MenuItem value="Uttarakhand"  >Uttarakhand</MenuItem>
-                                                    <MenuItem value="Vaishali"  >Vaishali</MenuItem>
                                                     <MenuItem value="West Bengal"  >West Bengal</MenuItem>
                                                 </Select>
                                             </div>
@@ -698,7 +705,7 @@ const Edit = () => {
                                             </div>
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">State <span className="must-filed">*</span></label>
-                                                <Select size='small' sx={{
+                                                <Select value='Jharkhand' size='small' sx={{
 
                                                     ".MuiOutlinedInput-notchedOutline": {
                                                         border: "none",
@@ -708,8 +715,8 @@ const Edit = () => {
                                                     <MenuItem value="Andaman and Nicobar Islands"  >Andaman and Nicobar Islands</MenuItem>
                                                     <MenuItem value="Andhra Pradesh"  >Andhra Pradesh</MenuItem>
                                                     <MenuItem value="Arunachal Pradesh"  >Arunachal Pradesh</MenuItem>
-                                                    <MenuItem value="Assam">Assam</MenuItem>
-                                                    <MenuItem value="Bihar">Bihar</MenuItem>
+                                                    <MenuItem value="Assam"  >Assam</MenuItem>
+                                                    <MenuItem value="Bihar"  >Bihar</MenuItem>
                                                     <MenuItem value="Chandigarh"  >Chandigarh</MenuItem>
                                                     <MenuItem value="Chhattisgarh"  >Chhattisgarh</MenuItem>
                                                     <MenuItem value="Dadra and Nagar Haveli"  >Dadra and Nagar Haveli</MenuItem>
@@ -722,7 +729,6 @@ const Edit = () => {
                                                     <MenuItem value="Jammu and Kashmir"  >Jammu and Kashmir</MenuItem>
                                                     <MenuItem value="Jharkhand"  >Jharkhand</MenuItem>
                                                     <MenuItem value="Karnataka"  >Karnataka</MenuItem>
-                                                    <MenuItem value="Kenmore"  >Kenmore</MenuItem>
                                                     <MenuItem value="Kerala"  >Kerala</MenuItem>
                                                     <MenuItem value="Lakshadweep"  >Lakshadweep</MenuItem>
                                                     <MenuItem value="Madhya Pradesh"  >Madhya Pradesh</MenuItem>
@@ -731,10 +737,7 @@ const Edit = () => {
                                                     <MenuItem value="Meghalaya"  >Meghalaya</MenuItem>
                                                     <MenuItem value="Mizoram"  >Mizoram</MenuItem>
                                                     <MenuItem value="Nagaland"  >Nagaland</MenuItem>
-                                                    <MenuItem value="Narora"  >Narora</MenuItem>
-                                                    <MenuItem value="Natwar"  >Natwar</MenuItem>
                                                     <MenuItem value="Odisha"  >Odisha</MenuItem>
-                                                    <MenuItem value="Paschim Medinipur"  >Paschim Medinipur</MenuItem>
                                                     <MenuItem value="Pondicherry"  >Pondicherry</MenuItem>
                                                     <MenuItem value="Punjab"  >Punjab</MenuItem>
                                                     <MenuItem value="Rajasthan"  >Rajasthan</MenuItem>
@@ -744,7 +747,6 @@ const Edit = () => {
                                                     <MenuItem value="Tripura"  >Tripura</MenuItem>
                                                     <MenuItem value="Uttar Pradesh"  >Uttar Pradesh</MenuItem>
                                                     <MenuItem value="Uttarakhand"  >Uttarakhand</MenuItem>
-                                                    <MenuItem value="Vaishali"  >Vaishali</MenuItem>
                                                     <MenuItem value="West Bengal"  >West Bengal</MenuItem>
                                                 </Select>
                                             </div>

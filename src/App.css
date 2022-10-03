@@ -715,4 +715,8 @@ th {
         height: 1500px;
     }
 
+    .formBox {
+        flex-direction: column;
+    }
+
 }
