@@ -45,6 +45,7 @@ const Notification = () => {
     const [loading, setLoading] = useState(false);
     const [users, setUsers] = useState<UsersList[]>([]);
     const isMounted = useRef(false);
+    const [noData, setNoData] = useState(false);
 
 
     useEffect(() => {
@@ -54,8 +55,11 @@ const Notification = () => {
                 await axios.get(`/api/application/fetch-news`).then((response) => {
                     if (!isMounted.current) {
                         const { body } = response.data;
+                        if (!body.length) {
+                            setNoData(true);
+                        }
                         setUsers(body);
-                        console.log(body);
+
 
                     }
                 });
@@ -86,25 +90,31 @@ const Notification = () => {
                     <h1 style={{ fontSize: '2rem' }}> What's new</h1>
                 </div>
                 {
-                    loading ? (
-                        <Box
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                height: '100vh'
-                            }}
-                        >
-                            <CircularProgress />
-                        </Box>
+                    noData ? (
+                        <div className="text">
+                            <p className='textPara'>No News Found!</p>
+                        </div>
 
                     ) : (
-
-                        <Body>
-
+                        <>
                             {
-                                users.length > 0 ? (
-                                    <>
+                                loading ? (
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            height: '100vh'
+                                        }}
+                                    >
+                                        <CircularProgress />
+                                    </Box>
+
+                                ) : (
+
+                                    <Body>
+
+
                                         {
                                             users.map((item, id) => {
                                                 return (
@@ -116,17 +126,14 @@ const Notification = () => {
                                                 )
                                             })
                                         }
-                                    </>
-                                ) : (
-                                    <div className="text">
-                                        <p className='textPara'>No News Found!</p>
-                                    </div>
+
+                                    </Body>
+
+
+
                                 )
                             }
-                        </Body>
-
-
-
+                        </>
                     )
                 }
             </Wrapper>
