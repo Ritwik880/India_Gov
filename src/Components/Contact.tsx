@@ -63,6 +63,7 @@ const Contact = () => {
             });
             toast.success('Success');
             reset();
+            setPhoneNumber('')
         } catch (error: any) {
             toast.error("Something went wrong!");
         }

@@ -87,10 +87,10 @@ const MyApplicationOther = () => {
             }
             );
             const { body } = res.data;
-            setUsers(body);
-            setLoading(false);
             toast.success('Success');
             reset();
+            setUsers(body);
+            setLoading(false);
 
         } catch (error: any) {
             setLoading(false);
@@ -118,7 +118,7 @@ const MyApplicationOther = () => {
     }
 
 
-    const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: number) => {
+    const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: string) => {
         const url = 'http://localhost:5173/thankyou';
 
         var amount;
@@ -160,7 +160,7 @@ const MyApplicationOther = () => {
                 .then((response) => {
                     const { body } = response.data;
                     window.open(body);
-                    navigate('/thankyou', { state: { applicationId, phoneNumber, order_Id } })
+                    // navigate('/thankyou', { state: { applicationId, phoneNumber, order_Id } })
 
 
                 });

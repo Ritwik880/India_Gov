@@ -120,7 +120,7 @@ const MyApplication = () => {
 
 
 
-    const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: number) => {
+    const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: string) => {
         const url = 'http://localhost:5173/thankyou';
 
         var amount;
@@ -162,7 +162,7 @@ const MyApplication = () => {
                 .then((response) => {
                     const { body } = response.data;
                     window.open(body);
-                    navigate('/thankyou', { state: { applicationId, phoneNumber, order_Id } })
+                    // navigate('/thankyou', { state: { applicationId, phoneNumber, order_Id } })
 
 
                 });
