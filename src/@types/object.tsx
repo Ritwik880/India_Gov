@@ -213,6 +213,8 @@ export type ProfileValues = {
     motherName: string;
     pancard: string;
     password: string;
+    otherCategory: string;
+    otherReligion: string;
     paymentStatus: boolean;
     permanentAddress: {
         area: string;
