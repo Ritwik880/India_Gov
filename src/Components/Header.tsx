@@ -27,7 +27,7 @@ const Header = () => {
                             <Nav.Link className='listItems' onClick={() => navigate('/gallery')}>GALLERY</Nav.Link>
                             <Nav.Link className='listItems' onClick={() => navigate('/contact')}>CONTACT US</Nav.Link>
                             <Nav.Link className='listItems' onClick={() => navigate('/login')}>LOGIN</Nav.Link>
-                            <Nav.Link className='listItems' onClick={() => navigate('/my-application-others')}>My Application</Nav.Link>
+                            <Nav.Link className='listItems' onClick={() => navigate('/my-application-others')}>MY APPLICATION</Nav.Link>
 
                         </Nav>
                     </Navbar.Collapse>

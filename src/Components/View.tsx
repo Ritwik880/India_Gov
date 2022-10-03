@@ -789,11 +789,11 @@ const View = () => {
                                                                         <div>
                                                                             <Files
                                                                                 className="files-dropzone"
-
+                                                                                disabled
                                                                                 accepts={['image/*', '.jpeg']}
                                                                                 multiple={false}
 
-                                                                                clickable
+                                                                                clickable={false}
                                                                             >
                                                                                 <AttachmentThumbnail color="primary">
 
@@ -814,7 +814,7 @@ const View = () => {
                                                                                 className="files-dropzone"
                                                                                 accepts={['image/*', '.jpeg']}
                                                                                 multiple={false}
-                                                                                clickable
+                                                                                clickable={false}
                                                                             >
                                                                                 <AttachmentThumbnail color="primary">
 

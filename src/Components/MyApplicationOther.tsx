@@ -193,7 +193,7 @@ const MyApplicationOther = () => {
             </div>
             <section className='myAppform'>
                 <div className="row container">
-                    <h5 className='redText'>Please Enter your UserId and Registration Number sent on your Mobile Number during registration</h5>
+                    <h5 className='redText'>Please Enter your User Name and Registered Mobile Number</h5>
                     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">

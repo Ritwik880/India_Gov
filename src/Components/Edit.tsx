@@ -256,8 +256,13 @@ const Edit = () => {
                 body[0].motherName
                     ? setValue('motherName', body[0].motherName)
                     : setValue('motherName', '');
-                body[0].dateOfBirth
-                    ? setValue('dateOfBirth', body[0].dateOfBirth)
+                const extractedDate = body[0].dateOfBirth
+                    .split("T")[0]
+                    .split("-")
+                    .reverse()
+                    .join("-");
+                extractedDate
+                    ? setValue('dateOfBirth', extractedDate)
                     : setValue('dateOfBirth', '');
                 body[0].gender ? setValue('gender', body[0].gender) : setValue('gender', '');
 
