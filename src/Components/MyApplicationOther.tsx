@@ -2,14 +2,11 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Button, styled, Box, CircularProgress, Typography } from "@mui/material";
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../utils/axios';
-import { InputAdornment, IconButton } from '@mui/material';
 import FormProvider from './hook-form/FormProvider';
 import RHFTextField from './hook-form/RHFTextField';
 import { Form } from 'react-bootstrap';
 import { BiLock } from 'react-icons/bi';
 import { IoCallOutline } from 'react-icons/io5';
-import Iconify from './Iconify';
-import { useDispatch } from '../redux/store';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -55,28 +52,23 @@ type MyApplicationType = {
     paymentStatus: boolean;
 
 };
-const MyApplication = () => {
+
+const MyApplicationOther = () => {
     const [loading, setLoading] = useState(false);
+    const [applicationId, setApplicationId] = useState('');
     const [hide, setHide] = useState(true);
     const [users, setUsers] = useState<MyApplicationType[]>([]);
-
     const { state }: { state: any } = useLocation();
-
     const navigate = useNavigate();
-    const isMounted = useRef(false);
-    const [showPassword, setShowPassword] = useState(false);
     const [userId, setUserId] = useState('');
-    // const [userProfileId, setUserProfileId] = useState<MyApplicationType>({
-    //     applicationId: ''
-    // });
-    const dispatch = useDispatch();
 
     const ProfileSchema = Yup.object().shape({
-        applicationId: Yup.string().required('Registration Number is required'),
+        // applicationId: Yup.string().required('Registration Number is required'),
     });
 
     const defaultValues = {
-        applicationId: '',
+        // applicationId: '',
+
 
     };
     const methods = useForm<ProfileValuesProps>({
@@ -84,40 +76,46 @@ const MyApplication = () => {
         defaultValues,
     });
 
+    const { handleSubmit, reset } = methods;
 
-
-
-    useEffect(() => {
-        const getUser = async () => {
-            setLoading(true);
-
-
-            try {
-                await axios.post(`/api/application/fetch-application-details`,
-                    {
-                        applicationId: [state?.applicationId],
-                        userId: state?.userId,
-
-                    }
-
-                ).then((response) => {
-                    if (!isMounted.current) {
-                        const { body } = response.data;
-                        setUsers(body);
-
-
-                    }
-                });
-                setLoading(false);
-            } catch (error) {
-                setLoading(false);
-                console.error(error);
+    const onSubmit = async () => {
+        setLoading(true);
+        try {
+            const res = await axios.post('/api/application/fetch-application-details', {
+                userId: userId,
+                applicationId: [applicationId],
             }
-        };
-        getUser();
-    }, []);
+            );
+            const { body } = res.data;
+            setUsers(body);
+            setLoading(false);
+            toast.success('Success');
+            reset();
+
+        } catch (error: any) {
+            setLoading(false);
+            toast.error("Something went wrong!");
+        }
 
 
+
+    }
+
+
+    const handleMobileNumber = (e: any) => {
+        if (userId.length >= 10) {
+            toast.error('Mobile Number should be of 10 digit!');
+
+        }
+        else if (userId.length < 0) {
+            toast.error('Invalid Mobile Number!');
+
+        }
+        else {
+            setUserId(e.target.value)
+        }
+
+    }
 
 
     const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: number) => {
@@ -193,6 +191,28 @@ const MyApplication = () => {
                     </div>
                 </div>
             </div>
+            <section className='myAppform'>
+                <div className="row container">
+                    <h5 className='redText'>Please Enter your UserId and Registration Number sent on your Mobile Number during registration</h5>
+                    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label className='formLabel'> <IoCallOutline className='signupIcon' />
+                                Enter Your Number</Form.Label>
+
+                            <RHFTextField type='number' value={userId} onChange={handleMobileNumber} name="userId" label="" placeholder='Enter your number*' inputProps={{ maxLength: 10 }} required />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label className='formLabel'> <BiLock className='signupIcon' />
+                                Registration Number</Form.Label>
+
+                            <RHFTextField name="applicationId" value={applicationId} onChange={(e) => setApplicationId(e.target.value)} label="" placeholder='Enter your Registration Number*' required />
+                        </Form.Group>
+                        <button className='signupBtn' type='submit'>Submit</button>
+                    </FormProvider>
+                </div>
+            </section>
 
             {
                 loading ? (
@@ -209,6 +229,8 @@ const MyApplication = () => {
 
                 ) : (
                     <>
+
+
 
                         <section className='myApp'>
                             <div className="row container">
@@ -343,4 +365,4 @@ const MyApplication = () => {
     )
 }
 
-export default MyApplication
+export default MyApplicationOther

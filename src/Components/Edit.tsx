@@ -232,16 +232,16 @@ const Edit = () => {
 
                 )
                 const { body } = response.data;
-                setId(body[0].academicQualification[0].academicQualificationId);
-                setId2(body[0].academicQualification[1].academicQualificationId);
-                setId3(body[0].academicQualification[2].academicQualificationId);
-                setId4(body[0].higherQualification[0].higherQualificationId);
-                setId5(body[0].higherQualification[1].higherQualificationId);
-                setId6(body[0].experienceDetails[0].experienceDetailId);
-                setId7(body[0].experienceDetails[1].experienceDetailId);
+                setId(body[0].academicQualification[0] ? body[0].academicQualification[0].academicQualificationId : 0);
+                setId2(body[0].academicQualification[1] ? body[0].academicQualification[1].academicQualificationId : 0);
+                setId3(body[0].academicQualification[2] ? body[0].academicQualification[2].academicQualificationId : 0);
+                setId4(body[0].higherQualification[0] ? body[0].higherQualification[0].higherQualificationId : 0);
+                setId5(body[0].higherQualification[1] ? body[0].higherQualification[1].higherQualificationId : 0);
+                setId6(body[0].experienceDetails[0] ? body[0].experienceDetails[0].experienceDetailId : 0);
+                setId7(body[0].experienceDetails[1] ? body[0].experienceDetails[1].experienceDetailId : 0);
                 setPostName(body[0].postName);
-                setPhotoUrl(body[0].uploadPhoto.url);
-                setPhotoSignature(body[0].uploadSignature.url);
+                setPhotoUrl(body[0].uploadPhoto ? body[0].uploadPhoto.url : '');
+                setPhotoSignature(body[0].uploadSignature ? body[0].uploadSignature : '');
                 body[0].applicantName
                     ? setValue('applicantName', body[0].applicantName)
                     : setValue('applicantName', '');

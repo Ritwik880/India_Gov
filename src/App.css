@@ -582,6 +582,20 @@ th {
     padding: 2rem 0;
 }
 
+.myAppform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    width: 50%;
+    margin: auto;
+}
+
+.redText {
+    color: red;
+    padding: 1rem 0;
+}
+
 @media (max-width: 767px) {
     .myAppHead {
         width: 100%;

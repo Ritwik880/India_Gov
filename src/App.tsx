@@ -21,11 +21,12 @@ import Terms from './Components/Terms';
 import ScrollToTop from './Components/ScrollToTop';
 import ForgotPass from './Components/ForgotPass';
 import Disclaimer from './Components/Disclaimer';
-import MyApplication from './Components/MyApplication';
 import View from './Components/View';
 import Edit from './Components/Edit';
 import ThankYou from './Components/ThankYou';
 import LoginMyApplication from './Components/LoginMyApplication';
+import MyApplicationOther from './Components/MyApplicationOther';
+import MyApplication from './Components/MyApplication';
 const App = () => {
   const [loading, setLoading] = useState(false);
 
@@ -69,11 +70,12 @@ const App = () => {
               <Route path='/terms-condition' element={<Terms />}></Route>
               <Route path='/forgot-password' element={<ForgotPass />}></Route>
               <Route path='/disclaimer' element={<Disclaimer />}></Route>
-              <Route path='/my-application' element={<MyApplication />}></Route>
               <Route path='/view-application' element={<View />}></Route>
               <Route path='/edit-application' element={<Edit />}></Route>
               <Route path='/thankyou' element={<ThankYou />}></Route>
               <Route path='/login-my-application' element={<LoginMyApplication />}></Route>
+              <Route path='/my-application-others' element={<MyApplicationOther />}></Route>
+              <Route path='/my-application' element={<MyApplication />}></Route>
             </Routes>
             <Footer />
 

@@ -1,17 +1,9 @@
 import React, { useState } from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from '../redux/store';
-type Proptype = {
-    applicationId: string;
-    userId: number;
-}
-const Header = (props: Proptype) => {
+import { useNavigate } from 'react-router-dom';
+
+const Header = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const profileDetails = useSelector((state) => state.profileView.value);
-    console.log(profileDetails.isLoggedin);
-    const { state }: { state: any } = useLocation();
 
     return (
         <header>
@@ -35,12 +27,8 @@ const Header = (props: Proptype) => {
                             <Nav.Link className='listItems' onClick={() => navigate('/gallery')}>GALLERY</Nav.Link>
                             <Nav.Link className='listItems' onClick={() => navigate('/contact')}>CONTACT US</Nav.Link>
                             <Nav.Link className='listItems' onClick={() => navigate('/login')}>LOGIN</Nav.Link>
+                            <Nav.Link className='listItems' onClick={() => navigate('/my-application-others')}>My Application</Nav.Link>
 
-                            {
-                                profileDetails.isLoggedin === true && (
-                                    <Nav.Link className='listItems' onClick={() => navigate('/my-application')}>My Application</Nav.Link>
-                                )
-                            }
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

@@ -751,11 +751,11 @@ const View = () => {
                                                                                 <tbody className="add_row_div_experience">
 
                                                                                     <tr>
-                                                                                        <td> <RHFTextField disabled name="companyName" value={item.experienceDetails[1].companyName ? item.experienceDetails[1].companyName : ''} label="" placeholder='durationFromCompany Name' /></td>
-                                                                                        <td> <RHFTextField disabled name="designation" value={item.experienceDetails[1].designation ? item.experienceDetails[1].designation : ''} label="" placeholder='Designation' /></td>
-                                                                                        <td> <RHFTextField disabled name="location" value={item.experienceDetails[1].location ? item.experienceDetails[1].location : ''} label="" placeholder='Location' /></td>
-                                                                                        <td> <RHFTextField disabled name="durationFrom" value={item.experienceDetails[1].durationFrom ? item.experienceDetails[1].durationFrom : ''} label="" placeholder='Duration From' /></td>
-                                                                                        <td> <RHFTextField disabled name="durationTo" value={item.experienceDetails[1].durationTo ? item.experienceDetails[1].durationTo : ''} label="" placeholder='Duration To' /></td>
+                                                                                        <td> <RHFTextField disabled name="companyName" value={item.experienceDetails[1] ? item.experienceDetails[1].companyName : ''} label="" placeholder='durationFromCompany Name' /></td>
+                                                                                        <td> <RHFTextField disabled name="designation" value={item.experienceDetails[1] ? item.experienceDetails[1].designation : ''} label="" placeholder='Designation' /></td>
+                                                                                        <td> <RHFTextField disabled name="location" value={item.experienceDetails[1] ? item.experienceDetails[1].location : ''} label="" placeholder='Location' /></td>
+                                                                                        <td> <RHFTextField disabled name="durationFrom" value={item.experienceDetails[1] ? item.experienceDetails[1].durationFrom : ''} label="" placeholder='Duration From' /></td>
+                                                                                        <td> <RHFTextField disabled name="durationTo" value={item.experienceDetails[1] ? item.experienceDetails[1].durationTo : ''} label="" placeholder='Duration To' /></td>
                                                                                     </tr>
 
 

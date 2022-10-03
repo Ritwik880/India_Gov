@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Button, styled, Box, CircularProgress, Typography } from "@mui/material";
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../utils/axios';
+import Header from './Header';
 
 
 
@@ -41,6 +42,7 @@ type MyApplicationType = {
 
 const LoginMyApplication = () => {
     const [loading, setLoading] = useState(false);
+    const [header, setHeader] = useState(false);
     const [users, setUsers] = useState<MyApplicationType[]>([]);
 
     const { state }: { state: any } = useLocation();
@@ -141,8 +143,8 @@ const LoginMyApplication = () => {
         navigate('/view-application', { state: { id, userId } })
 
     }
-    const handleEdit = (id: string, userId: string) => {
-        navigate('/edit-application', { state: { id, userId } })
+    const handleEdit = (id: string, userId: string, postName: string) => {
+        navigate('/edit-application', { state: { id, userId, postName } })
     }
 
 
@@ -151,6 +153,7 @@ const LoginMyApplication = () => {
 
     return (
         <>
+
             <div className="pb-6 d-flex align-items-center about-page">
                 <div className="container d-flex align-items-center">
                     <div className="text-white mx-auto mt-5 upper">
@@ -270,7 +273,7 @@ const LoginMyApplication = () => {
 
                                                             <td>
                                                                 <Div>
-                                                                    <Btn onClick={() => handleEdit(item.applicationId, item.mobileNumber)}>
+                                                                    <Btn onClick={() => handleEdit(item.applicationId, item.mobileNumber, item.postName)}>
                                                                         Edit
                                                                     </Btn>
                                                                 </Div>
@@ -296,6 +299,7 @@ const LoginMyApplication = () => {
                                 </ContentWrapper>
                             )}
                         </div>
+
 
                     </section>
                 )
