@@ -81,13 +81,6 @@ const LoginMyApplication = () => {
     }, []);
 
 
-
-
-
-
-
-    //handlePayment
-    // let order_Id = Math.random().toString(36).substring(2, 9);
     const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: string) => {
         const url = `https://fpci-fe.netlify.app/thankyou`;
         const order_Id = Math.random().toString(36).substring(2, 9);
@@ -111,7 +104,7 @@ const LoginMyApplication = () => {
             default:
                 break;
         }
-
+        setLoading(true);
         try {
             await axios
                 .post(`/api/application/payment-create-order`, {
@@ -128,11 +121,14 @@ const LoginMyApplication = () => {
                 })
                 .then((response) => {
                     const { body } = response.data;
-                    window.open(body)
+                    navigate('/thankyou', { state: { applicationId, phoneNumber, order_Id } })
+                    window.open(`${body}`);
+                    setLoading(false);
 
 
                 });
         } catch (error) {
+            setLoading(false);
             console.log(error);
 
         }
@@ -168,7 +164,7 @@ const LoginMyApplication = () => {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            height: '100vh'
+                            height: '50vh'
                         }}
                     >
                         <CircularProgress />

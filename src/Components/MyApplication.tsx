@@ -144,6 +144,7 @@ const MyApplication = () => {
                 break;
         }
         const order_Id = Math.random().toString(36).substring(2, 9);
+        setLoading(true);
 
         try {
             await axios
@@ -161,12 +162,14 @@ const MyApplication = () => {
                 })
                 .then((response) => {
                     const { body } = response.data;
-                    window.open(body);
-                    // navigate('/thankyou', { state: { applicationId, phoneNumber, order_Id } })
+                    navigate('/thankyou', { state: { applicationId, phoneNumber, order_Id } })
+                    window.open(`${body}`);
+                    setLoading(false);
 
 
                 });
         } catch (error) {
+            setLoading(false);
             console.log(error);
 
         }
@@ -201,7 +204,7 @@ const MyApplication = () => {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            height: '100vh'
+                            height: '50vh'
                         }}
                     >
                         <CircularProgress />

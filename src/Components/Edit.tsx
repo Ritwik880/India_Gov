@@ -71,7 +71,8 @@ const Edit = () => {
     const [id6, setId6] = useState(0);
     const [id7, setId7] = useState(0);
     const [postName, setPostName] = useState("");
-    const [gender, setGender] = useState<ProfileValuesEditProps | null>(null);
+    const [gender, setGender] = useState("");
+    // const [gender, setGender] = useState<ProfileValuesEditProps | null>(null);
     const [category, setCategory] = useState<ProfileValuesEditProps | null>(null);
     const [religion, setReligion] = useState<ProfileValuesEditProps | null>(null);
     // const [statePermanent, setStatePermanent] = useState<ProfileValuesEditProps>;/
@@ -234,9 +235,7 @@ const Edit = () => {
                     {
                         applicationId: [state?.id],
                         userId: state?.userId,
-
                     }
-
                 )
                 const { body } = response.data;
                 setUsers(body);
@@ -472,30 +471,10 @@ const Edit = () => {
 
     }
 
-    const handleChange = (event: SelectChangeEvent, newValue: ProfileValuesEditProps | null) => {
-        if (newValue) {
-            setGender(newValue);
-            setGender({ ...values, gender: event.target.value as string });
-        }
-
-    };
-    const handleChangeCategory = (event: SelectChangeEvent, newValue: ProfileValuesEditProps | null) => {
-        if (newValue) {
-            setCategory(newValue);
-        }
-
-    };
 
 
-    const handleChangeReligion = (event: SelectChangeEvent, newValue: ProfileValuesEditProps | null) => {
-        if (newValue) {
-            setReligion(newValue);
-        }
 
-    };
-    const handleGoBack = (applicationId: string, userId: string) => {
-        navigate('/my-application', { state: { applicationId, userId } })
-    }
+
     return (
         <>
 
@@ -553,13 +532,13 @@ const Edit = () => {
                                             </div>
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <InputLabel id="demo-simple-select-label">Gender</InputLabel>
-                                                <Select fullWidth size='small' labelId='demo-simple-select-label' label="Gender" name='gender' className="form-select" required value='Male' sx={{
+                                                <Select fullWidth size='small' labelId='demo-simple-select-label' label="Gender" name='gender' onChange={e => setValue('gender', e.target.value, { shouldValidate: true })} className="form-select" required value='Male' sx={{
 
                                                     ".MuiOutlinedInput-notchedOutline": {
                                                         border: "none",
                                                     },
                                                 }}>
-                                                    <MenuItem value="Male" selected>Male</MenuItem>
+                                                    <MenuItem value="Male">Male</MenuItem>
                                                     <MenuItem value="Female">Female</MenuItem>
                                                 </Select>
                                             </div>

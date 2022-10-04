@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { Button, styled, Box, CircularProgress, Typography } from "@mui/material";
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../utils/axios';
@@ -10,16 +10,9 @@ import { IoCallOutline } from 'react-icons/io5';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ToastContainer, toast } from "react-toastify";
-// import { useHistory } from 'react-router-dom';
+import { toast } from "react-toastify";
 
-const Btn = styled(Button)(({ theme }) => ({
-    borderRadius: "3px",
-    backgroundColor: '#26335d',
-    color: '#fff',
-    textTransform: 'capitalize'
 
-}));
 
 const Div = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -57,7 +50,6 @@ type MyApplicationType = {
 const MyApplicationOther = () => {
     const [loading, setLoading] = useState(false);
     const [applicationId, setApplicationId] = useState('');
-    const [hide, setHide] = useState(true);
     const [users, setUsers] = useState<MyApplicationType[]>([]);
     const { state }: { state: any } = useLocation();
     const navigate = useNavigate();
@@ -122,10 +114,7 @@ const MyApplicationOther = () => {
 
 
     const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: string) => {
-        // const url = history.push('http://localhost:5173/thankyou');
-        // const url = navigate('/thankyou');
         const order_Id = Math.random().toString(36).substring(2, 9);
-        // const url = `https://b8af79f41056.eu.ngrok.io?order_id=order_Id&order_token=${1}`;
         const url = '';
         var amount;
         switch (state?.category) {
@@ -149,7 +138,7 @@ const MyApplicationOther = () => {
                 break;
         }
 
-
+        setLoading(true);
         try {
             await axios
                 .post(`/api/application/payment-create-order`, {
@@ -166,14 +155,15 @@ const MyApplicationOther = () => {
                 })
                 .then((response) => {
                     const { body } = response.data;
-                    // window.open(body);
-                    navigate('/thankyou', { state: { applicationId, phoneNumber, order_Id } })
+                    navigate('/thankyou', { state: { applicationId, phoneNumber } })
                     window.open(`${body}`);
+                    setLoading(false);
 
 
 
                 });
         } catch (error) {
+            setLoading(false);
             console.log(error);
 
         }
@@ -192,6 +182,11 @@ const MyApplicationOther = () => {
     }
     const handleEdit = (id: string, userId: string, postName: string) => {
         navigate('/edit-application', { state: { id, userId, postName } })
+    }
+
+    const handleDownloadReceipt = async () => {
+        alert('hii')
+
     }
 
 
@@ -236,7 +231,7 @@ const MyApplicationOther = () => {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            height: '100vh'
+                            height: '50vh'
                         }}
                     >
                         <CircularProgress />
@@ -322,12 +317,12 @@ const MyApplicationOther = () => {
                                                                                     {
                                                                                         item.paymentStatus === false ?
                                                                                             <Div>
-                                                                                                <Btn onClick={() => handlePayment(item.applicantName, item.emailId, item.mobileNumber, item.applicationId)}>Proceed to pay</Btn>
+                                                                                                <button className='paidDownload' onClick={() => handlePayment(item.applicantName, item.emailId, item.mobileNumber, item.applicationId)}>Proceed to pay</button>
                                                                                             </Div>
                                                                                             :
                                                                                             <Div>
-                                                                                                <Btn sx={{ marginRight: '1rem' }}>Paid</Btn>
-                                                                                                <Btn>Download Receipt</Btn>
+                                                                                                <button className='paidDownload' style={{ marginRight: '1rem' }}>Paid</button>
+                                                                                                <button onClick={handleDownloadReceipt} className='paidDownload'>Download Receipt</button>
                                                                                             </Div>
                                                                                     }
                                                                                 </>
@@ -337,17 +332,17 @@ const MyApplicationOther = () => {
                                                                 </td>
                                                                 <td>
                                                                     <Div>
-                                                                        <Btn onClick={() => handleView(item.applicationId, item.mobileNumber)}>
+                                                                        <button className='paidDownload' onClick={() => handleView(item.applicationId, item.mobileNumber)}>
                                                                             View/Download
-                                                                        </Btn>
+                                                                        </button>
                                                                     </Div>
                                                                 </td>
 
                                                                 <td>
                                                                     <Div>
-                                                                        <Btn onClick={() => handleEdit(item.applicationId, item.mobileNumber, item.postName)}>
+                                                                        <button className='paidDownload' onClick={() => handleEdit(item.applicationId, item.mobileNumber, item.postName)}>
                                                                             Edit
-                                                                        </Btn>
+                                                                        </button>
                                                                     </Div>
                                                                 </td>
 

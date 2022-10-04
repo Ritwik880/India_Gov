@@ -2,10 +2,7 @@ import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../utils/axios';
 
-type Props = {
-    applicationId: string;
-    mobile: string;
-}
+
 
 const ThankYou = () => {
     const navigate = useNavigate();
@@ -23,7 +20,7 @@ const ThankYou = () => {
                 })
                 .then((response) => {
                     const { body } = response.data;
-                    navigate('/')
+                    navigate('/my-application-others', { state: state?.applicationId, })
 
 
                 });

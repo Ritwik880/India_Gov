@@ -596,6 +596,14 @@ th {
     padding: 1rem 0;
 }
 
+.paidDownload {
+    border-radius: 3px;
+    background-color: #26335d;
+    color: #fff;
+    text-transform: capitalize;
+    padding: 0.2rem 1rem;
+}
+
 @media (max-width: 767px) {
     .myAppHead {
         width: 100%;

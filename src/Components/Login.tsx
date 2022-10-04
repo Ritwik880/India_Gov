@@ -160,7 +160,7 @@ const Login = () => {
                             <button className='signupBtn' type='submit'>Login</button>
 
 
-                            <a className='forgotPassword' onClick={() => navigate('/forgot-password')}>
+                            <a className='forgotPassword' onClick={() => navigate('/forgot-password', { state: { userId } })}>
                                 Forgot password ?
                             </a>
 
