@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ToastContainer, toast } from "react-toastify";
+// import { useHistory } from 'react-router-dom';
 
 const Btn = styled(Button)(({ theme }) => ({
     borderRadius: "3px",
@@ -61,6 +62,8 @@ const MyApplicationOther = () => {
     const { state }: { state: any } = useLocation();
     const navigate = useNavigate();
     const [userId, setUserId] = useState('');
+
+    // let history = useHistory();
 
     const ProfileSchema = Yup.object().shape({
         // applicationId: Yup.string().required('Registration Number is required'),
@@ -119,7 +122,11 @@ const MyApplicationOther = () => {
 
 
     const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: string) => {
-        const url = 'https://fpci-fe.netlify.app/thankyou';
+        // const url = history.push('http://localhost:5173/thankyou');
+        // const url = navigate('/thankyou');
+        const order_Id = Math.random().toString(36).substring(2, 9);
+        // const url = `https://b8af79f41056.eu.ngrok.io?order_id=order_Id&order_token=${1}`;
+        const url = '';
         var amount;
         switch (state?.category) {
             case 'General':
@@ -141,7 +148,7 @@ const MyApplicationOther = () => {
                 amount = 690;
                 break;
         }
-        const order_Id = Math.random().toString(36).substring(2, 9);
+
 
         try {
             await axios
@@ -159,8 +166,10 @@ const MyApplicationOther = () => {
                 })
                 .then((response) => {
                     const { body } = response.data;
-                    window.open(body);
-                    // navigate('/thankyou', { state: { applicationId, phoneNumber, order_Id } })
+                    // window.open(body);
+                    navigate('/thankyou', { state: { applicationId, phoneNumber, order_Id } })
+                    window.open(`${body}`);
+
 
 
                 });
@@ -169,6 +178,12 @@ const MyApplicationOther = () => {
 
         }
     };
+
+    setTimeout(() => {
+
+    }, 8000);
+
+
 
 
     const handleView = (id: string, userId: string) => {

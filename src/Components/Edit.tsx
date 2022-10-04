@@ -15,7 +15,7 @@ import FormProvider from './hook-form/FormProvider';
 import RHFTextField from './hook-form/RHFTextField';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ProfileValuesEditProps, ProfileValues } from '../@types/object';
 // @ts-ignore
 import Files from 'react-files';
@@ -62,6 +62,7 @@ const AttachmentWrapper = styled('div')(({ theme }) => ({
 const Edit = () => {
     const [photoUrl, setPhotoUrl] = useState({});
     const [photoSignature, setPhotoSignature] = useState({});
+    const [users, setUsers] = useState<ProfileValues[]>([]);
     const [id, setId] = useState(0);
     const [id2, setId2] = useState(0);
     const [id3, setId3] = useState(0);
@@ -79,6 +80,7 @@ const Edit = () => {
     const [noExperience, setNoexperience] = useState(false);
     const [loading, setLoading] = useState(false);
     const [refreshFlag, setRefreshFlag] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const { state }: { state: any } = useLocation();
 
@@ -237,6 +239,7 @@ const Edit = () => {
 
                 )
                 const { body } = response.data;
+                setUsers(body);
                 setId(body[0].academicQualification[0] ? body[0].academicQualification[0].academicQualificationId : 0);
                 setId2(body[0].academicQualification[1] ? body[0].academicQualification[1].academicQualificationId : 0);
                 setId3(body[0].academicQualification[2] ? body[0].academicQualification[2].academicQualificationId : 0);
@@ -490,6 +493,9 @@ const Edit = () => {
         }
 
     };
+    const handleGoBack = (applicationId: string, userId: string) => {
+        navigate('/my-application', { state: { applicationId, userId } })
+    }
     return (
         <>
 
@@ -1143,12 +1149,18 @@ const Edit = () => {
 
                                     </div>
 
-                                    <div className="submitForm">
 
-                                        <button className="formSubmit" type='submit'>Save</button>
-
-                                    </div>
                                 </FormProvider>
+
+                                <div className="submitForm" key={id}>
+
+                                    <button className="formSubmit" type='submit'>Save</button>
+                                    <button className="formSubmit" onClick={() => navigate('/my-application-others')}>Go Back</button>
+
+                                </div>
+
+
+
                             </>
 
 

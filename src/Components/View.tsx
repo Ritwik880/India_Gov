@@ -8,7 +8,7 @@ import axios from '../utils/axios';
 import { Select, MenuItem, InputLabel, Typography, styled } from '@mui/material';
 import FormProvider from './hook-form/FormProvider';
 import RHFTextField from './hook-form/RHFTextField';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -141,6 +141,10 @@ const View = () => {
     const handlePrint = (event: any) => {
         event.preventDefault();
         window.print();
+    }
+    const navigate = useNavigate();
+    const handleGoBack = (applicationId: string, userId: string) => {
+        navigate('/my-application', { state: { applicationId, userId } })
     }
     return (
         <>
@@ -832,12 +836,15 @@ const View = () => {
                                                                     </div>
 
                                                                 </div>
-                                                                <div className="submitForm">
 
-                                                                    <button className="formSubmit" onClick={handlePrint}>Print</button>
-
-                                                                </div>
                                                             </FormProvider>
+
+                                                            <div className="submitForm">
+
+                                                                <button className="formSubmit" onClick={handlePrint}>Print</button>
+                                                                <button className="formSubmit" onClick={() => handleGoBack(item.applicationId, item.mobileNumber)}>Go Back</button>
+
+                                                            </div>
 
 
                                                         </div>
