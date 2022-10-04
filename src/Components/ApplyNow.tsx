@@ -421,13 +421,13 @@ const ApplyNow = () => {
     }
     const handleMobileNumber = (e: any) => {
         if (mobileNumber.length >= 10) {
-            toast.error('Mobile Number should be of 10 digit!');
+            toast.info('Mobile Number should be of 10 digit!');
 
         }
 
         else if (mobileNumber.length === 8) {
             setMobileNumber(e.target.value)
-            toast.error('Mobile Number should be of 10 digit!');
+            toast.info('Mobile Number should be of 10 digit!');
         }
         else {
             setMobileNumber(e.target.value)
@@ -437,12 +437,12 @@ const ApplyNow = () => {
     const handleAdharNumber = (e: any) => {
         if (adhar.length !== 0) {
             if (adhar.length === 12) {
-                toast.error('Invalid adhar number');
+                toast.info('Please enter a valid Aadhar Number');
 
             }
             else if (adhar.length === 10) {
                 setAdhar(e.target.value)
-                toast.error('Invalid adhar number');
+                toast.info('Please enter a valid Aadhar Number');
             }
             else {
                 setAdhar(e.target.value)
@@ -463,12 +463,12 @@ const ApplyNow = () => {
 
     const handleAlternateMobileNumber = (e: any) => {
         if (alternateMobileNumber.length >= 10) {
-            toast.error('Alternate Mobile Number should be of 10 digit!');
+            toast.info('Alternate Mobile Number should be of 10 digit!');
 
         }
         else if (alternateMobileNumber.length === 8) {
             setAlternateMobileNumber(e.target.value)
-            toast.error('Mobile Number should be of 10 digit!');
+            toast.info('Mobile Number should be of 10 digit!');
         }
         else {
             setAlternateMobileNumber(e.target.value)
@@ -477,19 +477,10 @@ const ApplyNow = () => {
 
     }
 
-    // const handlePanNoChange = (e: any) => {
-    //     if (panNo.length >= 10) {
-    //         toast.error('Pan should be of 10 digit!');
 
-    //     }
-    //     else {
-    //         setPanNo(e.target.value)
-    //     }
-
-    // }
     const handleChangePresentPinCode = (e: any) => {
         if (pinCodePresent.length === 7) {
-            toast.error('Pincode should be of 6 digit!');
+            toast.info('Pincode should be of 6 digit!');
 
         }
 
@@ -500,7 +491,7 @@ const ApplyNow = () => {
     }
     const handleChangePermanentPinCode = (e: any) => {
         if (pincode.length === 7) {
-            toast.error('Pincode should be of 6 digit!');
+            toast.info('Pincode should be of 6 digit!');
 
         }
         else {

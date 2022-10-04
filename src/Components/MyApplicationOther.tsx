@@ -43,6 +43,7 @@ type MyApplicationType = {
     createdDate: string;
     applicationId: string;
     postName: string;
+    category: string;
     paymentStatus: boolean;
 
 };
@@ -169,9 +170,7 @@ const MyApplicationOther = () => {
         }
     };
 
-    setTimeout(() => {
 
-    }, 8000);
 
 
 
@@ -184,8 +183,8 @@ const MyApplicationOther = () => {
         navigate('/edit-application', { state: { id, userId, postName } })
     }
 
-    const handleDownloadReceipt = async () => {
-        alert('hii')
+    const handleDownloadReceipt = async (applicationId: string, userId: string, category: string) => {
+        navigate('/download-receipt', { state: { applicationId, userId, category } })
 
     }
 
@@ -203,7 +202,7 @@ const MyApplicationOther = () => {
             </div>
             <section className='myAppform'>
                 <div className="row container">
-                    <h5 className='redText'>Please Enter your User Name and Registered Mobile Number</h5>
+                    <h5 className='redText'>Enter your Mobile Number and Registration Number sent on your Registered Mobile Number and Email Address</h5>
                     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -322,7 +321,7 @@ const MyApplicationOther = () => {
                                                                                             :
                                                                                             <Div>
                                                                                                 <button className='paidDownload' style={{ marginRight: '1rem' }}>Paid</button>
-                                                                                                <button onClick={handleDownloadReceipt} className='paidDownload'>Download Receipt</button>
+                                                                                                <button onClick={() => handleDownloadReceipt(item.applicationId, item.mobileNumber, item.category)} className='paidDownload'>Download Receipt</button>
                                                                                             </Div>
                                                                                     }
                                                                                 </>

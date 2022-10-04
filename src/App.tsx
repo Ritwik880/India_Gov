@@ -27,6 +27,7 @@ import ThankYou from './Components/ThankYou';
 import LoginMyApplication from './Components/LoginMyApplication';
 import MyApplicationOther from './Components/MyApplicationOther';
 import MyApplication from './Components/MyApplication';
+import DownloadReceipt from './Components/DownloadReciept';
 const App = () => {
   const [loading, setLoading] = useState(false);
 
@@ -76,6 +77,7 @@ const App = () => {
               <Route path='/login-my-application' element={<LoginMyApplication />}></Route>
               <Route path='/my-application-others' element={<MyApplicationOther />}></Route>
               <Route path='/my-application' element={<MyApplication />}></Route>
+              <Route path='/download-receipt' element={<DownloadReceipt />}></Route>
             </Routes>
             <Footer />
 

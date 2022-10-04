@@ -47,7 +47,7 @@ const ForgotPass = () => {
 
             });
             const { message } = response.data;
-            toast.success(message);
+            toast.success('The new password has been sent on your Registered Email Address!');
         } catch (error: any) {
             toast.error("Something went wrong!");
         }
