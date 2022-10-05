@@ -38,7 +38,7 @@ const ForgotPass = () => {
 
 
 
-    const onSubmit = async () => {
+    const onSubmit = async (data: ProfileValuesProps) => {
         try {
 
             const response = await axios.post('/api/application/forget-password', {
@@ -52,22 +52,21 @@ const ForgotPass = () => {
             toast.error("Something went wrong!");
         }
     }
-
-
-    const handleMobileNumber = (e: any) => {
-        if (userId.length >= 10) {
-            toast.error('Mobile Number should be of 10 digit!');
-
+    var letterNumber = /^[A-Za-z]*$/;
+    const handleChange = (e: any) => {
+        if (e.target.value < 0) {
+            setUserId('0')
         }
-        else if (userId.length < 0) {
-            toast.error('Invalid Mobile Number!');
+        // else if (userId.matchAll(letterNumber)) {
+        //     setUserId('0')
 
-        }
+        // }
         else {
             setUserId(e.target.value)
         }
-
     }
+
+
 
     return (
         <>
@@ -82,7 +81,8 @@ const ForgotPass = () => {
                             <Form.Group className="mb-3" controlId="formBasicPassword">
                                 <Form.Label className='formLabel'> <BiLock className='signupIcon' />
                                     Enter your Registered Mobile Number</Form.Label>
-                                <RHFTextField type='number' name="userId" label="" placeholder='Enter your number*' inputProps={{ maxLength: 10 }} required />
+                                <RHFTextField name="userId" value={userId} onChange={handleChange} label="" placeholder='Enter your number*' inputProps={{ maxlength: 10 }}
+                                    required />
                             </Form.Group>
 
 

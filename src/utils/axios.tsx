@@ -5,7 +5,7 @@ import { HOST_API } from '../../config'
 // ----------------------------------------------------------------------
 
 const axiosInstance = axios.create({
-    baseURL: 'https://fpci-be.herokuapp.com',
+    baseURL: 'http://localhost:9090',
 });
 
 axiosInstance.interceptors.response.use(

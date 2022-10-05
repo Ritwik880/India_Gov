@@ -213,9 +213,9 @@ const Edit = () => {
 
                     },
                 ],
-                alternateMobileNumber: parseInt(data.alternateMobileNumber),
+                alternateMobileNumber: data.alternateMobileNumber,
                 alternateEmailId: data.alternateEmailId,
-                aadharNumber: parseInt(data.aadharNumber),
+                aadharNumber: data.aadharNumber,
                 pancard: data.pancard,
             });
             toast.success('Success');
@@ -375,7 +375,7 @@ const Edit = () => {
                     : setValue('academicQualification.2.passingYear', '');
                 body[0].academicQualification[2].percentage
                     ? setValue('academicQualification.2.percentage', body[0].academicQualification[2].percentage)
-                    : setValue('academicQualification.2.percentage', ''); console.log(body[0].academicQualification[2].board);
+                    : setValue('academicQualification.2.percentage', '');
 
 
                 body[0].higherQualification[0].courseName
@@ -392,7 +392,7 @@ const Edit = () => {
                     : setValue('higherQualification.0.percentage', '');
                 body[0].higherQualification[0].specialization
                     ? setValue('higherQualification.0.specialization', body[0].higherQualification[0].specialization)
-                    : setValue('higherQualification.0.specialization', ''); console.log(body[0].higherQualification[0].specialization);
+                    : setValue('higherQualification.0.specialization', '');
 
                 body[0].higherQualification[1].courseName
                     ? setValue('higherQualification.1.courseName', body[0].higherQualification[1].courseName)
@@ -408,8 +408,7 @@ const Edit = () => {
                     : setValue('higherQualification.1.percentage', '');
                 body[0].higherQualification[1].specialization
                     ? setValue('higherQualification.1.specialization', body[0].higherQualification[1].specialization)
-                    : setValue('higherQualification.1.specialization', ''); console.log(body[0].higherQualification[1].specialization);
-
+                    : setValue('higherQualification.1.specialization', '');
                 body[0].experienceDetails[0].companyName
                     ? setValue('experienceDetails.0.companyName', body[0].experienceDetails[0].companyName)
                     : setValue('experienceDetails.0.companyName', '');
@@ -422,9 +421,7 @@ const Edit = () => {
                 body[0].experienceDetails[0].durationTo
                     ? setValue('experienceDetails.0.durationTo', body[0].experienceDetails[0].durationTo)
                     : setValue('experienceDetails.0.durationTo', '');
-                body[0].experienceDetails[0].specialization
-                    ? setValue('experienceDetails.0.experienced', body[0].experienceDetails[0].experienced)
-                    : setValue('experienceDetails.0.experienced', '');
+
                 body[0].experienceDetails[0].location
                     ? setValue('experienceDetails.0.location', body[0].experienceDetails[0].location)
                     : setValue('experienceDetails.0.location', '');
@@ -527,7 +524,7 @@ const Edit = () => {
                                         <div className="formBox">
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputEmail1" className="form-label">Date Of Birth <span className="must-filed">*</span></label>
-                                                <RHFTextField name="dateOfBirth" label="" placeholder='dd/mm/yyyy' />
+                                                <RHFTextField name="dateOfBirth" label="" type='date' placeholder='dd/mm/yyyy' />
 
                                             </div>
                                             <div className="mb-3 col-lg-3 col-md-12">
@@ -662,7 +659,7 @@ const Edit = () => {
                                         <div className="formBox">
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-                                                <RHFTextField name="permanentAddress.pincode" type='number' label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
+                                                <RHFTextField name="permanentAddress.pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
 
                                             </div>
                                         </div>
@@ -751,7 +748,7 @@ const Edit = () => {
                                         <div className="formBox">
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-                                                <RHFTextField type='number' name="presentAddress.pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
+                                                <RHFTextField name="presentAddress.pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} />
                                             </div>
                                         </div>
 
@@ -766,11 +763,11 @@ const Edit = () => {
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">Mobile No. <span className="must-filed">*</span></label>
 
-                                                <RHFTextField disabled name="mobileNumber" type='number' label="" placeholder='Mobile No.' inputProps={{ maxLength: 10 }} />
+                                                <RHFTextField disabled name="mobileNumber" label="" placeholder='Mobile No.' inputProps={{ maxLength: 10 }} />
                                             </div>
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">Aadhar No. <span className="must-filed">*</span></label>
-                                                <RHFTextField name="aadharNumber" type='number' label="" placeholder='Aadhar No.' inputProps={{ maxLength: 12 }} required />
+                                                <RHFTextField name="aadharNumber" label="" placeholder='Aadhar No.' inputProps={{ maxLength: 12 }} required />
                                             </div>
 
                                         </div>
@@ -784,7 +781,7 @@ const Edit = () => {
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">Alternate Mobile No.</label>
 
-                                                <RHFTextField name="alternateMobileNumber" type='number' label="" placeholder='Alternate Mobile No.' inputProps={{ maxLength: 10 }} />
+                                                <RHFTextField name="alternateMobileNumber" label="" placeholder='Alternate Mobile No.' inputProps={{ maxLength: 10 }} />
                                             </div>
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">Pan No.</label>
@@ -987,156 +984,106 @@ const Edit = () => {
                                         <div className="formBox">
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputEmail1" className="form-label">Experience</label>
-                                                {
-                                                    hideForm &&
-                                                    <Select size='small' sx={{
 
-                                                        ".MuiOutlinedInput-notchedOutline": {
-                                                            border: "none",
-                                                        },
-                                                    }} className="form-control select-experience" name="experienceDetails.0.experienced" >
+                                                <Select size='small' sx={{
 
-                                                        <MenuItem value="Yes" selected>Yes</MenuItem>
-                                                        <MenuItem value="No" onClick={hanldeNo}>No</MenuItem>
-                                                    </Select>
-                                                }
-                                                {
-                                                    noExperience &&
-                                                    <RHFTextField type="number" name="experienceDetails.0.totalExperience" label="" placeholder='No Experience' />
-                                                }
+                                                    ".MuiOutlinedInput-notchedOutline": {
+                                                        border: "none",
+                                                    },
+                                                }} className="form-control select-experience" name="experienceDetails.0.experienced" >
+
+                                                    <MenuItem value="Yes" onClick={() => setHideForm(true)}>Yes</MenuItem>
+                                                    <MenuItem value="No" onClick={hanldeNo}>No</MenuItem>
+                                                </Select>
+
+
 
                                             </div>
-                                            {hideForm && <div className="mb-3 col-lg-3 col-md-12">
+                                            <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">Total Experience (IN YEAR)</label>
-                                                <RHFTextField type="number" name="experienceDetails.0.totalExperience" label="" placeholder='Total Experience (IN YEAR)' />
-                                            </div>}
-
-
-                                        </div>
-
-                                        <div className="formBox">
-
-                                            <div className="form-group col-md-12 col-lg-12 tableFlow">
-                                                <table className="table table-bordered table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Company Name</th>
-                                                            <th>Designation</th>
-                                                            <th>Location</th>
-                                                            <th>Duration From</th>
-                                                            <th>Duration To</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody className="add_row_div_experience">
-
-                                                        <tr>
-                                                            <td> <RHFTextField name="experienceDetails.0.companyName" label="" placeholder='Company Name' /></td>
-                                                            <td> <RHFTextField name="experienceDetails.0.designation" label="" placeholder='Designation' /></td>
-                                                            <td> <RHFTextField name="experienceDetails.0.location" label="" placeholder='Location' /></td>
-                                                            <td> <RHFTextField name="experienceDetails.0.durationFrom" label="" placeholder='Duration From' /></td>
-                                                            <td> <RHFTextField name="experienceDetails.0.durationTo" label="" placeholder='Duration To' /></td>
-                                                        </tr>
-
-
-                                                    </tbody>
-                                                </table>
-
+                                                <RHFTextField inputProps={{ maxLength: 2 }} name="experienceDetails.0.totalExperience" label="" placeholder='Total Experience (IN YEAR)' />
                                             </div>
 
 
                                         </div>
 
-                                        <div className="formBox">
+                                        {
+                                            hideForm && (
+                                                <>
+                                                    <div className="formBox">
+                                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                            <table className="table table-bordered table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Company Name</th>
+                                                                        <th>Designation</th>
+                                                                        <th>Location</th>
+                                                                        <th>Duration From</th>
+                                                                        <th>Duration To</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody className="add_row_div_experience">
 
-                                            <div className="form-group col-md-12 col-lg-12 tableFlow">
-                                                <table className="table table-bordered table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Company Name</th>
-                                                            <th>Designation</th>
-                                                            <th>Location</th>
-                                                            <th>Duration From</th>
-                                                            <th>Duration To</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody className="add_row_div_experience">
+                                                                    <tr>
+                                                                        <td> <RHFTextField name="experienceDetails.0.companyName" label="" placeholder='Company Name' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.0.designation" label="" placeholder='Designation' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.0.location" label="" placeholder='Location' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.0.durationFrom" label="" placeholder='Duration From' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.0.durationTo" label="" placeholder='Duration To' /></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
 
-                                                        <tr>
-                                                            <td> <RHFTextField name="experienceDetails.1.companyName" label="" placeholder='Company Name' /></td>
-                                                            <td> <RHFTextField name="experienceDetails.1.designation" label="" placeholder='Designation' /></td>
-                                                            <td> <RHFTextField name="experienceDetails.1.location" label="" placeholder='Location' /></td>
-                                                            <td> <RHFTextField name="experienceDetails.1.durationFrom" label="" placeholder='Duration From' /></td>
-                                                            <td> <RHFTextField name="experienceDetails.1.durationTo" label="" placeholder='Duration To' /></td>
-                                                        </tr>
+                                                    <div className="formBox">
+                                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                            <table className="table table-bordered table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Company Name</th>
+                                                                        <th>Designation</th>
+                                                                        <th>Location</th>
+                                                                        <th>Duration From</th>
+                                                                        <th>Duration To</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody className="add_row_div_experience">
+
+                                                                    <tr>
+                                                                        <td> <RHFTextField name="experienceDetails.1.companyName" label="" placeholder='Company Name' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.1.designation" label="" placeholder='Designation' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.1.location" label="" placeholder='Location' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.1.durationFrom" label="" placeholder='Duration From' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.1.durationTo" label="" placeholder='Duration To' /></td>
+                                                                    </tr>
 
 
-                                                    </tbody>
-                                                </table>
+                                                                </tbody>
+                                                            </table>
 
-                                            </div>
-
-
-                                        </div>
+                                                        </div>
 
 
+                                                    </div>
+                                                </>
+                                            )
+                                        }
 
-                                        {/* <div className="file">
-                                            <div>
-                                                <Files
-                                                    className="files-dropzone"
 
-                                                    accepts={['image/*', '.jpeg']}
-                                                    multiple={false}
 
-                                                    clickable
-                                                >
-                                                    <AttachmentThumbnail color="primary">
 
-                                                        <ImgStyle src={String(photoUrl)} alt="img" />
+                                    </div>
+                                    <div className="submitForm">
 
-                                                    </AttachmentThumbnail>
-                                                    <AttachmentWrapper>
-                                                        <AddBoxOutlinedIcon color="primary" />
-                                                        <Typography px={1} variant="body2">
-                                                            Upload Photo
-                                                        </Typography>
-                                                    </AttachmentWrapper>
-                                                </Files>
-                                            </div>
-
-                                            <div style={{ marginLeft: '2rem' }}>
-                                                <Files
-                                                    className="files-dropzone"
-                                                    accepts={['image/*', '.jpeg']}
-                                                    multiple={false}
-                                                    clickable
-                                                >
-                                                    <AttachmentThumbnail color="primary">
-
-                                                        <ImgStyle src={String(photoSignature)} alt="img" />
-
-                                                    </AttachmentThumbnail>
-                                                    <AttachmentWrapper>
-                                                        <AddBoxOutlinedIcon color="primary" />
-                                                        <Typography px={1} variant="body2">
-                                                            Upload Signature
-                                                        </Typography>
-                                                    </AttachmentWrapper>
-                                                </Files>
-                                            </div>
-                                        </div> */}
+                                        <button className="formSubmit" type='submit'>Save</button>
+                                        <button className="formSubmit" onClick={() => navigate('/my-application-others')}>Go Back</button>
 
                                     </div>
 
-
                                 </FormProvider>
 
-                                <div className="submitForm" key={id}>
 
-                                    <button className="formSubmit" type='submit'>Save</button>
-                                    <button className="formSubmit" onClick={() => navigate('/my-application-others')}>Go Back</button>
-
-                                </div>
 
 
 

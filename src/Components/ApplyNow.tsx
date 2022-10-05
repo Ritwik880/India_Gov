@@ -19,7 +19,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ProfileValuesProps } from '../@types/object';
-
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 
 
 
@@ -89,6 +89,8 @@ const ApplyNow = () => {
     const [uploadFileSignature, setUploadFileSignature] = useState<string | Blob>('');
     const [uploadFileSrc, setUploadFileSrc] = useState<string>('');
     const [uploadFileSignatureSrc, setUploadSignatureSrc] = useState<string>('');
+
+
 
 
     //diploma
@@ -792,7 +794,7 @@ const ApplyNow = () => {
                                     <div className="formBox">
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-                                            <RHFTextField name="pincode" value={pincode} onChange={handleChangePermanentPinCode} type='number' label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} required />
+                                            <RHFTextField name="pincode" value={pincode} onChange={(e) => setPinCode(e.target.value)} label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} required />
 
                                         </div>
                                     </div>
@@ -881,7 +883,7 @@ const ApplyNow = () => {
                                     <div className="formBox">
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-                                            <RHFTextField type='number' value={pinCodePresent} onChange={handleChangePresentPinCode} name="pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} required />
+                                            <RHFTextField value={pinCodePresent} onChange={(e) => setPinCodePresent(e.target.value)} name="pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} required />
                                         </div>
                                     </div>
 
@@ -896,11 +898,11 @@ const ApplyNow = () => {
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Mobile No. <span className="must-filed">*</span></label>
 
-                                            <RHFTextField name="mobileNumber" type='number' value={mobileNumber} onChange={handleMobileNumber} label="" placeholder='Mobile No.' inputProps={{ maxLength: 10 }} required />
+                                            <RHFTextField name="mobileNumber" value={mobileNumber} onChange={(e) => setMobileNumber(e.target.value)} label="" placeholder='Mobile No.' inputProps={{ maxLength: 10 }} required />
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Aadhar No. <span className="must-filed">*</span></label>
-                                            <RHFTextField name="aadharNumber" type='number' value={adhar} onChange={handleAdharNumber} label="" placeholder='Aadhar No.' inputProps={{ maxLength: 12 }} required />
+                                            <RHFTextField name="aadharNumber" value={adhar} onChange={(e) => setAdhar(e.target.value)} label="" placeholder='Aadhar No.' inputProps={{ maxLength: 12 }} required />
                                         </div>
 
                                     </div>

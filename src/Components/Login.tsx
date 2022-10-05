@@ -98,18 +98,12 @@ const Login = () => {
 
 
     const handleMobileNumber = (e: any) => {
-        if (userId.length >= 10) {
-            toast.error('Mobile Number should be of 10 digit!');
-
-        }
-        else if (userId.length < 0) {
-            toast.error('Invalid Mobile Number!');
-
+        if (e.target.value < 0) {
+            setUserId('0')
         }
         else {
             setUserId(e.target.value)
         }
-
     }
 
 
@@ -128,7 +122,7 @@ const Login = () => {
                                 <Form.Label className='formLabel'> <IoCallOutline className='signupIcon' />
                                     Enter Your Number</Form.Label>
 
-                                <RHFTextField type='number' value={userId} onChange={handleMobileNumber} name="userId" label="" placeholder='Enter your number*' inputProps={{ maxLength: 10 }} required />
+                                <RHFTextField value={userId} onChange={handleMobileNumber} name="userId" label="" placeholder='Enter your number*' inputProps={{ maxLength: 10 }} required />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicPassword">

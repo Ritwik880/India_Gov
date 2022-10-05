@@ -335,7 +335,6 @@ export type ProfileValuesEditProps = {
     otherReligion: string;
     dateOfBirth: string;
     emailId: string;
-    experienced: string;
     fatherName: string;
     gender: string;
     mobileNumber: string;
