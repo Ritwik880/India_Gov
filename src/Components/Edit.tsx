@@ -1,13 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import {
     CircularProgress,
     Box,
     styled,
-    Typography,
-    SelectChangeEvent,
 } from "@mui/material";
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import axios from '../utils/axios';
 import { ToastContainer, toast } from "react-toastify";
 import { Select, MenuItem, InputLabel } from '@mui/material';
@@ -17,47 +14,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ProfileValuesEditProps, ProfileValues } from '../@types/object';
-// @ts-ignore
-import Files from 'react-files';
 
 
-
-const ContentWrapper = styled("div")(({ theme }) => ({
-    backgroundColor: theme.palette.grey[200],
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    marginTop: "5%",
-    padding: '1rem'
-}));
-const AttachmentThumbnail = styled('div')(({ theme }) => ({
-    background: theme.palette.grey[200],
-    borderRadius: '15px',
-    height: '96px',
-    width: '147px',
-    marginBottom: theme.spacing(1),
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    [theme.breakpoints.down('sm')]: {
-        height: '90px',
-        width: '120px',
-    },
-}));
-const ImgStyle = styled('img')(({ theme }) => ({
-    borderRadius: '15px',
-    height: '80px',
-    width: '130px',
-    objectFit: 'cover',
-}));
-
-const AttachmentWrapper = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    cursor: 'pointer',
-    marginBottom: theme.spacing(2),
-}));
 
 const Edit = () => {
     const [users, setUsers] = useState<ProfileValues[]>([]);
@@ -72,12 +30,13 @@ const Edit = () => {
     const [gender, setGender] = useState("");
     const [category, setCategory] = useState("");
     const [religion, setReligion] = useState("");
+    const [otherReligion, setOtherReligion] = useState(false);
+    const [otherCategory, setOtherCategory] = useState(false);
     const [permanentState, setPermanentState] = useState("");
     const [presentState, setPresentState] = useState("");
     const [experienced, setExperienced] = useState("");
     const [date, setDate] = useState("");
     const [hideForm, setHideForm] = useState(true);
-    const [others, setOthers] = useState(false);
     const [noExperience, setNoexperience] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -446,10 +405,7 @@ const Edit = () => {
 
     }
 
-    const hanldeShowOthers = () => {
-        setOthers(true);
 
-    }
 
 
 
@@ -532,12 +488,12 @@ const Edit = () => {
                                                         border: "none",
                                                     },
                                                 }}>
-                                                    <MenuItem value="General" selected>General</MenuItem>
-                                                    <MenuItem value="OBC">OBC</MenuItem>
-                                                    <MenuItem value="ST">ST</MenuItem>
-                                                    <MenuItem value="SC">SC</MenuItem>
-                                                    <MenuItem value="EWS">EWS</MenuItem>
-                                                    <MenuItem value="Others">Others</MenuItem>
+                                                    <MenuItem value="General" onClick={() => setOtherCategory(false)}>General</MenuItem>
+                                                    <MenuItem value="OBC" onClick={() => setOtherCategory(false)}>OBC</MenuItem>
+                                                    <MenuItem value="ST" onClick={() => setOtherCategory(false)}>ST</MenuItem>
+                                                    <MenuItem value="SC" onClick={() => setOtherCategory(false)}>SC</MenuItem>
+                                                    <MenuItem value="EWS" onClick={() => setOtherCategory(false)}>EWS</MenuItem>
+                                                    <MenuItem value="Others" onClick={() => setOtherCategory(true)}>Others</MenuItem>
                                                 </Select>
                                             </div>
 
@@ -551,15 +507,37 @@ const Edit = () => {
                                                         border: "none",
                                                     },
                                                 }}>
-                                                    <MenuItem value="Hindu">Hindu</MenuItem>
-                                                    <MenuItem value="Sikh">Sikh</MenuItem>
-                                                    <MenuItem value="Christian">Christian</MenuItem>
-                                                    <MenuItem value="Muslim">Muslim</MenuItem>
-                                                    <MenuItem value="Jain">Jain</MenuItem>
-                                                    <MenuItem value="Buddhist">Buddhist</MenuItem>
-                                                    <MenuItem value="Others" onClick={hanldeShowOthers}>Others</MenuItem>
+                                                    <MenuItem value="Hindu" onClick={() => setOtherReligion(false)}>Hindu</MenuItem>
+                                                    <MenuItem value="Sikh" onClick={() => setOtherReligion(false)}>Sikh</MenuItem>
+                                                    <MenuItem value="Christian" onClick={() => setOtherReligion(false)}>Christian</MenuItem>
+                                                    <MenuItem value="Muslim" onClick={() => setOtherReligion(false)}>Muslim</MenuItem>
+                                                    <MenuItem value="Jain" onClick={() => setOtherReligion(false)}>Jain</MenuItem>
+                                                    <MenuItem value="Buddhist" onClick={() => setOtherReligion(false)}>Buddhist</MenuItem>
+                                                    <MenuItem value="Others" onClick={() => setOtherReligion(true)}>Others</MenuItem>
                                                 </Select>
                                             </div>
+                                            <div className="mt-2 col-lg-3 col-md-12">
+                                                {
+                                                    otherCategory && (
+                                                        <>
+                                                            <label htmlFor="exampleInputPassword1" className="form-label">Other Category <span className="must-filed">*</span></label>
+                                                            <RHFTextField name="otherCategory" label="" placeholder='Other Category' />
+                                                        </>
+                                                    )
+                                                }
+                                            </div>
+                                            <div className="mt-2 col-lg-3 col-md-12">
+                                                {
+                                                    otherReligion && (
+                                                        <>
+                                                            <label htmlFor="exampleInputPassword1" className="form-label">Other Religion <span className="must-filed">*</span></label>
+                                                            <RHFTextField name="otherReligion" label="" placeholder='Other Religion' />
+                                                        </>
+                                                    )
+                                                }
+
+                                            </div>
+
 
                                         </div>
                                         <h2 className='footerFormHead'>Permanent Address</h2>
