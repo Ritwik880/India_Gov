@@ -122,8 +122,8 @@ const MyApplication = () => {
 
 
     const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: string) => {
+        const order_Id = Math.random().toString(36).substring(2, 9);
         const url = '';
-
         var amount;
         switch (state?.category) {
             case 'General':
@@ -142,9 +142,10 @@ const MyApplication = () => {
                 amount = 690
                 break;
             default:
+                amount = 690;
                 break;
         }
-        const order_Id = Math.random().toString(36).substring(2, 9);
+
         setLoading(true);
 
         try {

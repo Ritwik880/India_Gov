@@ -28,6 +28,8 @@ const Edit = () => {
     const [id7, setId7] = useState(0);
     const [postName, setPostName] = useState("");
     const [gender, setGender] = useState("");
+    const [mobileNumber, setMobileNumber] = useState("");
+    const [applicationId, setApplicationId] = useState("");
     const [category, setCategory] = useState("");
     const [religion, setReligion] = useState("");
     const [otherReligion, setOtherReligion] = useState(false);
@@ -205,6 +207,8 @@ const Edit = () => {
                 setId6(body[0].experienceDetails[0] ? body[0].experienceDetails[0].experienceDetailId : 0);
                 setId7(body[0].experienceDetails[1] ? body[0].experienceDetails[1].experienceDetailId : 0);
                 setPostName(body[0].postName);
+                body[0].applicationId && setApplicationId(body[0].applicationId)
+                body[0].mobileNumber && setMobileNumber(body[0].mobileNumber)
                 body[0].applicantName
                     ? setValue('applicantName', body[0].applicantName)
                     : setValue('applicantName', '');
@@ -403,6 +407,9 @@ const Edit = () => {
         setHideForm(false);
         setNoexperience(true);
 
+    }
+    const handleGoBack = (applicationId: string, userId: string) => {
+        navigate('/my-application', { state: { applicationId, userId } })
     }
 
 
@@ -1040,7 +1047,7 @@ const Edit = () => {
                                     <div className="submitForm">
 
                                         <button className="formSubmit" type='submit'>Save</button>
-                                        <button className="formSubmit" onClick={() => navigate('/my-application-others')}>Go Back</button>
+                                        <button className="formSubmit" onClick={() => handleGoBack(applicationId, mobileNumber)}>Go Back</button>
 
 
 

@@ -662,51 +662,53 @@ const ApplyNow = () => {
                                         </div>
 
                                     </div>
-                                    <div className="mb-3 col-lg-3 col-md-12">
 
 
 
 
-                                        {
-                                            otherCategory &&
-                                            (
-                                                <>
-                                                    <label htmlFor="exampleInputPassword1" className="form-label">Other Category <span className="must-filed">*</span></label>
+                                    <div className="formBox">
+                                        <div className="mb-3 col-lg-3 col-md-12">
+                                            <label htmlFor="exampleInputPassword1" className="form-label">Religion <span className="must-filed">*</span></label>
+                                            <Select size='small' value={religion} onChange={(e) => setReligion(e.target.value)} name='religion' className="form-select" required sx={{
 
-                                                    <RHFTextField name="otherCategory" label="" placeholder='Other Category' />
-                                                </>
-                                            )
-                                        }
-                                    </div>
+                                                ".MuiOutlinedInput-notchedOutline": {
+                                                    border: "none",
+                                                },
+                                            }}>
+                                                <MenuItem value="Hindu" onClick={() => setOthers(false)}>Hindu</MenuItem>
+                                                <MenuItem value="Sikh" onClick={() => setOthers(false)}>Sikh</MenuItem>
+                                                <MenuItem value="Christian" onClick={() => setOthers(false)}>Christian</MenuItem>
+                                                <MenuItem value="Muslim" onClick={() => setOthers(false)}>Muslim</MenuItem>
+                                                <MenuItem value="Jain" onClick={() => setOthers(false)}>Jain</MenuItem>
+                                                <MenuItem value="Buddhist" onClick={() => setOthers(false)}>Buddhist</MenuItem>
+                                                <MenuItem value="Others" onClick={() => setOthers(true)}>Others</MenuItem>
+                                            </Select>
+                                        </div>
+                                        <div className="mt-3 col-lg-3 col-md-12">
 
 
+                                            {
+                                                otherCategory && (
+                                                    <>
+                                                        <label htmlFor="exampleInputPassword1" className="form-label">Other Category <span className="must-filed">*</span></label>
 
-                                    <div className="mb-3 col-lg-3 col-md-12">
-                                        <label htmlFor="exampleInputPassword1" className="form-label">Religion <span className="must-filed">*</span></label>
-                                        <Select size='small' value={religion} onChange={(e) => setReligion(e.target.value)} name='religion' className="form-select" required sx={{
+                                                        <RHFTextField name="otherCategory" label="" placeholder='Other Category' />
+                                                    </>
+                                                )
+                                            }
 
-                                            ".MuiOutlinedInput-notchedOutline": {
-                                                border: "none",
-                                            },
-                                        }}>
-                                            <MenuItem value="Hindu" onClick={() => setOthers(false)}>Hindu</MenuItem>
-                                            <MenuItem value="Sikh" onClick={() => setOthers(false)}>Sikh</MenuItem>
-                                            <MenuItem value="Christian" onClick={() => setOthers(false)}>Christian</MenuItem>
-                                            <MenuItem value="Muslim" onClick={() => setOthers(false)}>Muslim</MenuItem>
-                                            <MenuItem value="Jain" onClick={() => setOthers(false)}>Jain</MenuItem>
-                                            <MenuItem value="Buddhist" onClick={() => setOthers(false)}>Buddhist</MenuItem>
-                                            <MenuItem value="Others" onClick={hanldeShowOtherReligion}>Others</MenuItem>
-                                        </Select>
-                                    </div>
-                                    <div className="mb-3 col-lg-3 col-md-12">
-                                        {
-                                            others &&
-                                            (<>
-                                                <label htmlFor="exampleInputPassword1" className="form-label">Other Religion <span className="must-filed">*</span></label>
+                                        </div>
+                                        <div className="mt-3 col-lg-3 col-md-12">
+                                            {
+                                                others &&
+                                                (<>
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Other Religion <span className="must-filed">*</span></label>
 
-                                                <RHFTextField name="otherReligion" label="" placeholder='Other Religion' />
-                                            </>)
-                                        }
+                                                    <RHFTextField name="otherReligion" label="" placeholder='Other Religion' />
+                                                </>)
+                                            }
+                                        </div>
+
                                     </div>
 
 

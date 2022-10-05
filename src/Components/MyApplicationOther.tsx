@@ -154,7 +154,7 @@ const MyApplicationOther = () => {
                 })
                 .then((response) => {
                     const { body } = response.data;
-                    navigate('/thankyou', { state: { applicationId, phoneNumber } })
+                    navigate('/thankyou', { state: { applicationId, phoneNumber, order_Id } })
                     window.open(`${body}`);
                     setLoading(false);
 

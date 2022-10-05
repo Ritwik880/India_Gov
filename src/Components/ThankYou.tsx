@@ -7,6 +7,8 @@ import axios from '../utils/axios';
 const ThankYou = () => {
     const navigate = useNavigate();
     const { state }: { state: any } = useLocation();
+    const applicationId = state?.applicationId;
+    const userId = state?.phoneNumber;
 
 
     const handleReturn = async () => {
@@ -20,7 +22,7 @@ const ThankYou = () => {
                 })
                 .then((response) => {
                     const { body } = response.data;
-                    navigate('/my-application-others', { state: state?.applicationId, })
+                    navigate('/my-application', { state: { applicationId, userId } });
 
 
                 });
@@ -29,9 +31,6 @@ const ThankYou = () => {
 
         }
     };
-    setTimeout(() => {
-        handleReturn()
-    }, 50000);
 
     return (
         <>
@@ -39,7 +38,7 @@ const ThankYou = () => {
                 <div className="row container">
                     <h1 className='thankyou_heading'>Thank You</h1>
                     <div className="thankyou_button_parent_div">
-                        <button onClick={() => handleReturn()} className='thankyou_button'>Go Back</button>
+                        <button onClick={handleReturn} className='thankyou_button'>Go Back</button>
                     </div>
                 </div>
             </section>
