@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Button, styled, Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../utils/axios';
-import FormProvider from './hook-form/FormProvider';
-import RHFTextField from './hook-form/RHFTextField';
 import { ProfileValues } from '../@types/object';
 
 
@@ -107,14 +105,6 @@ const DownloadReceipt = () => {
                                 {
 
                                     users.map((item, id) => {
-                                        const extractedDate = item.dateOfBirth
-                                            .split("T")[0]
-                                            .split("-")
-                                            .reverse()
-                                            .join("-");
-
-
-
                                         return (
                                             <div key={id}>
                                                 <h1 className='formHead'>Payment Receipt <span className='dynamic_data'>

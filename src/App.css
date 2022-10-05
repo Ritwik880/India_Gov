@@ -582,7 +582,8 @@ th {
     padding: 2rem 0;
 }
 
-.myAppform {
+.myAppform,
+.myAppformother {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -605,6 +606,21 @@ th {
 }
 
 @media (max-width: 767px) {
+    .myAppform {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .myAppformother {
+        width: 100%;
+        height: auto;
+        padding: 2rem 0;
+    }
+
+    .mapButtons {
+        display: none;
+    }
+
     .myAppHead {
         width: 100%;
     }
@@ -622,9 +638,7 @@ th {
         flex-direction: column;
     }
 
-    .mapButtons {
-        width: 100%;
-    }
+
 
     .footerItems {
         gap: 1rem;
@@ -715,8 +729,41 @@ th {
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
+    .noty {
+        height: 500px;
+    }
+
     .myAppHead {
         width: 100%;
+    }
+
+    .headerImage3 {
+        width: 100px;
+
+    }
+
+    .headerImage1 {
+        width: 200px;
+    }
+
+    .navItem {
+        gap: 2rem;
+    }
+
+    .mapButtons {
+        display: none;
+    }
+
+    .myAppform {
+        width: 100%;
+        height: auto;
+        padding: 2rem 0;
+    }
+
+    .myAppformother {
+        width: 100%;
+        height: auto;
+        padding: 2rem 0;
     }
 
     .jobSection {

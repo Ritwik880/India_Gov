@@ -198,7 +198,7 @@ const MyApplicationOther = () => {
                     </div>
                 </div>
             </div>
-            <section className='myAppform'>
+            <section className='myAppformother'>
                 <div className="row container">
                     <h5 className='redText'>Enter your Mobile Number and Registration Number sent on your Registered Mobile Number and Email Address</h5>
                     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
