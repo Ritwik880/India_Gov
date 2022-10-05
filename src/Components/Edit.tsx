@@ -255,12 +255,7 @@ const Edit = () => {
                 body[0].motherName
                     ? setValue('motherName', body[0].motherName)
                     : setValue('motherName', '');
-                const extractedDate = body[0].dateOfBirth
-                    .split("T")[0]
-                    .split("-")
-                    .reverse()
-                    .join("-");
-                extractedDate && setDate(extractedDate);
+                body[0].dateOfBirth && setDate(body[0].dateOfBirth.split("T")[0].split("-").reverse().join("-"));
                 body[0].gender && setGender(body[0].gender)
                 body[0].category && setCategory(body[0].category)
                 body[0].religion && setReligion(body[0].religion)
@@ -514,7 +509,7 @@ const Edit = () => {
                                         <div className="formBox">
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputEmail1" className="form-label">Date Of Birth <span className="must-filed">*</span></label>
-                                                <RHFTextField name="dateOfBirth" label="" value={date} onChange={(e) => setDate(e.target.value)} type='date' placeholder='dd/mm/yyyy' />
+                                                <RHFTextField name="dateOfBirth" label="" value={date} onChange={(e) => setDate(e.target.value)} placeholder='dd/mm/yyyy' />
 
                                             </div>
                                             <div className="mb-3 col-lg-3 col-md-12">
