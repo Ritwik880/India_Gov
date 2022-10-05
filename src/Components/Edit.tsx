@@ -60,8 +60,6 @@ const AttachmentWrapper = styled('div')(({ theme }) => ({
 }));
 
 const Edit = () => {
-    const [photoUrl, setPhotoUrl] = useState({});
-    const [photoSignature, setPhotoSignature] = useState({});
     const [users, setUsers] = useState<ProfileValues[]>([]);
     const [id, setId] = useState(0);
     const [id2, setId2] = useState(0);
@@ -72,15 +70,16 @@ const Edit = () => {
     const [id7, setId7] = useState(0);
     const [postName, setPostName] = useState("");
     const [gender, setGender] = useState("");
-    // const [gender, setGender] = useState<ProfileValuesEditProps | null>(null);
-    const [category, setCategory] = useState<ProfileValuesEditProps | null>(null);
-    const [religion, setReligion] = useState<ProfileValuesEditProps | null>(null);
-    // const [statePermanent, setStatePermanent] = useState<ProfileValuesEditProps>;/
+    const [category, setCategory] = useState("");
+    const [religion, setReligion] = useState("");
+    const [permanentState, setPermanentState] = useState("");
+    const [presentState, setPresentState] = useState("");
+    const [experienced, setExperienced] = useState("");
+    const [date, setDate] = useState("");
     const [hideForm, setHideForm] = useState(true);
     const [others, setOthers] = useState(false);
     const [noExperience, setNoexperience] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [refreshFlag, setRefreshFlag] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const { state }: { state: any } = useLocation();
@@ -117,9 +116,9 @@ const Edit = () => {
                 motherName: data.motherName,
                 dateOfBirth: data.dateOfBirth,
                 applicationId: state?.id,
-                religion: data.religion,
-                gender: data.gender,
-                category: data.category,
+                religion: religion,
+                gender: gender,
+                category: category,
                 emailId: data.emailId,
                 mobileNumber: data.mobileNumber,
                 postName: state?.postName,
@@ -128,7 +127,7 @@ const Edit = () => {
                     road: data.permanentAddress.road,
                     area: data.permanentAddress.area,
                     country: data.permanentAddress.country,
-                    state: data.permanentAddress.state,
+                    state: permanentState,
                     city: data.permanentAddress.city,
                     pincode: parseInt(data.permanentAddress.pincode),
                 },
@@ -137,7 +136,7 @@ const Edit = () => {
                     road: data.presentAddress.road,
                     area: data.presentAddress.area,
                     country: data.presentAddress.country,
-                    state: data.presentAddress.state,
+                    state: presentState,
                     city: data.presentAddress.pincode,
                     pincode: parseInt(data.presentAddress.pincode),
                 },
@@ -247,8 +246,6 @@ const Edit = () => {
                 setId6(body[0].experienceDetails[0] ? body[0].experienceDetails[0].experienceDetailId : 0);
                 setId7(body[0].experienceDetails[1] ? body[0].experienceDetails[1].experienceDetailId : 0);
                 setPostName(body[0].postName);
-                setPhotoUrl(body[0].uploadPhoto ? body[0].uploadPhoto.url : '');
-                setPhotoSignature(body[0].uploadSignature ? body[0].uploadSignature : '');
                 body[0].applicantName
                     ? setValue('applicantName', body[0].applicantName)
                     : setValue('applicantName', '');
@@ -263,11 +260,8 @@ const Edit = () => {
                     .split("-")
                     .reverse()
                     .join("-");
-                extractedDate
-                    ? setValue('dateOfBirth', extractedDate)
-                    : setValue('dateOfBirth', '');
-                body[0].gender ? setValue('gender', body[0].gender) : setValue('gender', '');
-
+                extractedDate && setDate(extractedDate);
+                body[0].gender && setGender(body[0].gender)
                 body[0].category && setCategory(body[0].category)
                 body[0].religion && setReligion(body[0].religion)
                 body[0].pancard
@@ -293,9 +287,7 @@ const Edit = () => {
                 body[0].permanentAddress.country
                     ? setValue('permanentAddress.country', body[0].permanentAddress.country)
                     : setValue('permanentAddress.country', '');
-                body[0].permanentAddress.state
-                    ? setValue('presentAddress.state', body[0].permanentAddress.state)
-                    : setValue('presentAddress.state', '');
+                body[0].permanentAddress.state && setPermanentState(body[0].permanentAddress.state);
                 body[0].permanentAddress.houseNumber
                     ? setValue('permanentAddress.houseNumber', body[0].permanentAddress.houseNumber)
                     : setValue('permanentAddress.houseNumber', '');
@@ -323,9 +315,7 @@ const Edit = () => {
                 body[0].presentAddress.road
                     ? setValue('presentAddress.road', body[0].presentAddress.road)
                     : setValue('presentAddress.road', '');
-                body[0].presentAddress.state
-                    ? setValue('presentAddress.state', body[0].presentAddress.state)
-                    : setValue('presentAddress.state', '');
+                body[0].presentAddress.state && setPresentState(body[0].presentAddress.state);
                 body[0].higherQualification
                     ? setValue('presentAddress.state', body[0].presentAddress.state)
                     : setValue('presentAddress.state', '');
@@ -428,9 +418,7 @@ const Edit = () => {
                 body[0].experienceDetails[0].totalExperience
                     ? setValue('experienceDetails.0.totalExperience', body[0].experienceDetails[0].totalExperience)
                     : setValue('experienceDetails.0.totalExperience', '');
-                body[0].experienceDetails[0].experienced
-                    ? setValue('experienceDetails.0.experienced', body[0].experienceDetails[0].experienced)
-                    : setValue('experienceDetails.0.experienced', '');
+                body[0].experienceDetails[0].experienced && setExperienced(body[0].experienceDetails[0].experienced)
 
                 body[0].experienceDetails[1].companyName
                     ? setValue('experienceDetails.1.companyName', body[0].experienceDetails[1].companyName)
@@ -497,6 +485,8 @@ const Edit = () => {
                                 <h1 className='formHead'>Application Form for <span className='dynamic_data'>
                                     {state?.postName}
                                 </span></h1>
+
+
                                 <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
                                     <div className="parentForm">
@@ -524,12 +514,12 @@ const Edit = () => {
                                         <div className="formBox">
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputEmail1" className="form-label">Date Of Birth <span className="must-filed">*</span></label>
-                                                <RHFTextField name="dateOfBirth" label="" type='date' placeholder='dd/mm/yyyy' />
+                                                <RHFTextField name="dateOfBirth" label="" value={date} onChange={(e) => setDate(e.target.value)} type='date' placeholder='dd/mm/yyyy' />
 
                                             </div>
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <InputLabel id="demo-simple-select-label">Gender</InputLabel>
-                                                <Select fullWidth size='small' labelId='demo-simple-select-label' label="Gender" name='gender' onChange={e => setValue('gender', e.target.value, { shouldValidate: true })} className="form-select" required value='Male' sx={{
+                                                <Select fullWidth size='small' value={gender} onChange={(e) => setGender(e.target.value)} labelId='demo-simple-select-label' label="Gender" name='gender' className="form-select" required sx={{
 
                                                     ".MuiOutlinedInput-notchedOutline": {
                                                         border: "none",
@@ -541,7 +531,7 @@ const Edit = () => {
                                             </div>
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">Category <span className="must-filed">*</span></label>
-                                                <Select size='small' name='category' className="form-select" value='General' required sx={{
+                                                <Select size='small' name='category' value={category} onChange={(e) => setCategory(e.target.value)} className="form-select" required sx={{
 
                                                     ".MuiOutlinedInput-notchedOutline": {
                                                         border: "none",
@@ -560,7 +550,7 @@ const Edit = () => {
                                         <div className="formBox">
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">Religion <span className="must-filed">*</span></label>
-                                                <Select size='small' name='religion' value='Hindu' className="form-select" required sx={{
+                                                <Select size='small' value={religion} onChange={(e) => setReligion(e.target.value)} name='religion' className="form-select" required sx={{
 
                                                     ".MuiOutlinedInput-notchedOutline": {
                                                         border: "none",
@@ -604,7 +594,7 @@ const Edit = () => {
                                             </div>
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">State <span className="must-filed">*</span></label>
-                                                <Select size='small' value='Bihar' sx={{
+                                                <Select size='small' value={permanentState} onChange={(e) => setPermanentState(e.target.value)} sx={{
 
                                                     ".MuiOutlinedInput-notchedOutline": {
                                                         border: "none",
@@ -692,7 +682,7 @@ const Edit = () => {
                                             </div>
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputPassword1" className="form-label">State <span className="must-filed">*</span></label>
-                                                <Select value='Jharkhand' size='small' sx={{
+                                                <Select value={presentState} onChange={(e) => setPresentState(e.target.value)} size='small' sx={{
 
                                                     ".MuiOutlinedInput-notchedOutline": {
                                                         border: "none",
@@ -985,7 +975,7 @@ const Edit = () => {
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputEmail1" className="form-label">Experience</label>
 
-                                                <Select size='small' sx={{
+                                                <Select size='small' value={experienced} onChange={(e) => setExperienced(e.target.value)} sx={{
 
                                                     ".MuiOutlinedInput-notchedOutline": {
                                                         border: "none",
@@ -1079,9 +1069,12 @@ const Edit = () => {
                                         <button className="formSubmit" type='submit'>Save</button>
                                         <button className="formSubmit" onClick={() => navigate('/my-application-others')}>Go Back</button>
 
+
+
                                     </div>
 
                                 </FormProvider>
+
 
 
 

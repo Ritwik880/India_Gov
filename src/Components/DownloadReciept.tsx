@@ -47,7 +47,7 @@ const DownloadReceipt = () => {
     }
 
     const handleGoBack = (applicationId: string, userId: string) => {
-        navigate('/my-application-others', { state: { applicationId, userId } })
+        navigate('/my-application', { state: { applicationId, userId } })
     }
 
 

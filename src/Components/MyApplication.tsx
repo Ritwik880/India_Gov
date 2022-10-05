@@ -52,6 +52,7 @@ type MyApplicationType = {
     createdDate: string;
     applicationId: string;
     postName: string;
+    category: string;
     paymentStatus: boolean;
 
 };
@@ -183,6 +184,10 @@ const MyApplication = () => {
     const handleEdit = (id: string, userId: string, postName: string) => {
         navigate('/edit-application', { state: { id, userId, postName } })
     }
+    const handleDownloadReceipt = async (applicationId: string, userId: string, category: string) => {
+        navigate('/download-receipt', { state: { applicationId, userId, category } })
+
+    }
 
 
 
@@ -288,12 +293,12 @@ const MyApplication = () => {
                                                                                     {
                                                                                         item.paymentStatus === false ?
                                                                                             <Div>
-                                                                                                <Btn onClick={() => handlePayment(item.applicantName, item.emailId, item.mobileNumber, item.applicationId)}>Proceed to pay</Btn>
+                                                                                                <button className='paidDownload' onClick={() => handlePayment(item.applicantName, item.emailId, item.mobileNumber, item.applicationId)}>Proceed to pay</button>
                                                                                             </Div>
                                                                                             :
                                                                                             <Div>
-                                                                                                <Btn sx={{ marginRight: '1rem' }}>Paid</Btn>
-                                                                                                <Btn>Download Receipt</Btn>
+                                                                                                <button className='paidDownload' style={{ marginRight: '1rem' }}>Paid</button>
+                                                                                                <button onClick={() => handleDownloadReceipt(item.applicationId, item.mobileNumber, item.category)} className='paidDownload'>Download Receipt</button>
                                                                                             </Div>
                                                                                     }
                                                                                 </>
@@ -303,17 +308,17 @@ const MyApplication = () => {
                                                                 </td>
                                                                 <td>
                                                                     <Div>
-                                                                        <Btn onClick={() => handleView(item.applicationId, item.mobileNumber)}>
+                                                                        <button className='paidDownload' onClick={() => handleView(item.applicationId, item.mobileNumber)}>
                                                                             View/Download
-                                                                        </Btn>
+                                                                        </button>
                                                                     </Div>
                                                                 </td>
 
                                                                 <td>
                                                                     <Div>
-                                                                        <Btn onClick={() => handleEdit(item.applicationId, item.mobileNumber, item.postName)}>
+                                                                        <button className='paidDownload' onClick={() => handleEdit(item.applicationId, item.mobileNumber, item.postName)}>
                                                                             Edit
-                                                                        </Btn>
+                                                                        </button>
                                                                     </Div>
                                                                 </td>
 

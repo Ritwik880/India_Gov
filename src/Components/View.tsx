@@ -13,7 +13,6 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ProfileValues } from '../@types/object';
-import ReactToPrint from "react-to-print";
 // @ts-ignore
 import Files from 'react-files';
 
@@ -62,7 +61,7 @@ const View = () => {
     const [noExperience, setNoexperience] = useState(false);
     const [loading, setLoading] = useState(false);
     const [users, setUsers] = useState<ProfileValues[]>([]);
-
+    const [category, setCategory] = useState("")
     const { state }: { state: any } = useLocation();
     const isMounted = useRef(false);
 
@@ -182,6 +181,7 @@ const View = () => {
 
 
 
+
                                                     return (
                                                         <div key={id}>
                                                             <h1 className='formHead'>Application Form for <span className='dynamic_data'>
@@ -273,11 +273,20 @@ const View = () => {
                                                                                 <MenuItem value="Others">Others</MenuItem>
                                                                             </Select>
                                                                         </div>
-                                                                        <div className="mb-3 col-lg-3 col-md-12">
+                                                                        <div className="mt-2 col-lg-3 col-md-12">
+                                                                            <label htmlFor="exampleInputPassword1" className="form-label">Other Category <span className="must-filed">*</span></label>
+                                                                            <RHFTextField name="otherCategory" value={item.category} label="" placeholder='Other Category' disabled />
 
                                                                         </div>
 
 
+                                                                    </div>
+                                                                    <div className="formBox">
+                                                                        <div className="mb-3 col-lg-3 col-md-12">
+                                                                            <label htmlFor="exampleInputPassword1" className="form-label">Other Religion <span className="must-filed">*</span></label>
+                                                                            <RHFTextField name="otherReligion" value={item.religion} label="" placeholder='Other Religion' disabled />
+
+                                                                        </div>
                                                                     </div>
                                                                     <h2 className='footerFormHead'>Permanent Address</h2>
                                                                     <div className="formBox">
