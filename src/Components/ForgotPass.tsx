@@ -52,15 +52,10 @@ const ForgotPass = () => {
             toast.error("Something went wrong!");
         }
     }
-    var letterNumber = /^[A-Za-z]*$/;
     const handleChange = (e: any) => {
         if (e.target.value < 0) {
             setUserId('0')
         }
-        // else if (userId.matchAll(letterNumber)) {
-        //     setUserId('0')
-
-        // }
         else {
             setUserId(e.target.value)
         }

@@ -19,7 +19,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ProfileValuesProps } from '../@types/object';
-import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 
 
 
@@ -480,27 +479,6 @@ const ApplyNow = () => {
     }
 
 
-    const handleChangePresentPinCode = (e: any) => {
-        if (pinCodePresent.length === 7) {
-            toast.info('Pincode should be of 6 digit!');
-
-        }
-
-        else {
-            setPinCodePresent(e.target.value);
-        }
-
-    }
-    const handleChangePermanentPinCode = (e: any) => {
-        if (pincode.length === 7) {
-            toast.info('Pincode should be of 6 digit!');
-
-        }
-        else {
-            setPinCode(e.target.value);
-        }
-
-    }
 
     const onUploadPhotoChange = (files: any) => {
         setUploadFileSrc(files.map((filename: any) => filename.preview.url));
@@ -577,6 +555,16 @@ const ApplyNow = () => {
         else {
             setSpecializationGraduation(e.target.value)
         }
+
+
+    }
+
+    const handleChangePresentPincode = (e: any) => {
+        var x = e.which || e.keycode;
+        if ((x >= 48 && x <= 57))
+            setPinCodePresent(e.target.value)
+        else
+            setPinCodePresent(e.target.value)
 
 
     }
@@ -885,7 +873,7 @@ const ApplyNow = () => {
                                     <div className="formBox">
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Pincode <span className="must-filed">*</span></label>
-                                            <RHFTextField value={pinCodePresent} onChange={(e) => setPinCodePresent(e.target.value)} name="pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} required />
+                                            <RHFTextField value={pinCodePresent} onChange={handleChangePresentPincode} name="pincode" label="" placeholder='Pincode' inputProps={{ maxLength: 6 }} required />
                                         </div>
                                     </div>
 
