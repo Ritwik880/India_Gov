@@ -24,12 +24,18 @@ const Table = () => {
                     <table>
                         <tr>
                             <th>S.No.</th>
-                            <th>Post Name</th>
-                            <th>No. of Vacancy</th>
+                            <th>Post Code</th>
+                            <th>Post</th>
+                            <th>Education Qualification</th>
+                            <th>Pay Scale</th>
+                            <th>Postion (Regular/Contractual)</th>
+
+
+                            <th>Vacancy</th>
+
+
                             <th>Experience</th>
-                            <th>Qualification</th>
                             <th>Age</th>
-                            <th>Salary</th>
                             <th>Apply Now</th>
                         </tr>
                         {

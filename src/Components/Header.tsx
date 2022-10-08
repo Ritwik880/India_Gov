@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const navigate = useNavigate();
-
+    const [loginSucess, setLoginSucess] = useState(false)
+    // const loginSucess = false;
     return (
         <header>
             <div className='upperNav'>
@@ -27,7 +28,11 @@ const Header = () => {
                             <Nav.Link className='listItems' onClick={() => navigate('/gallery')}>GALLERY</Nav.Link>
                             <Nav.Link className='listItems' onClick={() => navigate('/contact')}>CONTACT US</Nav.Link>
                             <Nav.Link className='listItems' onClick={() => navigate('/login')}>LOGIN</Nav.Link>
-                            <Nav.Link className='listItems' onClick={() => navigate('/my-application-others')}>MY APPLICATION</Nav.Link>
+                            {
+                                loginSucess && (
+                                    <Nav.Link className='listItems' onClick={() => navigate('/my-application-others', { state: { loginSucess } })}>MY APPLICATION</Nav.Link>
+                                )
+                            }
 
                         </Nav>
                     </Navbar.Collapse>

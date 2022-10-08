@@ -128,12 +128,13 @@ table {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 1200px;
+    height: auto;
     background: rgba(255, 255, 255, .6);
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    padding: 2rem 0;
 }
 
 td,
@@ -233,7 +234,7 @@ th {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 1000px;
+    height: 650px;
     background-color: #a29bfe;
 }
 
@@ -320,7 +321,7 @@ th {
 }
 
 .aboutPara {
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
     padding: 0.1rem 0;
 }
 
@@ -329,7 +330,7 @@ th {
 }
 
 .aboutUl li {
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
     padding: 0.5rem 0;
 }
 

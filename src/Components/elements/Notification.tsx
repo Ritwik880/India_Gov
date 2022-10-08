@@ -119,9 +119,9 @@ const Notification = () => {
                                             users.map((item, id) => {
                                                 return (
 
-                                                    <h5 className='newsPara' key={id}>
+                                                    <p className='newsPara' key={id}>
                                                         {item.news}
-                                                    </h5>
+                                                    </p>
 
                                                 )
                                             })
