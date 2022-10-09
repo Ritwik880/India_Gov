@@ -123,7 +123,15 @@ input {
 table {
     width: 100%;
 }
-
+.fpciinstpdf{
+    margin-bottom: 0rem;
+    padding: 0.5rem 0;
+}
+.downloadFPCIpdf{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .jobSection {
     display: flex;
     justify-content: center;
@@ -157,6 +165,7 @@ th {
     align-items: flex-end;
     justify-content: center;
     flex-direction: column;
+    margin-bottom: 1rem;
 }
 
 .listItems {
