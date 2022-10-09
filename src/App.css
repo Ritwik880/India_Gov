@@ -119,11 +119,30 @@ input {
     padding: 2rem;
     background: #F4FCFF;
 }
-
+.qrCode{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.notice{
+    color: red;
+    padding: 1rem 0;
+    text-align: center;
+    font-weight: 700;
+}
 table {
     width: 100%;
 }
-
+.fpciinstpdf{
+    margin-bottom: 0rem;
+    padding: 0.5rem 0;
+}
+.downloadFPCIpdf{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .jobSection {
     display: flex;
     justify-content: center;
@@ -157,6 +176,7 @@ th {
     align-items: flex-end;
     justify-content: center;
     flex-direction: column;
+    margin-bottom: 1rem;
 }
 
 .listItems {
@@ -607,6 +627,9 @@ th {
 }
 
 @media (max-width: 767px) {
+    .qrCode{
+        height: auto;
+    }
     .myAppform {
         width: 100%;
         height: 100vh;
@@ -730,6 +753,13 @@ th {
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
+    .qrCode{
+        height: auto;
+        padding: 1rem 0;
+    }
+    .qrCodeForm{
+        padding: 2rem 0;
+    }
     .noty {
         height: 500px;
     }

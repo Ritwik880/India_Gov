@@ -1,255 +1,377 @@
 export const BUTTONDATA = [
-    {
-        id: 1,
-        title: ''
-    },
-    {
-        id: 2,
-        title: ''
-    },
-    {
-        id: 3,
-        title: ''
-    },
-    {
-        id: 4,
-        title: ''
-    },
-    {
-        id: 5,
-        title: ''
-    },
-    {
-        id: 6,
-        title: ''
-    },
-    {
-        id: 7,
-        title: ''
-    },
-]
+  {
+    id: 1,
+    title: "",
+  },
+  {
+    id: 2,
+    title: "",
+  },
+  {
+    id: 3,
+    title: "",
+  },
+  {
+    id: 4,
+    title: "",
+  },
+  {
+    id: 5,
+    title: "",
+  },
+  {
+    id: 6,
+    title: "",
+  },
+  {
+    id: 7,
+    title: "",
+  },
+];
 export const ROW = [
-    {
-        id: 1,
-        name: 'Project Manager',
-        vacancy: 72,
-        exp: '2 Years',
-        qual: 'Post Graduation (Any Stream)',
-        age: '22-45',
-        sal: '78300-209200',
-        btn: 'Apply Now'
-
-    },
-    {
-        id: 2,
-        name: 'Regional Manager',
-        vacancy: 188,
-        exp: '0 Years',
-        qual: 'Graduation (Any Stream)',
-        age: '18-40',
-        sal: '35400-112400',
-        btn: 'Apply Now'
-
-    },
-    {
-        id: 3,
-        name: 'Field Officers',
-        vacancy: 750,
-        exp: '0 Years',
-        qual: 'Graduation (Any Stream)',
-        age: '18-40',
-        sal: '25500-81100',
-        btn: 'Apply Now'
-
-    },
-    {
-        id: 4,
-        name: 'Accountant',
-        vacancy: 144,
-        exp: '0 Years',
-        qual: 'Graduation (Commerce)',
-        age: '18-40',
-        sal: '29200-92300',
-        btn: 'Apply Now'
-
-    },
-    {
-        id: 5,
-        name: 'Clerk',
-        vacancy: 203,
-        exp: '0 Years',
-        qual: 'Intermediate',
-        age: '18-40',
-        sal: '19900-63200',
-        btn: 'Apply Now'
-
-    },
-    {
-        id: 6,
-        name: 'Computer Operator',
-        vacancy: 203,
-        exp: '0 Years',
-        qual: 'Intermediate(Computer Diploma)',
-        age: '18-40',
-        sal: '19900-63200',
-        btn: 'Apply Now'
-
-    },
-    {
-        id: 7,
-        name: 'Trainee Officers',
-        vacancy: 206,
-        exp: '0 Years',
-        qual: 'High School',
-        age: '18-40',
-        sal: '21700-69100',
-        btn: 'Apply Now'
-
-    },
-    {
-        id: 8,
-        name: 'Lab Attendent',
-        vacancy: 281,
-        exp: '0 Years',
-        qual: 'Intermediate(Science)',
-        age: '18-40',
-        sal: '21700-69100',
-        btn: 'Apply Now'
-
-    },
-    {
-        id: 9,
-        name: 'Apprentice',
-        vacancy: 554,
-        exp: '0 Years',
-        qual: 'High School',
-        age: '18-40',
-        sal: '19900-63200',
-        btn: 'Apply Now'
-
-    },
-    {
-        id: 10,
-        name: 'Store Supervisor',
-        vacancy: 131,
-        exp: '0 Years',
-        qual: 'High School',
-        age: '18-40',
-        sal: '19900-63200',
-        btn: 'Apply Now'
-
-    },
-    {
-        id: 11,
-        name: 'Electrician',
-        vacancy: 120,
-        exp: '0 Years',
-        qual: 'ITI',
-        age: '18-40',
-        sal: '19900-63200',
-        btn: 'Apply Now'
-
-    },
-    {
-        id: 12,
-        name: 'Driver',
-        vacancy: 72,
-        exp: '0 Years',
-        qual: 'Valid Driving Licence',
-        age: '18-40',
-        sal: '18000-56900',
-        btn: 'Apply Now'
-
-    },
-    {
-        id: 13,
-        name: 'Peon	',
-        vacancy: 183,
-        exp: '0 Years',
-        qual: '8th',
-        age: '18-40',
-        sal: '18000-56900',
-        btn: 'Apply Now'
-
-    },
-    {
-        id: 14,
-        name: 'Helper',
-        vacancy: 181,
-        exp: '0 Years',
-        qual: '8th',
-        age: '18-40',
-        sal: '18000-56900',
-        btn: 'Apply Now'
-
-    },
-    {
-        id: 15,
-        name: 'Guard',
-        vacancy: 554,
-        exp: '0 Years',
-        qual: '8th',
-        age: '18-40',
-        sal: '18000-56900',
-        btn: 'Apply Now'
-
-    },
-
-]
+  {
+    id: 1,
+    postCode: 21,
+    name: "Project Manager",
+    qual: "Post Graduation (Any Stream)",
+    sal: "123100-215900 & Allowances (As per Pay Level-13 Of 7th CPC Matrix)",
+    position: "Regular",
+    vacancy: 56,
+    exp: "5 YEARS",
+    age: "30-45",
+    btn: "Apply Now",
+  },
+  {
+    id: 2,
+    postCode: 22,
+    name: "Regional Manager",
+    vacancy: 85,
+    exp: "3 YEARS",
+    qual: "Graduation (Any Stream)",
+    age: "30-45",
+    sal: "78800-209200 & Allowances (As per Pay Level-12 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+ 
+  {
+    id: 3,
+    postCode: 23,
+    name: "Marketing Manager",
+    vacancy: 104,
+    exp: "2 YEARS",
+    qual: "Graduation (Any Stream)",
+    age: "25-40",
+    sal: "67700-208700 & Allowances (As per Pay Level-11 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 4,
+    postCode: 24,
+    name: "Executive Manager",
+    vacancy: 259,
+    exp: "1 YEARS",
+    qual: "Graduation (Any Stream)",
+    age: "25-40",
+    sal: "56100-177500 & Allowances (As per Pay Level-10 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 5,
+    postCode: 25,
+    name: "Divisional Manager",
+    vacancy: 311,
+    exp: "1 YEARS",
+    qual: "Graduation (Any Stream)",
+    age: "25-40",
+    sal: "53100-167800 & Allowances (As per Pay Level-9 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 6,
+    postCode: 26,
+    name: "District Manager",
+    vacancy: 611,
+    exp: "1 YEARS",
+    qual: "Intermediate(Computer Diploma)",
+    age: "18-40",
+    sal: "47600-151100 & Allowance (As per Pay Level-8 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 7,
+    postCode: 27,
+    name: "Tehsil Manager",
+    vacancy: 880,
+    exp: "1 YEARS",
+    qual: "Intermediate (10+2)",
+    age: "18-40",
+    sal: "44900-142400 & Allowances (As per Pay Level-7 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 8,
+    postCode: 28,
+    name: "Branch Manager",
+    vacancy: 273,
+    exp: "1 YEARS",
+    qual: "Intermediate (10+2)",
+    age: "18-40",
+    sal: "35400-112400 & Allowances (As per Pay Level-6 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 9,
+    postCode: 29,
+    name: "ASST. Branch Manager",
+    vacancy: 273,
+    exp: "-",
+    qual: "Intermediate (10+2)",
+    age: "18-40",
+    sal: "29200-92300 & Allowances (As per Pay Level-5 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 10,
+    postCode: 30,
+    name: "Accountant",
+    vacancy: 156,
+    exp: "-",
+    qual: "Graduation on (Commerce)",
+    age: "18-40",
+    sal: "29200-92300 & Allowances (As per Pay Level-5 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 11,
+    postCode: 31,
+    name: "Clerk",
+    vacancy: 114,
+    exp: "-",
+    qual: "Intermediate (10+2)",
+    age: "18-40",
+    sal: "19900-63200 & Allowances (As per Pay Level-2 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 12,
+    postCode: 32,
+    name: "Computer Operator",
+    vacancy: 225,
+    exp: "-",
+    qual: "Intermediate (Computer Diploma)",
+    age: "18-40",
+    sal: "19900-63200 & Allowances (As per Pay Level-2 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 13,
+    postCode: 33,
+    name: "Team Leader",
+    vacancy: 489,
+    exp: "-",
+    qual: "Intermediate (10+2)",
+    age: "18-40",
+    sal: "18000-56900 & Allowances(As per Pay Level-1 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 14,
+    postCode: 34,
+    name: "Field Officer",
+    vacancy: 249,
+    exp: "-",
+    qual: "High-School (10th Pass)",
+    age: "18-40",
+    sal: "18000-56900 & Allowances (As per Pay Level-1 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 15,
+    postCode: 35,
+    name: "Trainee Officer",
+    vacancy: 123,
+    exp: "-",
+    qual: "High-School (10th Pass)",
+    age: "18-40",
+    sal: "18000-56900 & Allowances (As per Pay Level-1 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 16,
+    postCode: 36,
+    name: "Apprentice",
+    vacancy: 754,
+    exp: "-",
+    qual: "High-School (10th Pass)",
+    age: "18-40",
+    sal: "19900-63200 & Allowances (As per Pay Level-2 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 17,
+    postCode: 37,
+    name: "Store Supervisor",
+    vacancy: 145,
+    exp: "-",
+    qual: "High-School(10th Pass)",
+    age: "18-40",
+    sal: "19900-63200 & Allowances (As per Pay Level-2 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 18,
+    postCode: 38,
+    name: "Lab Attendent",
+    vacancy: 143,
+    exp: "-",
+    qual: "Intermediate (Science)",
+    age: "18-40",
+    sal: "19900-63200 & Allowances (As per Pay Level-2 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 19,
+    postCode: 39,
+    name: "Helper",
+    vacancy: 280,
+    exp: "-",
+    qual: "8 th",
+    age: "18-40",
+    sal: "18000-56900 & Allowances (As per Pay Level-1 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 20,
+    postCode: 40,
+    name: "Driver",
+    vacancy: 90,
+    exp: "-",
+    qual: "8 th (Valid D.L.)",
+    age: "18-40",
+    sal: "18000-56900 & Allowances (As per Pay Level-1 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 21,
+    postCode: 41,
+    name: "Peon",
+    vacancy: 78,
+    exp: "-",
+    qual: "8 th",
+    age: "18-40",
+    sal: "18000-56900 & Allowances (As per Pay Level-1 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 22,
+    postCode: 42,
+    name: "Guard",
+    vacancy: 208,
+    exp: "-",
+    qual: "8 th",
+    age: "18-40",
+    sal: "18000-56900 & Allowances (As per Pay Level-1 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 23,
+    postCode: 43,
+    name: "Telesales Operator",
+    vacancy: 234,
+    exp: "-",
+    qual: "High-School (10th Pass)",
+    age: "18-40",
+    sal: "19900-63200 & Allowances (As per Pay Level-2 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+  {
+    id: 24,
+    postCode: 44,
+    name: "Electrician",
+    vacancy: 160,
+    exp: "-",
+    qual: "ITI (Diploma)",
+    age: "18-40",
+    sal: "18000-56900 & Allowances (As per Pay Level-1 Of 7th CPC Matrix)",
+    btn: "Apply Now",
+    position: "Regular",
+  },
+];
 
 export const IMAGES = [
-    {
-        index: 1,
-        image: './images/photo 1.jpg'
-    },
-    {
-        index: 2,
-        image: './images/photo 2.jpg'
-    },
-    {
-        index: 3,
-        image: './images/photo 3.jpg'
-    },
-    {
-        index: 4,
-        image: './images/photo 4.jpg'
-    },
-    {
-        index: 5,
-        image: './images/photo 5.jpg'
-    },
-    {
-        index: 6,
-        image: './images/photo 6.jpg'
-    },
-    {
-        index: 7,
-        image: './images/photo 7.jpg'
-    },
-    {
-        index: 8,
-        image: './images/photo 8.jpg'
-    },
-    {
-        index: 9,
-        image: './images/photo 9.jpg'
-    },
-    {
-        index: 10,
-        image: './images/photo 10.jpg'
-    },
-    {
-        index: 11,
-        image: './images/photo 11.jpg'
-    },
+  {
+    index: 1,
+    image: "./images/photo 1.jpg",
+  },
+  {
+    index: 2,
+    image: "./images/photo 2.jpg",
+  },
+  {
+    index: 3,
+    image: "./images/photo 3.jpg",
+  },
+  {
+    index: 4,
+    image: "./images/photo 4.jpg",
+  },
+  {
+    index: 5,
+    image: "./images/photo 5.jpg",
+  },
+  {
+    index: 6,
+    image: "./images/photo 6.jpg",
+  },
+  {
+    index: 7,
+    image: "./images/photo 7.jpg",
+  },
+  {
+    index: 8,
+    image: "./images/photo 8.jpg",
+  },
+  {
+    index: 9,
+    image: "./images/photo 9.jpg",
+  },
+  {
+    index: 10,
+    image: "./images/photo 10.jpg",
+  },
+  {
+    index: 11,
+    image: "./images/photo 11.jpg",
+  },
 
-    {
-        index: 13,
-        image: './images/photo 13.jpg'
-    },
-    {
-        index: 14,
-        image: './images/photo 14.jpg'
-    },
-
-]
+  {
+    index: 13,
+    image: "./images/photo 13.jpg",
+  },
+  {
+    index: 14,
+    image: "./images/photo 14.jpg",
+  },
+];

@@ -127,22 +127,22 @@ const MyApplication = () => {
         var amount;
         switch (state?.category) {
             case 'General':
-                amount = 990
+                amount = 690
                 break;
             case 'OBC':
-                amount = 690
+                amount = 350
                 break;
             case 'SC':
-                amount = 690
+                amount = 350
                 break;
             case 'ST':
-                amount = 690
+                amount = 350
                 break;
             case 'EWS':
-                amount = 690
+                amount = 350
                 break;
             default:
-                amount = 690;
+                amount = 350;
                 break;
         }
 
@@ -176,6 +176,11 @@ const MyApplication = () => {
 
         }
     };
+
+    const handleQRCodePayment = async (applicationId: string, userId: string)=>{
+        navigate('/qr-payment', { state: { applicationId, userId } })
+
+    }
 
 
     const handleView = (id: string, userId: string) => {
@@ -292,10 +297,17 @@ const MyApplication = () => {
                                                                             return (
                                                                                 <>
                                                                                     {
-                                                                                        item.paymentStatus === false ?
-                                                                                            <Div>
-                                                                                                <button className='paidDownload' onClick={() => handlePayment(item.applicantName, item.emailId, item.mobileNumber, item.applicationId)}>Proceed to pay</button>
-                                                                                            </Div>
+                                                                                        item.paymentStatus === false ? (
+                                                                                            <>
+                                                                                                <Div style={{marginBottom: '1rem'}}>
+                                                                                                    <button className='paidDownload' onClick={() => handlePayment(item.applicantName, item.emailId, item.mobileNumber, item.applicationId)}>Pay through gateway</button>
+                                                                                                </Div>
+                                                                                                <Div>
+                                                                                                    <button className='paidDownload' onClick={() => handleQRCodePayment(item.applicationId, item.mobileNumber)}>Pay through QR Code</button>
+                                                                                                </Div>
+                                                                                            </>
+
+                                                                                        )
                                                                                             :
                                                                                             <Div>
                                                                                                 <button className='paidDownload' style={{ marginRight: '1rem' }}>Paid</button>
