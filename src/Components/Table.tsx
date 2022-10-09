@@ -31,10 +31,10 @@ const Table = () => {
                             <th>Postion (Regular/Contractual)</th>
 
 
+                            <th>Experience</th>
                             <th>Vacancy</th>
 
 
-                            <th>Experience</th>
                             <th>Age</th>
                             <th>Apply Now</th>
                         </tr>
