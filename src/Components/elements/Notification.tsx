@@ -55,10 +55,12 @@ const Notification = () => {
                 await axios.get(`/api/application/fetch-news`).then((response) => {
                     if (!isMounted.current) {
                         const { body } = response.data;
-                        if (!body.length) {
+                        if (body === null) {
                             setNoData(true);
                         }
                         setUsers(body);
+                        // console.log(body.length);
+                        
 
 
                     }

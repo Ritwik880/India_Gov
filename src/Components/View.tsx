@@ -173,11 +173,11 @@ const View = () => {
                                             {
 
                                                 users.map((item, id) => {
-                                                    const extractedDate = item.dateOfBirth
-                                                        .split("T")[0]
-                                                        .split("-")
-                                                        .reverse()
-                                                        .join("-");
+                                                    // const extractedDate = item.dateOfBirth
+                                                    //     .split("T")[0]
+                                                    //     .split("-")
+                                                    //     .reverse()
+                                                    //     .join("-");
 
 
 
@@ -221,7 +221,7 @@ const View = () => {
                                                                         </div>
                                                                         <div className="mb-3 col-lg-3 col-md-12">
                                                                             <label htmlFor="exampleInputEmail1" className="form-label">Date Of Birth <span className="must-filed">*</span></label>
-                                                                            <RHFTextField disabled name="dateOfBirth" label="" placeholder='dd/mm/yyyy' value={extractedDate} />
+                                                                            <RHFTextField disabled name="dateOfBirth" label="" placeholder='dd/mm/yyyy' value={item.dateOfBirth} />
 
                                                                         </div>
                                                                         <div className="mb-3 col-lg-3 col-md-12">
@@ -643,6 +643,48 @@ const View = () => {
 
                                                                     </div>
 
+                                                                    <div className="formBox">
+
+                                                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                                            <table className="table">
+
+                                                                                <tr>
+                                                                                    <th>Course Name</th>
+                                                                                    <th>Institution Name	</th>
+                                                                                    <th>Board</th>
+                                                                                    <th>% Mark</th>
+                                                                                    <th>Passing Year
+
+                                                                                    </th>
+                                                                                </tr>
+
+                                                                                <tr>
+
+                                                                                    <td> <RHFTextField name="className" value={item.academicQualification[3].className ? item.academicQualification[3].className : ''} label="" placeholder='High School' disabled /></td>
+
+                                                                                    <td> <RHFTextField name="schoolName" value={item.academicQualification[2].schoolName ? item.academicQualification[3].schoolName : ''} label="" placeholder='School Name' disabled /></td>
+
+
+                                                                                    <td> <RHFTextField name="board" value={item.academicQualification[3].board ? item.academicQualification[3].board : ''} label="" placeholder='Board' disabled /></td>
+
+
+
+                                                                                    <td> <RHFTextField name="percentage" value={item.academicQualification[3].percentage ? item.academicQualification[3].percentage : ''} type='number' label="" placeholder='Percentage' disabled /></td>
+
+
+                                                                                    <td> <RHFTextField name="passingYear" value={item.academicQualification[3].passingYear ? item.academicQualification[3].passingYear : ''} type='number' label="" placeholder='Passing Year' disabled /></td>
+
+
+
+
+                                                                                </tr>
+                                                                            </table>
+
+                                                                        </div>
+
+
+                                                                    </div>
+
                                                                     <h2 className='footerFormHead' id="add-modal-label">Higher Qualification
                                                                     </h2>
 
@@ -694,6 +736,33 @@ const View = () => {
                                                                                         <td> <RHFTextField name="percentage" type='number' value={item.higherQualification[1].percentage ? item.higherQualification[1].percentage : ''} label="" placeholder='Percentage' disabled /></td>
                                                                                         <td> <RHFTextField name="passingYear" type='number' value={item.higherQualification[1].passingYear ? item.higherQualification[1].passingYear : ''} label="" placeholder='Year' disabled /></td>
                                                                                         <td> <RHFTextField name="courseType" value={item.higherQualification[1].courseType ? item.higherQualification[1].courseType : ''} label="" placeholder='Course Type' disabled /></td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div className="formBox">
+                                                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                                            <table className="table table-bordered table-hover">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Course Name</th>
+                                                                                        <th>Specialization</th>
+                                                                                        <th>% Mark	</th>
+                                                                                        <th>Passing Year	</th>
+                                                                                        <th>Course Type
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody className="add_row_div_experience">
+                                                                                    <tr>
+                                                                                        <td> <RHFTextField name="masterDegreeName" value={item.higherQualification[2].courseName ? item.higherQualification[2].courseName : ''} label="" placeholder='Course Name' disabled /></td>
+                                                                                        <td> <RHFTextField name="specialization" value={item.higherQualification[2].specialization ? item.higherQualification[2].specialization : ''} label="" placeholder='Specialization' disabled /></td>
+                                                                                        <td> <RHFTextField name="percentage" type='number' value={item.higherQualification[2].percentage ? item.higherQualification[2].percentage : ''} label="" placeholder='Percentage' disabled /></td>
+                                                                                        <td> <RHFTextField name="passingYear" type='number' value={item.higherQualification[2].passingYear ? item.higherQualification[2].passingYear : ''} label="" placeholder='Year' disabled /></td>
+                                                                                        <td> <RHFTextField name="courseType" value={item.higherQualification[2].courseType ? item.higherQualification[2].courseType : ''} label="" placeholder='Course Type' disabled /></td>
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
@@ -785,6 +854,70 @@ const View = () => {
                                                                                         <td> <RHFTextField disabled name="location" value={item.experienceDetails[1] ? item.experienceDetails[1].location : ''} label="" placeholder='Location' /></td>
                                                                                         <td> <RHFTextField disabled name="durationFrom" value={item.experienceDetails[1] ? item.experienceDetails[1].durationFrom : ''} label="" placeholder='Duration From' /></td>
                                                                                         <td> <RHFTextField disabled name="durationTo" value={item.experienceDetails[1] ? item.experienceDetails[1].durationTo : ''} label="" placeholder='Duration To' /></td>
+                                                                                    </tr>
+
+
+                                                                                </tbody>
+                                                                            </table>
+
+                                                                        </div>
+
+
+                                                                    </div>
+
+                                                                    <div className="formBox">
+
+                                                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                                            <table className="table table-bordered table-hover">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Company Name</th>
+                                                                                        <th>Designation</th>
+                                                                                        <th>Location</th>
+                                                                                        <th>Duration From</th>
+                                                                                        <th>Duration To</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody className="add_row_div_experience">
+
+                                                                                    <tr>
+                                                                                        <td> <RHFTextField disabled name="companyName" value={item.experienceDetails[2] ? item.experienceDetails[2].companyName : ''} label="" placeholder='durationFromCompany Name' /></td>
+                                                                                        <td> <RHFTextField disabled name="designation" value={item.experienceDetails[2] ? item.experienceDetails[2].designation : ''} label="" placeholder='Designation' /></td>
+                                                                                        <td> <RHFTextField disabled name="location" value={item.experienceDetails[2] ? item.experienceDetails[2].location : ''} label="" placeholder='Location' /></td>
+                                                                                        <td> <RHFTextField disabled name="durationFrom" value={item.experienceDetails[2] ? item.experienceDetails[2].durationFrom : ''} label="" placeholder='Duration From' /></td>
+                                                                                        <td> <RHFTextField disabled name="durationTo" value={item.experienceDetails[2] ? item.experienceDetails[2].durationTo : ''} label="" placeholder='Duration To' /></td>
+                                                                                    </tr>
+
+
+                                                                                </tbody>
+                                                                            </table>
+
+                                                                        </div>
+
+
+                                                                    </div>
+
+                                                                    <div className="formBox">
+
+                                                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                                            <table className="table table-bordered table-hover">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Company Name</th>
+                                                                                        <th>Designation</th>
+                                                                                        <th>Location</th>
+                                                                                        <th>Duration From</th>
+                                                                                        <th>Duration To</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody className="add_row_div_experience">
+
+                                                                                    <tr>
+                                                                                        <td> <RHFTextField disabled name="companyName" value={item.experienceDetails[3] ? item.experienceDetails[3].companyName : ''} label="" placeholder='durationFromCompany Name' /></td>
+                                                                                        <td> <RHFTextField disabled name="designation" value={item.experienceDetails[3] ? item.experienceDetails[3].designation : ''} label="" placeholder='Designation' /></td>
+                                                                                        <td> <RHFTextField disabled name="location" value={item.experienceDetails[3] ? item.experienceDetails[3].location : ''} label="" placeholder='Location' /></td>
+                                                                                        <td> <RHFTextField disabled name="durationFrom" value={item.experienceDetails[3] ? item.experienceDetails[3].durationFrom : ''} label="" placeholder='Duration From' /></td>
+                                                                                        <td> <RHFTextField disabled name="durationTo" value={item.experienceDetails[3] ? item.experienceDetails[3].durationTo : ''} label="" placeholder='Duration To' /></td>
                                                                                     </tr>
 
 

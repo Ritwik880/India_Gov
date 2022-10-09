@@ -157,10 +157,26 @@ export type ProfileValues = {
             board: string;
             percentage: number;
             passingYear: number;
+        },
+        {
+            academicQualificationId: number;
+            className: string;
+            schoolName: string;
+            board: string;
+            percentage: number;
+            passingYear: number;
         }
     ],
 
     higherQualification: [
+        {
+            higherQualificationId: number;
+            courseName: string;
+            specialization: string;
+            percentage: number;
+            passingYear: number;
+            courseType: string;
+        },
         {
             higherQualificationId: number;
             courseName: string;
@@ -197,8 +213,22 @@ export type ProfileValues = {
             location: string;
             durationFrom: string;
             durationTo: string;
-            experienced: string;
-            totalExperience: number;
+        },
+        {
+            experienceDetailId: number,
+            companyName: string;
+            designation: string;
+            location: string;
+            durationFrom: string;
+            durationTo: string;
+        },
+        {
+            experienceDetailId: number,
+            companyName: string;
+            designation: string;
+            location: string;
+            durationFrom: string;
+            durationTo: string;
         }
     ],
     alternateEmailId: string;
@@ -285,10 +315,26 @@ export type ProfileValuesEditProps = {
             passingYear: string;
             percentage: string;
             schoolName: string
+        },
+        {
+            academicQualificationId: number,
+            board: string;
+            className: string;
+            passingYear: string;
+            percentage: string;
+            schoolName: string
         }
 
     ],
     higherQualification: [
+        {
+            higherQualificationId: number,
+            courseName: string;
+            courseType: string;
+            passingYear: string;
+            percentage: string;
+            specialization: string;
+        },
         {
             higherQualificationId: number,
             courseName: string;
@@ -316,6 +362,24 @@ export type ProfileValuesEditProps = {
             experienced: string;
             location: string;
             totalExperience: string,
+        },
+        {
+            experienceDetailId: number;
+            companyName: string;
+            designation: string;
+            durationFrom: string;
+            durationTo: string;
+            location: string;
+
+        },
+        {
+            experienceDetailId: number;
+            companyName: string;
+            designation: string;
+            durationFrom: string;
+            durationTo: string;
+            location: string;
+
         },
         {
             experienceDetailId: number;

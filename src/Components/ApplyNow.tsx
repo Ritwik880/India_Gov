@@ -134,6 +134,33 @@ const ApplyNow = () => {
     const [durationFromSecond, setDurationFromSecond] = useState("");
     const [durationToSecond, setdurationToSecond] = useState("");
 
+    //other
+    const [otherBachelor, setOtherBachelor] = useState("Others");
+    const [otherCollege, setOtherCollege] = useState("");
+    const [otherBoard, setOtherBoard] = useState("");
+    const [otherPercentage, setOtherPercentage] = useState("");
+    const [otherPassing, setOtherPassing] = useState("");
+
+    //other
+    const [otherGraduation, setOtherGraduation] = useState("Others");
+    const [otherSpecialisation, setOtherSpecialisation] = useState("");
+    const [otherPercentageGraduation, setOtherPercentageGraduation] = useState("");
+    const [otherPassingYearGraduation, setOtherPassingYearGraduation] = useState("");
+    const [otherCourseTypeGraduation, setOtherCourseTypeGraduation] = useState("");
+
+    //other
+    const [thirdCompanyNameSecond, setThirdCompanyNameSecond] = useState("");
+    const [thirdDesignationSecond, setThirdDesignationSecond] = useState("");
+    const [thirdLocationSecond, setThirdLocationSecond] = useState("");
+    const [thirdDurationFromSecond, setThirdDurationFromSecond] = useState("");
+    const [thirdDurationToSecond, setThirdDurationToSecond] = useState("");
+
+    //other
+    const [fourthCompanyNameSecond, setFourthCompanyNameSecond] = useState("");
+    const [fourthDesignationSecond, setFourthDesignationSecond] = useState("");
+    const [fourthLocationSecond, setFourthLocationSecond] = useState("");
+    const [fourthDurationFromSecond, setFourthDurationFromSecond] = useState("");
+    const [fourthDurationToSecond, setFourthDurationToSecond] = useState("");
 
 
 
@@ -248,6 +275,13 @@ const ApplyNow = () => {
                         percentage: percentageBachelor ? parseInt(percentageBachelor) : null,
                         passingYear: passingYearBachelor ? parseInt(passingYearBachelor) : null,
                     },
+                    {
+                        className: otherBachelor ? otherBachelor : null,
+                        schoolName: otherCollege ? otherCollege : null,
+                        board: otherBoard ? otherBoard : null,
+                        percentage: otherPercentage ? parseInt(otherPercentage) : null,
+                        passingYear: otherPassing ? parseInt(otherPassing) : null,
+                    },
 
 
 
@@ -270,6 +304,14 @@ const ApplyNow = () => {
                         percentage: percentageGraduation ? parseInt(percentageGraduation) : null,
 
                     },
+                    {
+                        courseName: otherGraduation ? otherGraduation : null,
+                        specialization: otherSpecialisation ? otherSpecialisation : null,
+                        courseType: otherCourseTypeGraduation ? otherCourseTypeGraduation : null,
+                        passingYear: otherPassingYearGraduation ? parseInt(otherPassingYearGraduation) : null,
+                        percentage: otherPercentageGraduation ? parseInt(otherPercentageGraduation) : null,
+
+                    },
 
                 ],
 
@@ -290,8 +332,23 @@ const ApplyNow = () => {
                         location: locationSecond ? locationSecond : null,
                         durationFrom: durationFromSecond ? durationFromSecond : null,
                         durationTo: durationToSecond ? durationToSecond : null,
-                        totalExperience: parseInt(totalExp),
-                        experienced: exp,
+                       
+                    },
+                    {
+                        companyName: thirdCompanyNameSecond ? thirdCompanyNameSecond : null,
+                        designation: thirdDesignationSecond ? thirdDesignationSecond : null,
+                        location: thirdLocationSecond ? thirdLocationSecond : null,
+                        durationFrom: thirdDurationFromSecond ? thirdDurationFromSecond : null,
+                        durationTo: thirdDurationToSecond ? thirdDurationToSecond : null,
+                       
+                    },
+                    {
+                        companyName: fourthCompanyNameSecond ? fourthCompanyNameSecond : null,
+                        designation: fourthDesignationSecond ? fourthDesignationSecond : null,
+                        location: fourthLocationSecond ? fourthLocationSecond : null,
+                        durationFrom: fourthDurationFromSecond ? fourthDurationFromSecond : null,
+                        durationTo: fourthDurationToSecond ? fourthDurationToSecond : null,
+                       
                     },
                 ],
                 password: Math.random().toString(36).substring(2, 9)
@@ -308,14 +365,6 @@ const ApplyNow = () => {
             console.log(error);
             toast.error("Something went wrong!");
         }
-
-
-
-
-
-
-
-
     };
 
 
@@ -459,9 +508,6 @@ const ApplyNow = () => {
 
     }
 
-
-
-
     const handleAlternateMobileNumber = (e: any) => {
         if (alternateMobileNumber.length >= 10) {
             toast.info('Alternate Mobile Number should be of 10 digit!');
@@ -477,8 +523,6 @@ const ApplyNow = () => {
 
 
     }
-
-
 
     const onUploadPhotoChange = (files: any) => {
         setUploadFileSrc(files.map((filename: any) => filename.preview.url));
@@ -534,6 +578,17 @@ const ApplyNow = () => {
         }
 
     }
+    const handleOtherChange = (e: any) => {
+        if (otherBachelor === "") {
+            setOtherBachelor('Others')
+            setOtherCollege(e.target.value)
+
+        }
+        else {
+            setOtherCollege(e.target.value)
+        }
+
+    }
     const handleChangeName = (e: any) => {
         if (masterDegreeName === "") {
             setMasterDegreeName('Graduation/Masters Degree')
@@ -558,7 +613,18 @@ const ApplyNow = () => {
 
 
     }
+    const handleOtherChangeLast = (e: any) => {
+        if (otherGraduation === "") {
+            setOtherGraduation('Others')
+            setOtherSpecialisation(e.target.value)
 
+        }
+        else {
+            setOtherSpecialisation(e.target.value)
+        }
+
+
+    }
     const handleChangePresentPincode = (e: any) => {
         var x = e.which || e.keycode;
         if ((x >= 48 && x <= 57))
@@ -1044,6 +1110,47 @@ const ApplyNow = () => {
 
                                     </div>
 
+                                    <div className="formBox">
+
+                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                            <table className="table">
+
+                                                <tr>
+                                                    <th>Course Name</th>
+                                                    <th>Institution Name	</th>
+                                                    <th>Board</th>
+                                                    <th>% Mark</th>
+                                                    <th>Passing Year
+
+                                                    </th>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td> <RHFTextField name="className" value={otherBachelor} onChange={(e) => setOtherBachelor(e.target.value)} label="" placeholder='Bachelor Name' /></td>
+
+                                                    <td> <RHFTextField name="schoolName" value={otherCollege} onChange={handleOtherChange} label="" placeholder='Institute Name' /></td>
+
+
+                                                    <td> <RHFTextField name="board" value={otherBoard} onChange={(e) => setOtherBoard(e.target.value)} label="" placeholder='Board' /></td>
+
+
+
+                                                    <td> <RHFTextField name="percentage" value={otherPercentage} onChange={(e) => setOtherPercentage(e.target.value)} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+
+
+                                                    <td> <RHFTextField name="passingYear" value={otherPassing} onChange={(e) => setOtherPassing(e.target.value)} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
+
+
+
+                                                </tr>
+                                            </table>
+
+                                        </div>
+
+
+                                    </div>
+
 
                                     <h2 className='footerFormHead' id="add-modal-label">Higher Qualification
                                     </h2>
@@ -1096,6 +1203,34 @@ const ApplyNow = () => {
                                                         <td> <RHFTextField name="percentage" type='number' value={percentageGraduation} onChange={(e) => setPercentageGraduation(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
                                                         <td> <RHFTextField name="passingYear" type='number' value={passingYearGraduation} onChange={(e) => setPassingYearGraduation(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
                                                         <td> <RHFTextField name="courseType" value={courseTypeGraduation} onChange={(e) => setCourseTypeGraduation(e.target.value)} label="" placeholder='Course Type' /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div className="formBox">
+                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                            <table className="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Course Name</th>
+                                                        <th>Specialization</th>
+                                                        <th>% Mark	</th>
+                                                        <th>Passing Year	</th>
+                                                        <th>Course Type
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="add_row_div_experience">
+                                                    <tr>
+                                                        <td> <RHFTextField name="postGraduation" value={otherGraduation} onChange={(e) => setOtherGraduation(e.target.value)} label="" placeholder='Course Name' required /></td>
+                                                        <td> <RHFTextField name="specialization" value={otherSpecialisation} onChange={handleOtherChangeLast} label="" placeholder='Specialization' /></td>
+                                                        <td> <RHFTextField name="percentage" type='number' value={otherPercentageGraduation} onChange={(e) => setOtherPercentageGraduation(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                        <td> <RHFTextField name="passingYear" type='number' value={otherPassingYearGraduation} onChange={(e) => setOtherPassingYearGraduation(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
+                                                        <td> <RHFTextField name="courseType" value={otherCourseTypeGraduation} onChange={(e) => setOtherCourseTypeGraduation(e.target.value)} label="" placeholder='Course Type' /></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -1161,6 +1296,22 @@ const ApplyNow = () => {
                                                                 <td> <RHFTextField name="location" value={locationSecond} onChange={(e) => setLocationSecond(e.target.value)} label="" placeholder='Location' /></td>
                                                                 <td> <RHFTextField name="durationFrom" value={durationFromSecond} onChange={(e) => setDurationFromSecond(e.target.value)} label="" placeholder='Duration From' /></td>
                                                                 <td> <RHFTextField name="durationTo" value={durationToSecond} onChange={(e) => setdurationToSecond(e.target.value)} label="" placeholder='Duration To' /></td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td> <RHFTextField name="companyName" value={thirdCompanyNameSecond} onChange={(e) => setThirdCompanyNameSecond(e.target.value)} label="" placeholder='Company Name' /></td>
+                                                                <td> <RHFTextField name="designation" value={thirdDesignationSecond} onChange={(e) => setThirdDesignationSecond(e.target.value)} label="" placeholder='Designation' /></td>
+                                                                <td> <RHFTextField name="location" value={thirdLocationSecond} onChange={(e) => setThirdLocationSecond(e.target.value)} label="" placeholder='Location' /></td>
+                                                                <td> <RHFTextField name="durationFrom" value={thirdDurationFromSecond} onChange={(e) => setThirdDurationFromSecond(e.target.value)} label="" placeholder='Duration From' /></td>
+                                                                <td> <RHFTextField name="durationTo" value={thirdDurationToSecond} onChange={(e) => setThirdDurationToSecond(e.target.value)} label="" placeholder='Duration To' /></td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td> <RHFTextField name="companyName" value={fourthCompanyNameSecond} onChange={(e) => setFourthCompanyNameSecond(e.target.value)} label="" placeholder='Company Name' /></td>
+                                                                <td> <RHFTextField name="designation" value={fourthDesignationSecond} onChange={(e) => setFourthDesignationSecond(e.target.value)} label="" placeholder='Designation' /></td>
+                                                                <td> <RHFTextField name="location" value={fourthLocationSecond} onChange={(e) => setFourthLocationSecond(e.target.value)} label="" placeholder='Location' /></td>
+                                                                <td> <RHFTextField name="durationFrom" value={fourthDurationFromSecond} onChange={(e) => setFourthDurationFromSecond(e.target.value)} label="" placeholder='Duration From' /></td>
+                                                                <td> <RHFTextField name="durationTo" value={fourthDurationToSecond} onChange={(e) => setFourthDurationToSecond(e.target.value)} label="" placeholder='Duration To' /></td>
                                                             </tr>
 
 

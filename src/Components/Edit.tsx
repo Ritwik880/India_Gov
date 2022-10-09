@@ -26,6 +26,10 @@ const Edit = () => {
     const [id5, setId5] = useState(0);
     const [id6, setId6] = useState(0);
     const [id7, setId7] = useState(0);
+    const [id8, setId8] = useState(0);
+    const [id9, setId9] = useState(0);
+    const [id10, setId10] = useState(0);
+    const [id11, setId11] = useState(0);
     const [postName, setPostName] = useState("");
     const [gender, setGender] = useState("");
     const [mobileNumber, setMobileNumber] = useState("");
@@ -128,6 +132,15 @@ const Edit = () => {
                         passingYear: parseInt(data.academicQualification[2].passingYear),
                         percentage: parseInt(data.academicQualification[2].percentage),
 
+                    },
+                    {
+                        academicQualificationId: id10,
+                        schoolName: data.academicQualification[3].schoolName,
+                        className: data.academicQualification[3].className,
+                        board: data.academicQualification[3].board,
+                        passingYear: parseInt(data.academicQualification[3].passingYear),
+                        percentage: parseInt(data.academicQualification[3].percentage),
+
                     }
                 ],
                 higherQualification: [
@@ -147,6 +160,16 @@ const Edit = () => {
                         courseType: data.higherQualification[1].courseType,
                         passingYear: parseInt(data.higherQualification[1].passingYear),
                         percentage: parseInt(data.higherQualification[1].percentage),
+
+
+                    },
+                    {
+                        higherQualificationId: id11,
+                        courseName: data.higherQualification[2].courseName,
+                        specialization: data.higherQualification[2].specialization,
+                        courseType: data.higherQualification[2].courseType,
+                        passingYear: parseInt(data.higherQualification[2].passingYear),
+                        percentage: parseInt(data.higherQualification[2].percentage),
 
 
                     },
@@ -170,6 +193,24 @@ const Edit = () => {
                         location: data.experienceDetails[1].location,
                         durationFrom: data.experienceDetails[1].durationFrom,
                         durationTo: data.experienceDetails[1].durationTo,
+
+                    },
+                    {
+                        experienceDetailId: id8,
+                        companyName: data.experienceDetails[2].companyName,
+                        designation: data.experienceDetails[2].designation,
+                        location: data.experienceDetails[2].location,
+                        durationFrom: data.experienceDetails[2].durationFrom,
+                        durationTo: data.experienceDetails[2].durationTo,
+
+                    },
+                    {
+                        experienceDetailId: id9,
+                        companyName: data.experienceDetails[3].companyName,
+                        designation: data.experienceDetails[3].designation,
+                        location: data.experienceDetails[3].location,
+                        durationFrom: data.experienceDetails[3].durationFrom,
+                        durationTo: data.experienceDetails[3].durationTo,
 
                     },
                 ],
@@ -202,10 +243,14 @@ const Edit = () => {
                 setId(body[0].academicQualification[0] ? body[0].academicQualification[0].academicQualificationId : 0);
                 setId2(body[0].academicQualification[1] ? body[0].academicQualification[1].academicQualificationId : 0);
                 setId3(body[0].academicQualification[2] ? body[0].academicQualification[2].academicQualificationId : 0);
+                setId10(body[0].academicQualification[3] ? body[0].academicQualification[3].academicQualificationId : 0);
                 setId4(body[0].higherQualification[0] ? body[0].higherQualification[0].higherQualificationId : 0);
                 setId5(body[0].higherQualification[1] ? body[0].higherQualification[1].higherQualificationId : 0);
+                setId11(body[0].higherQualification[2] ? body[0].higherQualification[2].higherQualificationId : 0);
                 setId6(body[0].experienceDetails[0] ? body[0].experienceDetails[0].experienceDetailId : 0);
                 setId7(body[0].experienceDetails[1] ? body[0].experienceDetails[1].experienceDetailId : 0);
+                setId8(body[0].experienceDetails[2] ? body[0].experienceDetails[2].experienceDetailId : 0);
+                setId9(body[0].experienceDetails[3] ? body[0].experienceDetails[3].experienceDetailId : 0);
                 setPostName(body[0].postName);
                 body[0].applicationId && setApplicationId(body[0].applicationId)
                 body[0].mobileNumber && setMobileNumber(body[0].mobileNumber)
@@ -325,6 +370,22 @@ const Edit = () => {
                     ? setValue('academicQualification.2.percentage', body[0].academicQualification[2].percentage)
                     : setValue('academicQualification.2.percentage', '');
 
+                body[0].academicQualification[3].board
+                    ? setValue('academicQualification.3.board', body[0].academicQualification[3].board)
+                    : setValue('academicQualification.3.board', '');
+                body[0].academicQualification[3].className
+                    ? setValue('academicQualification.3.className', body[0].academicQualification[3].className)
+                    : setValue('academicQualification.3.className', '');
+                body[0].academicQualification[3].schoolName
+                    ? setValue('academicQualification.3.schoolName', body[0].academicQualification[3].schoolName)
+                    : setValue('academicQualification.3.schoolName', '');
+                body[0].academicQualification[3].passingYear
+                    ? setValue('academicQualification.3.passingYear', body[0].academicQualification[3].passingYear)
+                    : setValue('academicQualification.3.passingYear', '');
+                body[0].academicQualification[3].percentage
+                    ? setValue('academicQualification.3.percentage', body[0].academicQualification[3].percentage)
+                    : setValue('academicQualification.3.percentage', '');
+
 
                 body[0].higherQualification[0].courseName
                     ? setValue('higherQualification.0.courseName', body[0].higherQualification[0].courseName)
@@ -357,6 +418,28 @@ const Edit = () => {
                 body[0].higherQualification[1].specialization
                     ? setValue('higherQualification.1.specialization', body[0].higherQualification[1].specialization)
                     : setValue('higherQualification.1.specialization', '');
+                
+                body[0].higherQualification[2].courseName
+                    ? setValue('higherQualification.2.courseName', body[0].higherQualification[2].courseName)
+                    : setValue('higherQualification.2.courseName', '');
+                body[0].higherQualification[2].courseType
+                    ? setValue('higherQualification.2.courseType', body[0].higherQualification[2].courseType)
+                    : setValue('higherQualification.2.courseType', '');
+                body[0].academicQualification[2].passingYear
+                    ? setValue('higherQualification.2.passingYear', body[0].higherQualification[2].passingYear)
+                    : setValue('higherQualification.2.passingYear', '');
+                body[0].higherQualification[2].percentage
+                    ? setValue('higherQualification.2.percentage', body[0].higherQualification[2].percentage)
+                    : setValue('higherQualification.2.percentage', '');
+                body[0].higherQualification[2].specialization
+                    ? setValue('higherQualification.2.specialization', body[0].higherQualification[2].specialization)
+                    : setValue('higherQualification.2.specialization', '');
+
+
+                body[0].experienceDetails[0].totalExperience
+                    ? setValue('experienceDetails.0.totalExperience', body[0].experienceDetails[0].totalExperience)
+                    : setValue('experienceDetails.0.totalExperience', '');
+                body[0].experienceDetails[0].experienced && setExperienced(body[0].experienceDetails[0].experienced)
                 body[0].experienceDetails[0].companyName
                     ? setValue('experienceDetails.0.companyName', body[0].experienceDetails[0].companyName)
                     : setValue('experienceDetails.0.companyName', '');
@@ -369,14 +452,10 @@ const Edit = () => {
                 body[0].experienceDetails[0].durationTo
                     ? setValue('experienceDetails.0.durationTo', body[0].experienceDetails[0].durationTo)
                     : setValue('experienceDetails.0.durationTo', '');
-
                 body[0].experienceDetails[0].location
                     ? setValue('experienceDetails.0.location', body[0].experienceDetails[0].location)
                     : setValue('experienceDetails.0.location', '');
-                body[0].experienceDetails[0].totalExperience
-                    ? setValue('experienceDetails.0.totalExperience', body[0].experienceDetails[0].totalExperience)
-                    : setValue('experienceDetails.0.totalExperience', '');
-                body[0].experienceDetails[0].experienced && setExperienced(body[0].experienceDetails[0].experienced)
+               
 
                 body[0].experienceDetails[1].companyName
                     ? setValue('experienceDetails.1.companyName', body[0].experienceDetails[1].companyName)
@@ -393,6 +472,39 @@ const Edit = () => {
                 body[0].experienceDetails[1].location
                     ? setValue('experienceDetails.1.location', body[0].experienceDetails[1].location)
                     : setValue('experienceDetails.1.location', '');
+
+                    body[0].experienceDetails[2].companyName
+                    ? setValue('experienceDetails.2.companyName', body[0].experienceDetails[2].companyName)
+                    : setValue('experienceDetails.2.companyName', '');
+                body[0].experienceDetails[1].designation
+                    ? setValue('experienceDetails.2.designation', body[0].experienceDetails[2].designation)
+                    : setValue('experienceDetails.2.designation', '');
+                body[0].experienceDetails[1].durationFrom
+                    ? setValue('experienceDetails.2.durationFrom', body[0].experienceDetails[2].durationFrom)
+                    : setValue('experienceDetails.2.durationFrom', '');
+                body[0].experienceDetails[1].durationTo
+                    ? setValue('experienceDetails.2.durationTo', body[0].experienceDetails[2].durationTo)
+                    : setValue('experienceDetails.2.durationTo', '');
+                body[0].experienceDetails[1].location
+                    ? setValue('experienceDetails.2.location', body[0].experienceDetails[2].location)
+                    : setValue('experienceDetails.2.location', '');
+
+
+                    body[0].experienceDetails[3].companyName
+                    ? setValue('experienceDetails.3.companyName', body[0].experienceDetails[3].companyName)
+                    : setValue('experienceDetails.3.companyName', '');
+                body[0].experienceDetails[3].designation
+                    ? setValue('experienceDetails.3.designation', body[0].experienceDetails[3].designation)
+                    : setValue('experienceDetails.3.designation', '');
+                body[0].experienceDetails[3].durationFrom
+                    ? setValue('experienceDetails.3.durationFrom', body[0].experienceDetails[3].durationFrom)
+                    : setValue('experienceDetails.3.durationFrom', '');
+                body[0].experienceDetails[3].durationTo
+                    ? setValue('experienceDetails.3.durationTo', body[0].experienceDetails[3].durationTo)
+                    : setValue('experienceDetails.3.durationTo', '');
+                body[0].experienceDetails[3].location
+                    ? setValue('experienceDetails.3.location', body[0].experienceDetails[3].location)
+                    : setValue('experienceDetails.3.location', '');
             } catch (error) {
                 console.error(error);
             }
@@ -411,12 +523,6 @@ const Edit = () => {
     const handleGoBack = (applicationId: string, userId: string) => {
         navigate('/my-application', { state: { applicationId, userId } })
     }
-
-
-
-
-
-
 
     return (
         <>
@@ -892,6 +998,49 @@ const Edit = () => {
 
                                         </div>
 
+
+                                        <div className="formBox">
+
+                                            <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                <table className="table">
+
+                                                    <tr>
+                                                        <th>Course Name</th>
+                                                        <th>Institution Name	</th>
+                                                        <th>Board</th>
+                                                        <th>% Mark</th>
+                                                        <th>Passing Year
+
+                                                        </th>
+                                                    </tr>
+
+                                                    <tr>
+
+                                                        <td> <RHFTextField name="academicQualification.3.className" label="" placeholder='High School' /></td>
+
+                                                        <td> <RHFTextField name="academicQualification.3.schoolName" label="" placeholder='School Name' /></td>
+
+
+                                                        <td> <RHFTextField name="academicQualification.3.board" label="" placeholder='Board' /></td>
+
+
+
+                                                        <td> <RHFTextField name="academicQualification.3.percentage" type='number' label="" placeholder='Percentage' /></td>
+
+
+                                                        <td> <RHFTextField name="academicQualification.3.passingYear" type='number' label="" placeholder='Passing Year' /></td>
+
+
+
+
+                                                    </tr>
+                                                </table>
+
+                                            </div>
+
+
+                                        </div>
+
                                         <h2 className='footerFormHead' id="add-modal-label">Higher Qualification
                                         </h2>
 
@@ -943,6 +1092,34 @@ const Edit = () => {
                                                             <td> <RHFTextField name="higherQualification.1.percentage" type='number' label="" placeholder='Percentage' /></td>
                                                             <td> <RHFTextField name="higherQualification.1.passingYear" type='number' label="" placeholder='Year' /></td>
                                                             <td> <RHFTextField name="higherQualification.1.courseType" label="" placeholder='Course Type' /></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div className="formBox">
+                                            <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                <table className="table table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Course Name</th>
+                                                            <th>Specialization</th>
+                                                            <th>% Mark	</th>
+                                                            <th>Passing Year	</th>
+                                                            <th>Course Type
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody className="add_row_div_experience">
+                                                        <tr>
+                                                            <td> <RHFTextField name="higherQualification.2.courseName" label="" placeholder='Course Name' /></td>
+                                                            <td> <RHFTextField name="higherQualification.2.specialization" label="" placeholder='Specialization' /></td>
+                                                            <td> <RHFTextField name="higherQualification.2.percentage" type='number' label="" placeholder='Percentage' /></td>
+                                                            <td> <RHFTextField name="higherQualification.2.passingYear" type='number' label="" placeholder='Year' /></td>
+                                                            <td> <RHFTextField name="higherQualification.2.courseType" label="" placeholder='Course Type' /></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -1026,6 +1203,68 @@ const Edit = () => {
                                                                         <td> <RHFTextField name="experienceDetails.1.location" label="" placeholder='Location' /></td>
                                                                         <td> <RHFTextField name="experienceDetails.1.durationFrom" label="" placeholder='Duration From' /></td>
                                                                         <td> <RHFTextField name="experienceDetails.1.durationTo" label="" placeholder='Duration To' /></td>
+                                                                    </tr>
+
+
+                                                                </tbody>
+                                                            </table>
+
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div className="formBox">
+                                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                            <table className="table table-bordered table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Company Name</th>
+                                                                        <th>Designation</th>
+                                                                        <th>Location</th>
+                                                                        <th>Duration From</th>
+                                                                        <th>Duration To</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody className="add_row_div_experience">
+
+                                                                    <tr>
+                                                                        <td> <RHFTextField name="experienceDetails.2.companyName" label="" placeholder='Company Name' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.2.designation" label="" placeholder='Designation' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.2.location" label="" placeholder='Location' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.2.durationFrom" label="" placeholder='Duration From' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.2.durationTo" label="" placeholder='Duration To' /></td>
+                                                                    </tr>
+
+
+                                                                </tbody>
+                                                            </table>
+
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div className="formBox">
+                                                        <div className="form-group col-md-12 col-lg-12 tableFlow">
+                                                            <table className="table table-bordered table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Company Name</th>
+                                                                        <th>Designation</th>
+                                                                        <th>Location</th>
+                                                                        <th>Duration From</th>
+                                                                        <th>Duration To</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody className="add_row_div_experience">
+
+                                                                    <tr>
+                                                                        <td> <RHFTextField name="experienceDetails.3.companyName" label="" placeholder='Company Name' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.3.designation" label="" placeholder='Designation' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.3.location" label="" placeholder='Location' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.3.durationFrom" label="" placeholder='Duration From' /></td>
+                                                                        <td> <RHFTextField name="experienceDetails.3.durationTo" label="" placeholder='Duration To' /></td>
                                                                     </tr>
 
 
