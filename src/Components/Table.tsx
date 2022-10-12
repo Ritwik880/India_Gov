@@ -33,10 +33,10 @@ const Table = () => {
               <th>Post Code</th>
               <th>Post</th>
               <th>Education Qualification</th>
+              <th>Experience</th>
               <th>Pay Scale</th>
               <th>Postion (Regular/Contractual)</th>
               <th>Vacancy</th>
-              <th>Experience</th>
               <th>Age</th>
               <th>Apply Now</th>
             </tr>
@@ -47,10 +47,10 @@ const Table = () => {
                   <td>{item.postCode}</td>
                   <td>{item.name}</td>
                   <td>{item.qual}</td>
+                  <td>{item.exp}</td>
                   <td>{item.sal}</td>
                   <td>{item.position}</td>
                   <td>{item.vacancy}</td>
-                  <td>{item.exp}</td>
                   <td>{item.age}</td>
                   <td>
                     <button
