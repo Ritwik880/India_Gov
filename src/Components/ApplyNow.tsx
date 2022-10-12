@@ -1250,7 +1250,7 @@ const ApplyNow = () => {
                                                 },
                                             }} value={exp} onChange={(e) => setExp(e.target.value)} className="form-control select-experience" name="experienced">
 
-                                                <MenuItem value="Yes"  >Yes</MenuItem>
+                                                <MenuItem value="Yes" onClick={()=> setHideForm(true)}>Yes</MenuItem>
                                                 <MenuItem value="No" onClick={hanldeNo}>No</MenuItem>
                                             </Select>
 
