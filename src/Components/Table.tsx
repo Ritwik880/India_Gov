@@ -37,7 +37,7 @@ const Table = () => {
               <th>Pay Scale</th>
               <th>Postion (Regular/Contractual)</th>
               <th>Vacancy</th>
-              <th>Age</th>
+              <th style={{ minWidth: '100px' }}>Age</th>
               <th>Apply Now</th>
             </tr>
             {rowData.map((item, id) => {

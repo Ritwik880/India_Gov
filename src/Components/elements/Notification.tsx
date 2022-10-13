@@ -21,7 +21,7 @@ const Wrapper = styled("div")(({ theme }) => ({
 const Body = styled("div")(({ theme }) => ({
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     flexDirection: 'column',
     height: "200px",
     maxHeight: "100%",
@@ -60,7 +60,7 @@ const Notification = () => {
                         }
                         setUsers(body);
                         // console.log(body.length);
-                        
+
 
 
                     }
@@ -121,9 +121,13 @@ const Notification = () => {
                                             users.map((item, id) => {
                                                 return (
 
-                                                    <p className='newsPara' key={id}>
-                                                        {item.news}
-                                                    </p>
+
+                                                    <ul key={id}>
+                                                        <li>
+                                                            {item.news}
+                                                        </li>
+
+                                                    </ul>
 
                                                 )
                                             })
