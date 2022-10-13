@@ -5,7 +5,7 @@ import { HOST_API } from '../../config'
 // ----------------------------------------------------------------------
 
 const axiosInstance = axios.create({
-    baseURL: 'http://3.111.233.207:8080',
+    baseURL: '//www.fpci.org.in:8080/',
 });
 
 axiosInstance.interceptors.response.use(
