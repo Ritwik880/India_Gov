@@ -175,17 +175,6 @@ const ApplyNow = () => {
         motherName: Yup.string().required('Applicant mother name is required'),
         dateOfBirth: Yup.string().required('DateOfBirth is required'),
         emailId: Yup.string().email('Email must be a valid email address').required('Email is required'),
-        // className: Yup.string().required('className is required'),
-        // schoolName: Yup.string().required('School is required'),
-        // board: Yup.string().required('Board is required'),
-        // courseName: Yup.string().required('Course is required'),
-        // specialization: Yup.string().required('Specialization is required'),
-        // courseType: Yup.string().required('Course is required'),
-        // companyName: Yup.string().required('Company Name is required'),
-        // designation: Yup.string().required('Designation Name is required'),
-        // location: Yup.string().required('Location Name is required'),
-        // durationFrom: Yup.string().required('Duration From is required'),
-        // durationTo: Yup.string().required('Duration To is required'),
 
 
 
@@ -197,7 +186,6 @@ const ApplyNow = () => {
         motherName: '',
         others: '',
         dateOfBirth: '',
-        alternateEmailId: '',
         pancard: '',
 
 
@@ -212,7 +200,7 @@ const ApplyNow = () => {
     const { reset, handleSubmit } = methods;
     const onSubmit = async (data: ProfileValuesProps, event: any) => {
         event.stopPropagation();
-        alert('Are you sure the data entered is correct if YES click submit button.')
+        alert('Registration number and userid has been sen on your registered email address and registered mobile number')
         setLoading(true);
         try {
             const res = await axios.post('/api/application/save-application-details', {
@@ -332,7 +320,7 @@ const ApplyNow = () => {
                         location: locationSecond ? locationSecond : null,
                         durationFrom: durationFromSecond ? durationFromSecond : null,
                         durationTo: durationToSecond ? durationToSecond : null,
-                       
+
                     },
                     {
                         companyName: thirdCompanyNameSecond ? thirdCompanyNameSecond : null,
@@ -340,7 +328,7 @@ const ApplyNow = () => {
                         location: thirdLocationSecond ? thirdLocationSecond : null,
                         durationFrom: thirdDurationFromSecond ? thirdDurationFromSecond : null,
                         durationTo: thirdDurationToSecond ? thirdDurationToSecond : null,
-                       
+
                     },
                     {
                         companyName: fourthCompanyNameSecond ? fourthCompanyNameSecond : null,
@@ -348,7 +336,7 @@ const ApplyNow = () => {
                         location: fourthLocationSecond ? fourthLocationSecond : null,
                         durationFrom: fourthDurationFromSecond ? fourthDurationFromSecond : null,
                         durationTo: fourthDurationToSecond ? fourthDurationToSecond : null,
-                       
+
                     },
                 ],
                 password: Math.random().toString(36).substring(2, 9)
@@ -966,18 +954,18 @@ const ApplyNow = () => {
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputEmail1" className="form-label">Alternate Email ID</label>
 
-                                            <RHFTextField name="alternateEmailId" label="" placeholder='Alternate Email ID' required />
+                                            <RHFTextField name="alternateEmailId" label="" placeholder='Alternate Email ID' />
 
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Alternate Mobile No.</label>
 
-                                            <RHFTextField name="alternateMobileNumber" type='number' value={alternateMobileNumber} onChange={handleAlternateMobileNumber} label="" placeholder='Alternate Mobile No.' inputProps={{ maxLength: 10 }} />
+                                            <RHFTextField name="alternateMobileNumber" value={alternateMobileNumber} onChange={handleAlternateMobileNumber} label="" placeholder='Alternate Mobile No.' inputProps={{ maxLength: 10 }} />
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Pan No.</label>
 
-                                            <RHFTextField name="pancard" label="" placeholder='Pan No.' value={panNo} onChange={(e) => setPanNo(e.target.value)} inputProps={{ maxLength: 10 }} required />
+                                            <RHFTextField name="pancard" label="" placeholder='Pan No.' value={panNo} onChange={(e) => setPanNo(e.target.value)} inputProps={{ maxLength: 10 }} />
                                         </div>
 
 
@@ -1012,10 +1000,10 @@ const ApplyNow = () => {
 
 
 
-                                                    <td> <RHFTextField name="percentage" value={percentage} onChange={(e) => setPercentage(e.target.value)} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                    <td> <RHFTextField name="percentage" value={percentage} onChange={(e) => setPercentage(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
 
 
-                                                    <td> <RHFTextField name="passingYear" value={passingYear} onChange={(e) => setPassingYear(e.target.value)} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
+                                                    <td> <RHFTextField name="passingYear" value={passingYear} onChange={(e) => setPassingYear(e.target.value)} label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
 
 
 
@@ -1054,10 +1042,10 @@ const ApplyNow = () => {
 
 
 
-                                                    <td> <RHFTextField name="percentage" value={percentageDiploma} onChange={(e) => setPercentageDiploma(e.target.value)} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                    <td> <RHFTextField name="percentage" value={percentageDiploma} onChange={(e) => setPercentageDiploma(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
 
 
-                                                    <td> <RHFTextField name="passingYear" value={passingYearDiploma} onChange={(e) => setPassingYearDiploma(e.target.value)} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
+                                                    <td> <RHFTextField name="passingYear" value={passingYearDiploma} onChange={(e) => setPassingYearDiploma(e.target.value)} label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
 
 
 
@@ -1095,10 +1083,10 @@ const ApplyNow = () => {
 
 
 
-                                                    <td> <RHFTextField name="percentage" value={percentageBachelor} onChange={(e) => setPercentageBachelor(e.target.value)} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                    <td> <RHFTextField name="percentage" value={percentageBachelor} onChange={(e) => setPercentageBachelor(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
 
 
-                                                    <td> <RHFTextField name="passingYear" value={passingYearBachelor} onChange={(e) => setPassingYearBachelor(e.target.value)} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
+                                                    <td> <RHFTextField name="passingYear" value={passingYearBachelor} onChange={(e) => setPassingYearBachelor(e.target.value)} label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
 
 
 
@@ -1136,10 +1124,10 @@ const ApplyNow = () => {
 
 
 
-                                                    <td> <RHFTextField name="percentage" value={otherPercentage} onChange={(e) => setOtherPercentage(e.target.value)} type='number' label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                    <td> <RHFTextField name="percentage" value={otherPercentage} onChange={(e) => setOtherPercentage(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
 
 
-                                                    <td> <RHFTextField name="passingYear" value={otherPassing} onChange={(e) => setOtherPassing(e.target.value)} type='number' label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
+                                                    <td> <RHFTextField name="passingYear" value={otherPassing} onChange={(e) => setOtherPassing(e.target.value)} label="" placeholder='Passing Year' inputProps={{ maxLength: 4 }} /></td>
 
 
 
@@ -1173,9 +1161,20 @@ const ApplyNow = () => {
                                                     <tr>
                                                         <td> <RHFTextField name="masterDegreeName" value={masterDegreeName} onChange={(e) => setMasterDegreeName(e.target.value)} label="" placeholder='Course Name' /></td>
                                                         <td> <RHFTextField name="specialization" value={specialization} onChange={handleChangeName} label="" placeholder='Specialization' /></td>
-                                                        <td> <RHFTextField name="percentage" type='number' value={percentageHq} onChange={(e) => setPercentageHq(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
-                                                        <td> <RHFTextField name="passingYear" type='number' value={passingYearHq} onChange={(e) => setPassingYearHq(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
-                                                        <td> <RHFTextField name="courseType" value={courseType} onChange={(e) => setCourseType(e.target.value)} label="" placeholder='Course Type' /></td>
+                                                        <td> <RHFTextField name="percentage" value={percentageHq} onChange={(e) => setPercentageHq(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                        <td> <RHFTextField name="passingYear" value={passingYearHq} onChange={(e) => setPassingYearHq(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
+
+                                                        <td>
+                                                            <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={courseType} onChange={(e) => setCourseType(e.target.value)} className="form-select" required sx={{
+
+                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                    border: "none",
+                                                                },
+                                                            }}>
+                                                                <MenuItem value="Regular">Regular</MenuItem>
+                                                                <MenuItem value="Correspondence">Correspondence</MenuItem>
+                                                                <MenuItem value="Part Time">Part Time</MenuItem>
+                                                            </Select></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -1200,9 +1199,21 @@ const ApplyNow = () => {
                                                     <tr>
                                                         <td> <RHFTextField name="postGraduation" value={postGraduation} onChange={(e) => setPostGraduation(e.target.value)} label="" placeholder='Course Name' required /></td>
                                                         <td> <RHFTextField name="specialization" value={specializationGraduation} onChange={handleChangeLast} label="" placeholder='Specialization' /></td>
-                                                        <td> <RHFTextField name="percentage" type='number' value={percentageGraduation} onChange={(e) => setPercentageGraduation(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
-                                                        <td> <RHFTextField name="passingYear" type='number' value={passingYearGraduation} onChange={(e) => setPassingYearGraduation(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
-                                                        <td> <RHFTextField name="courseType" value={courseTypeGraduation} onChange={(e) => setCourseTypeGraduation(e.target.value)} label="" placeholder='Course Type' /></td>
+                                                        <td> <RHFTextField name="percentage" value={percentageGraduation} onChange={(e) => setPercentageGraduation(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                        <td> <RHFTextField name="passingYear" value={passingYearGraduation} onChange={(e) => setPassingYearGraduation(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
+
+
+                                                        <td>
+                                                            <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={courseTypeGraduation} onChange={(e) => setCourseTypeGraduation(e.target.value)} className="form-select" required sx={{
+
+                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                    border: "none",
+                                                                },
+                                                            }}>
+                                                                <MenuItem value="Regular">Regular</MenuItem>
+                                                                <MenuItem value="Correspondence">Correspondence</MenuItem>
+                                                                <MenuItem value="Part Time">Part Time</MenuItem>
+                                                            </Select></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -1228,9 +1239,21 @@ const ApplyNow = () => {
                                                     <tr>
                                                         <td> <RHFTextField name="postGraduation" value={otherGraduation} onChange={(e) => setOtherGraduation(e.target.value)} label="" placeholder='Course Name' required /></td>
                                                         <td> <RHFTextField name="specialization" value={otherSpecialisation} onChange={handleOtherChangeLast} label="" placeholder='Specialization' /></td>
-                                                        <td> <RHFTextField name="percentage" type='number' value={otherPercentageGraduation} onChange={(e) => setOtherPercentageGraduation(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
-                                                        <td> <RHFTextField name="passingYear" type='number' value={otherPassingYearGraduation} onChange={(e) => setOtherPassingYearGraduation(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
-                                                        <td> <RHFTextField name="courseType" value={otherCourseTypeGraduation} onChange={(e) => setOtherCourseTypeGraduation(e.target.value)} label="" placeholder='Course Type' /></td>
+                                                        <td> <RHFTextField name="percentage" value={otherPercentageGraduation} onChange={(e) => setOtherPercentageGraduation(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
+                                                        <td> <RHFTextField name="passingYear" value={otherPassingYearGraduation} onChange={(e) => setOtherPassingYearGraduation(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
+
+
+                                                        <td>
+                                                            <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={otherCourseTypeGraduation} onChange={(e) => setOtherCourseTypeGraduation(e.target.value)} className="form-select" required sx={{
+
+                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                    border: "none",
+                                                                },
+                                                            }}>
+                                                                <MenuItem value="Regular">Regular</MenuItem>
+                                                                <MenuItem value="Correspondence">Correspondence</MenuItem>
+                                                                <MenuItem value="Part Time">Part Time</MenuItem>
+                                                            </Select></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -1250,7 +1273,7 @@ const ApplyNow = () => {
                                                 },
                                             }} value={exp} onChange={(e) => setExp(e.target.value)} className="form-control select-experience" name="experienced">
 
-                                                <MenuItem value="Yes" onClick={()=> setHideForm(true)}>Yes</MenuItem>
+                                                <MenuItem value="Yes" onClick={() => setHideForm(true)}>Yes</MenuItem>
                                                 <MenuItem value="No" onClick={hanldeNo}>No</MenuItem>
                                             </Select>
 
@@ -1259,7 +1282,7 @@ const ApplyNow = () => {
                                         </div>
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputPassword1" className="form-label">Total Experience (IN YEAR)</label>
-                                            <RHFTextField type="number" name="totalExperience" value={totalExp} onChange={(e) => setTotalExp(e.target.value)} label="" placeholder='Total Experience (IN YEAR)' />
+                                            <RHFTextField name="totalExperience" value={totalExp} onChange={(e) => setTotalExp(e.target.value)} label="" placeholder='Total Experience (IN YEAR)' />
                                         </div>
 
 

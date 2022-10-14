@@ -708,7 +708,19 @@ const View = () => {
                                                                                         <td> <RHFTextField name="specialization" value={item.higherQualification[0].specialization ? item.higherQualification[0].specialization : ''} label="" placeholder='Specialization' disabled /></td>
                                                                                         <td> <RHFTextField name="percentage" type='number' value={item.higherQualification[0].percentage ? item.higherQualification[0].percentage : ''} label="" placeholder='Percentage' disabled /></td>
                                                                                         <td> <RHFTextField name="passingYear" type='number' value={item.higherQualification[0].passingYear ? item.higherQualification[0].passingYear : ''} label="" placeholder='Year' disabled /></td>
-                                                                                        <td> <RHFTextField name="courseType" value={item.higherQualification[0].courseType ? item.higherQualification[0].courseType : ''} label="" placeholder='Course Type' disabled /></td>
+
+
+                                                                                        <td>
+                                                                                            <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={item.higherQualification[0].courseType ? item.higherQualification[0].courseType : ''} className="form-select" disabled sx={{
+
+                                                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                                                    border: "none",
+                                                                                                },
+                                                                                            }}>
+                                                                                                <MenuItem value="Regular">Regular</MenuItem>
+                                                                                                <MenuItem value="Correspondence">Correspondence</MenuItem>
+                                                                                                <MenuItem value="Part Time">Part Time</MenuItem>
+                                                                                            </Select></td>
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
@@ -735,7 +747,19 @@ const View = () => {
                                                                                         <td> <RHFTextField name="specialization" value={item.higherQualification[1].specialization ? item.higherQualification[1].specialization : ''} label="" placeholder='Specialization' disabled /></td>
                                                                                         <td> <RHFTextField name="percentage" type='number' value={item.higherQualification[1].percentage ? item.higherQualification[1].percentage : ''} label="" placeholder='Percentage' disabled /></td>
                                                                                         <td> <RHFTextField name="passingYear" type='number' value={item.higherQualification[1].passingYear ? item.higherQualification[1].passingYear : ''} label="" placeholder='Year' disabled /></td>
-                                                                                        <td> <RHFTextField name="courseType" value={item.higherQualification[1].courseType ? item.higherQualification[1].courseType : ''} label="" placeholder='Course Type' disabled /></td>
+
+
+                                                                                        <td>
+                                                                                            <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={item.higherQualification[1].courseType ? item.higherQualification[1].courseType : ''} className="form-select" disabled sx={{
+
+                                                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                                                    border: "none",
+                                                                                                },
+                                                                                            }}>
+                                                                                                <MenuItem value="Regular">Regular</MenuItem>
+                                                                                                <MenuItem value="Correspondence">Correspondence</MenuItem>
+                                                                                                <MenuItem value="Part Time">Part Time</MenuItem>
+                                                                                            </Select></td>
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
@@ -762,7 +786,19 @@ const View = () => {
                                                                                         <td> <RHFTextField name="specialization" value={item.higherQualification[2].specialization ? item.higherQualification[2].specialization : ''} label="" placeholder='Specialization' disabled /></td>
                                                                                         <td> <RHFTextField name="percentage" type='number' value={item.higherQualification[2].percentage ? item.higherQualification[2].percentage : ''} label="" placeholder='Percentage' disabled /></td>
                                                                                         <td> <RHFTextField name="passingYear" type='number' value={item.higherQualification[2].passingYear ? item.higherQualification[2].passingYear : ''} label="" placeholder='Year' disabled /></td>
-                                                                                        <td> <RHFTextField name="courseType" value={item.higherQualification[2].courseType ? item.higherQualification[2].courseType : ''} label="" placeholder='Course Type' disabled /></td>
+
+
+                                                                                        <td>
+                                                                                            <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={item.higherQualification[2].courseType ? item.higherQualification[2].courseType : ''} className="form-select" disabled sx={{
+
+                                                                                                ".MuiOutlinedInput-notchedOutline": {
+                                                                                                    border: "none",
+                                                                                                },
+                                                                                            }}>
+                                                                                                <MenuItem value="Regular">Regular</MenuItem>
+                                                                                                <MenuItem value="Correspondence">Correspondence</MenuItem>
+                                                                                                <MenuItem value="Part Time">Part Time</MenuItem>
+                                                                                            </Select></td>
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>

@@ -36,6 +36,9 @@ const Edit = () => {
     const [applicationId, setApplicationId] = useState("");
     const [category, setCategory] = useState("");
     const [religion, setReligion] = useState("");
+    const [courseType, setCourseType] = useState("");
+    const [courseTypeGraduation, setCourseTypeGraduation] = useState("");
+    const [otherCourseTypeGraduation, setOtherCourseTypeGraduation] = useState("");
     const [otherReligion, setOtherReligion] = useState(false);
     const [otherCategory, setOtherCategory] = useState(false);
     const [permanentState, setPermanentState] = useState("");
@@ -390,9 +393,7 @@ const Edit = () => {
                 body[0].higherQualification[0].courseName
                     ? setValue('higherQualification.0.courseName', body[0].higherQualification[0].courseName)
                     : setValue('higherQualification.0.courseName', '');
-                body[0].higherQualification[0].courseType
-                    ? setValue('higherQualification.0.courseType', body[0].higherQualification[0].courseType)
-                    : setValue('higherQualification.0.courseType', '');
+                body[0].higherQualification[0].courseType && setCourseType(body[0].higherQualification[0].courseType)
                 body[0].higherQualification[0].passingYear
                     ? setValue('higherQualification.0.passingYear', body[0].higherQualification[0].passingYear)
                     : setValue('higherQualification.0.passingYear', '');
@@ -406,9 +407,7 @@ const Edit = () => {
                 body[0].higherQualification[1].courseName
                     ? setValue('higherQualification.1.courseName', body[0].higherQualification[1].courseName)
                     : setValue('higherQualification.1.courseName', '');
-                body[0].higherQualification[1].courseType
-                    ? setValue('higherQualification.1.courseType', body[0].higherQualification[1].courseType)
-                    : setValue('higherQualification.1.courseType', '');
+                body[0].higherQualification[1].courseType && setCourseTypeGraduation(body[0].higherQualification[1].courseType)
                 body[0].academicQualification[1].passingYear
                     ? setValue('higherQualification.1.passingYear', body[0].higherQualification[1].passingYear)
                     : setValue('higherQualification.1.passingYear', '');
@@ -418,13 +417,11 @@ const Edit = () => {
                 body[0].higherQualification[1].specialization
                     ? setValue('higherQualification.1.specialization', body[0].higherQualification[1].specialization)
                     : setValue('higherQualification.1.specialization', '');
-                
+
                 body[0].higherQualification[2].courseName
                     ? setValue('higherQualification.2.courseName', body[0].higherQualification[2].courseName)
                     : setValue('higherQualification.2.courseName', '');
-                body[0].higherQualification[2].courseType
-                    ? setValue('higherQualification.2.courseType', body[0].higherQualification[2].courseType)
-                    : setValue('higherQualification.2.courseType', '');
+                body[0].higherQualification[2].courseType && setOtherCourseTypeGraduation(body[0].higherQualification[2].courseType)
                 body[0].academicQualification[2].passingYear
                     ? setValue('higherQualification.2.passingYear', body[0].higherQualification[2].passingYear)
                     : setValue('higherQualification.2.passingYear', '');
@@ -455,7 +452,7 @@ const Edit = () => {
                 body[0].experienceDetails[0].location
                     ? setValue('experienceDetails.0.location', body[0].experienceDetails[0].location)
                     : setValue('experienceDetails.0.location', '');
-               
+
 
                 body[0].experienceDetails[1].companyName
                     ? setValue('experienceDetails.1.companyName', body[0].experienceDetails[1].companyName)
@@ -473,7 +470,7 @@ const Edit = () => {
                     ? setValue('experienceDetails.1.location', body[0].experienceDetails[1].location)
                     : setValue('experienceDetails.1.location', '');
 
-                    body[0].experienceDetails[2].companyName
+                body[0].experienceDetails[2].companyName
                     ? setValue('experienceDetails.2.companyName', body[0].experienceDetails[2].companyName)
                     : setValue('experienceDetails.2.companyName', '');
                 body[0].experienceDetails[1].designation
@@ -490,7 +487,7 @@ const Edit = () => {
                     : setValue('experienceDetails.2.location', '');
 
 
-                    body[0].experienceDetails[3].companyName
+                body[0].experienceDetails[3].companyName
                     ? setValue('experienceDetails.3.companyName', body[0].experienceDetails[3].companyName)
                     : setValue('experienceDetails.3.companyName', '');
                 body[0].experienceDetails[3].designation
@@ -897,10 +894,10 @@ const Edit = () => {
 
 
 
-                                                        <td> <RHFTextField name="academicQualification.0.percentage" type='number' label="" placeholder='Percentage' /></td>
+                                                        <td> <RHFTextField name="academicQualification.0.percentage" inputProps={{ maxLength: 3 }} label="" placeholder='Percentage' /></td>
 
 
-                                                        <td> <RHFTextField name="academicQualification.0.passingYear" type='number' label="" placeholder='Passing Year' /></td>
+                                                        <td> <RHFTextField name="academicQualification.0.passingYear" inputProps={{ maxLength: 4 }} label="" placeholder='Passing Year' /></td>
 
 
 
@@ -939,10 +936,10 @@ const Edit = () => {
 
 
 
-                                                        <td> <RHFTextField name="academicQualification.1.percentage" type='number' label="" placeholder='Percentage' /></td>
+                                                        <td> <RHFTextField name="academicQualification.1.percentage" inputProps={{ maxLength: 3 }} label="" placeholder='Percentage' /></td>
 
 
-                                                        <td> <RHFTextField name="academicQualification.1.passingYear" type='number' label="" placeholder='Passing Year' /></td>
+                                                        <td> <RHFTextField name="academicQualification.1.passingYear" inputProps={{ maxLength: 4 }} label="" placeholder='Passing Year' /></td>
 
 
 
@@ -982,10 +979,10 @@ const Edit = () => {
 
 
 
-                                                        <td> <RHFTextField name="academicQualification.2.percentage" type='number' label="" placeholder='Percentage' /></td>
+                                                        <td> <RHFTextField name="academicQualification.2.percentage" inputProps={{ maxLength: 3 }} label="" placeholder='Percentage' /></td>
 
 
-                                                        <td> <RHFTextField name="academicQualification.2.passingYear" type='number' label="" placeholder='Passing Year' /></td>
+                                                        <td> <RHFTextField name="academicQualification.2.passingYear" inputProps={{ maxLength: 4 }} label="" placeholder='Passing Year' /></td>
 
 
 
@@ -1025,10 +1022,10 @@ const Edit = () => {
 
 
 
-                                                        <td> <RHFTextField name="academicQualification.3.percentage" type='number' label="" placeholder='Percentage' /></td>
+                                                        <td> <RHFTextField name="academicQualification.3.percentage" inputProps={{ maxLength: 3 }} label="" placeholder='Percentage' /></td>
 
 
-                                                        <td> <RHFTextField name="academicQualification.3.passingYear" type='number' label="" placeholder='Passing Year' /></td>
+                                                        <td> <RHFTextField name="academicQualification.3.passingYear" inputProps={{ maxLength: 4 }} label="" placeholder='Passing Year' /></td>
 
 
 
@@ -1062,9 +1059,19 @@ const Edit = () => {
                                                         <tr>
                                                             <td> <RHFTextField name="higherQualification.0.courseName" label="" placeholder='Course Name' /></td>
                                                             <td> <RHFTextField name="higherQualification.0.specialization" label="" placeholder='Specialization' /></td>
-                                                            <td> <RHFTextField name="higherQualification.0.percentage" type='number' label="" placeholder='Percentage' /></td>
-                                                            <td> <RHFTextField name="higherQualification.0.passingYear" type='number' label="" placeholder='Year' /></td>
-                                                            <td> <RHFTextField name="higherQualification.0.courseType" label="" placeholder='Course Type' /></td>
+                                                            <td> <RHFTextField name="higherQualification.0.percentage" inputProps={{ maxLength: 3 }} label="" placeholder='Percentage' /></td>
+                                                            <td> <RHFTextField name="higherQualification.0.passingYear" inputProps={{ maxLength: 4 }} label="" placeholder='Year' /></td>
+                                                            <td>
+                                                                <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={courseType} onChange={(e) => setCourseType(e.target.value)} className="form-select" sx={{
+
+                                                                    ".MuiOutlinedInput-notchedOutline": {
+                                                                        border: "none",
+                                                                    },
+                                                                }}>
+                                                                    <MenuItem value="Regular">Regular</MenuItem>
+                                                                    <MenuItem value="Correspondence">Correspondence</MenuItem>
+                                                                    <MenuItem value="Part Time">Part Time</MenuItem>
+                                                                </Select></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -1089,9 +1096,21 @@ const Edit = () => {
                                                         <tr>
                                                             <td> <RHFTextField name="higherQualification.1.courseName" label="" placeholder='Course Name' /></td>
                                                             <td> <RHFTextField name="higherQualification.1.specialization" label="" placeholder='Specialization' /></td>
-                                                            <td> <RHFTextField name="higherQualification.1.percentage" type='number' label="" placeholder='Percentage' /></td>
-                                                            <td> <RHFTextField name="higherQualification.1.passingYear" type='number' label="" placeholder='Year' /></td>
+                                                            <td> <RHFTextField name="higherQualification.1.percentage" inputProps={{ maxLength: 3 }} label="" placeholder='Percentage' /></td>
+                                                            <td> <RHFTextField name="higherQualification.1.passingYear" inputProps={{ maxLength: 4 }} label="" placeholder='Year' /></td>
                                                             <td> <RHFTextField name="higherQualification.1.courseType" label="" placeholder='Course Type' /></td>
+
+                                                            <td>
+                                                                <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={courseTypeGraduation} onChange={(e) => setCourseTypeGraduation(e.target.value)} className="form-select" required sx={{
+
+                                                                    ".MuiOutlinedInput-notchedOutline": {
+                                                                        border: "none",
+                                                                    },
+                                                                }}>
+                                                                    <MenuItem value="Regular">Regular</MenuItem>
+                                                                    <MenuItem value="Correspondence">Correspondence</MenuItem>
+                                                                    <MenuItem value="Part Time">Part Time</MenuItem>
+                                                                </Select></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -1117,9 +1136,19 @@ const Edit = () => {
                                                         <tr>
                                                             <td> <RHFTextField name="higherQualification.2.courseName" label="" placeholder='Course Name' /></td>
                                                             <td> <RHFTextField name="higherQualification.2.specialization" label="" placeholder='Specialization' /></td>
-                                                            <td> <RHFTextField name="higherQualification.2.percentage" type='number' label="" placeholder='Percentage' /></td>
-                                                            <td> <RHFTextField name="higherQualification.2.passingYear" type='number' label="" placeholder='Year' /></td>
-                                                            <td> <RHFTextField name="higherQualification.2.courseType" label="" placeholder='Course Type' /></td>
+                                                            <td> <RHFTextField name="higherQualification.2.percentage" label="" placeholder='Percentage' /></td>
+                                                            <td> <RHFTextField name="higherQualification.2.passingYear" label="" placeholder='Year' /></td>
+                                                            <td>
+                                                                <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={otherCourseTypeGraduation} onChange={(e) => setOtherCourseTypeGraduation(e.target.value)} className="form-select" required sx={{
+
+                                                                    ".MuiOutlinedInput-notchedOutline": {
+                                                                        border: "none",
+                                                                    },
+                                                                }}>
+                                                                    <MenuItem value="Regular">Regular</MenuItem>
+                                                                    <MenuItem value="Correspondence">Correspondence</MenuItem>
+                                                                    <MenuItem value="Part Time">Part Time</MenuItem>
+                                                                </Select></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
