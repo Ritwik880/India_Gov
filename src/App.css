@@ -552,6 +552,15 @@ th {
     width: 20%;
 }
 
+.proceedtoPay {
+    color: white;
+    text-align: center;
+    background-color: #cc2425;
+    padding: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
 .myAppPara {
     margin-bottom: 0rem;
 }

@@ -202,7 +202,7 @@ const PaymentPage = () => {
 
                         <section className='myApp'>
                             <div className="row container">
-                                <h4 className='myAppHead'>Proceed to pay</h4>
+                                <h4 className='proceedtoPay'>Proceed to pay</h4>
                                 {users.length > 0 ? (
                                     <>
                                         {
