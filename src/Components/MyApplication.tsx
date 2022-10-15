@@ -53,6 +53,7 @@ type MyApplicationType = {
     applicationId: string;
     postName: string;
     category: string;
+    creationTs: string;
     paymentStatus: boolean;
 
 };
@@ -177,8 +178,8 @@ const MyApplication = () => {
         }
     };
 
-    const handleQRCodePayment = async (applicationId: string, userId: string)=>{
-        navigate('/qr-payment', { state: { applicationId, userId } })
+    const handleQRCodePayment = async (applicationId: string, userId: string, category: string) => {
+        navigate('/qr-payment', { state: { applicationId, userId, category } })
 
     }
 
@@ -231,6 +232,11 @@ const MyApplication = () => {
                                     <>
                                         {
                                             users && users.map((item, id) => {
+                                                const extractedCreatedDate = item.creationTs
+                                                    .split("T")[0]
+                                                    .split("-")
+                                                    .reverse()
+                                                    .join("-");
                                                 return (
                                                     <div className="myAppTable" key={id}>
                                                         <table style={{ background: '#f7f7f7', border: '2px solid #26335d', boxShadow: '3px 4px 4px #26335d', padding: '0.5rem' }}>
@@ -244,10 +250,17 @@ const MyApplication = () => {
                                                                 </th>
                                                                 <th style={{ color: '#26335d' }}>
                                                                     <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                                        Created Date
+                                                                    </p>
+
+                                                                </th>
+                                                                <th style={{ color: '#26335d' }}>
+                                                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
                                                                         Post Applied For
                                                                     </p>
 
                                                                 </th>
+
                                                                 <th style={{ color: '#26335d' }}>
                                                                     <p style={{ textAlign: 'center' }} className='myAppPara'>
                                                                         Payment Status
@@ -282,6 +295,13 @@ const MyApplication = () => {
                                                                         }
                                                                     </p>
                                                                 </td>
+                                                                <td style={{ color: '#26335d' }}>
+                                                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                                        {
+                                                                            extractedCreatedDate
+                                                                        }
+                                                                    </p>
+                                                                </td>
 
                                                                 <td style={{ color: '#26335d' }}>
                                                                     <p style={{ textAlign: 'center' }} className='myAppPara'>
@@ -299,11 +319,11 @@ const MyApplication = () => {
                                                                                     {
                                                                                         item.paymentStatus === false ? (
                                                                                             <>
-                                                                                                <Div style={{marginBottom: '1rem'}}>
+                                                                                                <Div style={{ marginBottom: '1rem' }}>
                                                                                                     <button className='paidDownload' onClick={() => handlePayment(item.applicantName, item.emailId, item.mobileNumber, item.applicationId)}>Pay through gateway</button>
                                                                                                 </Div>
                                                                                                 <Div>
-                                                                                                    <button className='paidDownload' onClick={() => handleQRCodePayment(item.applicationId, item.mobileNumber)}>Pay through QR Code</button>
+                                                                                                    <button className='paidDownload' onClick={() => handleQRCodePayment(item.applicationId, item.mobileNumber, item.category)}>Pay through QR Code</button>
                                                                                                 </Div>
                                                                                             </>
 

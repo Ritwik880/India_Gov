@@ -1165,7 +1165,7 @@ const ApplyNow = () => {
                                                         <td> <RHFTextField name="passingYear" value={passingYearHq} onChange={(e) => setPassingYearHq(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
 
                                                         <td>
-                                                            <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={courseType} onChange={(e) => setCourseType(e.target.value)} className="form-select" required sx={{
+                                                            <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={courseType} onChange={(e) => setCourseType(e.target.value)} className="form-select" sx={{
 
                                                                 ".MuiOutlinedInput-notchedOutline": {
                                                                     border: "none",
@@ -1197,14 +1197,14 @@ const ApplyNow = () => {
                                                 </thead>
                                                 <tbody className="add_row_div_experience">
                                                     <tr>
-                                                        <td> <RHFTextField name="postGraduation" value={postGraduation} onChange={(e) => setPostGraduation(e.target.value)} label="" placeholder='Course Name' required /></td>
+                                                        <td> <RHFTextField name="postGraduation" value={postGraduation} onChange={(e) => setPostGraduation(e.target.value)} label="" placeholder='Course Name' /></td>
                                                         <td> <RHFTextField name="specialization" value={specializationGraduation} onChange={handleChangeLast} label="" placeholder='Specialization' /></td>
                                                         <td> <RHFTextField name="percentage" value={percentageGraduation} onChange={(e) => setPercentageGraduation(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
                                                         <td> <RHFTextField name="passingYear" value={passingYearGraduation} onChange={(e) => setPassingYearGraduation(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
 
 
                                                         <td>
-                                                            <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={courseTypeGraduation} onChange={(e) => setCourseTypeGraduation(e.target.value)} className="form-select" required sx={{
+                                                            <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={courseTypeGraduation} onChange={(e) => setCourseTypeGraduation(e.target.value)} className="form-select" sx={{
 
                                                                 ".MuiOutlinedInput-notchedOutline": {
                                                                     border: "none",
@@ -1237,14 +1237,14 @@ const ApplyNow = () => {
                                                 </thead>
                                                 <tbody className="add_row_div_experience">
                                                     <tr>
-                                                        <td> <RHFTextField name="postGraduation" value={otherGraduation} onChange={(e) => setOtherGraduation(e.target.value)} label="" placeholder='Course Name' required /></td>
+                                                        <td> <RHFTextField name="postGraduation" value={otherGraduation} onChange={(e) => setOtherGraduation(e.target.value)} label="" placeholder='Course Name' /></td>
                                                         <td> <RHFTextField name="specialization" value={otherSpecialisation} onChange={handleOtherChangeLast} label="" placeholder='Specialization' /></td>
                                                         <td> <RHFTextField name="percentage" value={otherPercentageGraduation} onChange={(e) => setOtherPercentageGraduation(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
                                                         <td> <RHFTextField name="passingYear" value={otherPassingYearGraduation} onChange={(e) => setOtherPassingYearGraduation(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
 
 
                                                         <td>
-                                                            <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={otherCourseTypeGraduation} onChange={(e) => setOtherCourseTypeGraduation(e.target.value)} className="form-select" required sx={{
+                                                            <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={otherCourseTypeGraduation} onChange={(e) => setOtherCourseTypeGraduation(e.target.value)} className="form-select" sx={{
 
                                                                 ".MuiOutlinedInput-notchedOutline": {
                                                                     border: "none",

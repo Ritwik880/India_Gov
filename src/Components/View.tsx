@@ -173,11 +173,12 @@ const View = () => {
                                             {
 
                                                 users.map((item, id) => {
-                                                    // const extractedDate = item.dateOfBirth
-                                                    //     .split("T")[0]
-                                                    //     .split("-")
-                                                    //     .reverse()
-                                                    //     .join("-");
+                                                    const extractedDate = item.dateOfBirth
+                                                        .split("T")[0]
+                                                        .split("-")
+                                                        .reverse()
+                                                        .join("-");
+
 
 
 
@@ -221,7 +222,7 @@ const View = () => {
                                                                         </div>
                                                                         <div className="mb-3 col-lg-3 col-md-12">
                                                                             <label htmlFor="exampleInputEmail1" className="form-label">Date Of Birth <span className="must-filed">*</span></label>
-                                                                            <RHFTextField disabled name="dateOfBirth" label="" placeholder='dd/mm/yyyy' value={item.dateOfBirth} />
+                                                                            <RHFTextField disabled name="dateOfBirth" label="" placeholder='dd/mm/yyyy' value={extractedDate} />
 
                                                                         </div>
                                                                         <div className="mb-3 col-lg-3 col-md-12">
@@ -282,6 +283,7 @@ const View = () => {
 
                                                                     </div>
                                                                     <div className="formBox">
+
                                                                         <div className="mb-3 col-lg-3 col-md-12">
                                                                             <label htmlFor="exampleInputPassword1" className="form-label">Other Religion <span className="must-filed">*</span></label>
                                                                             <RHFTextField name="otherReligion" value={item.religion} label="" placeholder='Other Religion' disabled />

@@ -57,7 +57,6 @@ const AttachmentWrapper = styled('div')(({ theme }) => ({
 const QrPayment = () => {
     const [loading, setLoading] = useState(false);
     const { state }: { state: any } = useLocation();
-    const [amount, setAmount] = useState("");
     const [uploadFileSignatureSrc, setUploadSignatureSrc] = useState<string>('');
     const [uploadFileSignature, setUploadFileSignature] = useState<string | Blob>('');
     const navigate = useNavigate();
@@ -73,24 +72,64 @@ const QrPayment = () => {
         defaultValues,
     });
 
-
+    // const categoryBased = state?.category;
+    var amountFixed;
+    switch (state?.category) {
+        case 'General':
+            amountFixed = 690
+            break;
+        case 'OBC':
+            amountFixed = 350
+            break;
+        case 'SC':
+            amountFixed = 350
+            break;
+        case 'ST':
+            amountFixed = 350
+            break;
+        case 'EWS':
+            amountFixed = 350
+            break;
+        default:
+            amountFixed = 350;
+            break;
+    }
 
     const { reset, handleSubmit } = methods;
     const onSubmit = async (data: QrProps, event: any) => {
 
         event.stopPropagation();
+        var amount;
+        switch (state?.category) {
+            case 'General':
+                amount = 690
+                break;
+            case 'OBC':
+                amount = 350
+                break;
+            case 'SC':
+                amount = 350
+                break;
+            case 'ST':
+                amount = 350
+                break;
+            case 'EWS':
+                amount = 350
+                break;
+            default:
+                amount = 350;
+                break;
+        }
         setLoading(true);
         try {
-            const res = await axios.post('/api/application/update-qr-payment-status', {
+            await axios.post('/api/application/update-qr-payment-status', {
                 transactionID: data.transactionID,
                 amount: amount,
                 applicationId: state?.applicationId,
                 uploadScreenShot: uploadFileSignature,
+                orderId: data.transactionID,
 
             });
-            const { body } = res.data;
-            // let applicationId = body.applicationId;
-            // let userId = body.mobileNumber;
             const userId = state?.userId;
             const applicationId = state?.applicationId;
             toast.success('Success');
@@ -103,6 +142,8 @@ const QrPayment = () => {
             toast.error("Something went wrong!");
         }
     };
+
+
 
     const onUploadSignatureChange = (files: any) => {
         setUploadSignatureSrc(files.map((filename: any) => filename.preview.url));
@@ -146,7 +187,7 @@ const QrPayment = () => {
 
                                 <div style={{ marginBottom: '1rem' }}>
                                     <InputLabel id="demo-simple-select-label">Amount: *</InputLabel>
-                                    <Select fullWidth size='small' labelId='demo-simple-select-label' label="Amount: *" name='amount' value={amount} onChange={(e) => setAmount(e.target.value)} className="form-select" required sx={{
+                                    <Select fullWidth size='small' labelId='demo-simple-select-label' label="Amount: *" name='amount' value={amountFixed} className="form-select" disabled sx={{
 
                                         ".MuiOutlinedInput-notchedOutline": {
                                             border: "none",
