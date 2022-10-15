@@ -129,7 +129,7 @@ const DownloadReceipt = () => {
 
                                                             <Typography>
                                                                 {
-                                                                    transaction_id
+                                                                    item.transactionNumber ? item.transactionNumber : transaction_id
                                                                 }
                                                             </Typography>
 

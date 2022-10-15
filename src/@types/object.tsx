@@ -124,6 +124,7 @@ export type ProfileValues = {
         url: string;
         sizeReadable: string;
     },
+    transactionNumber: string;
     applicationId: string;
     uploadSignature: {
         extension: string;
