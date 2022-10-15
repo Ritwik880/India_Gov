@@ -200,7 +200,7 @@ const ApplyNow = () => {
     const { reset, handleSubmit } = methods;
     const onSubmit = async (data: ProfileValuesProps, event: any) => {
         event.stopPropagation();
-        alert('Registration number and userid has been sen on your registered email address and registered mobile number')
+        alert('You want to finally submit your application or save your application after final submit you can not edit your application at any stage.')
         setLoading(true);
         try {
             const res = await axios.post('/api/application/save-application-details', {
@@ -347,7 +347,7 @@ const ApplyNow = () => {
             toast.success('Success');
             setLoading(false);
             reset();
-            navigate('/my-application', { state: { applicationId, userId, category } })
+            navigate('/payment-page', { state: { applicationId, userId, category } })
         } catch (error: any) {
             setLoading(false);
             console.log(error);
@@ -358,7 +358,7 @@ const ApplyNow = () => {
 
     const onSave = async (data: ProfileValuesProps, e: any) => {
         e.preventDefault();
-        alert('Are you sure the data entered is correct if YES click submit button.')
+        alert('You want to finally submit your application or save your application after final submit you can not edit your application at any stage.')
         setLoading(true);
 
 

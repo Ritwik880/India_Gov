@@ -29,6 +29,7 @@ import MyApplicationOther from './Components/MyApplicationOther';
 import MyApplication from './Components/MyApplication';
 import DownloadReceipt from './Components/DownloadReciept';
 import QrPayment from './Components/QrPayment';
+import PaymentPage from './Components/PaymentPage';
 const App = () => {
   const [loading, setLoading] = useState(false);
 
@@ -79,7 +80,8 @@ const App = () => {
               <Route path='/my-application-others' element={<MyApplicationOther />}></Route>
               <Route path='/my-application' element={<MyApplication />}></Route>
               <Route path='/download-receipt' element={<DownloadReceipt />}></Route>
-              <Route path='/qr-payment' element={<QrPayment/>}></Route>
+              <Route path='/qr-payment' element={<QrPayment />}></Route>
+              <Route path='/payment-page' element={<PaymentPage />}></Route>
             </Routes>
             <Footer />
 
