@@ -575,7 +575,7 @@ const Edit = () => {
                                         <div className="formBox">
                                             <div className="mb-3 col-lg-3 col-md-12">
                                                 <label htmlFor="exampleInputEmail1" className="form-label">Date Of Birth <span className="must-filed">*</span></label>
-                                                <RHFTextField name="dateOfBirth" label="" type='date' value={date} onChange={(e) => setDate(e.target.value)} placeholder='dd/mm/yyyy' />
+                                                <RHFTextField name="dateOfBirth" label="" value={date} onChange={(e) => setDate(e.target.value)} placeholder='dd/mm/yyyy' />
 
                                             </div>
                                             <div className="mb-3 col-lg-3 col-md-12">

@@ -241,19 +241,19 @@ const MyApplication = () => {
                                                     <div className="myAppTable" key={id}>
                                                         <table style={{ background: '#f7f7f7', border: '2px solid #26335d', boxShadow: '3px 4px 4px #26335d', padding: '0.5rem' }}>
                                                             <tr style={{ border: '1px solid #ddd' }}>
-
-                                                                <th style={{ color: '#26335d' }}>
-                                                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                                                        Reg No.
-                                                                    </p>
-
-                                                                </th>
                                                                 <th style={{ color: '#26335d' }}>
                                                                     <p style={{ textAlign: 'center' }} className='myAppPara'>
                                                                         Created Date
                                                                     </p>
 
                                                                 </th>
+                                                                <th style={{ color: '#26335d' }}>
+                                                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                                        Reg No.
+                                                                    </p>
+
+                                                                </th>
+
                                                                 <th style={{ color: '#26335d' }}>
                                                                     <p style={{ textAlign: 'center' }} className='myAppPara'>
                                                                         Post Applied For
@@ -286,7 +286,13 @@ const MyApplication = () => {
 
                                                             <tr>
 
-
+                                                                <td style={{ color: '#26335d' }}>
+                                                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
+                                                                        {
+                                                                            extractedCreatedDate
+                                                                        }
+                                                                    </p>
+                                                                </td>
 
                                                                 <td style={{ color: '#26335d' }}>
                                                                     <p style={{ textAlign: 'center' }} className='myAppPara'>
@@ -295,13 +301,7 @@ const MyApplication = () => {
                                                                         }
                                                                     </p>
                                                                 </td>
-                                                                <td style={{ color: '#26335d' }}>
-                                                                    <p style={{ textAlign: 'center' }} className='myAppPara'>
-                                                                        {
-                                                                            extractedCreatedDate
-                                                                        }
-                                                                    </p>
-                                                                </td>
+
 
                                                                 <td style={{ color: '#26335d' }}>
                                                                     <p style={{ textAlign: 'center' }} className='myAppPara'>
