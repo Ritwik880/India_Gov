@@ -1241,8 +1241,6 @@ const ApplyNow = () => {
                                                         <td> <RHFTextField name="specialization" value={otherSpecialisation} onChange={handleOtherChangeLast} label="" placeholder='Specialization' /></td>
                                                         <td> <RHFTextField name="percentage" value={otherPercentageGraduation} onChange={(e) => setOtherPercentageGraduation(e.target.value)} label="" placeholder='Percentage' inputProps={{ maxLength: 3 }} /></td>
                                                         <td> <RHFTextField name="passingYear" value={otherPassingYearGraduation} onChange={(e) => setOtherPassingYearGraduation(e.target.value)} label="" placeholder='Year' inputProps={{ maxLength: 4 }} /></td>
-
-
                                                         <td>
                                                             <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={otherCourseTypeGraduation} onChange={(e) => setOtherCourseTypeGraduation(e.target.value)} className="form-select" sx={{
 
@@ -1260,30 +1258,28 @@ const ApplyNow = () => {
 
                                         </div>
                                     </div>
-
                                     <h2 className='footerFormHead' id="add-modal-label">Experience Details</h2>
                                     <div className="formBox">
                                         <div className="mb-3 col-lg-3 col-md-12">
                                             <label htmlFor="exampleInputEmail1" className="form-label">Experience</label>
-
                                             <Select size='small' sx={{
 
                                                 ".MuiOutlinedInput-notchedOutline": {
                                                     border: "none",
                                                 },
                                             }} value={exp} onChange={(e) => setExp(e.target.value)} className="form-control select-experience" name="experienced">
-
                                                 <MenuItem value="Yes" onClick={() => setHideForm(true)}>Yes</MenuItem>
                                                 <MenuItem value="No" onClick={hanldeNo}>No</MenuItem>
                                             </Select>
-
-
-
                                         </div>
-                                        <div className="mb-3 col-lg-3 col-md-12">
-                                            <label htmlFor="exampleInputPassword1" className="form-label">Total Experience (IN YEAR)</label>
-                                            <RHFTextField name="totalExperience" value={totalExp} onChange={(e) => setTotalExp(e.target.value)} label="" placeholder='Total Experience (IN YEAR)' />
-                                        </div>
+                                        {
+                                            hideForm && (
+                                                <div className="mb-3 col-lg-3 col-md-12">
+                                                    <label htmlFor="exampleInputPassword1" className="form-label">Total Experience (IN YEAR)</label>
+                                                    <RHFTextField name="totalExperience" value={totalExp} onChange={(e) => setTotalExp(e.target.value)} label="" placeholder='Total Experience (IN YEAR)' />
+                                                </div>
+                                            )
+                                        }
 
 
                                     </div>
