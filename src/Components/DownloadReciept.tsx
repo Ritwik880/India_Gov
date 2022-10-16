@@ -55,22 +55,22 @@ const DownloadReceipt = () => {
     var amount: any;
     switch (state?.category) {
         case 'General':
-            amount = 990
+            amount = 690
             break;
         case 'OBC':
-            amount = 690
+            amount = 350
             break;
         case 'SC':
-            amount = 690
+            amount = 350
             break;
         case 'ST':
-            amount = 690
+            amount = 350
             break;
         case 'EWS':
-            amount = 690
+            amount = 350
             break;
         default:
-            amount = 690;
+            amount = 350;
             break;
     }
 

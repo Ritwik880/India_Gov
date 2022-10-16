@@ -276,7 +276,7 @@ const View = () => {
                                                                         </div>
                                                                         <div className="mt-2 col-lg-3 col-md-12">
                                                                             <label htmlFor="exampleInputPassword1" className="form-label">Other Category <span className="must-filed">*</span></label>
-                                                                            <RHFTextField name="otherCategory" value={item.category} label="" placeholder='Other Category' disabled />
+                                                                            <RHFTextField name="otherCategory" value={item.otherCategory} label="" placeholder='Other Category' disabled />
 
                                                                         </div>
 
@@ -286,7 +286,7 @@ const View = () => {
 
                                                                         <div className="mb-3 col-lg-3 col-md-12">
                                                                             <label htmlFor="exampleInputPassword1" className="form-label">Other Religion <span className="must-filed">*</span></label>
-                                                                            <RHFTextField name="otherReligion" value={item.religion} label="" placeholder='Other Religion' disabled />
+                                                                            <RHFTextField name="otherReligion" value={item.otherReligion} label="" placeholder='Other Religion' disabled />
 
                                                                         </div>
                                                                     </div>

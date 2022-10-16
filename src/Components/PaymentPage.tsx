@@ -108,7 +108,7 @@ const PaymentPage = () => {
 
 
     const handlePayment = async (name: string, email: string, phoneNumber: string, applicationId: string) => {
-        alert('Registration number and userid has been sen on your registered email address and registered mobile number');
+        alert('Registration number and userid has been sent on your registered email address and registered mobile number');
         const order_Id = Math.random().toString(36).substring(2, 9);
         const url = '';
         var amount;
@@ -165,7 +165,7 @@ const PaymentPage = () => {
     };
 
     const handleQRCodePayment = async (applicationId: string, userId: string, category: string) => {
-        alert('Registration number and userid has been sen on your registered email address and registered mobile number');
+        alert('Registration number and userid has been sent on your registered email address and registered mobile number');
         navigate('/qr-payment', { state: { applicationId, userId, category } })
 
     }

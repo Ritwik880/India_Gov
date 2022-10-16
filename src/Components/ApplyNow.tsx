@@ -1190,9 +1190,8 @@ const ApplyNow = () => {
                                                         <th>Course Name</th>
                                                         <th>Specialization</th>
                                                         <th>% Mark	</th>
-                                                        <th>Passing Year	</th>
-                                                        <th>Course Type
-                                                        </th>
+                                                        <th>Passing Year</th>
+                                                        <th>Course Type</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="add_row_div_experience">

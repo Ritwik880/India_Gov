@@ -181,21 +181,14 @@ const QrPayment = () => {
                     <div className="col-lg-5 col-md-12">
                         <div className='qrCodeForm'>
                             <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-                                <label htmlFor="exampleInputEmail1" className="form-label">Transaction ID: * <span className="must-filed">*</span></label>
+                                <label htmlFor="exampleInputEmail1" className="form-label">Transaction ID: <span className="must-filed">*</span></label>
 
-                                <RHFTextField name="transactionID" label="" placeholder='Transaction ID: *' required />
+                                <RHFTextField name="transactionID" label="" placeholder='Transaction ID' required />
 
                                 <div style={{ marginBottom: '1rem' }}>
-                                    <InputLabel id="demo-simple-select-label">Amount: *</InputLabel>
-                                    <Select fullWidth size='small' labelId='demo-simple-select-label' label="Amount: *" name='amount' value={amountFixed} className="form-select" disabled sx={{
+                                    <label htmlFor="exampleInputEmail1" className="form-label">Amount: <span className="must-filed">*</span></label>
 
-                                        ".MuiOutlinedInput-notchedOutline": {
-                                            border: "none",
-                                        },
-                                    }}>
-                                        <MenuItem value="690">690</MenuItem>
-                                        <MenuItem value="350">350</MenuItem>
-                                    </Select>
+                                    <RHFTextField name="amount" label="" placeholder='Amount' value={amountFixed} disabled />
                                 </div>
 
                                 <div >

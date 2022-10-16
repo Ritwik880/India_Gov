@@ -125,7 +125,8 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: auto;
+    padding: 2rem 0;
 }
 
 .notice {

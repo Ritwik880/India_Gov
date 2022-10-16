@@ -263,9 +263,16 @@ const Edit = () => {
                 body[0].fatherName
                     ? setValue('fatherName', body[0].fatherName)
                     : setValue('fatherName', '');
+                otherReligion
                 body[0].motherName
                     ? setValue('motherName', body[0].motherName)
                     : setValue('motherName', '');
+                body[0].otherCategory
+                    ? setValue('otherCategory', body[0].otherCategory)
+                    : setValue('otherCategory', '');
+                body[0].otherReligion
+                    ? setValue('otherReligion', body[0].otherReligion)
+                    : setValue('otherReligion', '');
                 body[0].dateOfBirth && setDate(body[0].dateOfBirth.split("T")[0].split("-").reverse().join("-"));
                 body[0].gender && setGender(body[0].gender)
                 body[0].category && setCategory(body[0].category)
@@ -627,24 +634,16 @@ const Edit = () => {
                                                 </Select>
                                             </div>
                                             <div className="mt-2 col-lg-3 col-md-12">
-                                                {
-                                                    otherCategory && (
-                                                        <>
-                                                            <label htmlFor="exampleInputPassword1" className="form-label">Other Category <span className="must-filed">*</span></label>
-                                                            <RHFTextField name="otherCategory" label="" placeholder='Other Category' />
-                                                        </>
-                                                    )
-                                                }
+
+                                                <label htmlFor="exampleInputPassword1" className="form-label">Other Category <span className="must-filed">*</span></label>
+                                                <RHFTextField name="otherCategory" label="" placeholder='Other Category' required />
+
+
                                             </div>
                                             <div className="mt-2 col-lg-3 col-md-12">
-                                                {
-                                                    otherReligion && (
-                                                        <>
-                                                            <label htmlFor="exampleInputPassword1" className="form-label">Other Religion <span className="must-filed">*</span></label>
-                                                            <RHFTextField name="otherReligion" label="" placeholder='Other Religion' />
-                                                        </>
-                                                    )
-                                                }
+
+                                                <label htmlFor="exampleInputPassword1" className="form-label">Other Religion <span className="must-filed">*</span></label>
+                                                <RHFTextField name="otherReligion" label="" placeholder='Other Religion' required />
 
                                             </div>
 
@@ -1098,7 +1097,7 @@ const Edit = () => {
                                                             <td> <RHFTextField name="higherQualification.1.specialization" label="" placeholder='Specialization' /></td>
                                                             <td> <RHFTextField name="higherQualification.1.percentage" inputProps={{ maxLength: 3 }} label="" placeholder='Percentage' /></td>
                                                             <td> <RHFTextField name="higherQualification.1.passingYear" inputProps={{ maxLength: 4 }} label="" placeholder='Year' /></td>
-                                                            <td> <RHFTextField name="higherQualification.1.courseType" label="" placeholder='Course Type' /></td>
+
 
                                                             <td>
                                                                 <Select fullWidth size='small' labelId='demo-simple-select-label' label="Course Type" name='courseType' value={courseTypeGraduation} onChange={(e) => setCourseTypeGraduation(e.target.value)} className="form-select" required sx={{
